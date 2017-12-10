@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Fisher Vector</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Fisher Vector" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/notes/Fisher-Vector">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Fisher Vector</h1>
+		<time>June 2, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="FV">FV</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h3 id="introduction">Introduction</h3>
+
+<p>Fisher Vector is a principled patch aggregation mechanism based on the <strong>Fisher Kernel</strong> (FK). The FK combines the benefits of <em>generative</em> and <em>discriminative</em> approaches to pattern classification by deriving a kernel from a generative model of the data. One of the most popular generative model is Gaussian Mixture Model (GMM), which can be understood as a “probability visual vocabulary”. In the nutshell, the rationale consists in characterizing a sample by its deviation from the generative model. The deviation is measured by computing the gradient of the sample log-likelihood with respect to the model parameters. The gradient leads to a vectorial representation which we call Fisher Vector (FV).</p>
+
+<p><strong>Fisher Vector VS. BoV</strong> The FV representation has a lot of advantages over BoV. First, the FV has higher accuracy than BoV. Actually, the BoV can be regarded as a particular case of the FV where the gradient computation is restricted to the mixture weight parameters of the GMM. However, the FV incorporates additional gradients with respect to the means and covariances of GMM and hence brings large improvement in terms of accuracy. Second, the FV is more efficient than BoV because it can be computed from much smaller vocabularies. Third, the learning process of the FV is efficient (linear in the number of training samples) using techniques such as Stochastic Gradient Descent (SGD).</p>
+
+<h3 id="mathematical-formulation">Mathematical Formulation</h3>
+
+<p>We start with introduction to Fisher Kernel, then explain how to transfer it to Fisher Vector.</p>
+
+<p>Let <script type="math/tex">X = \{x_t, t=1,...,T \}</script> be a sample of <script type="math/tex">T</script> observations <script type="math/tex">x_t \in \mathcal{X}</script>. Let <script type="math/tex">u_{\lambda} = P(X \| \lambda)</script> be a probability density function which models the generative process of elements in <script type="math/tex">\mathcal{X}</script>. <script type="math/tex">\lambda = [\lambda_1, ..., \lambda_M]^T \in \mathbb{R}^M</script> denote the vector of <script type="math/tex">M</script> parameters of <script type="math/tex">u_{\lambda}</script>. In statistics, the <em>score function</em> of <script type="math/tex">X</script> is given by the gradient of the log-likelihood of the data on the model:</p>
+
+<script type="math/tex; mode=display">G_{\lambda}^X = \nabla_{\lambda} log u_{\lambda}(X).</script>
+
+<p><strong>The gradients describes how the parameters of the generative model <script type="math/tex">u_{\lambda}</script> should be modified to better fit the data <script type="math/tex">X</script>.</strong> We note that <script type="math/tex">G_{\lambda}^X \in \mathbb{R}^M</script>, and thus that the dimensionality of the score function only depends on the number of the paramters: <script type="math/tex">M</script>.</p>
+
+<p>A parametric family of distribution <script type="math/tex">\mathcal{u} = \{u_{\lambda}, \lambda \in \Lambda \}</script> can be regarded as a Riemanninan manifold <script type="math/tex">M_{\Lambda}</script> (黎曼流体, we refer the reader <a href="https://www.quora.com/What-is-the-mathematical-intuition-of-what-a-Riemannian-Manifold-is">here</a> for intuitive interpretation) with a local metric given by the positive semi-definite Fisher Information Matrix (FIM) <script type="math/tex">F_{\lambda} \in \mathbb{R}^{M \times M}</script>:</p>
+
+<script type="math/tex; mode=display">F_{\lambda} = E_{x \text{~} u_{\lambda}}\left[ G_{\lambda}^{X} G_{\lambda}^{X'} \right].</script>
+
+<p>Based on the local metric, a similarity measurement between two samples <script type="math/tex">X</script> and <script type="math/tex">Y</script> using the Fisher Kernel is defined as:</p>
+
+<script type="math/tex; mode=display">K_{FK}(X, Y) = G_{\lambda}^{X^T} F_{\lambda}^{-1} G_{\lambda}^{Y}.</script>
+
+<p>Since <script type="math/tex">F_{\lambda}^{-1}</script> is positive semi-definite, so is its inverse. Using the Cholesky decomposiiton <script type="math/tex">F_{\lambda}^{-1} = L_{\lambda}' L_{\lambda}</script>, the above equation can be re-written explicitly as a dot-product:</p>
+
+<script type="math/tex; mode=display">K_{FK}(X, Y) = \mathcal{G}_{\lambda}^{X^T} \mathcal{G}_{\lambda}^{Y},</script>
+
+<p>where</p>
+
+<script type="math/tex; mode=display">\mathcal{G}_{\lambda}^{X} = L_{\lambda}G_{\lambda}^X = L_{\lambda} \nabla_{\lambda} log u_{\lambda}(X).</script>
+
+<p>We call this normalized gradient vector the <em>Fisher Vector</em> (FV) of <script type="math/tex">X</script> (Left multiplication of <script type="math/tex">L_{\lambda}</script> acts as the normalization operation). In this way, a non-linear kernel machine using <script type="math/tex">K_{KF}</script> as a kernel is equivalent to a linear kernel machine using <script type="math/tex">\mathcal{G}_{\lambda}^X</script> as feature vector. In other words, learning a feature vector <script type="math/tex">\mathcal{G}_{\lambda}^X</script> is equivalent to learning a non-linear classifier <script type="math/tex">K_{KF}</script>, but makes things much easier.</p>
+
+<p>After getting through the tedious deductions, the problem now boils down to how to obtain a Fisher Vector for a set of feature descriotors <script type="math/tex">X</script>, e.g. SIFT. Considering that the distribution of descriptors can be very complicated, we choose <script type="math/tex">u_{\lambda}</script> to be a Gaussian Mixture Model (GMM) as <strong>one can approximate with arbitrary precision any continuous distribution with a GMM</strong>. In the computer vision literature, a GMM which models the generation process of local descriptors in any scene has been referred to as a <strong>universal (probabilistic) visual vocabulary</strong>. (Recall the BoW that uses a smaller set of k-means centers to approximate the distribution of all desciptors in feature space.) The parameters of the K-component GMM is <script type="math/tex">\lambda = \{ \omega_k, \mathbf{\mu_k}, \mathbf{\Sigma_k}, k=1,...,K\}</script>, where <script type="math/tex">\omega_k</script>, <script type="math/tex">\mathbf{\mu_k}</script> and <script type="math/tex">\mathbf{\Sigma_k}</script> are respectively the mixture weight, mean vector and covariance matrix of Gaussian <script type="math/tex">k</script> (the covariance matrix is diagonal under the assumption that different dimensions are independent). We write:</p>
+
+<script type="math/tex; mode=display">u_{\lambda}(x) = \sum_{k=1}^K \omega_k u_k(x),</script>
+
+<p>where <script type="math/tex">u_k</script> denotes the multivariate Gaussian <script type="math/tex">k</script>:</p>
+
+<script type="math/tex; mode=display">u_k(x) = \frac{1}{(2 \pi)^{\frac{D}{2}} \|\Sigma_k\|^{\frac{1}{2}}} exp \Big( -\frac{1}{2} (x-\mu_k)^T \Sigma_k^{-1} (x - \mu_k) \Big),</script>
+
+<p>and we require:</p>
+
+<script type="math/tex; mode=display">\forall_k: \omega_k \geq 0, \sum_{k=1}^K \omega_k = 1.</script>
+
+<p>To enforce above constraints implicitly, we re-parameterize the weight parameters using <script type="math/tex">\alpha_k</script>:</p>
+
+<script type="math/tex; mode=display">\omega_k = \frac{exp(\alpha_k)}{\sum_{j=1}^K exp(\alpha_j)}.</script>
+
+<p>After the re-parameterization, the parameters of the GMM model <script type="math/tex">u_k</script> becomes <script type="math/tex">\lambda=\{\alpha_k, \mu_k, \Sigma_k, k=1,...,K\}</script>. Note that there are <script type="math/tex">E=(2D+1)K</script> parameters in total. Then the expressions of the gradients w.r.t the parameters can be easily computed by <script type="math/tex">\nabla_{\lambda} log u_{\lambda}(X)</script> (To simplify the computation of <script type="math/tex">u_{\lambda}(X)</script>, we hold an inappropriate assumption that all the elements are independent. This independence assumption is compensated to correct the negative effect it brings by normalization as shown in Section 2.3 in [1]).</p>
+
+<p>Having the expression for the gradients, the remaining question is how to compute <script type="math/tex">L_{\lambda} \in \mathbb{R}^{E\times E}</script>, which is the square root of the inverse of the FIM. We first define the posterior probability or responsibility which describes the soft assignment of <script type="math/tex">x_t</script> to Gaussian <script type="math/tex">k</script>:</p>
+
+<script type="math/tex; mode=display">\gamma_t(k) = \frac{\omega_k u_k(x_t)}{ \sum_{j=1}^K \omega_j u_j(x_t)}.</script>
+
+<p>The claim in [1] says that if the assignment is almost hard, the FIM is diagonal. Then the element on the diagonal line can be calculated by equations shown in [1].</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>[1] <a href="https://hal.inria.fr/hal-00779493/file/RR-8209.pdf">Image Classification with the Fisher Vector: Theory
+and Practice</a></p>
+
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/learning-model" title="NEXT: Discriminative Modeling VS Generative Modeling">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/Markov-Random-Field" title="PREV: Markov Random Field">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

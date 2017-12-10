@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>LiDAR Point Clouds & Applications</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="LiDAR Point Clouds & Applications" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/notes/Lidar-point-cloud">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>LiDAR Point Clouds & Applications</h1>
+		<time>December 6, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="autonomous driving">autonomous driving</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h1 id="overview">Overview</h1>
+
+<p>In this post, we are targetted at high-definition LiDAR point clouds that are ubiquitously used in autonomous driving. Typically, point clouds acquired by Terrestrial LiDAR (cf. Airborne LiDAR which typically mounted on aircrafts) sensors possess <strong>~100k</strong> points, which are sparse actually and have large variations in density.</p>
+
+<p><img src="/images/lidar.png" alt="" />
+<strong><center>Figure1. Lidar mounted on Apple's 'Project Titan' test Lexus SUV.</center></strong></p>
+
+<h1 id="applications">Applications</h1>
+
+<h3 id="1-pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation"><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">1. PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation</a></h3>
+
+<p><img src="/images/pointnet.png" alt="" />
+<strong><center>Figure 2. Architecture of PointNet</center></strong></p>
+
+<p>Point clouds are not ideal data format for deep learning operators due to their irregular properties and inherent variance. PointNet addresses the extraction of semantic knowledge of point clouds that is invariant to point order, point density and euclidean transformation. To conclude:</p>
+
+<ul>
+  <li><strong>Invariance to order</strong> – The element-wise pooling of points’ feature vectors takes care of variance to order and size of point sets. The feature network takes point set as input and gives a global signature - a K-dimensional descriptor.</li>
+  <li><strong>Invariance to density</strong> – Ideally the model should be able to give stable prediction, e.g., the same classification and segmentation scores, in spite of cetrain perturbation of points (contraction or expansion). The paper provides inspring definition of <strong>critical point set</strong> which is a subset of original point set but gives the same prediction as original point set. (Only the points yielding maximum reponse in any dimension contribute to final descriptor. Conversely, adding points that do not result in maximum reponses in K-dim descriptor would not affect prediction results.</li>
+  <li><strong>Invariance to transformation</strong> – The transformation invariance is achieved by aligning inputs to a canonical space. It use a <strong>T-net</strong> to predict a <script type="math/tex">3\times3</script> affine transformation matrix and a <script type="math/tex">64\times64</script> feature transformation matrix.</li>
+</ul>
+
+<h3 id="2-voxelnet-end-to-end-learning-for-point-cloud-based-3d-object-detection"><a href="from tensorflow.examples.tutorials.mnist import input_data">2. VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection</a></h3>
+
+<p><img src="/images/voxelnet.png" alt="" />
+<strong><center>Figure 3. Architecture of VoxelNet</center></strong></p>
+
+<p>Objection detection, like cars, pedestrians and cyclists, is a critical component of driverless cars’ scene understanding. Although being largely quiet on the self-driving efforts, Apple research releases an archive on LiDAR-only detection of 3D objects on 2017/11/17.</p>
+
+<p><strong>Voxel feature netowrk.</strong> The large body of point clouds is first divided into regular voxels and then each non-empty voxel is described by a compact feature vector by proposed feature network.
+As shown in Figure 2, the feature network is a bit similar to <a href="https://arxiv.org/abs/1612.00593">PointNet</a>. The input of each point is a 6-dimensional vector <script type="math/tex">\mathbf{v} = [x, y, z, x-c_x, y-c_y, z-c_z]</script> where <script type="math/tex">[c_x, c_y, c_z]^T</script> is the centroid of points in this voxel. Then a stack of voxel feature encoding (<strong>VFE</strong>) layers produce point-wise descriptors for points and voxel-wise descriptors for voxels. The voxel-wise descriptor is essentially element-wise maximum of point-wise descriptors residing in the voxel. (We refer the reader to the paper for details.)</p>
+
+<p><strong>Region Proposal Network.</strong> The voxel grids and generated voxel-wise descriptors form regular feature map for objection detection. <a href="https://arxiv.org/abs/1506.01497">Region proposal network (RPN)</a>, formerly used in 2D cases, is trimmed here to predict 3D bounding boxes and their probability scores.</p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/tensorflow-%E5%AD%A6%E4%B9%A0" title="NEXT: Tensorflow study">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/vision-sensors" title="PREV: Vision Sensors">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

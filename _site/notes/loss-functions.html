@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Loss Functions</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Loss Functions" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/notes/loss-functions">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Loss Functions</h1>
+		<time>January 19, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="CNN">CNN</a></li>
+			
+				<li><a href="/tag_index.html" title="loss">loss</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h2 id="loss">Loss</h2>
+
+<h3 id="cross-entropy">Cross Entropy</h3>
+
+<p>Cross entrpoy measures the difference between two probabilistic distributions <script type="math/tex">p</script> and <script type="math/tex">q</script>. It can be used to define the loss function in machine learning and optmization, where the true probility <script type="math/tex">p_i</script> is the true label and the given distribution <script type="math/tex">q_i</script> is the predicted value of the currenr model.</p>
+
+<p>For logistic regression where <script type="math/tex">p\in\{y, 1-y\}</script> and <script type="math/tex">q\in\{\hat{y}, 1-\hat{y}\}</script>, the cross entropy measuring the similarity between <script type="math/tex">p</script> and <script type="math/tex">q</script> is</p>
+
+<script type="math/tex; mode=display">H(p, q)=-\sum\limits_{i}p_ilogq_i = -ylog \hat{y} - (1-y)log(1-\hat{y}).</script>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SigmoidCrossEntropyLoss
+</code></pre>
+</div>
+
+<p>The multinomial logistic loss for multinomial logistic regression (also known as softmax regression) is</p>
+
+<script type="math/tex; mode=display">H(p, q)=-\sum\limits_{i=1}^K 1\{i=k\}logq_i,</script>
+
+<p>where <script type="math/tex">K</script> is the class number, <script type="math/tex">k</script> is the true class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SoftMaxLoss
+</code></pre>
+</div>
+
+<h3 id="contrative-loss">Contrative Loss</h3>
+
+<p>The objective of constrative loss is to enhance the constrast between two unsimilar feature vectors by some margin but minimize distance between two similar feature vectors. It is widely used in siamese network. The loss function is written as</p>
+
+<script type="math/tex; mode=display">L = \frac{1}{2N} \sum\limits_{n=1}^N y d^2 + (1-y)max(margin - d, 0)^2,</script>
+
+<p>where <script type="math/tex">y\in\{0, 1\}</script> is the binary label and <script type="math/tex">d = \|a_n-b_n\|</script> is the Euclidean distance between two feature vectors.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ConstrastiveLoss
+</code></pre>
+</div>
+
+<h2 id="bgd-sgd--mini-batch-gd">BGD, SGD &amp; Mini-batch GD</h2>
+
+<h3 id="batch-gradient-descent-bgd">Batch Gradient Descent (BGD)</h3>
+<p>每次迭代的梯度下降方向由所有样本决定，精度高，速度慢</p>
+
+<h3 id="mini-batch-gradient-descent">Mini-batch Gradient Descent</h3>
+<p>将一次迭代的样本分成若干个mini-batch，每次迭代的梯度下降方向由一个mini-batch计算得到，精度低，速度快</p>
+
+<h3 id="stochastic-gradient-descent-sgd">Stochastic Gradient Descent (SGD)</h3>
+<p>Mini-batch GD的特例，每个mini-batch的大小是1</p>
+
+<h2 id="solver">Solver</h2>
+
+<h3 id="weight-decay">Weight Decay</h3>
+<p>A loss function of an optimization process can be written as</p>
+
+<script type="math/tex; mode=display">L(W) = \frac{1}{N} \sum\limits_i^N f_W(X^{(i)}) + \lambda r(W).</script>
+
+<p>The value <script type="math/tex">\lambda</script> is called <code class="highlighter-rouge">weight_decay</code>, which is used to prevent overfitting in which case the weights get very large. It determines how dominant the regularization term will be in gradient computation. Options for selecting regularization type is provided, such as <code class="highlighter-rouge">regularization_type: "L1"</code> or <code class="highlighter-rouge">regularization_type: "L2"</code> (default).</p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/scale-match-files" title="NEXT: Scale Match Files">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/What-is-X-Window" title="PREV: What is X Window?">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Tensorflow study</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Tensorflow study" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/notes/tensorflow-%E5%AD%A6%E4%B9%A0">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Tensorflow study</h1>
+		<time>December 8, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="deep learning">deep learning</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h1 id="document">Document</h1>
+
+<h3 id="tensorflow-building-blocks">Tensorflow building blocks</h3>
+
+<ol>
+  <li>Data tensors <code class="highlighter-rouge">node = tf.constant(3.0, dtype=tf.float32)</code></li>
+  <li>Variables <code class="highlighter-rouge">a = tf.placeholder(tf.float32)</code></li>
+  <li>Dependent variables <code class="highlighter-rouge">adder_node = tf.add(a, b)</code></li>
+  <li>Executive session <code class="highlighter-rouge">sess = tf.Session()</code>, <code class="highlighter-rouge">sess.run(adder_node, {a: 3, b: 4.5})</code></li>
+  <li>Trainable parameters <code class="highlighter-rouge">W = tf.Variable([.3], dtype=tf.float32)</code></li>
+  <li>Parameter initialization <code class="highlighter-rouge">init = tf.global_variables_initializer()</code>, <code class="highlighter-rouge">sess.run(init)</code></li>
+  <li>Parameter assignment <code class="highlighter-rouge">fixW = tf.assign(W, [-1.])</code>, <code class="highlighter-rouge">sess.run(fixW)</code></li>
+  <li>Optimizer <code class="highlighter-rouge">optimizer = tf.train.GradientDescentOptimizer(0.01)</code></li>
+  <li>Trainer=optimizer+loss <code class="highlighter-rouge">train = optimizer.minimize(loss)</code></li>
+  <li>High-level training toolkit <code class="highlighter-rouge">tf.estimator</code></li>
+</ol>
+
+<h3 id="using-gpus">Using GPUs</h3>
+
+<p>Device mapping management:</p>
+<ol>
+  <li><code class="highlighter-rouge">with tf.device('/device/GPU:0'):</code> Specify computing devices for operators.</li>
+  <li><code class="highlighter-rouge">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+</code> Output device mapping into log.</li>
+</ol>
+
+<p>GPU memory management:</p>
+<ol>
+  <li><code class="highlighter-rouge">config = tf.ConfigProto() config.gpu_options.allow_growth = True </code>
+allocate only as much GPU memory based on runtime allocations</li>
+  <li><code class="highlighter-rouge">config.gpu_options.per_process_gpu_memory_fraction = 0.4</code> bound the amount of GPU memory available to the TensorFlow process</li>
+</ol>
+
+<h3 id="network-layers">Network layers</h3>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">()</span>	<span class="c"># conv2d</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d</span><span class="p">()</span>	<span class="c"># conv3d</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">()</span>	<span class="c"># deconv2d</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d_transpose</span><span class="p">()</span>	<span class="c"># deconv3d</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">max_pooling2d</span><span class="p">()</span>	<span class="c"># max pooling</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">()</span>	<span class="c"># avg pooling</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">()</span>	<span class="c"># fc</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">()</span>	<span class="c"># bn</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dropout</span><span class="p">()</span>	<span class="c"># dropout</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>	<span class="c"># relu</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">local_response_normalization</span><span class="p">()</span>	<span class="c">#lrn</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">()</span>	<span class="c">#softmax</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_normalization</span><span class="p">()</span>	<span class="c"># l2norm</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">()</span>	<span class="c"># concat</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">add_n</span><span class="p">()</span>	<span class="c"># add</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>	<span class="c"># Removes dimensions of size 1 from the shape of a tensor</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>		<span class="c"># element-wise maximum</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+</article>
+
+<div class="page-navigation">
+	
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/Lidar-point-cloud" title="PREV: LiDAR Point Clouds & Applications">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>
