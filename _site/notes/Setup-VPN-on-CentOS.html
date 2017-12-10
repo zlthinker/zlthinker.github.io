@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Steps to Setup VPN PPTP Client on CentOS7</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Steps to Setup VPN PPTP Client on CentOS7" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/blog/assets/favicon.png">
+<link rel="apple-touch-icon" href="/blog/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/blog/assets/core.css">
+<link rel="canonical" href="/blog/notes/Setup-VPN-on-CentOS">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/blog/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/blog/">
+		<img src="/blog/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Steps to Setup VPN PPTP Client on CentOS7</h1>
+		<time>December 17, 2016</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/blog/tag_index.html" title="VPN">VPN</a></li>
+			
+				<li><a href="/blog/tag_index.html" title="CentOS">CentOS</a></li>
+			
+				<li><a href="/blog/tag_index.html" title="OS">OS</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<ol>
+  <li>Install PPTP:  <strong>sudo yum install pptp pptp-setup</strong></li>
+  <li>Configuration:  <strong>sudo pptpsetup –create config –server [server address] –username [username] –password [pwd] –encrypt</strong>
+    <ul>
+      <li>This command will create a file named <em>config</em> under <em>/etc/ppp/peers/</em> with server info written inside.</li>
+      <li>This command will also write your username and password into <em>/etc/ppp/chap-secrets</em></li>
+    </ul>
+  </li>
+  <li>Register the <em>ppp_mppe</em> kernel module: <strong>sudo modprobe ppp_mppe</strong></li>
+  <li>Register the <em>nf_conntrack_pptp</em> kernel module: <strong>sudo modprobe nf_conntrack_pptp</strong></li>
+  <li>Connect to VPN PPTP: <strong>sudo pppd call config</strong>
+    <ul>
+      <li>It will establish PPTP VPN connection. You can type command <strong>ip a I grep ppp</strong> to find the connection name (e.g. <em>ppp1</em>). No return indicates connection failure.</li>
+      <li>If any error, you can look into <strong>/var/log/messages</strong> for log info</li>
+    </ul>
+  </li>
+  <li>Check IP routing table info: <strong>route -n</strong></li>
+  <li>Add Network Segment to current connection: <strong>route add -net 192.168.1.0 netmask 255.255.255.0 dev ppp1</strong> (<em>192.168.1.0</em> and <em>ppp1</em> are taken as example )</li>
+  <li>You can now ping the destination to check the access</li>
+  <li>Disconnect the VPN: <strong>killall pppd</strong></li>
+</ol>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/what-is-event-based-camera" title="NEXT: What is Event-Based Camera?">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/blog/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/blog-guide" title="PREV: Blog Guide">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

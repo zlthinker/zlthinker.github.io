@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Conditional Random Field</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Conditional Random Field" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/blog/assets/favicon.png">
+<link rel="apple-touch-icon" href="/blog/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/blog/assets/core.css">
+<link rel="canonical" href="/blog/notes/conditional-random-field">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/blog/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/blog/">
+		<img src="/blog/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Conditional Random Field</h1>
+		<time>July 18, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h3 id="introduction">Introduction</h3>
+
+<p>Conditional random fields (CRFs) are a probabilistic framework for labeling and segmenting sequential data by maximizing the conditional probability <script type="math/tex">p(Y \| x)</script> over label sequences <script type="math/tex">Y</script> given a particular observation sequence <script type="math/tex">x</script>.
+Formally, we define <script type="math/tex">G=(V,E)</script> to be an undirected graph such that there is a node <script type="math/tex">v \in V</script> corresponding to each of the random variables representing an elements <script type="math/tex">Y_v</script> of <script type="math/tex">Y</script>. If each random variable <script type="math/tex">Y_v</script> obeys the Markov property with respect to <script type="math/tex">G</script>, then <script type="math/tex">(Y, X)</script> is a conditional random field.</p>
+
+<h3 id="preliminary">Preliminary</h3>
+
+<h4 id="graphical-modeling">Graphical Modeling</h4>
+
+<p>Graphical modeling is an insightful method of describing the distribution over many variables. It helps to factorize the monolithic distribution into the product of <strong>local functions</strong> that each depend on a much smaller subset of variables. For example, given an undirected graphical model over a full variable set <script type="math/tex">Y</script>, the distribution can be written as</p>
+
+<script type="math/tex; mode=display">p(Y= \mathbf{y}) = \frac{1}{Z} \prod_{a=1}^A \Phi_a(\mathbf{y}_a).</script>
+
+<p>Here <script type="math/tex">Y_a = y_a</script> are a subset of variables in <script type="math/tex">Y</script> given by fractorization. Different fractorization leads to different modeling of distribution. <script type="math/tex">Z</script> is the normalization factor that ensures the sum of probabilities equal to 1.</p>
+
+<p>To better formalize the fractorization, a fractor graph is defined as a bipartite graph <script type="math/tex">G=(V, F, E)</script> in which nodes <script type="math/tex">V</script> denote the set of variables in the model, and nodes <script type="math/tex">F</script> denote the factors. The semantics of the factor graph is that if a variable node <script type="math/tex">Y_s</script> for <script type="math/tex">s \in V</script> is connected to a fractor node <script type="math/tex">\Phi_a</script> for <script type="math/tex">a \in F</script>, then <script type="math/tex">Y_s</script> is one of the arguments of <script type="math/tex">\Phi_a</script>.</p>
+
+<h3 id="conditional-random-field">Conditional Random Field</h3>
+
+<p>Let <script type="math/tex">G</script> be a factor graph over <script type="math/tex">X</script> and <script type="math/tex">Y</script>. Then <script type="math/tex">(X, Y)</script> is a conditional random field if for any value <script type="math/tex">\mathbf{x}</script> of <script type="math/tex">X</script>, the distribution <script type="math/tex">p(\mathbf{y} \| \mathbf{x})</script> fractorizes according to <script type="math/tex">G</script>. If <script type="math/tex">F=\{ \Phi_a \}</script> is the set of fractors in <script type="math/tex">G</script>, then the conditional distribution for a CRF is</p>
+
+<script type="math/tex; mode=display">p(\mathbf{y} \| \mathbf{x}) = \frac{1}{Z(\mathbf{x})} \prod_{a=1}^A \Phi_a(\mathbf{y}_a, \mathbf{x}_a).</script>
+
+<h3 id="crf-vs-mrf">CRF VS. MRF</h3>
+
+<p><a href="http://homepages.inf.ed.ac.uk/csutton/publications/crftut-fnt.pdf">An Introduction to Conditional Random Fields</a>, Section 2.6.2</p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="http://homepages.inf.ed.ac.uk/csutton/publications/crftut-fnt.pdf">An Introduction to Conditional Random Fields</a></p>
+
+<p><a href="http://dirichlet.net/pdf/wallach04conditional.pdf">Conditional Random Fields: An Introduction</a></p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/vision-sensors" title="NEXT: Vision Sensors">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/blog/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/belief-propagation" title="PREV: Belief Propagation">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

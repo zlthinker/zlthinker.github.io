@@ -1,17 +1,16 @@
 ---
 layout: default
-category: research
+title: camera
 ---
 
-<div class="center">
-	<ul id="taglist">
-			<li><a href="{{site.baseurl}}/tag.html">Tags</a></li>
-			<li><a href="{{site.baseurl}}/category.html">Categories</a></li>
-	</ul>
-</div>
+<article>
+  <h1 class="title">{{ page.title }}</h1>
+  <div class="divider"></div>
+</article>
 
 <section>
-	{% for post in site.posts %}
+
+	{% for post in site.tags.[page.title] %}
 		{% unless post.next %}
 			<h3>{{ post.date | date: '%Y' }} &#172;</h3>
 		{% else %}
@@ -33,4 +32,5 @@ category: research
 			</li>
 		</ul>
 	{% endfor %}
+
 </section>

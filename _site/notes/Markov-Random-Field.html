@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Markov Random Field</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Markov Random Field" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/blog/assets/favicon.png">
+<link rel="apple-touch-icon" href="/blog/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/blog/assets/core.css">
+<link rel="canonical" href="/blog/notes/Markov-Random-Field">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/blog/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/blog/">
+		<img src="/blog/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Markov Random Field</h1>
+		<time>June 1, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/blog/tag_index.html" title="MRF">MRF</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h3 id="notations">Notations</h3>
+
+<p>We are given a set of elements <script type="math/tex">\mathcal{S}</script> and some observations <script type="math/tex">\mathcal{F}=\{\mathbf{f}_s \| s\in \mathcal{S} \}</script> of each elements, and we intend to infer the states or class labels <script type="math/tex">\Lambda = \{1, ..., L \}</script> for all of them: <script type="math/tex">\omega=\{\omega_s, s \in \mathcal{S} \}</script> . The characteristic of the elements is that their states are homogeneous in local neighbourhood, i.e., neighbouring elements presumably share the same states or labels. The neighbouring relationship is defined depending on specific applications and can be intuitively characterized by graph structure. One concrete application is image segmentation: each pixel stands for a single elements and the observations are their intensities and textures. And we want to infer for each pixel which segment it belongs to.</p>
+
+<h3 id="objective">Objective</h3>
+
+<p>The objective is to find the optimal labeling <script type="math/tex">\hat{\omega}</script> which maximizes the posterior probability <script type="math/tex">P(\omega \| \mathcal{F})</script>, that is a <em>maximum a posteriori</em> (MAP) estimate:</p>
+
+<script type="math/tex; mode=display">\hat{\omega} = arg \max_{\omega \in \Omega} P(\mathcal{F} \| \omega) P(\omega),</script>
+
+<p>where <script type="math/tex">\mathcal{\Omega}</script> denotes the set of all possible labelings.</p>
+
+<h3 id="pomega"><script type="math/tex">P(\omega)</script></h3>
+
+<p>The <em>label process</em> <script type="math/tex">\omega</script> is modeled as a MRF with respect to a first order neighborhood system. According to the <em>Hammersley-Clifford theorem</em> (see Appendix A), <script type="math/tex">P(\omega)</script> follows a Gibbs distribution. After several steps of derivations (we refer the reader to [1] for details), we have</p>
+
+<script type="math/tex; mode=display">P(\omega) \propto exp \bigg( - \sum_{ \{s, r\} \in \mathcal{C} } \delta(\omega_s, \omega_r)  \bigg).</script>
+
+<p><script type="math/tex">\delta(\omega_s, \omega_r) = 1</script>, if <script type="math/tex">\omega_s \neq \omega_r</script>, and <script type="math/tex">\delta(\omega_s, \omega_r) = -1</script> otherwise. The equation explicitly includes the local homogemeous constraint into the MAP estimation.</p>
+
+<h3 id="pmathcalf--omega"><script type="math/tex">P(\mathcal{F} \| \omega)</script></h3>
+
+<p><script type="math/tex">P(\mathcal{F} \| \omega)</script> is generally modeled by generative models like Multivariate Gaussian Model (MGM) if the observations <script type="math/tex">\mathbf{f} \in \mathcal{F}</script> for a given class <script type="math/tex">\lambda \in \Lambda</script> are continuous valued and indepent in each dimension of <script type="math/tex">\mathbf{f}</script>. Suppose that elements are considered to be independent to each other, then follow the routine of MGM, we have</p>
+
+<script type="math/tex; mode=display">P(\mathcal{F} \| \omega) = \prod_{s \in \mathcal{S}} P(\mathbf{f}_s \| \omega_s) \\</script>
+
+<script type="math/tex; mode=display">= \prod_{s \in \mathcal{S}} \frac{1}{\sqrt{(2\pi)^n \|\Sigma_{\omega_s} \|}} exp \bigg( -\frac{1}{2} (\mathbf{f}_s - \mathbf{\mu}_{\omega_s}) \Sigma_{\omega_s}^{-1} (\mathbf{f}_s - \mathbf{\mu}_{\omega_s})^T \bigg),</script>
+
+<p>where <script type="math/tex">\mathbf{\mu}_{\omega_s}</script> and <script type="math/tex">\Sigma_{\omega_s}</script> are the prior knowledge about the mean and covariance of the gaussian distribution of label <script type="math/tex">\omega_s</script>.</p>
+
+<h3 id="energy-function">Energy function</h3>
+
+<p>By combining the two equations above, the final formulation of the MAP is reached:</p>
+
+<script type="math/tex; mode=display">P(\mathcal{F} \| \omega) P(\omega) \propto exp\bigg(-\bigg(\sum_{s \in \mathcal{S}} V_s(\omega_s, \mathbf{f}_s) + \beta \sum_{\{s,r\} \in \mathcal{C}} \delta(\omega_s, \omega_r)  \bigg)\bigg),</script>
+
+<p>where</p>
+
+<script type="math/tex; mode=display">V_s(\omega_s, \mathbf{f}_s) = ln(\sqrt{(2\pi)^n \|\Sigma_{\omega_s} \|}) + \frac{1}{2} (\mathbf{f} - \mathbf{\mu}_{\omega_s}) \Sigma_{\omega_s}^{-1} (\mathbf{f}_s - \mathbf{\mu}_{\omega_s})^T.</script>
+
+<p>The weighting parameter <script type="math/tex">\beta > 0</script> controlls the importance of the prior. As <script type="math/tex">\beta</script> increases, the labels in neighbourhood become more homogemeous.</p>
+
+<p>The interpretation is that the whole posterior can be expressed as a first order MRF by including the contribution of the likelihood term via the singletons (i.e. the elements <script type="math/tex">s \in \mathcal{S}</script>) as well as the doubletons that express relationship between neighboring labels.</p>
+
+<h3 id="parameter-estimation">Parameter Estimation</h3>
+
+<p>The problem modeled by MRF has the following parameters:</p>
+
+<ul>
+  <li>The weight <script type="math/tex">\beta</script> of the priori term,</li>
+  <li>the number of classes or labels or states <script type="math/tex">L</script> (which generally has to be mannually specified),</li>
+  <li>the mean vector <script type="math/tex">\mathbf{\mu}_{\lambda}</script> and covariance matrix <script type="math/tex">\Sigma_{\lambda}</script> of each class <script type="math/tex">\lambda \in \Lambda</script>.</li>
+</ul>
+
+<p>As claimed in [1], <script type="math/tex">\beta</script> is independent of input data in the context of image segmentation. But the independence may vary across different applicatins and thus need to be carefully. The task of estimating the mean and covariance of a mixture density, which is called <strong>Gaussian mixture identification</strong> is a well-known statiscal problem. The most widely used approach is the method of <em>maximum likelihood</em>. If a labeled training set is available, then an unbiased estimate of mean and covariance can be obtained in a supervised way. However, in practical cases where elements are unlabeled, <strong>EM algorithm</strong> is adopted to compute the maximum likelihood estimates. Herein, the method is specialized to the <strong>mixture density context</strong>. Basically, we aim to fit a Gaussian mixture of <script type="math/tex">L</script> components to the histogram data <script type="math/tex">\mathbf{d}_s (s \in \mathcal{S})</script>(or distribution) of the observations <script type="math/tex">\mathcal{F}</script>. <script type="math/tex">\mathbf{d}_i</script> denotes the histogram points. The EM algorithm for Gaussian mixture identification can be split into two iterative steps below:</p>
+
+<ul>
+  <li>[Estimation] Try to assign labels to each elements by estimating the posteriors based on the histogram data <script type="math/tex">\mathbf{d}_i</script>:</li>
+</ul>
+
+<script type="math/tex; mode=display">P(\lambda \| \mathbf{d}_i) = \frac{P(\mathbf{d}_i \| \lambda) P(\lambda)}{ \sum_{\lambda \in \Lambda}P(\mathbf{d}_i \| \lambda)P(\lambda)},</script>
+
+<p>where <script type="math/tex">P(\lambda)</script> denotes the component weight.</p>
+
+<ul>
+  <li>[Maximization] Using the current labeling of the data, the estimation of the parameters is simple:</li>
+</ul>
+
+<script type="math/tex; mode=display">P(\lambda) = \frac{K_{\lambda}}{\|S\|},</script>
+
+<script type="math/tex; mode=display">\mathbf{\mu}_{\lambda} = \frac{1}{K_{\lambda}} \sum_{s \in \mathcal{S}} P(\lambda \| \mathbf{d}_s) \mathbf{d}_s,</script>
+
+<script type="math/tex; mode=display">\Sigma_{\lambda} = \frac{1}{K_{\lambda}} \sum_{s \in \mathcal{S}} P(\lambda \| \mathbf{d}_s) (\mathbf{d}_s - \mathbf{\mu}_{\lambda})^T (\mathbf{d}_s - \mathbf{\mu}_{\lambda}),</script>
+
+<p>where <script type="math/tex">K_{\lambda} = \sum_{s \in \mathcal{S}} P(\lambda \| \mathbf{d}_s)</script>. Basically, the posteriors <script type="math/tex">P(\lambda \| \mathbf{d}_s)</script> are used as a weight of the data vectors. They express the contribution of a particular data point <script type="math/tex">\mathbf{d}_s</script> to the class <script type="math/tex">\lambda \in \Lambda</script>.</p>
+
+<h3 id="appendix-a">Appendix A</h3>
+<p>The <em>Hammersley-Clifford theorem</em> says that the distribution over an MRF can be expressed as the product of potential functions <script type="math/tex">\phi_i</script> defined on maximal cliques of the graph:</p>
+
+<script type="math/tex; mode=display">P(\mathbf{x}) = \frac{1}{Z} \prod_{c_i \in C} \phi_i(c_i),</script>
+
+<p>where <script type="math/tex">\phi_i(c_i)</script> is the ith clique potential, a function only of the values of the clique members in <script type="math/tex">c_i</script>. Each potential function <script type="math/tex">\phi_i</script> must be positive but they need not sum to 1. A normalization constant <script type="math/tex">Z</script> is required to create a valid probability distribution <script type="math/tex">Z = \sum_{\mathbf{x}} \prod_{c_i \in C} \phi_i(c_i)</script>.</p>
+
+<p><strong>Intuitive interpretation of Potential Function</strong> 
+Practically it is intractable to compute the joint probability <script type="math/tex">P(\mathbf{x})</script> directly. For example, if <script type="math/tex">\mathbf{x}</script> is a binary vector of dimension <script type="math/tex">n</script>, up to <script type="math/tex">2^n</script> cases have to be considered. To address this, Markov property of graph is utilized to factorize the joint probality into product of smaller local functions, e.g., the potential functions here.
+The potential function ensures that it is possible to factorize the joint probability such that conditionally independent random variables do not appear in the same potential function. In other words, the nodes whose corresponding variables are in the same potential functions must be fully connected. The easiest way to fullfill this requirement is to require each potential function to operate on a set of random variables whose corresponding vertices form a maximal clique within the graph. It is worth noting that an isolated potential function does not have a direct probabilistic interpretation, but instead <strong>represents constraints on the configuration of the random variables</strong>. This in turn affects the probability of global configurations - a global configuration with a high probability is likely to have satisfied more of these constraints than a global configuration with a low probability.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>[1] <a href="http://ac.els-cdn.com/S0262885606001223/1-s2.0-S0262885606001223-main.pdf?_tid=a6a16140-45c4-11e7-be65-00000aab0f26&amp;acdnat=1496209837_f1d2e7c9835918aed921e3507a2b38e9">A Markov random field image segmentation model for color textured images</a></p>
+
+<p>[2] <a href="http://www.cs.cmu.edu/~16831-f14/notes/F11/16831_lecture07_bneuman.pdf">Gibbs Fields &amp; Markov Random Fields</a></p>
+
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/Fisher-Vector" title="NEXT: Fisher Vector">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/blog/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/Differential-Privacy" title="PREV: Differential Privacy">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

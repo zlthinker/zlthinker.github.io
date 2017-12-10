@@ -1,17 +1,11 @@
 ---
 layout: default
-category: research
+category: life
 ---
 
-<div class="center">
-	<ul id="taglist">
-			<li><a href="{{site.baseurl}}/tag.html">Tags</a></li>
-			<li><a href="{{site.baseurl}}/category.html">Categories</a></li>
-	</ul>
-</div>
-
 <section>
-	{% for post in site.posts %}
+
+	{% for post in site.categories.[page.category] %}
 		{% unless post.next %}
 			<h3>{{ post.date | date: '%Y' }} &#172;</h3>
 		{% else %}
@@ -32,5 +26,7 @@ category: research
 				</div>
 			</li>
 		</ul>
+
 	{% endfor %}
+
 </section>

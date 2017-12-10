@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Optimization for Least Square Problems</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Optimization for Least Square Problems" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/blog/assets/favicon.png">
+<link rel="apple-touch-icon" href="/blog/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/blog/assets/core.css">
+<link rel="canonical" href="/blog/notes/optimization-for-least-square-problem">
+<link rel="alternate" type="application/atom+xml" title="Lei's Blog" href="/blog/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/blog/">
+		<img src="/blog/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Optimization for Least Square Problems</h1>
+		<time>June 12, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h3 id="the-problem-definition">The Problem Definition</h3>
+<p>The problem is to find solutions to a system of equations that have the form:</p>
+
+<script type="math/tex; mode=display">f_1(\mathbf{x}) = 0,</script>
+
+<script type="math/tex; mode=display">f_2(\mathbf{x}) = 0,</script>
+
+<script type="math/tex; mode=display">f_3(\mathbf{x}) = 0,</script>
+
+<script type="math/tex; mode=display">...</script>
+
+<script type="math/tex; mode=display">f_m(\mathbf{x}) = 0,</script>
+
+<p>where <script type="math/tex">\mathbf{x} = [x_1, x_2, ..., x_n]^T</script> is a <script type="math/tex">n</script>-dimensional vector. For convenience, we denote <script type="math/tex">(f_1, f_2, ..., f_m)^T</script> by a vector-valued function <script type="math/tex">\mathbf{f}</script> and <script type="math/tex">\mathbf{f}</script> can be nonlinear functions. Then the system of equations can be re-written as</p>
+
+<script type="math/tex; mode=display">\mathbf{f}(\mathbf{x}) = 0,</script>
+
+<p>i.e., we wish to find a vector that makes the vector function equal to the zero vector. Since it is the general case that <script type="math/tex">m</script> is larger that <script type="math/tex">n</script>, i.e., the system of equations is overdetermined, the problem would infeasible. Therefore, the alternative is to find the optimal solution which minimizes the sum of the least squares which is also the objective of the <em>least squares</em> problem:</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x}) = \frac{1}{2} \sum_{i=1}^m \|f_i(\mathbf{x}) \|_2^2 = \frac{1}{2} \mathbf{f}(\mathbf{x})^T \mathbf{f}(\mathbf{x}).</script>
+
+<h4 id="terminalogy">Terminalogy</h4>
+<p>The first and second derivatives of the objective function are given below:</p>
+
+<script type="math/tex; mode=display">\nabla F(\mathbf{x}) = F'(\mathbf{x}) = \mathbf{f}(\mathbf{x})^T \mathbf{J}(\mathbf{x}),</script>
+
+<p>where <script type="math/tex">\mathbf{J}(\mathbf{x})</script> is the <script type="math/tex">m \times n</script> jacobian matrix of the transformation <script type="math/tex">\mathbf{f} : \mathbb{R}^m \times \mathbb{R}^n</script>.</p>
+
+<script type="math/tex; mode=display">\nabla^2 F(\mathbf{x}) = F''(\mathbf{x}) = \mathbf{J}(\mathbf{x})^T \mathbf{J}(\mathbf{x}) + \sum_{i=1}^m f_i(\mathbf{x}) \mathbf{H}_i(\mathbf{x}),</script>
+
+<p>where <script type="math/tex">\mathbf{H}_i(\mathbf{x}) = f_i''(\mathbf{x})</script> is the <script type="math/tex">n \times n</script> Hessian matrix of the scalar-valued function <script type="math/tex">f_i(\mathbf{x})</script>.</p>
+
+<h3 id="newtons-method">Newton’s Method</h3>
+<p>Newton’s method is an algorithm originally designated to locate roots of equations, e.g., <script type="math/tex">F(\mathbf{x})=0</script>. It is derived from the linear approximation of the function <script type="math/tex">F(\mathbf{x})</script> by first-order Tayor series expansion. From Calculus, the following is the linear approximation of <script type="math/tex">F(\mathbf{x})</script> at <script type="math/tex">\mathbf{x}+\mathbf{h}</script>:</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x} + \mathbf{h}) \approx F(\mathbf{x}) + F'(\mathbf{x}) \mathbf{h},</script>
+
+<p>if <script type="math/tex">\|\mathbf{h}\|</script> is sufficiently small. By rearranging the equation, we obtain</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x}) \approx F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}).</script>
+
+<p>The first-order Tayor series expansion essentially approximate the origin function <strong>locally</strong> with the tangent line at the local point. If the local point is near the zero point we want, it is reasonable to approximate the desired zero point (<script type="math/tex">F(\mathbf{x})=0</script>) with the zero point of tangent line (<script type="math/tex">F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}) = 0</script>). In this way, we get the improved estimate of <script type="math/tex">\mathbf{x}</script> as <script type="math/tex">\mathbf{x}_{t+1}</script> from last estimate <script type="math/tex">\mathbf{x}_t</script> that satisfies</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x}_{t+1} - \mathbf{x}_{t}) = 0.</script>
+
+<p>The update step is explicitly written as</p>
+
+<script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_{t} - \frac{F(\mathbf{x}_t)}{F'(\mathbf{x}_t)} \equiv \mathbf{x}_t + \mathbf{h}</script>
+
+<p><img src="../images/newton's_method.png" alt="Minion" /></p>
+
+<p>Newton’s method can also be used as a <strong>descent method</strong> for iterative non-linear optimization: from a starting point <script type="math/tex">\mathbf{x}_0</script> it produces a series of vectors <script type="math/tex">..., \mathbf{x}_t, \mathbf{x}_{t+1},...</script> which (hopefully) converges to <script type="math/tex">\mathbf{x}^*</script>, a local stationary minimizer for the given function <script type="math/tex">F(\mathbf{x})</script>. Since <script type="math/tex">\mathbf{x}^*</script> is a stationary point, it satisfies <script type="math/tex">F'(\mathbf{x}^*) = 0</script>. Similarly, we have</p>
+
+<script type="math/tex; mode=display">F'(\mathbf{x}+\mathbf{h}) \approx F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h},</script>
+
+<p>Here the Newton’s method is used to locate the root of <script type="math/tex">F'(\mathbf{x}^*) = 0</script>. The update step is</p>
+
+<script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_t + \mathbf{h}_N,</script>
+
+<p>where <script type="math/tex">\mathbf{h}_N</script> is the solution to</p>
+
+<script type="math/tex; mode=display">F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h} = 0.</script>
+
+<p>If <script type="math/tex">F''(\mathbf{x})</script> is positive definite, <script type="math/tex">\mathbf{h}_N^T F''(\mathbf{x}) \mathbf{h}_N = - \mathbf{h}_N^T F'(\mathbf{x}) > 0</script>, which means <script type="math/tex">\mathbf{h}_N</script> is a descent direction when minimizing <script type="math/tex">F(\mathbf{x})</script>. Therefore, Newton’s method is only useful in the final stage of the iteration where <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script> so that <script type="math/tex">F''(\mathbf{x})</script> is positive definite. The good news about Newton’s method is that if <script type="math/tex">F''(\mathbf{x})</script> is positive definite, we get <strong>quadratic convergence</strong> while gradient descent (the steepest descent method) can only produce <strong>linear convergence</strong>.</p>
+
+<h3 id="gauss-newton-method">Gauss-Newton Method</h3>
+<p>The Gauss-Newton method is based on the linear approximation to <script type="math/tex">\mathbf{f}</script> by the first-order <strong>Tayor series expansion</strong> in the neighbourhood of <script type="math/tex">\mathbf{x}</script>: For small <script type="math/tex">\|\mathbf{h}\|</script>, we have</p>
+
+<script type="math/tex; mode=display">\mathbf{f}(\mathbf{x} + \mathbf{h}) = \ell(\mathbf{h}) \approx \mathbf{f}(\mathbf{x}) + \mathbf{J}(\mathbf{x}) \mathbf{h},</script>
+
+<p>where <script type="math/tex">\mathbf{J}(\mathbf{x})</script> is the Jacobian matrix of <script type="math/tex">\mathbf{f}(\mathbf{x})</script>. Then</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x} + \mathbf{h}) = L(\mathbf{h}) = \frac{1}{2} \ell(\mathbf{h})^T \ell(\mathbf{h})</script>
+
+<script type="math/tex; mode=display">\approx \frac{1}{2} \mathbf{f}^T\mathbf{f} + \mathbf{h}^T\mathbf{J}^T\mathbf{f} + \frac{1}{2} \mathbf{h}^T \mathbf{J}^T\mathbf{J}\mathbf{h}</script>
+
+<script type="math/tex; mode=display">=F(\mathbf{x}) + \mathbf{h}^T\mathbf{J}^T\mathbf{f} + \frac{1}{2} \mathbf{h}^T \mathbf{J}^T\mathbf{J}\mathbf{h},</script>
+
+<p>where <script type="math/tex">\mathbf{f} = \mathbf{f}(\mathbf{x})</script> and <script type="math/tex">\mathbf{J} = \mathbf{J}(\mathbf{x})</script>.</p>
+
+<p>There is a little interesting fact to address here. If we directly apply the second-order taylor expansion to <script type="math/tex">F(\mathbf{x})</script>, we get</p>
+
+<script type="math/tex; mode=display">F(\mathbf{x} + \mathbf{h}) = L(\mathbf{h}) =
+F(\mathbf{x}) + \mathbf{h}^T\mathbf{J}^T\mathbf{f} + \frac{1}{2} \mathbf{h}^T \mathbf{H}\mathbf{h},</script>
+
+<p>where <script type="math/tex">\mathbf{H}</script> is the Hessian matrix at current <script type="math/tex">\mathbf{x}</script>. Since the Hessian matrix is generally hard to compute, the square of jacobian <script type="math/tex">\mathbf{J}^T\mathbf{J}</script> is often used to approximate the Hessian matrix <script type="math/tex">\mathbf{H}</script>. As shown by the second equation in <strong>Terminalogy</strong>, the approximation just eliminates the second term <script type="math/tex">\sum_{i=1}^m f_i(\mathbf{x}) \mathbf{H}_i(\mathbf{x})</script>.</p>
+
+<p>Getting back to the point, the Gauss-Newton step is to minimize <script type="math/tex">L(\mathbf{h})</script>, i.e., the objective at next point,</p>
+
+<script type="math/tex; mode=display">\mathbf{h}_{GN} = \arg\min_{\mathbf{h}} L(\mathbf{h}).</script>
+
+<p>It is easily seen that the gradient and the Hessian if <script type="math/tex">L</script> with respect to <script type="math/tex">\mathbf{h}</script> are</p>
+
+<script type="math/tex; mode=display">L'(\mathbf{h}) = \mathbf{f}^T\mathbf{J} + \mathbf{h}^T \mathbf{J}^T \mathbf{J},</script>
+
+<script type="math/tex; mode=display">L''(\mathbf{h}) = \mathbf{J}^T \mathbf{J}.</script>
+
+<p>We can see that <script type="math/tex">L''(\mathbf{h})</script> is independent of <script type="math/tex">\mathbf{h}</script>. If <script type="math/tex">\mathbf{J}</script> is <em>full rank</em>, i.e., if the columns are linearly independent, then <script type="math/tex">L''(\mathbf{h})</script> is positive definite, which means <script type="math/tex">L(\mathbf{h})</script> is convex. Inspired by Newton’s method, the minimization problem can be solved by finding <script type="math/tex">\mathbf{h}</script> that makes <script type="math/tex">L'(\mathbf{h}) = \mathbf{0}</script>, i.e.</p>
+
+<script type="math/tex; mode=display">(\mathbf{J}^T \mathbf{J}) \mathbf{h}_{GN} = - \mathbf{J}^T\mathbf{f}.</script>
+
+<p>This is a descent direction for <script type="math/tex">F</script> since</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\mathbf{h}_{GN}^T F'(\mathbf{x}) = \mathbf{h}_{GN}^T (\mathbf{J}^T \mathbf{f}) = - \mathbf{h}_{GN}^T (\mathbf{J}^T \mathbf{J})\mathbf{h}_{GN} < 0. %]]></script>
+
+<p>The update step of the Gauss-Newton method is typically:</p>
+
+<script type="math/tex; mode=display">\text{Solve}\,\,\,\, (\mathbf{J}^T \mathbf{J}) \mathbf{h}_{GN} = - \mathbf{J}^T\mathbf{f},</script>
+
+<script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_t + \alpha \mathbf{h}_{GN},</script>
+
+<p>where <script type="math/tex">\alpha</script> is found by linear search. The classical Gauss-Newton method uses <script type="math/tex">\alpha = 1</script> in all steps. In general, the Gauss-Newton method ensure linear convergence <script type="math/tex">% <![CDATA[
+(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| \leq a\|\mathbf{x}_t - \mathbf{x}^* \|, 0 < a < 1) %]]></script> and even quadratic convergence <script type="math/tex">(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| = O(\|\mathbf{x}_t - \mathbf{x}^* \|^2))</script> when <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script>.</p>
+
+<h3 id="the-levenbergmarquardt-method">The Levenberg–Marquardt Method</h3>
+
+<p>The LM method suggests to use a <em>damped Gauss-Newton mothod</em>. The step <script type="math/tex">\mathbf{h}_{LM}</script> is defined by the following modification:</p>
+
+<script type="math/tex; mode=display">(\mathbf{J}^T \mathbf{J} + \mu \mathbf{I}) \mathbf{h}_{LM} = - \mathbf{J}^T\mathbf{f} \text{ and } \mu \geq 0.</script>
+
+<p>The damping parameter <script type="math/tex">\mu</script> has several effects:</p>
+
+<ul>
+  <li>For all <script type="math/tex">\mu > 0</script> the coefficient matrix <script type="math/tex">\mathbf{J}^T \mathbf{J} + \mu \mathbf{I}</script> is positive definite, and this ensures that <script type="math/tex">\mathbf{h}_{LM}</script> is a descent direction.</li>
+  <li>For large values of <script type="math/tex">\mu</script> we get <script type="math/tex">\mathbf{h}_{LM} = \frac{1}{\mu} \mathbf{J}^T\mathbf{f} = \frac{1}{\mu} F'(\mathbf{x}),</script>
+i.e. a short step in the steepest descent direction. This is desired if the current iterate is far from the solution. But, the larger damping factor <script type="math/tex">\mu</script> is, the slower convergence gets.</li>
+  <li>For small values of <script type="math/tex">\mu</script>, <script type="math/tex">\mathbf{h}_{LM} = \mathbf{h}_{GN}</script>, which is a good step in the final stage of the iteration. When <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script>, the LM can have almost quatratic final convergence as the Gauss-Newton method.</li>
+</ul>
+
+<p>Thus, the damping parameter influences both the direction and the size of the update step. This leads us to make a method without a specific line search (i.e., to explicitlt determine the step size).</p>
+
+<h3 id="the-golden-bundle-adjustment">The Golden Bundle Adjustment</h3>
+
+<p>Bundle Adjustment (BA) is a classic optimization problem developed in photogrammetry in the 50’s. Each error function corresponds to a reprojection error concerning a camera and a 3D point.</p>
+
+<p>Suppose a BA problem considers a set of <script type="math/tex">m</script> cameras <script type="math/tex">\mathcal{C} = \{c_1, c_2, \ldots, c_m \}</script>, a set of <script type="math/tex">n</script> points <script type="math/tex">\mathcal{P}= \{p_1, p_2, \ldots, p_n \}</script> and a set of projections <script type="math/tex">\mathcal{E} \in \mathcal{C} \times \mathcal{P}</script>, the objective is to estimate the <script type="math/tex">(m+n)</script>-dimensional vector <script type="math/tex">\mathbf{x} = [c_1, c_2, \ldots, c_m, p_1, p_2, \ldots, p_n]^T</script>. The total <script type="math/tex">k</script> reprojection functions form a <script type="math/tex">k</script> dimensional vector denoted by <script type="math/tex">\mathbf{e} = [e_1, e_2, \ldots, e_k]^T</script>. The Jacobian matrix is computed by taking the first-order derivative of the error vector <script type="math/tex">\mathbf{e}</script> with respect to the input vector <script type="math/tex">\mathbf{x}</script>:</p>
+
+<script type="math/tex; mode=display">\mathbf{J}_{k \times (m+n)} = 
+\Big[ 
+\frac{\partial \mathbf{e} }{\partial c_1},
+\ldots,
+\frac{\partial \mathbf{e} }{\partial c_m},
+\frac{\partial \mathbf{e} }{\partial p_1},
+\ldots,
+\frac{\partial \mathbf{e} }{\partial p_n}
+ \Big]
+\equiv \Big[ 
+ \mathbf{J}_{c_1},
+ \ldots,
+ \mathbf{J}_{c_m},
+ \mathbf{J}_{p_1},
+ \ldots,
+ \mathbf{J}_{p_n}
+\Big]
+\equiv \Big[ 
+ \mathbf{J}_{c},
+ \mathbf{J}_{p}
+ \Big].</script>
+
+<p>Based on the LM algorithm elaborated above, the update step is to solve the equation:</p>
+
+<script type="math/tex; mode=display">(\mathbf{J}^T \mathbf{J} + \mu \mathbf{I} ) \Delta \mathbf{x} = - \mathbf{J}^T\mathbf{e}.</script>
+
+<p>The symmetric matrix <script type="math/tex">\mathbf{J}^T \mathbf{J}</script> is quite sparse because each reprojection error function only involves one camera and one track. Here it can be re-written as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\mathbf{J}^T \mathbf{J} =
+\left[ {\begin{array}{cc}
+   \mathbf{J}_c^T \mathbf{J}_c & \mathbf{J}_c^T \mathbf{J}_p \\
+   \mathbf{J}_p^T \mathbf{J}_c & \mathbf{J}_p^T \mathbf{J}_p \\
+  \end{array} } \right]. %]]></script>
+
+<p>For simplicity, the damping term <script type="math/tex">\mu \mathbf{I}</script> is omitted here, so that the update equation is turned into</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\left[ {\begin{array}{cc}
+   \mathbf{J}_c^T \mathbf{J}_c & \mathbf{J}_c^T \mathbf{J}_p \\
+   \mathbf{J}_p^T \mathbf{J}_c & \mathbf{J}_p^T \mathbf{J}_p \\
+  \end{array} } \right]
+\left[ {\begin{array}{cc}
+   \Delta \mathbf{c} \\
+   \Delta \mathbf{p} \\
+  \end{array} } \right]
+=
+\left[ {\begin{array}{cc}
+   -\mathbf{J}_c^T \mathbf{e} \\
+   -\mathbf{J}_p^T \mathbf{e} \\
+  \end{array} } \right]. %]]></script>
+
+<p>Now, the problem is to solve the linear equation system of this form:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\left[ {\begin{array}{cc}
+   B & E \\
+   E^T & C \\
+  \end{array} } \right]
+\left[ {\begin{array}{cc}
+   \Delta y \\
+   \Delta z \\
+  \end{array} } \right]
+=
+\left[ {\begin{array}{cc}
+   u \\
+   w \\
+  \end{array} } \right]. %]]></script>
+
+<p>Its solution is obtained as the solution of</p>
+
+<script type="math/tex; mode=display">\left[ B-EC^{-1}E^T \right] \Delta y = u - E C^{-1} w,</script>
+
+<script type="math/tex; mode=display">\Delta z = C^{-1}(w - E^T \Delta y)</script>
+
+<p>by using the <strong>Schur Complement</strong>. And the first equation can then be solved by applying <strong>Cholesky factorization</strong> (
+<script type="math/tex">\mathbf{A} \mathbf{x} = \mathbf{b}</script>
+<script type="math/tex">\Rightarrow</script>
+<script type="math/tex">\mathbf{L} \mathbf{L}^T \mathbf{x} = \mathbf{b}</script>
+<script type="math/tex">\Rightarrow</script>
+Solve <script type="math/tex">\mathbf{y}</script> in <script type="math/tex">\mathbf{L} \mathbf{y} = \mathbf{b}</script> 
+<script type="math/tex">\Rightarrow</script> 
+Solve <script type="math/tex">\mathbf{x}</script> in <script type="math/tex">\mathbf{L}^T \mathbf{x} = \mathbf{y}</script> ).
+Depending on the sparsity of the matrix, Cholesky factorization can be implemented in dense, sparse and iterative ways.</p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="http://www.math.ohiou.edu/courses/math3600/lecture13.pdf">Nonlinear Systems - Newton’s Method</a></p>
+
+<p><a href="http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf">METHODS FOR
+NON-LINEAR LEAST
+SQUARES PROBLEMS</a></p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/blog/notes/belief-propagation" title="NEXT: Belief Propagation">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/blog/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/blog/notes/learning-model" title="PREV: Discriminative Modeling VS Generative Modeling">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

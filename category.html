@@ -1,0 +1,62 @@
+---
+layout: default
+title: Category
+---
+
+{% comment %}
+=======================
+The following part extracts all the categories from your posts and sort categories, so that you do not need to manually collect your categories to a place.
+=======================
+{% endcomment %}
+{% assign rawcategories = "" %}
+{% for post in site.posts %}
+	{% assign tcategories = post.categories | join:'|' | append:'|' %}
+	{% assign rawcategories = rawcategories | append:tcategories %}
+{% endfor %}
+{% assign rawcategories = rawcategories | split:'|' | sort %}
+
+{% comment %}
+=======================
+The following part removes dulpicated categories and invalid categories like blank category.
+=======================
+{% endcomment %}
+{% assign categories = "" %}
+{% for category in rawcategories %}
+	{% if category != "" %}
+		{% if categories == "" %}
+			{% assign categories = category | split:'|' %}
+		{% endif %}
+		{% unless categories contains category %}
+			{% assign categories = categories | join:'|' | append:'|' | append:category | split:'|' %}
+		{% endunless %}
+	{% endif %}
+{% endfor %}
+
+
+{% comment %}
+=======================
+The purpose of this snippet is to list all your posts posted with a certain category.
+=======================
+{% endcomment %}
+<section align="center">
+	<h3>- Categories -</h3>
+</section>
+<section>
+{% for category in categories %}
+	<h3 id="{{ category | slugify }}">{{ category }}</h3>
+	<ul>
+	 {% for post in site.posts %}
+		 {% if post.categories contains category %}
+			 <li>
+				 <div class="post-date">
+					 <span>{{ post.date | date: "%Y %b %d" }}</span>
+				 </div>
+				 <div class="title">
+					 <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+				 </div>
+			 </li>
+		 {% endif %}
+	 {% endfor %}
+	</ul>
+{% endfor %}
+</section>
