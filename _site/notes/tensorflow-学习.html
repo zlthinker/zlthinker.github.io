@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-	<title>Tensorflow study</title>
+	<title>Tensorflow 学习</title>
 
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@" />
-<meta name="twitter:title" content="Tensorflow study" />
+<meta name="twitter:title" content="Tensorflow 学习" />
 <meta name="twitter:description" content="">
 
 <meta name="description" content="">
@@ -92,7 +92,7 @@
 
 <article>
 	<div class="center">
-		<h1>Tensorflow study</h1>
+		<h1>Tensorflow 学习</h1>
 		<time>December 8, 2017</time>
 		<ul id="taglist">
 			Tag:
@@ -145,13 +145,18 @@ allocate only as much GPU memory based on runtime allocations</li>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d_transpose</span><span class="p">()</span>	<span class="c"># deconv3d</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">max_pooling2d</span><span class="p">()</span>	<span class="c"># max pooling</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">()</span>	<span class="c"># avg pooling</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">()</span>	<span class="c"># fc</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>	<span class="c"># fc, output dimension = units</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">()</span>	<span class="c"># bn</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dropout</span><span class="p">()</span>	<span class="c"># dropout</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="p">)</span>	<span class="c"># dropout, 40% of elements are dropped out only in training mode</span>
 
+<span class="c"># Activations</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>	<span class="c"># relu</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">local_response_normalization</span><span class="p">()</span>	<span class="c">#lrn</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">()</span>	<span class="c">#softmax</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">()</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">()</span>	<span class="c"># sigmoid</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">()</span>	<span class="c"># tanh</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">local_response_normalization</span><span class="p">()</span>	<span class="c"># lrn</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">()</span>	<span class="c"># softmax</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_normalization</span><span class="p">()</span>	<span class="c"># l2norm</span>
 
 <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">()</span>	<span class="c"># concat</span>
@@ -160,6 +165,83 @@ allocate only as much GPU memory based on runtime allocations</li>
 <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>		<span class="c"># element-wise maximum</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="nb">slice</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># get slice of tensor</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">slices</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># put together slices but follow the order of indices</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># stack a list of rank-R tensors into a rank-(R+1) one</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># chipping rank-(R+1) tensor along axis into a amount of num rank-R tensors</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h3 id="tesorflow变量名">Tesorflow变量名</h3>
+<p><code class="highlighter-rouge">tf.Variable()</code>和<code class="highlighter-rouge">tf.get_variable()</code>是新建变量的两种方式。
+<code class="highlighter-rouge">tf.Variable()</code>每次都会产生新的变量，当变量名重复时会引入<strong>别名机制</strong>自行处理。
+<code class="highlighter-rouge">tf.get_variable()</code>遇到重名的变量且变量名没有被设置成共享时会直接报错。</p>
+
+<p><code class="highlighter-rouge">tf.name_scope()</code>和<code class="highlighter-rouge">tf.variable_scope()</code>
+<code class="highlighter-rouge">tf.name_scope()</code>用于对图里面的各种operator进行层次化的管理，类似C++中的<code class="highlighter-rouge">namespce</code>。
+<code class="highlighter-rouge">tf.variable_scope()</code>除了<code class="highlighter-rouge">tf.name_scope()</code>的功能之外，还允许在一个variable_scope下共享变量：</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="s">'my_scope'</span><span class="p">)</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
+	<span class="n">var1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+	<span class="n">scope</span><span class="o">.</span><span class="n">reuse_variables</span><span class="p">()</span>
+	<span class="n">var1_reuse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h3 id="estimators">Estimators</h3>
+<ul>
+  <li>Define Estimator: <code class="highlighter-rouge">tf.estimator</code> are essentially predefined models. The example of DNNClassifier is shown below:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># feature columns specify data type of input</span>
+<span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"x"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">])]</span>
+
+<span class="c"># Build 3 layer DNN with 10, 20, 10 units respectively.</span>
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">DNNClassifier</span><span class="p">(</span><span class="n">feature_columns</span><span class="o">=</span><span class="n">feature_columns</span><span class="p">,</span>
+                                        <span class="n">hidden_units</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                                        <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                        <span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">)</span>
+
+<span class="c"># Customized Estimator</span>
+<span class="k">def</span> <span class="nf">model_fn</span><span class="p">:</span>
+	<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+	<span class="n">train_op</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_global_step</span><span class="p">())</span>
+	<span class="c"># global_step is a counter of training steps</span>
+	<span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+	<span class="c"># return EstimatorSpec that fully defines the model to be run by Estimator</span>
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span>
+    	<span class="n">model_fn</span><span class="o">=</span><span class="n">model_fn</span><span class="p">,</span> 
+	<span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">,</span>
+	<span class="n">l1_regularization_strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">l2_regularization_strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+	<span class="c"># L1 regularization tends to make model weights stay at zero</span>
+	<span class="c"># L2 regularization also tries to make model weights closer to zero but not necessarily zero</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Define input function: The input builder function constructs input data in form of <code class="highlighter-rouge">tf.Tensor</code> and <code class="highlighter-rouge">tf.SparseTensor</code> (mostly for categorical data).</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Define the training inputs</span>
+<span class="n">train_input_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">numpy_input_fn</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="s">"x"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">)},</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+    <span class="n">num_epochs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Train, Evaluate or Predict</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Train model.</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">train_input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="c"># Evaluate accuracy.</span>
+<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">test_input_fn</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
+<span class="c"># Predict new samples.</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">predict_input_fn</span><span class="p">))</span>
 </code></pre>
 </div>
 
