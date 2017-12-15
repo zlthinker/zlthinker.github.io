@@ -1,5 +1,5 @@
 ---
-title: Tensorflow study
+title: Tensorflow 学习
 updated: 2017-12-08 14:00
 category: 
 tag: [deep learning]
@@ -42,13 +42,18 @@ tf.layers.conv2d_transpose()	# deconv2d
 tf.layers.conv3d_transpose()	# deconv3d
 tf.layers.max_pooling2d()	# max pooling
 tf.layers.average_pooling()	# avg pooling
-tf.layers.dense()	# fc
+tf.layers.dense(input, units)	# fc, output dimension = units
 tf.layers.batch_normalization()	# bn
-tf.layers.dropout()	# dropout
+tf.layers.dropout(inputs, rate=0.5, training)	# dropout, 40% of elements are dropped out only in training mode
 
+# Activations
 tf.nn.relu()	# relu
-tf.nn.local_response_normalization()	#lrn
-tf.nn.softmax()	#softmax
+tf.nn.dropout()
+tf.sigmoid()	# sigmoid
+tf.tanh()	# tanh
+
+tf.nn.local_response_normalization()	# lrn
+tf.nn.softmax()	# softmax
 tf.nn.l2_normalization()	# l2norm
 
 tf.concat()	# concat
@@ -57,4 +62,75 @@ tf.squeeze()	# Removes dimensions of size 1 from the shape of a tensor
 tf.maximum(x, y, name)		# element-wise maximum
 tf.tanh(x, name)
 tf.reshape(tensor, shape, name)
+tf.slice(tensor, begin, size, name)	# get slice of tensor
+tf.gather(slices, indices, axis=0, name)	# put together slices but follow the order of indices
+tf.stack(tensor, axis, name)	# stack a list of rank-R tensors into a rank-(R+1) one
+tf.unstack(tensor, num, axis, name)	# chipping rank-(R+1) tensor along axis into a amount of num rank-R tensors
+tf.argmax(tensor, axis)
+```
+
+### Tesorflow变量名
+`tf.Variable()`和`tf.get_variable()`是新建变量的两种方式。
+`tf.Variable()`每次都会产生新的变量，当变量名重复时会引入**别名机制**自行处理。
+`tf.get_variable()`遇到重名的变量且变量名没有被设置成共享时会直接报错。
+
+`tf.name_scope()`和`tf.variable_scope()`
+`tf.name_scope()`用于对图里面的各种operator进行层次化的管理，类似C++中的`namespce`。
+`tf.variable_scope()`除了`tf.name_scope()`的功能之外，还允许在一个variable_scope下共享变量：
+```python
+with tf.variable_scope('my_scope') as scope:
+	var1 = tf.get_variable(name='var1', shape=[1], dtype=tf.float32)
+	scope.reuse_variables()
+	var1_reuse = tf.get_variable(name='var1')
+```
+
+### Estimators
+* Define Estimator: `tf.estimator` are essentially predefined models. The example of DNNClassifier is shown below:
+
+```python
+# feature columns specify data type of input
+feature_columns = [tf.feature_column.numeric_column("x", shape=[4])]
+
+# Build 3 layer DNN with 10, 20, 10 units respectively.
+estimator = tf.estimator.DNNClassifier(feature_columns=feature_columns,
+                                        hidden_units=[10, 20, 10],
+                                        n_classes=3,
+                                        model_dir="/checkpoints/save/path")
+
+# Customized Estimator
+def model_fn:
+	optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
+	train_op = optimizer.minimize(loss=loss, global_step=tf.train.get_global_step())
+	# global_step is a counter of training steps
+	return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
+	# return EstimatorSpec that fully defines the model to be run by Estimator
+estimator = tf.estimator.Estimator(
+    	model_fn=model_fn, 
+	model_dir="/checkpoints/save/path",
+	l1_regularization_strength=1.0,
+        l2_regularization_strength=1.0)
+	# L1 regularization tends to make model weights stay at zero
+	# L2 regularization also tries to make model weights closer to zero but not necessarily zero
+```
+
+* Define input function: The input builder function constructs input data in form of `tf.Tensor` and `tf.SparseTensor` (mostly for categorical data).
+
+```python
+# Define the training inputs
+train_input_fn = tf.estimator.inputs.numpy_input_fn(
+    x={"x": np.array(training_set.data)},
+    y=np.array(training_set.target),
+    num_epochs=None,
+    shuffle=True)
+```
+
+* Train, Evaluate or Predict
+
+```python
+# Train model.
+classifier.train(input_fn=train_input_fn, steps=2000)
+# Evaluate accuracy.
+accuracy_score = classifier.evaluate(input_fn=test_input_fn)["accuracy"]
+# Predict new samples.
+predictions = list(classifier.predict(input_fn=predict_input_fn))
 ```
