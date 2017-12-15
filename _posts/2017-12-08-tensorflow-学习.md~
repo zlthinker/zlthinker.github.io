@@ -161,10 +161,10 @@ sess = tf_debug.LocalCLIDebugWrapperSession(sess)
 * Debug with estimator: Estimator mannages sessions internally.
 
 ```python
-# Create a LocalCLIDebugHook and use it as a monitor when calling fit().
 hooks = None
-debug_hook = tf_debug.LocalCLIDebugHook(ui_type=FLAGS.ui_type,
-                                        dump_root=FLAGS.dump_root)
+if FLAGS.debug:
+	debug_hook = tf_debug.LocalCLIDebugHook(ui_type=FLAGS.ui_type,
+                                            dump_root=FLAGS.dump_root)
 hooks = [debug_hook]
 
 if not FLAGS.use_experiment:

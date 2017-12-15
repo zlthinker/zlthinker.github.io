@@ -119,6 +119,8 @@
   <li>Optimizer <code class="highlighter-rouge">optimizer = tf.train.GradientDescentOptimizer(0.01)</code></li>
   <li>Trainer=optimizer+loss <code class="highlighter-rouge">train = optimizer.minimize(loss)</code></li>
   <li>High-level training toolkit <code class="highlighter-rouge">tf.estimator</code></li>
+  <li>Saving variables: <code class="highlighter-rouge">saver = tf.train.Saver()</code>, <code class="highlighter-rouge">saver.save(sess, "/tmp/model.ckpt")</code></li>
+  <li>Restore variables: <code class="highlighter-rouge">saver.restore(sess, "/tmp/model.ckpt")</code></li>
 </ol>
 
 <h3 id="using-gpus">Using GPUs</h3>
@@ -190,7 +192,7 @@ allocate only as much GPU memory based on runtime allocations</li>
 
 <h3 id="estimators">Estimators</h3>
 <ul>
-  <li>Define Estimator: <code class="highlighter-rouge">tf.estimator</code> are essentially predefined models. The example of DNNClassifier is shown below:</li>
+  <li>Define Estimator: <code class="highlighter-rouge">tf.estimator</code> are essentially predefined models. The examples are shown below:</li>
 </ul>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># feature columns specify data type of input</span>
@@ -201,14 +203,15 @@ allocate only as much GPU memory based on runtime allocations</li>
                                         <span class="n">hidden_units</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
                                         <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                                         <span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">)</span>
-
 <span class="c"># Customized Estimator</span>
-<span class="k">def</span> <span class="nf">model_fn</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">model_fn</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
 	<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 	<span class="n">train_op</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_global_step</span><span class="p">())</span>
 	<span class="c"># global_step is a counter of training steps</span>
+	<span class="c"># define loss function</span>
 	<span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
 	<span class="c"># return EstimatorSpec that fully defines the model to be run by Estimator</span>
+
 <span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span>
     	<span class="n">model_fn</span><span class="o">=</span><span class="n">model_fn</span><span class="p">,</span> 
 	<span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">,</span>
@@ -244,6 +247,55 @@ allocate only as much GPU memory based on runtime allocations</li>
 <span class="n">predictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">predict_input_fn</span><span class="p">))</span>
 </code></pre>
 </div>
+
+<h3 id="graph-visualization">Graph visualization</h3>
+<p>Inherently, a graph is built after we define tensors or variables that flow through operation nodes. 
+Then the graph can be save into log dir by</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>with tf.Session() as sess:
+    writer = tf.summary.FileWriter(output_folder, sess.graph)
+    sess.run(graph_fn)
+    writer.close()
+</code></pre>
+</div>
+<p>To visualize the graph, just run command <code class="highlighter-rouge">tensorboard --log_dir /your/dir/</code> if tensorflow is installed.</p>
+
+<h3 id="debug">Debug</h3>
+
+<ul>
+  <li>Debug with session: just warp session with a debugger wrapper, then debug in CLI.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tensorflow.python</span> <span class="kn">import</span> <span class="n">debug</span> <span class="k">as</span> <span class="n">tf_debug</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugWrapperSession</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Debug with estimator: Estimator mannages sessions internally.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Create a LocalCLIDebugHook and use it as a monitor when calling fit().</span>
+<span class="n">hooks</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">debug_hook</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugHook</span><span class="p">(</span><span class="n">ui_type</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">ui_type</span><span class="p">,</span>
+                                        <span class="n">dump_root</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">dump_root</span><span class="p">)</span>
+<span class="n">hooks</span> <span class="o">=</span> <span class="p">[</span><span class="n">debug_hook</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">use_experiment</span><span class="p">:</span>
+	<span class="c"># Fit model.</span>
+	<span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                   <span class="n">y</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+                   <span class="n">steps</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">train_steps</span><span class="p">,</span>
+                   <span class="n">monitors</span><span class="o">=</span><span class="n">hooks</span><span class="p">)</span>
+
+	<span class="c"># Evaluate accuracy.</span>
+	<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+				<span class="n">y</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+				<span class="n">hooks</span><span class="o">=</span><span class="n">hooks</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<h3 id="visiualize-embedding-todo">Visiualize embedding (TODO)</h3>
+<p><a href="https://www.tensorflow.org/programmers_guide/embedding">https://www.tensorflow.org/programmers_guide/embedding</a></p>
 
 
 </article>
