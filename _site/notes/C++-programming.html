@@ -234,6 +234,34 @@ The general routine is to first write a temporary file (e.g. in <code class="hig
 <h2 id="7-structures-in-c-and-c">7. Structures in C and C++</h2>
 <p><code class="highlighter-rouge">struct</code> and <code class="highlighter-rouge">class</code> are almost the same thing in C++. The only difference is that the default visibility of <code class="highlighter-rouge">struct</code> is public instead of private in <code class="highlighter-rouge">class</code>. <code class="highlighter-rouge">struct</code> in C does not support the <code class="highlighter-rouge">private</code>, <code class="highlighter-rouge">protected</code> and <code class="highlighter-rouge">public</code> specifiers.</p>
 
+<h2 id="8-exception">8. Exception</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;exception&gt;
+using namespce std;
+
+class myexception: public exception
+{
+	virtual const char* what() const throw()
+	{
+		return "My exception happened";
+	}
+} myex;
+
+int main () {
+try {
+	try {
+		throw myex;
+	}
+	catch (exception &amp; e) {
+		throw;			// forward exception to external
+	}
+catch (exception &amp; e) {
+	cout &lt;&lt; e.what() &lt;&lt; '\n';
+}
+return 0;
+}
+</code></pre>
+</div>
+
 <h2 id="reference">Reference</h2>
 <p><a href="http://www.cnblogs.com/chio/archive/2007/07/18/822389.html">http://www.cnblogs.com/chio/archive/2007/07/18/822389.html</a></p>
 

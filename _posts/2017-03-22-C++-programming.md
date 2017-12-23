@@ -134,6 +134,34 @@ The general routine is to first write a temporary file (e.g. in `AtomicWriteHelp
 ## 7. Structures in C and C++
 `struct` and `class` are almost the same thing in C++. The only difference is that the default visibility of `struct` is public instead of private in `class`. `struct` in C does not support the `private`, `protected` and `public` specifiers.
 
+## 8. Exception
+```
+#include <exception>
+using namespce std;
+
+class myexception: public exception
+{
+	virtual const char* what() const throw()
+	{
+		return "My exception happened";
+	}
+} myex;
+
+int main () {
+try {
+	try {
+		throw myex;
+	}
+	catch (exception & e) {
+		throw;			// forward exception to external
+	}
+catch (exception & e) {
+	cout << e.what() << '\n';
+}
+return 0;
+}
+```
+
 ## Reference
 [http://www.cnblogs.com/chio/archive/2007/07/18/822389.html](http://www.cnblogs.com/chio/archive/2007/07/18/822389.html)
 
