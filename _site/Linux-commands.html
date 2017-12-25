@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Linux 学习</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Linux 学习" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/Linux-commands">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Linux 学习</h1>
+		<time>January 2, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="linux">linux</a></li>
+			
+				<li><a href="/tag_index.html" title="cmd">cmd</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h1 id="commands">Commands</h1>
+<h3 id="硬件交互">硬件交互</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>lspci (| grep NVIDIA)
+# 获取PCI连接的设备信息，如显卡、硬盘、显示器、无线网卡等外设
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>lsblk
+# list block devices.
+# 块设备即以block为单位进行数据读写的设备，
+# 与character device相对
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>df -h (-T: show file system type)
+# 显示mount到文件系统中的硬盘空间和分区的使用情况
+</code></pre>
+</div>
+
+<h3 id="文件系统文本处理">文件系统、文本处理</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>locate /path/to/locate/*opencv*
+# 在/path/to/locate/文件夹中搜索路径名含有opencv的文件
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>find /path/to/find -name *opencv*
+# 在/path/to/find/文件夹中搜索文件名含有opencv的文件
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>grep -ri 'pattern' /path/to/grep
+# 在/path/to/grep/文件夹中recursively寻找pattern
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sshpass -p "password" scp ...
+# pass pwd to scp
+</code></pre>
+</div>
+
+<h3 id="系统环境">系统环境</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export PATH=$PATH:&lt;path1&gt;:&lt;path2&gt;
+# 在环境变量$PATH末尾加多个path
+export LD_LIBRARY_PATH=&lt;path1&gt;:&lt;path2&gt;:$LD_LIBRARY_PATH
+# 在环境变量$LD_LIBRARY_PATH最前加多个path
+# 常见环境变量有$JAVAHOME, $PYTHONPATH
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ldconfig -v (| grep cuda)
+# 扫描目录并显示搜索到的动态链接库
+</code></pre>
+</div>
+
+<h1 id="raid">RAID</h1>
+
+<p>RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。</p>
+<ul>
+  <li><strong>RAID0</strong> 将连续的数据在物理上存放到不同的硬盘上，这样在读写时可以多个硬盘同时读写，从而提升带宽。</li>
+  <li><strong>RAID1</strong> 用两组空间相等的硬盘，一个作为主硬盘，一个作为镜像硬盘来备份。是RAID所有标准中最安全、但是空间浪费最高的。</li>
+</ul>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/What-is-X-Window" title="NEXT: What is X Window?">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/Caffe" title="PREV: Caffe 学习">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

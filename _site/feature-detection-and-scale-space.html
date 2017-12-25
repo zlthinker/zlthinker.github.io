@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Feature Detection And Scale Space</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Feature Detection And Scale Space" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/feature-detection-and-scale-space">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Feature Detection And Scale Space</h1>
+		<time>February 12, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="feature">feature</a></li>
+			
+				<li><a href="/tag_index.html" title="scale space">scale space</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h2 id="feature-detection-at-a-given-scale-in-scale-space">Feature Detection at a given scale in scale-space</h2>
+
+<p>Consider scale-space representation of image <script type="math/tex">I(x, y)</script>:</p>
+
+<script type="math/tex; mode=display">L(x, y, \sigma) = G(x, y, \sigma) * I(x, y),</script>
+
+<p>where <script type="math/tex">\sigma \in  \mathbb{R}_+</script> is the scale parameter, and <script type="math/tex">G(x, y, \sigma)</script> is the two-dimensional variable-scale Gaussian kernel written as</p>
+
+<script type="math/tex; mode=display">{G(x, y, \sigma) = \frac{1}{2\pi \sigma^2} e^{ -(x^2 + y^2) / 2 \sigma ^ 2}}.</script>
+
+<p>The 2-jet at a given image point and a given scale contains the partial derivatives</p>
+
+<script type="math/tex; mode=display">(L_x, L_y, L_{xx}, L_{xy}, L_{yy}).</script>
+
+<p>From the five components in the 2-jet, four differential invariants can be constructed, which are invariant to local rotations; the gradient magnitude <script type="math/tex">\|\nabla L\|</script>, the Laplacian <script type="math/tex">\nabla ^2 L</script>, the determinant of the Hessian <script type="math/tex">det\mathcal{H}L</script> and the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>:</p>
+
+<ul>
+  <li><script type="math/tex">\|\nabla L\|^2 = L_x^2 + L_y^2</script>,</li>
+  <li><script type="math/tex">\nabla ^2 L = L_{xx} + L_{yy}</script>,</li>
+  <li><script type="math/tex">det\mathcal{H}L = L_{xx}L_{yy}-L_{xy}^2</script>,</li>
+  <li><script type="math/tex">\tilde{\mathcal{k}}(L)=L_x^2L_{yy},+L_y^2L_{xx}-2L_xL_yL_{xy}</script>.</li>
+</ul>
+
+<p>These operators can detect different types of local structures:</p>
+
+<ul>
+  <li>A single-scale blob detector can be expressed from the minima and the maxima of the Laplacian response <script type="math/tex">\nabla^2L</script>.</li>
+  <li>An affine covariant blob detector or a saddle detector can be expressed from the maxima and the minima of the determinant of the Hessian <script type="math/tex">det \mathcal{H}L</script>.</li>
+  <li>A straightforward and affine covariant corner detector can be expressed from the maxima and minima of the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>.</li>
+</ul>
+
+<p>Some conclusions drawn by SURF:</p>
+<ul>
+  <li>Hessian-based detectors are more stable and repeatable than Harris-based counterparts.</li>
+  <li>Using the determinant of the Hessian matrix rather than its trace (the Laplacian) seems advantageous, as it fires less elongated, ill-localised structures.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<p><a href="https://www.researchgate.net/profile/Tony_Lindeberg/publication/227992111_Scale_space/links/0fcfd504211a11bd1b000000.pdf">Lindeberg, Tony. “Scale-space.”</a></p>
+
+<p><a href="http://campar.in.tum.de/Chair/HaukeHeibelGaussianDerivatives">The impressive graphs of Gaussian derivative functions</a></p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/C++-programming" title="NEXT: C++ Programming">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/Convex-Optimization" title="PREV: Convex Optimization">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>What is X Window?</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="What is X Window?" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/What-is-X-Window">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>What is X Window?</h1>
+		<time>January 5, 2017</time>
+		<ul id="taglist">
+			Tag:
+			
+				<li><a href="/tag_index.html" title="linux">linux</a></li>
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<h2 id="简介">简介</h2>
+<p>X Window System (X视窗系统) 是服务于Unix系统的GUI系统，由Xorg基金会维护。它主要由X Server和X Client两部分组成。X Server负责管理硬件，而X Client则是应用程序。在运作上，X Client应用程序将需要呈现的画面告诉X Server，最终由X Server将结果通过它管理的硬件绘制出来。整体架构如图1所示。</p>
+
+<p><img src="/images/x_ser_cli.gif" alt="spatial transformer" />
+<strong><center>图1. X Window System架构 </center></strong></p>
+
+<h2 id="x-server">X Server</h2>
+<p>X Server负责管理硬件设备，包括输入／输出设备如键盘、鼠标、手写板、显示器以及显卡（包含驱动）等等。虽然Linux系统与显卡、显示器、键盘、鼠标等外设有相应的连接和设置，但是X Window对这些设备另有一套独立的设置以进行连接和交互。所以在CentOS系统上由multi-user.target (runlevel 3)进入图形界面graphical.target (runlevel 5)时启动<code class="highlighter-rouge">startx</code>会自动载入X Window所需的驱动程序。</p>
+
+<h2 id="x-client">X Client</h2>
+<p>X Server主要是管理显示界面与在屏幕上绘图，同时将输入装置的行为告知X Client（如鼠标的移动、窗口的拖动等），此时X Client就会依据这些行为生成图示的显示资料回传给X Server，X Server再将X Client传回的显示资料描绘(delineate)在荧幕上。所以X Client的主要工作就是处理绘图资料。</p>
+
+<h2 id="x-window-manager">X Window Manager</h2>
+<p>因为X Client仅仅负责处理绘图资料，它本身并不知道它在X Server中的位置、大小等信息以及它与其他X Client的相对位置关系，为此Window Manager作为一种特殊的X Client就负责全部X Client的控管，包括</p>
+
+<ul>
+  <li>提供控制元素，如工作列、桌面背景的设定；</li>
+  <li>管理虚拟桌面（Virtual Desktop）；</li>
+  <li>提供视窗控制参数，如视窗大小、重叠、移动、最大最小化。</li>
+</ul>
+
+<p>常用的GNOME、KDE、twm、XFCE就是X Window Manager。为了方便，在X Window Manager上常常会加入一些常用的应用软件如输入法等等。</p>
+
+<h2 id="display-manager">Display Manager</h2>
+<p>Display Manager负责提供登入的环境（包括提供图形登陆界面）以及载入用户选择的Window Manager的资料。几乎所有的X Window Manager都会提供Display Manager，例如CentOS上的GNOME使用GNOME Display Manager(gdm)来提供图形界面登陆。</p>
+
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="http://linux.vbird.org/linux_basic/0590xwindow.php">http://linux.vbird.org/linux_basic/0590xwindow.php</a></p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+    <a class="next" href="/loss-functions" title="NEXT: Loss Functions">&lt;&lt;</a>
+		<span> &middot; </span>
+  
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/Linux-commands" title="PREV: Linux 学习">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2017 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>
