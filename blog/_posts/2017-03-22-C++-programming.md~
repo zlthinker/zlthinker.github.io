@@ -176,7 +176,7 @@ return 0;
 |Speed | Fast (LIFO for stack) | Slow (More complex for heap to track allocation)|
 |Risk | Stack overflow if too much stack is used (e.g. too deep recursion, too large allocation) | Memory leak|
 
-## Keyword: `mutable`
+## 8. Keyword: `mutable`
 An example tells everything:
 ```
 class HashTable {
@@ -203,7 +203,7 @@ class HashTable {
 ```
 在实现Hash表时，一个提升访问效率的方法是保存最近一次访问的item，这样再次访问相同item时直接返回上一次获取的结果即可，即`last_key_`，`last_value_`，节省了重复查表的开销。但是我们又希望查表函数`lookup`是`const`，以保护其他成员变量。为此一个折中的方法是将`last_key_`，`last_value_`声明为`mutable`，使得即使是`const`函数都可以对之做修改。
 
-## Keyword: `auto`
+## 9. Keyword: `auto`
 在C++11中，关键字`auto`用于根据上下文对变量类型进行推导。其用法注意点如下：
 ```
 // auto声明的变量必须初始化
@@ -235,7 +235,7 @@ auto b = a;	// typeof(b) = int*
 auto & c = a;	// typeof(c) = int[10]
 ```
 
-## Keyword: `volatile`
+## 10. Keyword: `volatile`
 首先来看一个例子：
 ```
 int some_int = 100;

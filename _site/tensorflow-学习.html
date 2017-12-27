@@ -232,6 +232,44 @@ allocate only as much GPU memory based on runtime allocations</li>
     <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
     <span class="n">num_epochs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
     <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># Define customized input function</span>
+<span class="k">def</span> <span class="nf">dataset_input_fn</span><span class="p">():</span>
+  <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">"/var/data/file1.tfrecord"</span><span class="p">,</span> <span class="s">"/var/data/file2.tfrecord"</span><span class="p">]</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+
+  <span class="c"># Use `tf.parse_single_example()` to extract data from a `tf.Example`</span>
+  <span class="c"># protocol buffer, and perform any additional per-record preprocessing.</span>
+  <span class="k">def</span> <span class="nf">parser</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
+    <span class="n">keys_to_features</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"image_data"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="s">""</span><span class="p">),</span>
+        <span class="s">"date_time"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="s">""</span><span class="p">),</span>
+        <span class="s">"label"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                                    <span class="n">default_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)),</span>
+    <span class="p">}</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">keys_to_features</span><span class="p">)</span>
+
+    <span class="c"># Perform additional preprocessing on the parsed data.</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">decode_jpeg</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="s">"image_data"</span><span class="p">])</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="s">"label"</span><span class="p">],</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s">"image_data"</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span> <span class="s">"date_time"</span><span class="p">:</span> <span class="n">parsed</span><span class="p">[</span><span class="s">"date_time"</span><span class="p">]},</span> <span class="n">label</span>
+
+  <span class="c"># Use `Dataset.map()` to build a pair of a feature dictionary and a label</span>
+  <span class="c"># tensor for each example.</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">buffer_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)</span>
+  <span class="n">iterator</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">make_one_shot_iterator</span><span class="p">()</span>
+
+  <span class="c"># `features` is a dictionary in which each value is a batch of values for</span>
+  <span class="c"># that feature; `labels` is a batch of labels.</span>
+  <span class="n">features</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span>
+<span class="c"># feature_cols: a dictionary containing key/value pairs that map feature column names to Tensors</span>
+<span class="c"># labels: A tensor containing label values</span>
 </code></pre>
 </div>
 
@@ -257,7 +295,7 @@ Then the graph can be save into log dir by</p>
     writer.close()
 </code></pre>
 </div>
-<p>To visualize the graph, just run command <code class="highlighter-rouge">tensorboard --log_dir /your/dir/</code> if tensorflow is installed.</p>
+<p>To visualize the graph, just run command <code class="highlighter-rouge">tensorboard --logdir /your/dir/</code> if tensorflow is installed.</p>
 
 <h3 id="debug">Debug</h3>
 

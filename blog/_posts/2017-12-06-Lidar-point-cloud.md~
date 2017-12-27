@@ -44,14 +44,3 @@ Objection detection, like cars, pedestrians and cyclists, is a critical componen
 As shown in Figure 2, the feature network is a bit similar to [PointNet](https://arxiv.org/abs/1612.00593). The input of each point is a 6-dimensional vector $$\mathbf{v} = [x, y, z, x-c_x, y-c_y, z-c_z]$$ where $$[c_x, c_y, c_z]^T$$ is the centroid of points in this voxel. Then a stack of voxel feature encoding (**VFE**) layers produce point-wise descriptors for points and voxel-wise descriptors for voxels. The voxel-wise descriptor is essentially element-wise maximum of point-wise descriptors residing in the voxel. (We refer the reader to the paper for details.)
 
 **Region Proposal Network.** The voxel grids and generated voxel-wise descriptors form regular feature map for objection detection. [Region proposal network (RPN)](https://arxiv.org/abs/1506.01497), formerly used in 2D cases, is trimmed here to predict 3D bounding boxes and their probability scores.
-
-### [3. PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space](https://arxiv.org/pdf/1706.02413.pdf)
-
-![]({{site.baseurl}}/images/pointnet++.png)
-**<center>Figure 3. Architecture of PointNet++</center>**
-
-As pointed out by [VoxelNet](https://arxiv.org/pdf/1711.06396.pdf), [PointNet](http://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf) lacks generalization to large-scale point set data. It is manipulated on independent points and is consequently blind to local structures of point sets. PointNet++, an extension of PointNet, is proposed to capture local structural information in a hierachical manner. 
-
-**Set Abstraction.** The core of PointNet++ is called set abstraction. It subsamples point set by **fathest point sampling** (greedily sample the most distant point from other points). Then it encodes each sampled point wih **PointNet** that considers the points inside the spherical neighborhood of the point (termed group in this paper). Again, the sampled points with encoded features are seen as a new point set input of set abstration layer. Finally, the recursively-sampled point set is greatly contracted to be used for classification and segmentation. 
-
-For the segmentation task, it is necessary to assign a label to each point in original point set rather than the sampled points. To this end, an interpolation strategy is used to restore descriptors for eliminated points as weighted sum of neighboring sampled points in the reverse direction of sampling.

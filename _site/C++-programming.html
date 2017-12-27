@@ -114,6 +114,9 @@
   <li><a href="#structures-in-c-and-c" id="markdown-toc-structures-in-c-and-c">Structures in C and C++</a></li>
   <li><a href="#exception" id="markdown-toc-exception">Exception</a></li>
   <li><a href="#stack-vs-heap" id="markdown-toc-stack-vs-heap">Stack VS. Heap</a></li>
+  <li><a href="#keyword-mutable" id="markdown-toc-keyword-mutable">Keyword: <code class="highlighter-rouge">mutable</code></a></li>
+  <li><a href="#keyword-auto" id="markdown-toc-keyword-auto">Keyword: <code class="highlighter-rouge">auto</code></a></li>
+  <li><a href="#keyword-volatile" id="markdown-toc-keyword-volatile">Keyword: <code class="highlighter-rouge">volatile</code></a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -318,6 +321,78 @@ return 0;
     </tr>
   </tbody>
 </table>
+
+<h2 id="keyword-mutable">Keyword: <code class="highlighter-rouge">mutable</code></h2>
+<p>An example tells everything:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class HashTable {
+ public:
+    //...
+    std::string lookup(const std::string&amp; key) const
+    {
+        if (key == last_key_) {
+            return last_value_;
+        }
+
+        std::string value{this-&gt;lookupInternal(key)};
+
+        last_key_   = key;
+        last_value_ = value;
+
+        return value;
+    }
+
+ private:
+    mutable std::string last_key_
+    mutable std::string last_value_;
+};
+</code></pre>
+</div>
+<p>在实现Hash表时，一个提升访问效率的方法是保存最近一次访问的item，这样再次访问相同item时直接返回上一次获取的结果即可，即<code class="highlighter-rouge">last_key_</code>，<code class="highlighter-rouge">last_value_</code>，节省了重复查表的开销。但是我们又希望查表函数<code class="highlighter-rouge">lookup</code>是<code class="highlighter-rouge">const</code>，以保护其他成员变量。为此一个折中的方法是将<code class="highlighter-rouge">last_key_</code>，<code class="highlighter-rouge">last_value_</code>声明为<code class="highlighter-rouge">mutable</code>，使得即使是<code class="highlighter-rouge">const</code>函数都可以对之做修改。</p>
+
+<h2 id="keyword-auto">Keyword: <code class="highlighter-rouge">auto</code></h2>
+<p>在C++11中，关键字<code class="highlighter-rouge">auto</code>用于根据上下文对变量类型进行推导。其用法注意点如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto声明的变量必须初始化
+auto m;	// not allowed
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// 可以用pointer，reference，const来修饰auto
+auto k = 5;
+auto* pk = new auto(k);
+autp** ppk = new auto(&amp;k);
+const auto n = 10;
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// 函数和模板参数不能被声明为auto
+void Func(auto param);
+template&lt;auto T&gt;
+void Func(T t);
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto无法被自动推导成const或volatile
+const int a = 100;
+auto b = a;	// typeof(b) = int, changeable
+auto &amp; c = a;	// typeof(c) = const int, unchangeable
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto与数组
+int a[10];
+auto b = a;	// typeof(b) = int*
+auto &amp; c = a;	// typeof(c) = int[10]
+</code></pre>
+</div>
+
+<h2 id="keyword-volatile">Keyword: <code class="highlighter-rouge">volatile</code></h2>
+<p>首先来看一个例子：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>int some_int = 100;
+while(some_int == 100)
+{
+   //your code
+}
+</code></pre>
+</div>
+<p>上面的代码段是一个<code class="highlighter-rouge">while</code>死循环，循环内部没有对变量<code class="highlighter-rouge">some_int</code>进行任何修改。一般上，编译器在编译上述代码时会做一步优化：将<code class="highlighter-rouge">while(some_int == 100)</code>解释为<code class="highlighter-rouge">while(true)</code>。这种变通在正常情况下显然是合理且可取的，因为它避免了每次循环都去访问<code class="highlighter-rouge">some_int</code>的值，降低了内存访问的开销。但是，如果在<code class="highlighter-rouge">while</code>循环的同时有其他程序会修改<code class="highlighter-rouge">some_int</code>的值，这种变通就会造成错误。解决这个问题的方法就是使用<code class="highlighter-rouge">volatile</code>关键字：<code class="highlighter-rouge">volatile int some_int = 100;</code>，避免编译器的过度优化，迫使程序每次获取改变量时都必须访问其地址。</p>
+
+<p>引用官方文档的解释：<em>…volatile is a hint to the implementation to avoid aggressive optimization involving the object because the value of the object might be changed by means undetectable by an implementation.</em></p>
 
 <h2 id="reference">Reference</h2>
 <p><a href="http://www.cnblogs.com/chio/archive/2007/07/18/822389.html">http://www.cnblogs.com/chio/archive/2007/07/18/822389.html</a></p>
