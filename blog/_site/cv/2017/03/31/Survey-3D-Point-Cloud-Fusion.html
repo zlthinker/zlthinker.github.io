@@ -1,0 +1,34 @@
+<h2 id="3d-point-cloud-fusion">3D Point Cloud Fusion</h2>
+
+<p>The essential key to 3D point cloud fusion is to find 3D point correspondences, based on which similarity transformation can be estimated to roughly align point clouds and then adopt algorithms like ICP to register them accurately. To robustly determine the 3D point correspondences between noisy point clouds, expressive descpritors are very important. There are two main types of 3D feature descriptors to date:</p>
+
+<ol>
+  <li>Multiview texture based descriptor [1].</li>
+  <li>
+    <p>Local geometry based descriptor. 3D geometry can be described in terms of different native 3D formats, including voxel grid and polygon mesh. This method is more suitable for dense and watertight point clouds.</p>
+
+    <p>2.1 Voxel grid. Use binary voxel representation, e.g., 3D ShapeNets [5].</p>
+
+    <p>2.2 Polygon mesh. Use norm (1st order), surface curvature (2nd order), etc, e.g., [2].</p>
+
+    <p>2.3 Combination of both above.</p>
+  </li>
+</ol>
+
+<h4 id="multi-view-fusion">Multi-View Fusion</h4>
+<ol>
+  <li>View pooling [1]: The variant local structures are <strong>overlayed</strong>.</li>
+</ol>
+
+<h2 id="reference">Reference</h2>
+
+<ol>
+  <li>Multi-view Convolutional Neural Networks for 3D Shape Recognition</li>
+  <li>Aligning Point Cloud Views using Persistent Feature Histograms</li>
+  <li>Comparison of 3D interest point detectors and descriptors for point cloud fusion</li>
+  <li>Multi-View 3D Object Detection Network for Autonomous Driving</li>
+  <li>3D ShapeNets: A Deep Representation for Volumetric Shapes</li>
+  <li><a href="http://download.springer.com/static/pdf/110/chp%253A10.1007%252F978-3-642-15552-9_57.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fchapter%2F10.1007%2F978-3-642-15552-9_57&amp;token2=exp=1494555015~acl=%2Fstatic%2Fpdf%2F110%2Fchp%25253A10.1007%25252F978-3-642-15552-9_57.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fchapter%252F10.1007%252F978-3-642-15552-9_57*~hmac=c3d4f68f4216f25a311d2612251ba7f57791f13fce8db7f3da1aadc79bba8921">Location Recognition Using Prioritized Feature
+Matching</a></li>
+</ol>
+

@@ -58,6 +58,9 @@ export LD_LIBRARY_PATH=<path1>:<path2>:$LD_LIBRARY_PATH
 ```
 
 ```
+ldconfig
+# 系统的动态链接库会默认放在系统目录`/usr/lib`和`/lib`下，或者动态库配置文件`/etc/ld.so.conf`指定的非系统目录下，供应用程序共享。一般系统启动时会执行`ldconfig`命令对所有库文件建立索引。但是如果对链接库目录下的文件增删修改时（例如安装了新的包），就需要手动执行`ldconfig`以刷新索引。
+
 ldconfig -v (| grep cuda)
 # 扫描目录并显示搜索到的动态链接库
 ```

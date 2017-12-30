@@ -1,0 +1,41 @@
+<h2 id="feature-detection-at-a-given-scale-in-scale-space">Feature Detection at a given scale in scale-space</h2>
+
+<p>Consider scale-space representation of image <script type="math/tex">I(x, y)</script>:</p>
+
+<script type="math/tex; mode=display">L(x, y, \sigma) = G(x, y, \sigma) * I(x, y),</script>
+
+<p>where <script type="math/tex">\sigma \in  \mathbb{R}_+</script> is the scale parameter, and <script type="math/tex">G(x, y, \sigma)</script> is the two-dimensional variable-scale Gaussian kernel written as</p>
+
+<script type="math/tex; mode=display">{G(x, y, \sigma) = \frac{1}{2\pi \sigma^2} e^{ -(x^2 + y^2) / 2 \sigma ^ 2}}.</script>
+
+<p>The 2-jet at a given image point and a given scale contains the partial derivatives</p>
+
+<script type="math/tex; mode=display">(L_x, L_y, L_{xx}, L_{xy}, L_{yy}).</script>
+
+<p>From the five components in the 2-jet, four differential invariants can be constructed, which are invariant to local rotations; the gradient magnitude <script type="math/tex">\|\nabla L\|</script>, the Laplacian <script type="math/tex">\nabla ^2 L</script>, the determinant of the Hessian <script type="math/tex">det\mathcal{H}L</script> and the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>:</p>
+
+<ul>
+  <li><script type="math/tex">\|\nabla L\|^2 = L_x^2 + L_y^2</script>,</li>
+  <li><script type="math/tex">\nabla ^2 L = L_{xx} + L_{yy}</script>,</li>
+  <li><script type="math/tex">det\mathcal{H}L = L_{xx}L_{yy}-L_{xy}^2</script>,</li>
+  <li><script type="math/tex">\tilde{\mathcal{k}}(L)=L_x^2L_{yy},+L_y^2L_{xx}-2L_xL_yL_{xy}</script>.</li>
+</ul>
+
+<p>These operators can detect different types of local structures:</p>
+
+<ul>
+  <li>A single-scale blob detector can be expressed from the minima and the maxima of the Laplacian response <script type="math/tex">\nabla^2L</script>.</li>
+  <li>An affine covariant blob detector or a saddle detector can be expressed from the maxima and the minima of the determinant of the Hessian <script type="math/tex">det \mathcal{H}L</script>.</li>
+  <li>A straightforward and affine covariant corner detector can be expressed from the maxima and minima of the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>.</li>
+</ul>
+
+<p>Some conclusions drawn by SURF:</p>
+<ul>
+  <li>Hessian-based detectors are more stable and repeatable than Harris-based counterparts.</li>
+  <li>Using the determinant of the Hessian matrix rather than its trace (the Laplacian) seems advantageous, as it fires less elongated, ill-localised structures.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<p><a href="https://www.researchgate.net/profile/Tony_Lindeberg/publication/227992111_Scale_space/links/0fcfd504211a11bd1b000000.pdf">Lindeberg, Tony. “Scale-space.”</a></p>
+
+<p><a href="http://campar.in.tum.de/Chair/HaukeHeibelGaussianDerivatives">The impressive graphs of Gaussian derivative functions</a></p>

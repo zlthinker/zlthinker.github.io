@@ -218,5 +218,9 @@ if not FLAGS.use_experiment:
 				hooks=hooks)["accuracy"]
 ```
 
-### Visiualize embedding (TODO)
+### Visiualize embedding
+
+> An embedding is a mapping from discrete **objects**, such as words, articles, images, to **vectors** of real numbers. In this way, the similarity in vector space can be used as a flexible and robust measure object similarity, e.g., `blue:  (red, 47.6°), (yellow, 51.9°), (purple, 52.4°)`.
+
 [https://www.tensorflow.org/programmers_guide/embedding](https://www.tensorflow.org/programmers_guide/embedding)
+[https://www.tensorflow.org/versions/r0.12/how_tos/embedding_viz/](https://www.tensorflow.org/versions/r0.12/how_tos/embedding_viz/)

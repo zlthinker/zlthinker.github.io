@@ -1,0 +1,34 @@
+<h3 id="dual-cones">Dual cones</h3>
+
+<p>Dual cone of cone <script type="math/tex">K</script>:</p>
+
+<script type="math/tex; mode=display">K^* = \{y | y^T x \geq 0 \ for\ all\ x \in K \}</script>
+
+<h3 id="common-convex-function">Common convex function</h3>
+
+<ul>
+  <li>Affine function:  <script type="math/tex">\;f(X)=tr(A^T X)+b \in R</script></li>
+  <li>All norm functions</li>
+</ul>
+
+<h3 id="convex-optimization-problems">Convex Optimization Problems</h3>
+
+<h4 id="lp">LP</h4>
+<h4 id="qp">QP</h4>
+<h4 id="qcqp">QCQP</h4>
+<h4 id="socp">SOCP</h4>
+<h4 id="gp-geometric-programming">GP (Geometric Programming)</h4>
+<h4 id="sdp-semidefinite">SDP (Semidefinite)</h4>
+
+<h3 id="notes">Notes</h3>
+
+<h4 id="material-on-gradient-descent-method"><a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#stochasticgradientdescent">Material on Gradient Descent Method</a></h4>
+
+<ol>
+  <li>There is a number of challenges to mini-batch gradient descent.
+    <ol>
+      <li>The same learning rate applies to all parameter updates. If our data is sparse and our features have very different frequencies, we might not want to update all of them to the same extent, but perform a larger update for rarely occurring features.</li>
+      <li>SGD are prone to get trapped in saddle points. The saddle points are usually surrounded by a plateau of the same error, which makes it notoriously hard for SGD to escape, as the gradient is close to zero in all dimensions.</li>
+    </ol>
+  </li>
+</ol>

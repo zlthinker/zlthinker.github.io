@@ -1,0 +1,297 @@
+<ul id="markdown-toc">
+  <li><a href="#强制类型转换" id="markdown-toc-强制类型转换">强制类型转换</a></li>
+  <li><a href="#virtual-contructor" id="markdown-toc-virtual-contructor">Virtual Contructor</a></li>
+  <li><a href="#智能指针" id="markdown-toc-智能指针">智能指针</a></li>
+  <li><a href="#implicit类型转换" id="markdown-toc-implicit类型转换">Implicit类型转换</a></li>
+  <li><a href="#re-understand-new-and-delete" id="markdown-toc-re-understand-new-and-delete">Re-understand <code class="highlighter-rouge">new</code> and <code class="highlighter-rouge">delete</code></a></li>
+  <li><a href="#how-to-materialize-atomicwrite" id="markdown-toc-how-to-materialize-atomicwrite">How to materialize AtomicWrite</a></li>
+  <li><a href="#structures-in-c-and-c" id="markdown-toc-structures-in-c-and-c">Structures in C and C++</a></li>
+  <li><a href="#exception" id="markdown-toc-exception">Exception</a></li>
+  <li><a href="#stack-vs-heap" id="markdown-toc-stack-vs-heap">Stack VS. Heap</a></li>
+  <li><a href="#keyword-mutable" id="markdown-toc-keyword-mutable">Keyword: <code class="highlighter-rouge">mutable</code></a></li>
+  <li><a href="#keyword-auto" id="markdown-toc-keyword-auto">Keyword: <code class="highlighter-rouge">auto</code></a></li>
+  <li><a href="#keyword-volatile" id="markdown-toc-keyword-volatile">Keyword: <code class="highlighter-rouge">volatile</code></a></li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="强制类型转换">强制类型转换</h2>
+
+<p>比起C风格的强制类型转换(type-id)，C++的标准类型转换操作更为安全。包括：</p>
+
+<ol>
+  <li>static_cast&lt;&gt;(). (1)把子类指针或引用转为基类，但反向则不安全；（2）基本类型转换，如把int转为enum.</li>
+  <li>dynamic_cast&lt;&gt;(). 常用于进行类的上下行转换，但下行转换(基类转为子类)比static安全，因为它会对类型进行检查。所以，<strong>涉及到有继承关系(包括父子、兄弟)的类的转换一律用dynamic_cast</strong>. 若返回空指针则表示转换失败。</li>
+  <li>const_cast&lt;&gt;(). 作用于const对象。将常量指针转换为非常量指针，常量引用转换为非常量引用，且仍然指向或引用同一对象。</li>
+  <li>reinterprete_cast&lt;&gt;(). 多用于函数指针类型的转换，不常用。</li>
+</ol>
+
+<h2 id="virtual-contructor">Virtual Contructor</h2>
+<p>A virtual constructor is the ability to clone an object, without actually knowing what type it is. This is very useful when we do not know the real type of an object, but need a copy of it. Let’s say we have a base-class thusly:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Object
+{
+public:
+    Object() {};
+    virtual ~Object(){} = 0;
+    virtual Object* clone() const = 0;
+};
+</code></pre>
+</div>
+
+<p>And derived class:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class MyClass : public Object
+{
+public:
+    MyClass() {};
+    MyClass(const MyClass&amp; rhs) {}; // copy-constructor
+    virtual ~MyClass() { };
+    virtual MyClass* clone() const { return new MyClass(*this); }; // virtual ctor
+};
+</code></pre>
+</div>
+<p>Now, suppose we have a vector of these Object-derived classes and we want to make a copy of this vector:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>std::vector&lt;Object*&gt; objects;
+objects.push_back(new MyClass());
+objects.push_back(new AnotherClass());
+
+std::vector&lt;Object*&gt; anotherVector;
+for(std::vector&lt;Object*&gt;::const_iterator cit(objects.begin());
+    cit != objects.end();
+    ++cit)
+    anotherVector.push_back((*cit)-&gt;clone());
+</code></pre>
+</div>
+
+<h2 id="智能指针">智能指针</h2>
+<p>在C++程序中，异常的产生经常会导致内存的泄漏，因为异常的发生导致delete语句无法被执行。为了实现更安全的内存管理，应使用智能指针指向内存。智能指针也是一个对象，指向的内存是该对象所拥有的member。因此，智能指针相当于在内存外包装了一层安全的外衣，即使有异常产生，智能指针的析构函数依然能完成内存的释放。C++11中引入了重要的智能指针：shared_ptr。使用时需包含头文件<code class="highlighter-rouge">#include&lt;memory&gt;</code>。</p>
+
+<p><strong>Shared_ptr</strong>是最智能的智能指针。它通过引用计数的方式来管理指针资源。同一个指针资源可以被多个shared_ptr对象所拥有。当最后一个shared_ptr对象的析构函数被执行时才会最终释放所拥有的内存。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>shared_ptr&lt;int&gt; spInt1 = make_shared&lt;int&gt;(10);
+//make_shared函数用于创建shared_ptr对象
+//或者也可使用shared_ptr&lt;int&gt; spInt1(new int(10));
+shared_ptr&lt;int&gt; spInt2 = spInt1;
+shared_ptr&lt;int&gt; spInt3(spInt1);
+//赋值和拷贝会增加指针资源的引用计数，而不会拷贝内存
+spInt1.use_count()	//获取拥有该指针资源的引用计数
+spInt1.reset()	//取消该指针对指针资源的所有权，该指针变为空指针。
+//如果没有其他指针拥有该指针资源，则会调用析构函数释放内存；
+//如果仍有其他指针，则其他指针的引用计数会减一，内存暂不释放。
+</code></pre>
+</div>
+
+<p>对shared_ptr进行类型转换不能使用一般的<code class="highlighter-rouge">static_cast&lt;T&gt;()</code>，<code class="highlighter-rouge">dynamic_cast&lt;T&gt;()</code>，<code class="highlighter-rouge">const_cast&lt;T&gt;()</code>，而应使用量身定制的类型转换操作符<code class="highlighter-rouge">static_pointer_cast&lt;T&gt;()</code>，<code class="highlighter-rouge">dynamic_pointer_cast&lt;T&gt;()</code>，<code class="highlighter-rouge">const_pointer_cast&lt;T&gt;()</code>。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const shared_ptr&lt;T&gt; p;		//p is const
+shared_ptr&lt;const T&gt; p;		//*p is const
+</code></pre>
+</div>
+<h2 id="implicit类型转换">Implicit类型转换</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>class Rational
+{
+public:
+Rational(int, int);
+operator double() const;	//convert Rational to double, note no return value for this function
+}
+</code></pre>
+</div>
+<p>以上是一种自定义类型转换的方式，将double转化为自定义的类，以后当碰到运算如<code class="highlighter-rouge">0.5*Rational(1, 2)</code>时，Rational类的object会被显式的转换为double类型。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class Array
+{
+public:
+Array(int size);
+}
+</code></pre>
+</div>
+<p>另一种隐式类型转换发生在constructor只包含一个输入参数（或多个输入参数，但除第一个参数外其他参数都有默认值）。这种转换通常是比较危险的，为了规避此种情况，通常在constructor的声明前加上<strong>explicit</strong>关键字以进制隐式转换：<code class="highlighter-rouge">explicit Array(int size);</code>。</p>
+
+<h2 id="re-understand-new-and-delete">Re-understand <code class="highlighter-rouge">new</code> and <code class="highlighter-rouge">delete</code></h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>void * memory = operator new(sizeof(string));
+// operator new: allocate raw memory
+
+new Widget(size);
+// new operator: automatically allocate memory and construct object in it
+
+#include &lt;new&gt;
+void * buffer = mallocShared(sizeof(Widget));
+Widget* pw = new (buffer) Widget(size)	;
+// placement new, construct object within specified memory pointed by `buffer`
+
+
+operator delete(memory);
+// operator delete: deallocate raw memory
+
+delete Widget;
+// delete operator: deconstruct object then deallocate memory
+
+pw-&gt;~Widget();		
+// desconstruct object first
+freeShared(pw);		
+// deallocate memory as paired with mallocshared
+
+string *ps = new string[10];	
+// call operator new [] to allocate memory and call constructor for each element
+
+delete [] ps;
+// call destructor for each element and call operator delete [] to deallocate memory
+</code></pre>
+</div>
+
+<h2 id="how-to-materialize-atomicwrite">How to materialize AtomicWrite</h2>
+<p>When we are talking about atomic write, we desire that eigher all of the writes have to make it to the disk or none of them.
+The general routine is to first write a temporary file (e.g. in <code class="highlighter-rouge">AtomicWriteHelper</code>’s constructor) and then rename it the final destination (e.g. in <code class="highlighter-rouge">AtomicWriteHelper</code>’s destructor).</p>
+
+<h2 id="structures-in-c-and-c">Structures in C and C++</h2>
+<p><code class="highlighter-rouge">struct</code> and <code class="highlighter-rouge">class</code> are almost the same thing in C++. The only difference is that the default visibility of <code class="highlighter-rouge">struct</code> is public instead of private in <code class="highlighter-rouge">class</code>. <code class="highlighter-rouge">struct</code> in C does not support the <code class="highlighter-rouge">private</code>, <code class="highlighter-rouge">protected</code> and <code class="highlighter-rouge">public</code> specifiers.</p>
+
+<h2 id="exception">Exception</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;exception&gt;
+using namespce std;
+
+class myexception: public exception
+{
+	virtual const char* what() const throw()
+	{
+		return "My exception happened";
+	}
+} myex;
+
+int main () {
+try {
+	try {
+		throw myex;
+	}
+	catch (exception &amp; e) {
+		throw;			// forward exception to external
+	}
+catch (exception &amp; e) {
+	cout &lt;&lt; e.what() &lt;&lt; '\n';
+}
+return 0;
+}
+</code></pre>
+</div>
+
+<h2 id="stack-vs-heap">Stack VS. Heap</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">Stack</th>
+      <th style="text-align: center">Heap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Store</td>
+      <td style="text-align: center">RAM</td>
+      <td style="text-align: center">RAM</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Scope</td>
+      <td style="text-align: center">Variables created on the stack will go out of scope and are automatically deallocated.</td>
+      <td style="text-align: center">Variables created on the heap by <code class="highlighter-rouge">new</code> or <code class="highlighter-rouge">malloc</code> must be destroyed manually by <code class="highlighter-rouge">delete</code> or <code class="highlighter-rouge">free</code> and never fall out of scope.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Usage</td>
+      <td style="text-align: center">Local data</td>
+      <td style="text-align: center">Global data (especially shared by multi-thread)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Ownership</td>
+      <td style="text-align: center">Stack is allocated for each system-level thread.</td>
+      <td style="text-align: center">Heap is allocated for application.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Speed</td>
+      <td style="text-align: center">Fast (LIFO for stack)</td>
+      <td style="text-align: center">Slow (More complex for heap to track allocation)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Risk</td>
+      <td style="text-align: center">Stack overflow if too much stack is used (e.g. too deep recursion, too large allocation)</td>
+      <td style="text-align: center">Memory leak</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="keyword-mutable">Keyword: <code class="highlighter-rouge">mutable</code></h2>
+<p>An example tells everything:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class HashTable {
+ public:
+    //...
+    std::string lookup(const std::string&amp; key) const
+    {
+        if (key == last_key_) {
+            return last_value_;
+        }
+
+        std::string value{this-&gt;lookupInternal(key)};
+
+        last_key_   = key;
+        last_value_ = value;
+
+        return value;
+    }
+
+ private:
+    mutable std::string last_key_
+    mutable std::string last_value_;
+};
+</code></pre>
+</div>
+<p>在实现Hash表时，一个提升访问效率的方法是保存最近一次访问的item，这样再次访问相同item时直接返回上一次获取的结果即可，即<code class="highlighter-rouge">last_key_</code>，<code class="highlighter-rouge">last_value_</code>，节省了重复查表的开销。但是我们又希望查表函数<code class="highlighter-rouge">lookup</code>是<code class="highlighter-rouge">const</code>，以保护其他成员变量。为此一个折中的方法是将<code class="highlighter-rouge">last_key_</code>，<code class="highlighter-rouge">last_value_</code>声明为<code class="highlighter-rouge">mutable</code>，使得即使是<code class="highlighter-rouge">const</code>函数都可以对之做修改。</p>
+
+<h2 id="keyword-auto">Keyword: <code class="highlighter-rouge">auto</code></h2>
+<p>在C++11中，关键字<code class="highlighter-rouge">auto</code>用于根据上下文对变量类型进行推导。其用法注意点如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto声明的变量必须初始化
+auto m;	// not allowed
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// 可以用pointer，reference，const来修饰auto
+auto k = 5;
+auto* pk = new auto(k);
+autp** ppk = new auto(&amp;k);
+const auto n = 10;
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// 函数和模板参数不能被声明为auto
+void Func(auto param);
+template&lt;auto T&gt;
+void Func(T t);
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto无法被自动推导成const或volatile
+const int a = 100;
+auto b = a;	// typeof(b) = int, changeable
+auto &amp; c = a;	// typeof(c) = const int, unchangeable
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>// auto与数组
+int a[10];
+auto b = a;	// typeof(b) = int*
+auto &amp; c = a;	// typeof(c) = int[10]
+</code></pre>
+</div>
+
+<h2 id="keyword-volatile">Keyword: <code class="highlighter-rouge">volatile</code></h2>
+<p>首先来看一个例子：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>int some_int = 100;
+while(some_int == 100)
+{
+   //your code
+}
+</code></pre>
+</div>
+<p>上面的代码段是一个<code class="highlighter-rouge">while</code>死循环，循环内部没有对变量<code class="highlighter-rouge">some_int</code>进行任何修改。一般上，编译器在编译上述代码时会做一步优化：将<code class="highlighter-rouge">while(some_int == 100)</code>解释为<code class="highlighter-rouge">while(true)</code>。这种变通在正常情况下显然是合理且可取的，因为它避免了每次循环都去访问<code class="highlighter-rouge">some_int</code>的值，降低了内存访问的开销。但是，如果在<code class="highlighter-rouge">while</code>循环的同时有其他程序会修改<code class="highlighter-rouge">some_int</code>的值，这种变通就会造成错误。解决这个问题的方法就是使用<code class="highlighter-rouge">volatile</code>关键字：<code class="highlighter-rouge">volatile int some_int = 100;</code>，避免编译器的过度优化，迫使程序每次获取改变量时都必须访问其地址。</p>
+
+<p>引用官方文档的解释：<em>…volatile is a hint to the implementation to avoid aggressive optimization involving the object because the value of the object might be changed by means undetectable by an implementation.</em></p>
+
+<h2 id="reference">Reference</h2>
+<p><a href="http://www.cnblogs.com/chio/archive/2007/07/18/822389.html">http://www.cnblogs.com/chio/archive/2007/07/18/822389.html</a></p>
+
+<p><a href="http://www.physics.rutgers.edu/~wksiu/C++/MoreEC++_only.pdf">More Effective C++: 35 New Ways to Improve Your Programs and Designs</a></p>
+
+<p><a href="https://stackoverflow.com/questions/10157122/object-creation-on-the-stack-heap">https://stackoverflow.com/questions/10157122/object-creation-on-the-stack-heap</a></p>
+

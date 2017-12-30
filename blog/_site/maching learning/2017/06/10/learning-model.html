@@ -1,0 +1,81 @@
+<h3 id="introduction">Introduction</h3>
+
+<p>Generally speaking, there are two main modeling approaches in machine learning: discriminative modeling (DM, e.g., the naive Bayes and HMM) and generative modeling (GM, e.g., the logistic regression model). Given two vatiables <script type="math/tex">X \in \mathcal{X}</script> (usually the observations or feature vectors) and <script type="math/tex">Y \in \mathcal{Y}</script> (usually the latent variables or labels), DM focuses on the relationship between the <script type="math/tex">x</script> and <script type="math/tex">y</script>, more concretely, <script type="math/tex">p(Y \| X)</script>. In other words, DM describes how to take a feature vector <script type="math/tex">x</script> and assign it to a label <script type="math/tex">y</script>.
+GM refers to the joint distribution <script type="math/tex">p(X, Y) = p(X \| Y) p(Y)</script>. It describes how a label vector <script type="math/tex">y</script> can probabilistically “generate” a feature vector <script type="math/tex">x</script>.</p>
+
+<p>Let us get to an inference problem where given observations <script type="math/tex">x = (x_1, x_2, \ldots, x_K) \in \mathcal{X}</script> the objective is to infer the labels <script type="math/tex">y \in \mathcal{Y}</script> from the observations.</p>
+
+<h3 id="naive-bayes-generative">Naive Bayes (Generative)</h3>
+<p>One simple way to accomplish the inference is to assume that once the class label <script type="math/tex">y</script> is known, all the features are independent. (That’s why it is called naive.) It is based on a joint probability model of the form:</p>
+
+<script type="math/tex; mode=display">p(\mathbf{y}, \mathbf{x}) = p(\mathbf{y}) \prod_{k=1}^K p(x_k \| \mathbf{y}).</script>
+
+<p>We use the exemplar of <strong>spam email detection</strong> to exemplify this. <script type="math/tex">x \in \mathcal{X}</script> represents the contents (the logical set of words) of a piece of email and the hidden variable <script type="math/tex">y \in \mathcal{Y}</script> is a binary value denoting whether the email is spam. The detection of spam is mathetically equivalent to calculating the <script type="math/tex">p(Y=y \| X=x)</script>.</p>
+
+<p><img src="/images/naive_bayes.png" alt="Minion" /></p>
+
+<p>The Naive Bayes takes a roundabout way by modeling the <script type="math/tex">p(Y)</script> and <script type="math/tex">p(X \| Y)</script> and then computes</p>
+
+<script type="math/tex; mode=display">p(Y=1 \| X=x) = \frac{p(X=x \| Y=1)p(Y=1)} {p(X=x)},</script>
+
+<script type="math/tex; mode=display">p(Y=0 \| X=x) = \frac{p(X=x \| Y=0)p(Y=0)} {p(X=x)}.</script>
+
+<p>By eliminating the common scalar <script type="math/tex">\frac{1}{p(X=x)}</script>, the predicition is given by comparing the joint probability <script type="math/tex">{p(X=x, Y=1)}</script> and <script type="math/tex">{p(X=x, Y=0)}</script>.</p>
+
+<h3 id="logistic-regression-discriminative">Logistic Regression (Discriminative)</h3>
+
+<p>Another well-known classifier is Logistic Regression that directly models the conditional probability directly, i.e. the <script type="math/tex">p(Y=1 \| X)</script> and <script type="math/tex">p(Y=0 \| X)</script> for the email spam example, then give the prediction from <script type="math/tex">p(Y \| X=x)</script>.</p>
+
+<p>The general assumaption held by logistic regresion is that the log probability, <script type="math/tex">logp(y \| X)</script>, of each class is a linear function of <script type="math/tex">X</script>, plus a normalization constant. This leads to the conditional distribution:</p>
+
+<script type="math/tex; mode=display">p(y \| X) = \frac{1}{Z(X)} exp \Big\{ \theta_y + \sum_{j=1}{K} \theta_{y, j} x_j   \Big\},</script>
+
+<p>where <script type="math/tex">Z(X)</script> is a normalizing constant to yield a proper conditional distribution. By some notational tricks, the above equation can be re-written as</p>
+
+<script type="math/tex; mode=display">p(y \| X) = \frac{1}{Z(X)} exp \Big\{ \sum_{j=1}{K} \theta_k f_k(y, X) \Big\},</script>
+
+<p>where <script type="math/tex">\theta = \{ \theta_k \} \in \mathbb{R}^K</script> is a parameter vector and <script type="math/tex">f_k(.,.)</script> are feature functions.</p>
+
+<h3 id="hmm-generative">HMM (Generative)</h3>
+
+<p>Also, an example is first introduced for interpretable elaboration of HMM. <strong>Named-entity recognition (NER)</strong> is an application of nature language preprocessing. NER is, given a sentence, to segment which words are part of an entity and to classify each entity by type like locations, people, organization, etc. The independece assumption as in Naive Bayes is improper as the named-entity labels of neighboring words are dependent.</p>
+
+<p>The HMM relaxes the independence assumption to arrange the output variables in a linear chain. It models a sequence of observations <script type="math/tex">X = \{x_t \} (t=1, \ldots, T) \in \mathcal{X}</script> by assuming that there is an underlying sequence of their states <script type="math/tex">Y = \{y_t \} (t=1, \ldots, T) \in \mathcal{Y}</script>. To model the joint distribution <script type="math/tex">p(\mathbf{y}, \mathbf{x})</script> tractably, an HMM makes two independence assumptions:</p>
+
+<ol>
+  <li>Each state only depends on its immediate predecessor, i.e., each state <script type="math/tex">y_t</script> is independent of all its ancestors <script type="math/tex">y_1, y_2, \ldots, y_{t-2}</script> given the preceding state <script type="math/tex">y_{t-1}</script>.</li>
+  <li>Each observation variable <script type="math/tex">x_t</script> only depends on the current state <script type="math/tex">y_t</script>.</li>
+</ol>
+
+<p>In this way,</p>
+
+<script type="math/tex; mode=display">p(\mathbf{y}, \mathbf{x}) = \prod_{t=1}^T p(y_t \| y_{t-1}) p(x_t \| y_t),</script>
+
+<p>where <script type="math/tex">p(y_1 \| y_0) = p(y_1)</script>.</p>
+
+<p>HMMs have been used for many sequence labeling tasks in natural language processing such as part-of-speech tagging, named-entity recognition, and information extraction.</p>
+
+<h3 id="linear-chain-crf-discriminative">Linear-chain CRF (Discriminative)</h3>
+
+<p>The formal definition of Linear-chain CRF is as follows:</p>
+
+<p>Let <script type="math/tex">Y</script>, <script type="math/tex">X</script> be random vectors, <script type="math/tex">\theta = \{\theta_k \} \in \mathbb{R}^K</script> be a parameter vector, and <script type="math/tex">\mathcal{F} = \{ f_k(y, y', \mathbf{x}_t) \}_{k=1}^K</script> be a set of real valued feature functions. Then the linear-chain CRF is a distribution <script type="math/tex">p(\mathbf{y} \| \mathbf{x})</script> that takes the form:</p>
+
+<script type="math/tex; mode=display">p(\mathbf{y} \| \mathbf{x}) = \frac{1}{Z(\mathbf{x})} \prod_{t=1}^T exp\Big\{ \sum_{k=1}^K \theta_k f_k (y_t, y_{t-1}, \mathbf{x}_t) \Big\}.</script>
+
+<p>Notice that a linear chain CRF can be described as a factor graph over <script type="math/tex">\mathbf{x}</script> and <script type="math/tex">\mathbf{y}</script>, i.e.,</p>
+
+<script type="math/tex; mode=display">p(\mathbf{y} \| \mathbf{x}) = \frac{1}{Z(\mathbf{x})} \prod_{t=1}^T \Phi_t (y_t, y_{t-1}, \mathbf{x}_t),</script>
+
+<p>where local function <script type="math/tex">\Phi_t()</script> is like potential function in MRF.</p>
+
+<h3 id="general-crf">General CRF</h3>
+
+<p>Condifitional random field (CRF) is defined based on a factor graph <script type="math/tex">G</script> over <script type="math/tex">X</script> and <script type="math/tex">Y</script>. <script type="math/tex">(X, Y)</script> is a conditional random field if for any value <script type="math/tex">X = \mathbf{x}</script>, the distribution <script type="math/tex">p(\mathbf{y} \| \mathbf{x})</script> factorizes according to <script type="math/tex">G</script>.</p>
+
+<h3 id="relationships">Relationships</h3>
+
+<p>Naive bayes and logistic regression are a generative-discriminative pair, so are HMM and linear-chain CRF. If the graph modeling the relationship of variables is <strong>directed</strong>, it’s more like generative because it models how the variables are generated. Otherwise, the <strong>undirected</strong> relationship better suites the discriminative model by getting blind to the generative process.</p>
+
+<p><img src="/images/generative_vs_discriminative.png" alt="Minion" /></p>
+

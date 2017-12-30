@@ -1,0 +1,55 @@
+<h2 id="loss">Loss</h2>
+
+<h3 id="cross-entropy">Cross Entropy</h3>
+
+<p>Cross entrpoy measures the difference between two probabilistic distributions <script type="math/tex">p</script> and <script type="math/tex">q</script>. It can be used to define the loss function in machine learning and optmization, where the true probility <script type="math/tex">p_i</script> is the true label and the given distribution <script type="math/tex">q_i</script> is the predicted value of the currenr model.</p>
+
+<p>For logistic regression where <script type="math/tex">p\in\{y, 1-y\}</script> and <script type="math/tex">q\in\{\hat{y}, 1-\hat{y}\}</script>, the cross entropy measuring the similarity between <script type="math/tex">p</script> and <script type="math/tex">q</script> is</p>
+
+<script type="math/tex; mode=display">H(p, q)=-\sum\limits_{i}p_ilogq_i = -ylog \hat{y} - (1-y)log(1-\hat{y}).</script>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SigmoidCrossEntropyLoss
+</code></pre>
+</div>
+
+<p>The multinomial logistic loss for multinomial logistic regression (also known as softmax regression) is</p>
+
+<script type="math/tex; mode=display">H(p, q)=-\sum\limits_{i=1}^K 1\{i=k\}logq_i,</script>
+
+<p>where <script type="math/tex">K</script> is the class number, <script type="math/tex">k</script> is the true class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SoftMaxLoss
+</code></pre>
+</div>
+
+<h3 id="contrative-loss">Contrative Loss</h3>
+
+<p>The objective of constrative loss is to enhance the constrast between two unsimilar feature vectors by some margin but minimize distance between two similar feature vectors. It is widely used in siamese network. The loss function is written as</p>
+
+<script type="math/tex; mode=display">L = \frac{1}{2N} \sum\limits_{n=1}^N y d^2 + (1-y)max(margin - d, 0)^2,</script>
+
+<p>where <script type="math/tex">y\in\{0, 1\}</script> is the binary label and <script type="math/tex">d = \|a_n-b_n\|</script> is the Euclidean distance between two feature vectors.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ConstrastiveLoss
+</code></pre>
+</div>
+
+<h2 id="bgd-sgd--mini-batch-gd">BGD, SGD &amp; Mini-batch GD</h2>
+
+<h3 id="batch-gradient-descent-bgd">Batch Gradient Descent (BGD)</h3>
+<p>每次迭代的梯度下降方向由所有样本决定，精度高，速度慢</p>
+
+<h3 id="mini-batch-gradient-descent">Mini-batch Gradient Descent</h3>
+<p>将一次迭代的样本分成若干个mini-batch，每次迭代的梯度下降方向由一个mini-batch计算得到，精度低，速度快</p>
+
+<h3 id="stochastic-gradient-descent-sgd">Stochastic Gradient Descent (SGD)</h3>
+<p>Mini-batch GD的特例，每个mini-batch的大小是1</p>
+
+<h2 id="solver">Solver</h2>
+
+<h3 id="weight-decay">Weight Decay</h3>
+<p>A loss function of an optimization process can be written as</p>
+
+<script type="math/tex; mode=display">L(W) = \frac{1}{N} \sum\limits_i^N f_W(X^{(i)}) + \lambda r(W).</script>
+
+<p>The value <script type="math/tex">\lambda</script> is called <code class="highlighter-rouge">weight_decay</code>, which is used to prevent overfitting in which case the weights get very large. It determines how dominant the regularization term will be in gradient computation. Options for selecting regularization type is provided, such as <code class="highlighter-rouge">regularization_type: "L1"</code> or <code class="highlighter-rouge">regularization_type: "L2"</code> (default).</p>
