@@ -70,3 +70,7 @@ ldconfig -v (| grep cuda)
 RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。
 * **RAID0** 将连续的数据在物理上存放到不同的硬盘上，这样在读写时可以多个硬盘同时读写，从而提升带宽。
 * **RAID1** 用两组空间相等的硬盘，一个作为主硬盘，一个作为镜像硬盘来备份。是RAID所有标准中最安全、但是空间浪费最高的。
+
+# X Window
+
+[What is X Window?]({% post_url 2017-01-05-What-is-X-Window%})
