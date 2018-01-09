@@ -106,7 +106,11 @@
 
 	<ul id="markdown-toc">
   <li><a href="#transfer-learning" id="markdown-toc-transfer-learning">Transfer Learning</a></li>
-  <li><a href="#cnn" id="markdown-toc-cnn">CNN</a></li>
+  <li><a href="#network" id="markdown-toc-network">Network</a></li>
+  <li><a href="#loss" id="markdown-toc-loss">Loss</a>    <ul>
+      <li><a href="#focal-loss-2" id="markdown-toc-focal-loss-2">focal loss [2]</a></li>
+    </ul>
+  </li>
   <li><a href="#platform" id="markdown-toc-platform">Platform</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
@@ -116,11 +120,23 @@
 <p>Transfer learning is dedicated to transfer the knowledge gained from one task to solving other related problems instead of learning from scratch. 
 In the field of data representation, an assumption is that the training and future data must be in the same feature space and have the same distribution (actualy they are). In practice, transfer learning has been applied in model initialization whose parameters are shared by different applications like classification, detection, recognition and regression.</p>
 
-<h1 id="cnn">CNN</h1>
+<h1 id="network">Network</h1>
 
 <ul>
   <li><a href="/CNN-networks">CNN Networks</a></li>
 </ul>
+
+<h1 id="loss">Loss</h1>
+
+<h3 id="focal-loss-2">focal loss [2]</h3>
+<p>When approaching the final stage of training, the network is able to handle most of the training cases except for the hard negatives (e.g. those are misclassified). However, the loss caused by the rare hard negatives may be small-valued compared to that caused by well-classified easy ones due to the imbalance in amount. In this way, the easy examples, contributing to the majority of the loss, diminate the gradient and thus mislead training.</p>
+
+<p>Focal loss is defined as</p>
+
+<p><script type="math/tex">\alpha (1-p)^\gamma loss</script>,</p>
+
+<p>where <script type="math/tex">p</script> is the quality of being well classified, <script type="math/tex">\gamma \geq 0</script> is called focusing parameter and <script type="math/tex">\alpha \in [0, 1]</script> is weighting factor. The factoring term <script type="math/tex">(1-p)^\gamma</script> down-weights the loss caused by easy examples (<script type="math/tex">p \approx 1</script>) that have been classified good enough. This in turn increases the importance of correcting misclassified examples (<script type="math/tex">% <![CDATA[
+p << 1 %]]></script>).</p>
 
 <h1 id="platform">Platform</h1>
 
@@ -134,7 +150,9 @@ In the field of data representation, an assumption is that the training and futu
 </ul>
 
 <h1 id="reference">Reference</h1>
-<p><a href="https://www.cse.ust.hk/~qyang/Docs/2009/tkde_transfer_learning.pdf">A Survey on Transfer Learning</a></p>
+<p>[1] <a href="https://www.cse.ust.hk/~qyang/Docs/2009/tkde_transfer_learning.pdf">A Survey on Transfer Learning</a></p>
+
+<p>[2] <a href="https://arxiv.org/pdf/1708.02002.pdf">Focal Loss for Dense Object Detection</a></p>
 
 
 </article>
