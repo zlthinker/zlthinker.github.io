@@ -104,7 +104,10 @@
 
 	<ul id="markdown-toc">
   <li><a href="#pose-graph" id="markdown-toc-pose-graph">Pose Graph</a></li>
-  <li><a href="#loop-closure" id="markdown-toc-loop-closure">Loop closure</a></li>
+  <li><a href="#loop-closure" id="markdown-toc-loop-closure">Loop closure</a>    <ul>
+      <li><a href="#perceptual-aliasing" id="markdown-toc-perceptual-aliasing">Perceptual aliasing</a></li>
+    </ul>
+  </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -124,7 +127,16 @@
 
 <p>Loop closure equips mobile robots with the capability of recognizing revisted places and re-estimating the map of environments during long-term move.</p>
 
-<p><strong>Perceptual aliasing.</strong> One challenge posed to loop closure is perceptual aliasing, which means false positive revisits are identified leading to fake loops. Associating two different places incorrectly can severely corrupt map estimate, as shown by the red lines not parallel to z-axis in Fig 1.</p>
+<h3 id="perceptual-aliasing">Perceptual aliasing</h3>
+
+<p>One challenge posed to loop closure is perceptual aliasing, which means false positive revisits are identified leading to fake loops. Associating two different places incorrectly can severely corrupt map estimate, as shown by the red lines not parallel to z-axis in Fig 1.</p>
+
+<p><strong><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Choi_Robust_Reconstruction_of_2015_CVPR_paper.pdf">Robust Reconstruction of Indoor Scenes</a></strong> 
+This paper identifies suprious loop closures by optimizing a dense surface registration objective augmented by a <strong>line process</strong> over the loop closure constraints. A single least-squares objective jointly estimates the global configuration of the scene and the validity of each constraint. The objective is defined as</p>
+
+<script type="math/tex; mode=display">E = \sum_i f(\mathbf{T}_i, \mathbf{T}_{i+1}, \mathbf{R}_i) + \sum_{i, j} l_{ij} f(\mathbf{T}_i, \mathbf{T}_j, \mathbf{T}_{ij}) + \mu \sum_{ij} \Psi(l_{ij}),</script>
+
+<p>where <script type="math/tex">\Psi(l_{ij}) = (\sqrt{l_{ij}} - 1)^2</script>. The first and second two terms are respectively <strong>sequential constraints</strong> and <strong>close-loop constraints</strong> as demonstrated in Pose Graph. A <strong>line process</strong> <script type="math/tex">l_{ij} \in [0, 1]</script> models the validity of the corresponding loop closure. Function <script type="math/tex">f(.)</script> models the pairwise alignment error.</p>
 
 <h1 id="reference">Reference</h1>
 

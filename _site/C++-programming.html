@@ -117,6 +117,13 @@
   <li><a href="#keyword-mutable" id="markdown-toc-keyword-mutable">Keyword: <code class="highlighter-rouge">mutable</code></a></li>
   <li><a href="#keyword-auto" id="markdown-toc-keyword-auto">Keyword: <code class="highlighter-rouge">auto</code></a></li>
   <li><a href="#keyword-volatile" id="markdown-toc-keyword-volatile">Keyword: <code class="highlighter-rouge">volatile</code></a></li>
+  <li><a href="#member-function-template-cannot-be-virtual" id="markdown-toc-member-function-template-cannot-be-virtual">Member function template cannot be virtual</a></li>
+  <li><a href="#static" id="markdown-toc-static">static</a>    <ul>
+      <li><a href="#function-statics-vs-class-statics" id="markdown-toc-function-statics-vs-class-statics">Function statics VS. Class statics</a></li>
+      <li><a href="#create-a-single-copy-of-object-by-static" id="markdown-toc-create-a-single-copy-of-object-by-static">Create a single copy of object by static</a></li>
+      <li><a href="#继承性" id="markdown-toc-继承性">继承性</a></li>
+    </ul>
+  </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -393,6 +400,55 @@ while(some_int == 100)
 <p>上面的代码段是一个<code class="highlighter-rouge">while</code>死循环，循环内部没有对变量<code class="highlighter-rouge">some_int</code>进行任何修改。一般上，编译器在编译上述代码时会做一步优化：将<code class="highlighter-rouge">while(some_int == 100)</code>解释为<code class="highlighter-rouge">while(true)</code>。这种变通在正常情况下显然是合理且可取的，因为它避免了每次循环都去访问<code class="highlighter-rouge">some_int</code>的值，降低了内存访问的开销。但是，如果在<code class="highlighter-rouge">while</code>循环的同时有其他程序会修改<code class="highlighter-rouge">some_int</code>的值，这种变通就会造成错误。解决这个问题的方法就是使用<code class="highlighter-rouge">volatile</code>关键字：<code class="highlighter-rouge">volatile int some_int = 100;</code>，避免编译器的过度优化，迫使程序每次获取改变量时都必须访问其地址。</p>
 
 <p>引用官方文档的解释：<em>…volatile is a hint to the implementation to avoid aggressive optimization involving the object because the value of the object might be changed by means undetectable by an implementation.</em></p>
+
+<h2 id="member-function-template-cannot-be-virtual">Member function template cannot be virtual</h2>
+
+<p>In other words, virtual member function cannot use template.</p>
+<blockquote>
+  <p>Member function templates cannot be declared virtual. This constraint is imposed because the usual implementation of the virtual function call mechanism uses a fixed-size table with one entry per virtual function. However, the number of instantiations of a member function template is not fixed until the entire program has been translated. Hence, supporting virtual member function templates would require support for a whole new kind of mechanism in C++ compilers and linkers. In contrast, the ordinary members of class templates can be virtual because their number is fixed when a class is instantiated.</p>
+</blockquote>
+
+<p>翻译过来大意是：virtual function的调用都是通过virtual table来实现的，table中的每一个entry对应某个类中的virtual function。如果是模板的话，一个entry则对应了类中的无数个virtual function。</p>
+
+<h2 id="static">static</h2>
+
+<h4 id="function-statics-vs-class-statics">Function statics VS. Class statics</h4>
+<blockquote>
+  <p>An object that’s static in a class is, for all intents and purposes, always constructed (and destructed), even if it’s never used. In contrast, an object that’s static in a function is created the first time through the function, so if the function is never called, the object is never created.</p>
+
+  <p>Compilers typically use a hidden flag variable to indicate if the local statics have already been initialized, and this flag is checked on every entry to the function.</p>
+</blockquote>
+
+<h4 id="create-a-single-copy-of-object-by-static">Create a single copy of object by static</h4>
+
+<p>The goal here is to create zero or a unique object of certain class (e.g. a single <code class="highlighter-rouge">Printer</code> for sharing). More than one creation is prohibited.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Printer {
+public:
+	void print(PrintJob const &amp; job);
+	...
+	friend Printer &amp; uniquePrinter();
+private:
+// the constructor is private so that it cannot be created normally
+	Printer();
+	Printer(Printer const &amp; rhs);
+};
+
+// friend function can access private constructor
+// function static ensures uniqueness no matter how many times the function is called
+Printer &amp; uniquePrinter()
+{
+	static Printer p;
+	return p;
+}
+
+// usage
+uniquePrinter().print(job);
+</code></pre>
+</div>
+
+<h4 id="继承性">继承性</h4>
+<p>在基类中声明的static变量是由基类和子类共享的。</p>
 
 <h2 id="reference">Reference</h2>
 <p><a href="http://www.cnblogs.com/chio/archive/2007/07/18/822389.html">http://www.cnblogs.com/chio/archive/2007/07/18/822389.html</a></p>

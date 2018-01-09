@@ -248,6 +248,52 @@ while(some_int == 100)
 
 引用官方文档的解释：*...volatile is a hint to the implementation to avoid aggressive optimization involving the object because the value of the object might be changed by means undetectable by an implementation.*
 
+## Member function template cannot be virtual
+
+In other words, virtual member function cannot use template.
+> Member function templates cannot be declared virtual. This constraint is imposed because the usual implementation of the virtual function call mechanism uses a fixed-size table with one entry per virtual function. However, the number of instantiations of a member function template is not fixed until the entire program has been translated. Hence, supporting virtual member function templates would require support for a whole new kind of mechanism in C++ compilers and linkers. In contrast, the ordinary members of class templates can be virtual because their number is fixed when a class is instantiated.
+
+翻译过来大意是：virtual function的调用都是通过virtual table来实现的，table中的每一个entry对应某个类中的virtual function。如果是模板的话，一个entry则对应了类中的无数个virtual function。
+
+## static
+
+#### Function statics VS. Class statics
+>An object that's static in a class is, for all intents and purposes, always constructed (and destructed), even if it's never used. In contrast, an object that's static in a function is created the first time through the function, so if the function is never called, the object is never created.
+>
+>Compilers typically use a hidden flag variable to indicate if the local statics have already been initialized, and this flag is checked on every entry to the function.
+
+#### Create a single copy of object by static
+
+The goal here is to create zero or a unique object of certain class (e.g. a single `Printer` for sharing). More than one creation is prohibited.
+
+```
+class Printer {
+public:
+	void print(PrintJob const & job);
+	...
+	friend Printer & uniquePrinter();
+private:
+// the constructor is private so that it cannot be created normally
+	Printer();
+	Printer(Printer const & rhs);
+};
+
+// friend function can access private constructor
+// function static ensures uniqueness no matter how many times the function is called
+Printer & uniquePrinter()
+{
+	static Printer p;
+	return p;
+}
+
+// usage
+uniquePrinter().print(job);
+```
+
+#### 继承性
+在基类中声明的static变量是由基类和子类共享的。
+
+
 
 ## Reference
 [http://www.cnblogs.com/chio/archive/2007/07/18/822389.html](http://www.cnblogs.com/chio/archive/2007/07/18/822389.html)
