@@ -13,6 +13,12 @@ tag: [deep learning]
 Transfer learning is dedicated to transfer the knowledge gained from one task to solving other related problems instead of learning from scratch. 
 In the field of data representation, an assumption is that the training and future data must be in the same feature space and have the same distribution (actualy they are). In practice, transfer learning has been applied in model initialization whose parameters are shared by different applications like classification, detection, recognition and regression.
 
+# LSTM
+
+[This](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) excellent post makes me give up writing.
+
+[RNN](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+
 # Network
 
 * [CNN Networks]({% post_url 2016-12-25-CNN-networks%})
