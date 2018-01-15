@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Random Forest</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Random Forest" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/random-forest">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Random Forest</h1>
+		<time>January 15, 2018</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#backgroud--preliminary" id="markdown-toc-backgroud--preliminary">Backgroud &amp; Preliminary</a>    <ul>
+      <li><a href="#generalization-error" id="markdown-toc-generalization-error">Generalization error</a>        <ul>
+          <li><a href="#margin-function" id="markdown-toc-margin-function">Margin function</a></li>
+          <li><a href="#generalization-error-1" id="markdown-toc-generalization-error-1">Generalization error</a></li>
+          <li><a href="#strength-and-correlation" id="markdown-toc-strength-and-correlation">Strength and correlation</a></li>
+        </ul>
+      </li>
+      <li><a href="#out-of-bag-error" id="markdown-toc-out-of-bag-error">Out-of-bag error</a></li>
+    </ul>
+  </li>
+  <li><a href="#strategies" id="markdown-toc-strategies">Strategies</a>    <ul>
+      <li><a href="#random-forests-using-random-input-selection" id="markdown-toc-random-forests-using-random-input-selection">Random forests using random input selection</a></li>
+      <li><a href="#random-forests-using-linear-combination-if-inputs" id="markdown-toc-random-forests-using-linear-combination-if-inputs">Random forests using linear combination if inputs</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<blockquote>
+  <p>This post is a recap of the famous random forest algorithm proposed by <a href="https://scholar.google.com.hk/citations?user=mXSv_1UAAAAJ&amp;hl=zh-CN">Leo Breiman</a>. And it is also my first extended study of the new year 2018. Keep evolving!</p>
+</blockquote>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>A random forest is an classifier consisting of an ensemble of tree-structured classifiers <script type="math/tex">h(\mathbf{x}, \Theta_k) (k=1, 2, ...)</script> where <script type="math/tex">\Theta_k</script> are iid, and each tree casts a unit vote of classification for input feature vector <script type="math/tex">\mathbf{x}</script>. The final classfication is yielded by the majority vote of all tree classifiers.</p>
+
+<h1 id="backgroud--preliminary">Backgroud &amp; Preliminary</h1>
+
+<h3 id="generalization-error">Generalization error</h3>
+
+<h4 id="margin-function">Margin function</h4>
+
+<p>The margin function is defined as <script type="math/tex">mg(\mathbf{X}, Y) = E_k(I(h_k(\mathbf{X}) = Y)) - \max_{j\neq Y} E_k(I(h_k(\mathbf{X}) = j))</script>,</p>
+
+<p>where <script type="math/tex">h_k(.)</script> is tree classifiers and <script type="math/tex">I(.)</script> is indicator function. Quoted from [1], “the margin measures the extent to which the average
+number of votes at <script type="math/tex">\mathbf{X}</script>, <script type="math/tex">Y</script> for the right class exceeds the average vote for any other class. The larger the margin, the more <strong>confidence</strong> in the classification.”</p>
+
+<h4 id="generalization-error-1">Generalization error</h4>
+<p>The generalization error is defined as</p>
+
+<p><script type="math/tex">% <![CDATA[
+PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0) %]]></script>.</p>
+
+<h4 id="strength-and-correlation">Strength and correlation</h4>
+
+<p>“The two ingredients involved in the generalization error for random forests are <strong>the strength of the individual classifiers in the forest</strong> and <strong>the correlation between them</strong>.”</p>
+
+<p>Skipping the mathematical deduction in [1], strength is related to the accuracy of the set of tree classifiers and correlation is the correlation of margin function across the tree ensemble.</p>
+
+<p>The generalization error is bounded by <script type="math/tex">PE^* \leq \rho (1-s^2) / s^2</script>. To make smaller generalization error, we encourage larger strength of tree classifiers and smaller correlation (i.e., intuitively the tree classifiers should have similar accuracy.).</p>
+
+<h3 id="out-of-bag-error">Out-of-bag error</h3>
+<p>When training tree classifiers, we sample data from training sets randomly as <em>bootstrap dataset</em>. The bootstrap dataset may contain duplicated records, yet as well, may miss some records. Then out-of-bag error is obtained by testing the missed records on trained tree classifiers and measured by error rate.</p>
+
+<h1 id="strategies">Strategies</h1>
+
+<h3 id="random-forests-using-random-input-selection">Random forests using random input selection</h3>
+
+<p>At each node, select a small group of input variables at random.</p>
+
+<h3 id="random-forests-using-linear-combination-if-inputs">Random forests using linear combination if inputs</h3>
+
+<p>At a given node, <script type="math/tex">L</script> variables are randomly selected and added together with coefficiens that are uniform random numbers on <script type="math/tex">[-1, 1]</script>. <script type="math/tex">F</script> linear combinations are generated, and then a search is made over these for the best split.</p>
+
+<h1 id="reference">Reference</h1>
+
+<p>[1] <a href="https://link.springer.com/content/pdf/10.1023%2FA%3A1010933404324.pdf">Random Forest</a></p>
+
+
+</article>
+
+<div class="page-navigation">
+	
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/SLAM-related" title="PREV: SLAM Related">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2018 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>
