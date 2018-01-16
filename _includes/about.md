@@ -4,11 +4,11 @@ I'm a third-year PhD candidate in Deparment of Computer Science and Engineering,
 # Publication
 
 * "Progressive Large Scale-Invariant Image Matching in Scale Space" \\
-ICCV 2017 \\
+ICCV 2017 [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
 **Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan
 
 * "Parallel Structure from Motion from Local Increment to Global Averaging" \\
-arXiv:1702.08601 \\
+arXiv:1702.08601 [[pdf](./files/parallel_sfm.pdf)]\\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
 
 # Blog

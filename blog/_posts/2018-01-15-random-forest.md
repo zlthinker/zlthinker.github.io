@@ -17,6 +17,8 @@ A random forest is an classifier consisting of an ensemble of tree-structured cl
 
 # Backgroud & Preliminary
 
+### CART, Classification and Regression Tree
+
 ### Generalization error
 
 #### Margin function
