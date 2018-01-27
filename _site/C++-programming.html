@@ -122,6 +122,7 @@
       <li><a href="#function-statics-vs-class-statics" id="markdown-toc-function-statics-vs-class-statics">Function statics VS. Class statics</a></li>
       <li><a href="#create-a-single-copy-of-object-by-static" id="markdown-toc-create-a-single-copy-of-object-by-static">Create a single copy of object by static</a></li>
       <li><a href="#继承性" id="markdown-toc-继承性">继承性</a></li>
+      <li><a href="#openmp" id="markdown-toc-openmp">OpenMP</a></li>
     </ul>
   </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
@@ -449,6 +450,35 @@ uniquePrinter().print(job);
 
 <h4 id="继承性">继承性</h4>
 <p>在基类中声明的static变量是由基类和子类共享的。</p>
+
+<h3 id="openmp">OpenMP</h3>
+<p>OpenMP, supported by GCC compilers, is a simple and usefull tool for parallel computing.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##pragma omp parallel
+{
+// The codes in this block are executed #threads times in multi-thread way.
+}
+
+##pragma omp parallel if(condition)
+{
+// if condition evaluates to zero, the number of threads will be 1.
+}
+
+#pragma omp parallel for
+for(int n=0; n&lt;10; ++n)
+{
+    printf(" %d", n);
+}
+// split the for loops and delegate them to different threads
+
+#pragma omp parallel for num_threads(8)
+for(int n=0; n&lt;10; ++n)
+{
+    printf(" %d", n);
+}
+// specify number of thread
+</code></pre>
+</div>
 
 <h2 id="reference">Reference</h2>
 <p><a href="http://www.cnblogs.com/chio/archive/2007/07/18/822389.html">http://www.cnblogs.com/chio/archive/2007/07/18/822389.html</a></p>

@@ -293,6 +293,35 @@ uniquePrinter().print(job);
 #### 继承性
 在基类中声明的static变量是由基类和子类共享的。
 
+### OpenMP
+OpenMP, supported by GCC compilers, is a simple and usefull tool for parallel computing.
+
+```
+##pragma omp parallel
+{
+// The codes in this block are executed #threads times in multi-thread way.
+}
+
+##pragma omp parallel if(condition)
+{
+// if condition evaluates to zero, the number of threads will be 1.
+}
+
+#pragma omp parallel for
+for(int n=0; n<10; ++n)
+{
+    printf(" %d", n);
+}
+// split the for loops and delegate them to different threads
+
+#pragma omp parallel for num_threads(8)
+for(int n=0; n<10; ++n)
+{
+    printf(" %d", n);
+}
+// specify number of thread
+```
+
 
 
 ## Reference

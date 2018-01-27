@@ -106,18 +106,17 @@
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
   <li><a href="#backgroud--preliminary" id="markdown-toc-backgroud--preliminary">Backgroud &amp; Preliminary</a>    <ul>
       <li><a href="#cart-classification-and-regression-tree" id="markdown-toc-cart-classification-and-regression-tree">CART, Classification and Regression Tree</a></li>
-      <li><a href="#generalization-error" id="markdown-toc-generalization-error">Generalization error</a>        <ul>
-          <li><a href="#margin-function" id="markdown-toc-margin-function">Margin function</a></li>
-          <li><a href="#generalization-error-1" id="markdown-toc-generalization-error-1">Generalization error</a></li>
-          <li><a href="#strength-and-correlation" id="markdown-toc-strength-and-correlation">Strength and correlation</a></li>
-        </ul>
-      </li>
+      <li><a href="#generalization-error" id="markdown-toc-generalization-error">Generalization error</a></li>
       <li><a href="#out-of-bag-error" id="markdown-toc-out-of-bag-error">Out-of-bag error</a></li>
     </ul>
   </li>
   <li><a href="#strategies" id="markdown-toc-strategies">Strategies</a>    <ul>
       <li><a href="#random-forests-using-random-input-selection" id="markdown-toc-random-forests-using-random-input-selection">Random forests using random input selection</a></li>
       <li><a href="#random-forests-using-linear-combination-if-inputs" id="markdown-toc-random-forests-using-linear-combination-if-inputs">Random forests using linear combination if inputs</a></li>
+    </ul>
+  </li>
+  <li><a href="#applications" id="markdown-toc-applications">Applications</a>    <ul>
+      <li><a href="#scene-coordinate-regression-3-4" id="markdown-toc-scene-coordinate-regression-3-4">Scene coordinate regression [3, 4]</a></li>
     </ul>
   </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
@@ -135,28 +134,31 @@
 
 <h3 id="cart-classification-and-regression-tree">CART, Classification and Regression Tree</h3>
 
+<p><strong>Regression trees.</strong> “When the data has lots of features which interact in complicated, nonlinear ways, assembling a single global model can be difficult, and hopelessly confusing when you do succeed. Regression trees partition the feature space into smaller regions, where the interactions are more manageble.” “Each of the leaves represents a cell of partition, and has attached to it a simple model which applies in that cell only.” [2]</p>
+
 <h3 id="generalization-error">Generalization error</h3>
 
-<h4 id="margin-function">Margin function</h4>
+<p><strong>Margin function</strong> is defined as</p>
 
-<p>The margin function is defined as <script type="math/tex">mg(\mathbf{X}, Y) = E_k(I(h_k(\mathbf{X}) = Y)) - \max_{j\neq Y} E_k(I(h_k(\mathbf{X}) = j))</script>,</p>
+<script type="math/tex; mode=display">mg(\mathbf{X}, Y) = E_k(I(h_k(\mathbf{X}) = Y)) - \max_{j\neq Y} E_k(I(h_k(\mathbf{X}) = j)),</script>
 
 <p>where <script type="math/tex">h_k(.)</script> is tree classifiers and <script type="math/tex">I(.)</script> is indicator function. Quoted from [1], “the margin measures the extent to which the average
 number of votes at <script type="math/tex">\mathbf{X}</script>, <script type="math/tex">Y</script> for the right class exceeds the average vote for any other class. The larger the margin, the more <strong>confidence</strong> in the classification.”</p>
 
-<h4 id="generalization-error-1">Generalization error</h4>
-<p>The generalization error is defined as</p>
+<p><strong>Generalization error</strong> is defined as</p>
 
-<p><script type="math/tex">% <![CDATA[
-PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0) %]]></script>.</p>
+<script type="math/tex; mode=display">% <![CDATA[
+PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0). %]]></script>
 
-<h4 id="strength-and-correlation">Strength and correlation</h4>
-
-<p>“The two ingredients involved in the generalization error for random forests are <strong>the strength of the individual classifiers in the forest</strong> and <strong>the correlation between them</strong>.”</p>
+<p><strong>Strength and correlation:</strong> “The two ingredients involved in the generalization error for random forests are <strong>the strength of the individual classifiers in the forest</strong> and <strong>the correlation between them</strong>.”</p>
 
 <p>Skipping the mathematical deduction in [1], strength is related to the accuracy of the set of tree classifiers and correlation is the correlation of margin function across the tree ensemble.</p>
 
-<p>The generalization error is bounded by <script type="math/tex">PE^* \leq \rho (1-s^2) / s^2</script>. To make smaller generalization error, we encourage larger strength of tree classifiers and smaller correlation (i.e., intuitively the tree classifiers should have similar accuracy.).</p>
+<p>The generalization error is bounded by</p>
+
+<script type="math/tex; mode=display">PE^* \leq \rho (1-s^2) / s^2.</script>
+
+<p>To make smaller generalization error, we encourage larger strength of tree classifiers and smaller correlation (i.e., intuitively the tree classifiers should have similar accuracy.).</p>
 
 <h3 id="out-of-bag-error">Out-of-bag error</h3>
 <p>When training tree classifiers, we sample data from training sets randomly as <em>bootstrap dataset</em>. The bootstrap dataset may contain duplicated records, yet as well, may miss some records. Then out-of-bag error is obtained by testing the missed records on trained tree classifiers and measured by error rate.</p>
@@ -171,9 +173,35 @@ PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0) %]]></script>.</p>
 
 <p>At a given node, <script type="math/tex">L</script> variables are randomly selected and added together with coefficiens that are uniform random numbers on <script type="math/tex">[-1, 1]</script>. <script type="math/tex">F</script> linear combinations are generated, and then a search is made over these for the best split.</p>
 
+<h1 id="applications">Applications</h1>
+
+<h3 id="scene-coordinate-regression-3-4">Scene coordinate regression [3, 4]</h3>
+
+<p>The scene coordinate regression forest (ScoRe forest) output 3D global coordinate for the input of feature of RGBD pixel <script type="math/tex">\mathbf{p}</script>. In training, each split node <script type="math/tex">n</script> is assigned <script type="math/tex">(\theta_n, \tau_n)</script> from a pool of <script type="math/tex">N</script> candidates, so that the decision function writes</p>
+
+<script type="math/tex; mode=display">df(\mathbf{p}; \theta_n, \tau_n) = \left[ f_{\theta_n}(\mathbf{p}) \geq \tau_n \right],</script>
+
+<p>where <script type="math/tex">f_{\theta_n}(.)</script> is the feature response function. In [4], the response function is just differences of RGB pixel values (a little bit trivial):</p>
+
+<script type="math/tex; mode=display">f_{\theta_n}(\mathbf{p}) = I(\mathbf{p} + \mathbf{\delta}_1, c_1) - I(\mathbf{p} + \mathbf{\delta}_2, c_2),</script>
+
+<p>where <script type="math/tex">\mathbf{\delta}_1</script> and <script type="math/tex">\mathbf{\delta}_2</script> are offsets from pixel <script type="math/tex">\mathbf{p}</script> and <script type="math/tex">c_1</script> and <script type="math/tex">c_2</script> are channel indexes. Thus the feature parameters are <script type="math/tex">\theta_n = \{\mathbf{\delta}_1, \mathbf{\delta}_2, c_1, c_2 \}</script>.
+Each leaf node then stores some empirical 3D distribution of the samples the have arrived at the leaf (e.g., mean-shift [5], 3D mixtures of Gaussian).</p>
+
+<p>The predictions of multiple regression trees are finally combined to yield the final regression result (e.g., by geometric median averaging in [4]).</p>
+
 <h1 id="reference">Reference</h1>
 
 <p>[1] <a href="https://link.springer.com/content/pdf/10.1023%2FA%3A1010933404324.pdf">Random Forest</a></p>
+
+<p>[2] <a href="http://www.stat.cmu.edu/~cshalizi/350-2006/lecture-10.pdf">Regression Trees</a></p>
+
+<p>[3] <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2013/papers/Shotton_Scene_Coordinate_Regression_2013_CVPR_paper.pdf">Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images</a></p>
+
+<p>[4] <a href="https://arxiv.org/pdf/1609.05797.pdf">Random  Forests  versus  Neural  Networks - What’s  Best  for  Camera  Localization?</a></p>
+
+<p>[5] <a href="https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/">Mean shift algorithm</a></p>
+
 
 
 </article>
