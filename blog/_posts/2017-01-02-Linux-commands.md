@@ -63,6 +63,9 @@ ldconfig
 
 ldconfig -v (| grep cuda)
 # 扫描目录并显示搜索到的动态链接库
+
+ldd
+# Print shared library dependencies
 ```
 
 # RAID

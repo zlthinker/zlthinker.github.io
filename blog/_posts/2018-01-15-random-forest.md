@@ -19,6 +19,18 @@ A random forest is an classifier consisting of an ensemble of tree-structured cl
 
 ### CART, Classification and Regression Tree
 
+Classification tree and regression tree are two variabilities of prediction tree. Both of them have two parts: one is the recursive partition accomodated by the tree structure, the other is a simple model for each leaf node.
+
+**Tree fitting.** Tree fitting is to find a good partition of the data. The basic objective is to maximize $$I[C;Y]$$, the information the cluster $$C$$ gave us about the results or response $$Y$$. For example, if answering one question easily separate data into two independent groups (similar responses inside groups, different responses across groups), we say it is a good partition because it gives us a lot information about how the partition affects the responses or regression or classification results.
+
+One of the simplist way of defining the information decrease is **entropy** from information theory. For discrete variables, it is defined as
+
+$$S = \sum_{c\in \operatorname{leaves}(T)} \sum_{i\in c} (y_i - m_c)^2 = \sum_{c\in \operatorname{leaves}(T)} n_c V_c,$$
+
+where $$m_c = \frac{1}{n_c} \sum_{i\in c}y_i$$ is the prediction of leaf $$c$$, $$V_c$$ is the within-leave variance of leaf $$c$$. Splits are made to minimize $$S$$ as much as possible greedily.
+
+To avoid severe over-fitting or under-fitting, one successful way is to use the idea of cross-validation. The data is divided into a training set and testing set randomly. One way is to grow the tree based on the training data as largely as possible and then prune the tree using testing data if the pruning reduces the sum of errors. Another way is to alternate between growing and pruning and exchange the role of training and testing sets until the size of the tree doesn't change.
+
 **Regression trees.** "When the data has lots of features which interact in complicated, nonlinear ways, assembling a single global model can be difficult, and hopelessly confusing when you do succeed. Regression trees partition the feature space into smaller regions, where the interactions are more manageble." "Each of the leaves represents a cell of partition, and has attached to it a simple model which applies in that cell only." [2]
 
 ### Generalization error

@@ -134,6 +134,18 @@
 
 <h3 id="cart-classification-and-regression-tree">CART, Classification and Regression Tree</h3>
 
+<p>Classification tree and regression tree are two variabilities of prediction tree. Both of them have two parts: one is the recursive partition accomodated by the tree structure, the other is a simple model for each leaf node.</p>
+
+<p><strong>Tree fitting.</strong> Tree fitting is to find a good partition of the data. The basic objective is to maximize <script type="math/tex">I[C;Y]</script>, the information the cluster <script type="math/tex">C</script> gave us about the results or response <script type="math/tex">Y</script>. For example, if answering one question easily separate data into two independent groups (similar responses inside groups, different responses across groups), we say it is a good partition because it gives us a lot information about how the partition affects the responses or regression or classification results.</p>
+
+<p>One of the simplist way of defining the information decrease is <strong>entropy</strong> from information theory. For discrete variables, it is defined as</p>
+
+<script type="math/tex; mode=display">S = \sum_{c\in \operatorname{leaves}(T)} \sum_{i\in c} (y_i - m_c)^2 = \sum_{c\in \operatorname{leaves}(T)} n_c V_c,</script>
+
+<p>where <script type="math/tex">m_c = \frac{1}{n_c} \sum_{i\in c}y_i</script> is the prediction of leaf <script type="math/tex">c</script>, <script type="math/tex">V_c</script> is the within-leave variance of leaf <script type="math/tex">c</script>. Splits are made to minimize <script type="math/tex">S</script> as much as possible greedily.</p>
+
+<p>To avoid severe over-fitting or under-fitting, one successful way is to use the idea of cross-validation. The data is divided into a training set and testing set randomly. One way is to grow the tree based on the training data as largely as possible and then prune the tree using testing data if the pruning reduces the sum of errors. Another way is to alternate between growing and pruning and exchange the role of training and testing sets until the size of the tree doesn’t change.</p>
+
 <p><strong>Regression trees.</strong> “When the data has lots of features which interact in complicated, nonlinear ways, assembling a single global model can be difficult, and hopelessly confusing when you do succeed. Regression trees partition the feature space into smaller regions, where the interactions are more manageble.” “Each of the leaves represents a cell of partition, and has attached to it a simple model which applies in that cell only.” [2]</p>
 
 <h3 id="generalization-error">Generalization error</h3>
