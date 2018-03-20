@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Image Localization</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Image Localization" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/image-localization">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Image Localization</h1>
+		<time>March 16, 2018</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#related-works" id="markdown-toc-related-works">Related works</a></li>
+  <li><a href="#pnp-algorithm" id="markdown-toc-pnp-algorithm">PnP algorithm</a>    <ul>
+      <li><a href="#p3p" id="markdown-toc-p3p">P3P</a></li>
+      <li><a href="#p4p-p5p-pnp" id="markdown-toc-p4p-p5p-pnp">P4P, P5P, PnP</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h1 id="related-works">Related works</h1>
+
+<ul>
+  <li>Tutorial
+    <ul>
+      <li><a href="https://alexgkendall.com/media/presentations/lsvpr_2017_cvpr_tutorial_alex_kendall.pdf">Learning-based Visual Localization</a></li>
+    </ul>
+  </li>
+  <li>Scene coordinate regression
+    <ul>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2013/papers/Shotton_Scene_Coordinate_Regression_2013_CVPR_paper.pdf">Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images</a></li>
+      <li><a href="https://arxiv.org/pdf/1710.07965">Backtracking regression forests for accurate camera relocalization</a></li>
+      <li><a href="http://cvlab-dresden.de/HTML/people/alexander_krull/publications/ICRA_2017.pdf">Random forests versus Neural Networks—What’s best for camera localization?</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf">DSAC-Differentiable RANSAC for camera localization</a></li>
+    </ul>
+  </li>
+  <li>Pose regression
+    <ul>
+      <li><a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf?utm_source=mandiner&amp;utm_medium=link&amp;utm_campaign=mandiner_digit_201512">Posenet: A convolutional network for real-time 6-dof camera relocalization</a></li>
+      <li><a href="https://arxiv.org/pdf/1611.07890.pdf">Image-based localization using LSTMs for structured feature correlation</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf">Geometric loss functions for camera pose regression with deep learning</a></li>
+    </ul>
+  </li>
+  <li>Temporal
+    <ul>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf">VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf">Deep Feature Flow for Video Recognition</a></li>
+    </ul>
+  </li>
+  <li>Traditional
+    <ul>
+      <li><a href="http://ieeexplore.ieee.org/abstract/document/7572201/">Efficient &amp; effective prioritized matching for large-scale image-based localization</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="pnp-algorithm">PnP algorithm</h1>
+
+<blockquote>
+  <p>“Perspective-n-Point (PnP) is the problem of estimating the pose of a calibrated camera given a set of n 3D points in the world and their corresponding 2D projections in the image.” from wikipedia</p>
+</blockquote>
+
+<h3 id="p3p">P3P</h3>
+
+<p>P3P is the PnP problem in its minimal form. Let P be the camera center, and <script type="math/tex">A</script>, <script type="math/tex">B</script>, <script type="math/tex">C</script> be the 3D points in world frame. Let <script type="math/tex">\|PA\|=X</script>, <script type="math/tex">\|PB\|=Y</script>, <script type="math/tex">\|PC\|=Z</script>, <script type="math/tex">\alpha=\angle BPC</script>, <script type="math/tex">\beta=\angle APC</script>, <script type="math/tex">\gamma=\angle APB</script>, <script type="math/tex">p=2cos\alpha</script>, <script type="math/tex">q=2cos\beta</script>, <script type="math/tex">r=2cos\gamma</script>, <script type="math/tex">\|AB\| = c'</script>, <script type="math/tex">\|BC\| = a'</script>, <script type="math/tex">\|AC\| = b'</script>, as illustrated in Figure 1.</p>
+
+<p><img src="/images/p3p.png" alt="P3P" />
+<strong><center>Figure1. The P3P problem </center></strong></p>
+
+<p>Then the P3P equation system is derived based on the law of cosines (余弦定理):</p>
+
+<script type="math/tex; mode=display">\begin{cases} Y^2 + Z^2 - YZp - a'^2 = 0 \\ Z^2 + X^2 - XZq - b'^2 = 0  \\ X^2 + Y^2 - YXr - c'^2 = 0, \end{cases}</script>
+
+<p>where <script type="math/tex">X</script>, <script type="math/tex">Y</script>, <script type="math/tex">Z</script> are variables to be determined.</p>
+
+<p>To simply the equation system, we let <script type="math/tex">X= xZ</script>, <script type="math/tex">Y = yZ</script>, <script type="math/tex">c'= \sqrt{v}Z</script>, <script type="math/tex">a'=\sqrt{av}Z</script>, <script type="math/tex">b'=\sqrt{bv}Z</script>, then the equation system is turned into</p>
+
+<script type="math/tex; mode=display">\begin{cases} y^2 + 1 - py - av = 0 \\ x^2 + 1 - qx -bv = 0 \\ x^2 + y^2 - xyr - v = 0, \end{cases}</script>
+
+<p>where <script type="math/tex">x</script>, <script type="math/tex">y</script>, <script type="math/tex">v</script> are variables to be determined.</p>
+
+<p>Eliminating <script type="math/tex">v = x^2 + y^2 - xyr</script>, we have</p>
+
+<script type="math/tex; mode=display">\begin{cases} ax^2 + (a-1)y^2 - ar xy + py =1 \\ (b-1)x^2 + b y^2 - brxy + qx = 1.  \end{cases}</script>
+
+<p>Essentially, the two quatratic equations define two conics, which may have infinite or at most four intersections. Therefore, <em>the P3P problem has either an infinite number of solutions or at most four physical solutions</em>.</p>
+
+<h3 id="p4p-p5p-pnp">P4P, P5P, PnP</h3>
+
+<p>Using more than 3 points provides redundant data for the solution of pose estimation. The linear algorithm is generally used [1]. The <script type="math/tex">n</script> points can form <script type="math/tex">\frac{n(n-1)}{2}</script> triangles and thus derive <script type="math/tex">\frac{n(n-1)}{2}</script> second degree polynomial equations based on 余弦定理. By eliminating the set of variables into a single one, we still have <script type="math/tex">\frac{n(n-1)}{2} - (n-1) = \frac{(n-1)(n-2)}{2}</script> fourth degree polynomial equations. When n = 5, we have the homogeneous equation system:</p>
+
+<p><img src="/images/p5p.png" alt="P5P" /></p>
+
+<p>The overdermined equation system can be easily solved by SVD decomposition, where <script type="math/tex">t_5</script> equals to the right singular vector corresponding to the smallest singular value. The solution can be generalized to cases when <script type="math/tex">n>5</script>.</p>
+
+<p>When <script type="math/tex">n=4</script>, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.</p>
+
+<h1 id="reference">Reference</h1>
+<p>[1] <a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=784291">Linear N-Point Camera Pose Determination</a></p>
+
+
+
+</article>
+
+<div class="page-navigation">
+	
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/random-forest" title="PREV: Random Forest">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2018 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>
