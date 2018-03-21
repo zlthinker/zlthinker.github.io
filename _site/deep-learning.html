@@ -107,7 +107,13 @@
 	<ul id="markdown-toc">
   <li><a href="#transfer-learning" id="markdown-toc-transfer-learning">Transfer Learning</a></li>
   <li><a href="#lstm" id="markdown-toc-lstm">LSTM</a></li>
-  <li><a href="#network" id="markdown-toc-network">Network</a></li>
+  <li><a href="#networks--architectures" id="markdown-toc-networks--architectures">Networks &amp; Architectures</a>    <ul>
+      <li><a href="#cnn-networks" id="markdown-toc-cnn-networks"><a href="/CNN-networks">CNN Networks</a></a></li>
+      <li><a href="#dilated-convolution-空洞卷积扩张卷积" id="markdown-toc-dilated-convolution-空洞卷积扩张卷积">Dilated convolution (空洞卷积,扩张卷积)</a></li>
+      <li><a href="#deconvolution-反卷积" id="markdown-toc-deconvolution-反卷积">Deconvolution (反卷积)</a></li>
+      <li><a href="#unpooling" id="markdown-toc-unpooling">Unpooling</a></li>
+    </ul>
+  </li>
   <li><a href="#loss" id="markdown-toc-loss">Loss</a>    <ul>
       <li><a href="#focal-loss-2" id="markdown-toc-focal-loss-2">focal loss [2]</a></li>
     </ul>
@@ -127,11 +133,27 @@ In the field of data representation, an assumption is that the training and futu
 
 <p><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">RNN</a></p>
 
-<h1 id="network">Network</h1>
+<h1 id="networks--architectures">Networks &amp; Architectures</h1>
 
-<ul>
-  <li><a href="/CNN-networks">CNN Networks</a></li>
-</ul>
+<h3 id="cnn-networks"><a href="/CNN-networks">CNN Networks</a></h3>
+
+<h3 id="dilated-convolution-空洞卷积扩张卷积">Dilated convolution (空洞卷积,扩张卷积)</h3>
+
+<p><img src="/images/dilated_conv.jpg" alt="dilated_conv" />
+上图(a)(b)(c)分别是3x3的1-dilated, 2-dilated, 4-dilated conv. Dilated conv设计的目的是不会增加参数的数量的同时增加感受野. 尤其是将(a)(b)(c)级联起来之后,感受野由3x3增加到7x7,再增加到15x15.</p>
+
+<h3 id="deconvolution-反卷积">Deconvolution (反卷积)</h3>
+
+<p>考虑一个4x4的feature map, 经过一个padding 0, stride 1, 3x3的卷积核后变成2x2的feature map, 卷积操作的矩阵运算表达形式为 <script type="math/tex">\mathbf{y}_{4\times1}=\mathbf{C}_{4\times16} \mathbf{x}_{16\times1}</script>. 卷积矩阵<script type="math/tex">\mathbf{C}</script>的表达式如下:</p>
+
+<p><img src="/images/conv_mat.jpg" alt="conv_mat" /></p>
+
+<p>反卷积数学上其实就是卷积矩阵的转置, 反卷积操作可以写为<script type="math/tex">\mathbf{x}_{16\times1}=\mathbf{C}^T_{16\times4} \mathbf{y}_{4\times1}</script>. 所以,反卷积更好的叫法是转置卷积.</p>
+
+<h3 id="unpooling">Unpooling</h3>
+<p>Pooling vs. unpooling in figure below.</p>
+
+<p><img src="/images/unpooling.jpg" alt="unpooling" /></p>
 
 <h1 id="loss">Loss</h1>
 
@@ -140,7 +162,7 @@ In the field of data representation, an assumption is that the training and futu
 
 <p>Focal loss is defined as</p>
 
-<p><script type="math/tex">\alpha (1-p)^\gamma loss</script>,</p>
+<script type="math/tex; mode=display">\alpha (1-p)^\gamma loss,</script>
 
 <p>where <script type="math/tex">p</script> is the quality of being well classified, <script type="math/tex">\gamma \geq 0</script> is called focusing parameter and <script type="math/tex">\alpha \in [0, 1]</script> is weighting factor. The factoring term <script type="math/tex">(1-p)^\gamma</script> down-weights the loss caused by easy examples (<script type="math/tex">p \approx 1</script>) that have been classified good enough. This in turn increases the importance of correcting misclassified examples (<script type="math/tex">% <![CDATA[
 p << 1 %]]></script>).</p>

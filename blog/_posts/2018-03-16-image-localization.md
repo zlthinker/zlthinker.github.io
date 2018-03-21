@@ -31,6 +31,16 @@ tag:
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
 
+* State-of-the-art
+	* [MapNet: Geometry-Aware Learning of Maps for Camera Localization](https://arxiv.org/pdf/1712.03342.pdf): Leverage the full map
+	* [Learning Less is More – 6D Camera Localization via 3D Surface Regression](https://arxiv.org/pdf/1711.10228.pdf): Align to surface
+	* [X-View: Graph-Based Semantic Multi-View Localization](https://arxiv.org/pdf/1709.09905.pdf): Use segmentation
+	* [Semantic Visual Localization](https://arxiv.org/pdf/1712.05773.pdf): Use segmentation (CVPR2018, ETH)
+	* [Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions](https://arxiv.org/pdf/1707.09092.pdf): Outdoor benchmark (CVPR2018, spotlight, ETH)
+	* [InLoc: Indoor Visual Localization with Dense Matching and View Synthesis](): (CVPR2018, spotlight, ETH)
+	* [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf): The same idea as mine
+
+
 # PnP algorithm
 
 > "Perspective-n-Point (PnP) is the problem of estimating the pose of a calibrated camera given a set of n 3D points in the world and their corresponding 2D projections in the image." from wikipedia
@@ -69,6 +79,16 @@ Using more than 3 points provides redundant data for the solution of pose estima
 The overdermined equation system can be easily solved by SVD decomposition, where $$t_5$$ equals to the right singular vector corresponding to the smallest singular value. The solution can be generalized to cases when $$n>5$$.
 
 When $$n=4$$, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.
+
+# SCene COordinate REgression Network (SCORE-Net)
+
+### Network architecture
+
+1. [Globally and Locally Consistent Image Completion](http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/)
+
+* Dilated convolution (空洞卷积)
+
+Fully convolutional betwork, dilated conv
 
 
 

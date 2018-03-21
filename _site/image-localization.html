@@ -109,6 +109,10 @@
       <li><a href="#p4p-p5p-pnp" id="markdown-toc-p4p-p5p-pnp">P4P, P5P, PnP</a></li>
     </ul>
   </li>
+  <li><a href="#scene-coordinate-regression-network-score-net" id="markdown-toc-scene-coordinate-regression-network-score-net">SCene COordinate REgression Network (SCORE-Net)</a>    <ul>
+      <li><a href="#network-architecture" id="markdown-toc-network-architecture">Network architecture</a></li>
+    </ul>
+  </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -144,6 +148,17 @@
   <li>Traditional
     <ul>
       <li><a href="http://ieeexplore.ieee.org/abstract/document/7572201/">Efficient &amp; effective prioritized matching for large-scale image-based localization</a></li>
+    </ul>
+  </li>
+  <li>State-of-the-art
+    <ul>
+      <li><a href="https://arxiv.org/pdf/1712.03342.pdf">MapNet: Geometry-Aware Learning of Maps for Camera Localization</a>: Leverage the full map</li>
+      <li><a href="https://arxiv.org/pdf/1711.10228.pdf">Learning Less is More – 6D Camera Localization via 3D Surface Regression</a>: Align to surface</li>
+      <li><a href="https://arxiv.org/pdf/1709.09905.pdf">X-View: Graph-Based Semantic Multi-View Localization</a>: Use segmentation</li>
+      <li><a href="https://arxiv.org/pdf/1712.05773.pdf">Semantic Visual Localization</a>: Use segmentation (CVPR2018, ETH)</li>
+      <li><a href="https://arxiv.org/pdf/1707.09092.pdf">Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions</a>: Outdoor benchmark (CVPR2018, spotlight, ETH)</li>
+      <li><a href="">InLoc: Indoor Visual Localization with Dense Matching and View Synthesis</a>: (CVPR2018, spotlight, ETH)</li>
+      <li><a href="https://arxiv.org/pdf/1802.03237.pdf">Full-Frame Scene Coordinate Regression for Image-Based Localization</a>: The same idea as mine</li>
     </ul>
   </li>
 </ul>
@@ -188,6 +203,20 @@
 <p>The overdermined equation system can be easily solved by SVD decomposition, where <script type="math/tex">t_5</script> equals to the right singular vector corresponding to the smallest singular value. The solution can be generalized to cases when <script type="math/tex">n>5</script>.</p>
 
 <p>When <script type="math/tex">n=4</script>, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.</p>
+
+<h1 id="scene-coordinate-regression-network-score-net">SCene COordinate REgression Network (SCORE-Net)</h1>
+
+<h3 id="network-architecture">Network architecture</h3>
+
+<ol>
+  <li><a href="http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/">Globally and Locally Consistent Image Completion</a></li>
+</ol>
+
+<ul>
+  <li>Dilated convolution (空洞卷积)</li>
+</ul>
+
+<p>Fully convolutional betwork, dilated conv</p>
 
 <h1 id="reference">Reference</h1>
 <p>[1] <a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=784291">Linear N-Point Camera Pose Determination</a></p>
