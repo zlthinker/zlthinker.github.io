@@ -80,7 +80,7 @@ The overdermined equation system can be easily solved by SVD decomposition, wher
 
 When $$n=4$$, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.
 
-# SCene COordinate REgression Network (SCORE-Net)
+# Scene COordinate REgression Network (SCORE-Net)
 
 ### Network architecture
 
