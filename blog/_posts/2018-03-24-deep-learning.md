@@ -1,6 +1,6 @@
 ---
 title: Deep Learning
-updated: 2017-12-26 14:00
+updated: 2018-03-24 14:00
 category: 
 tag: [deep learning]
 ---
@@ -54,6 +54,10 @@ Focal loss is defined as
 $$\alpha (1-p)^\gamma loss,$$
 
 where $$p$$ is the quality of being well classified, $$\gamma \geq 0$$ is called focusing parameter and $$\alpha \in [0, 1]$$ is weighting factor. The factoring term $$(1-p)^\gamma$$ down-weights the loss caused by easy examples ($$p \approx 1$$) that have been classified good enough. This in turn increases the importance of correcting misclassified examples ($$p << 1$$).
+
+# Visualization
+
+**MDS** (multi-dimensional scaling) tends to preserve the global structure whereas **T-SNE** tends to retain the local structure.
 
 # Platform
 

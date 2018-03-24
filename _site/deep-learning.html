@@ -93,7 +93,7 @@
 <article>
 	<div class="center">
 		<h1>Deep Learning</h1>
-		<time>December 26, 2017</time>
+		<time>March 24, 2018</time>
 		<ul id="taglist">
 			Tag:
 			
@@ -118,6 +118,7 @@
       <li><a href="#focal-loss-2" id="markdown-toc-focal-loss-2">focal loss [2]</a></li>
     </ul>
   </li>
+  <li><a href="#visualization" id="markdown-toc-visualization">Visualization</a></li>
   <li><a href="#platform" id="markdown-toc-platform">Platform</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
@@ -167,6 +168,10 @@ In the field of data representation, an assumption is that the training and futu
 <p>where <script type="math/tex">p</script> is the quality of being well classified, <script type="math/tex">\gamma \geq 0</script> is called focusing parameter and <script type="math/tex">\alpha \in [0, 1]</script> is weighting factor. The factoring term <script type="math/tex">(1-p)^\gamma</script> down-weights the loss caused by easy examples (<script type="math/tex">p \approx 1</script>) that have been classified good enough. This in turn increases the importance of correcting misclassified examples (<script type="math/tex">% <![CDATA[
 p << 1 %]]></script>).</p>
 
+<h1 id="visualization">Visualization</h1>
+
+<p><strong>MDS</strong> (multi-dimensional scaling) tends to preserve the global structure whereas <strong>T-SNE</strong> tends to retain the local structure.</p>
+
 <h1 id="platform">Platform</h1>
 
 <ul>
@@ -188,13 +193,10 @@ p << 1 %]]></script>).</p>
 
 <div class="page-navigation">
 	
-    <a class="next" href="/%E4%B8%AD%E7%BE%8E%E5%BB%BA%E4%BA%A4" title="NEXT: 中美建交">&lt;&lt;</a>
-		<span> &middot; </span>
-  
 		<a class="home" href="/" title="Back to Homepage">Home</a>
   
 		<span> &middot; </span>
-    <a class="prev" href="/tensorflow-%E5%AD%A6%E4%B9%A0" title="PREV: Tensorflow 学习">&gt;&gt;</a>
+    <a class="prev" href="/image-localization" title="PREV: Image Localization">&gt;&gt;</a>
   
 </div>
 
