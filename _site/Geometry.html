@@ -105,12 +105,16 @@
 	<div class="divider"></div>
 
 	<ul id="markdown-toc">
-  <li><a href="#lie-groups-for-2d-and-3d-transformation" id="markdown-toc-lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</a></li>
+  <li><a href="#lie-groups-for-2d-and-3d-transformation" id="markdown-toc-lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</a>    <ul>
+      <li><a href="#so3--so3" id="markdown-toc-so3--so3">SO(3) &amp; so(3)</a></li>
+      <li><a href="#se3" id="markdown-toc-se3">SE(3)</a></li>
+    </ul>
+  </li>
   <li><a href="#matrices-in-cv" id="markdown-toc-matrices-in-cv">Matrices in CV</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
-<h3 id="lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</h3>
+<h2 id="lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</h2>
 
 <blockquote>
   <p>A <strong>Manifold</strong> is an n-Dimensional Topological Space that is locally Euclidean.</p>
@@ -118,21 +122,114 @@
 
 <p>A Lie group is a topological group that is also a smooth manifold. Each of them is associated with a Lie algebra which is a vector space. Transformations are required to be <strong>composed, inverted, differentiated and interpolated</strong>. Lie groups and their associated machinery address all these operations in a pricipled way.</p>
 
-<h3 id="matrices-in-cv">Matrices in CV</h3>
-<p>|                   | DoF |
-|:—————–:|:—:|
-|Projection matrix  | 11  |
-|Fundamental matrix | 7   |
-|Essential matrix   | 5   |
-|Homograpy matrix   | 8   |
-|Affine transform (2d)  | 6   |
-|Affine transform (Nd)  | <script type="math/tex">(N+1)*N</script>   |
-|Similarity transform (2d) | 4 |
-|Similarity transform (3d) | 7 |</p>
+<blockquote>
+  <p><strong>Definition.</strong> A nonempty subset <script type="math/tex">G \subset \mathbb{R}^{n\times n}</script> is called a Lie group if <script type="math/tex">g, h \in G \Rightarrow gh \in G</script> and <script type="math/tex">g \in G \Rightarrow det(g) \neq 0, g^{-1} \in G</script>.</p>
+</blockquote>
 
-<h3 id="reference">Reference</h3>
+<h3 id="so3--so3">SO(3) &amp; so(3)</h3>
 
-<p><a href="http://ethaneade.com/lie.pdf">http://ethaneade.com/lie.pdf</a></p>
+<p>Elements of the 3D rotation group, SO(3), are represented by 3D rotation matrices. They are all orthogonal matrices with determinant <script type="math/tex">+1</script>.
+The Lie algebra so(3), associated with SO(3), is the set of <script type="math/tex">3\times3</script> <strong>skew-symmetric or anti-symmetric</strong> matrices (i.e., <script type="math/tex">A^T=-A</script>). The <strong>infinitestimal generators</strong> of so(3) correspond to the derivatives of rotation around the each of the standard axes, evaluated at the identity.
+We take the the rotation by an angle <script type="math/tex">\phi</script> around x-axes as an example:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\mathbf{R}_1(\phi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & cos\phi & -sin\phi \\ 0 & sin\phi & cos\phi \end{bmatrix} . %]]></script>
+
+<p>Its derivative w.r.t <script type="math/tex">\phi</script> evaluated at zero is written into</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+G_1 = \frac{\partial \mathbf{R}_1}{\partial \phi}|_{\phi=0} = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}. %]]></script>
+
+<p>The three infinitestimal generators are derived as:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+G_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, G_2 = \begin{bmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{bmatrix}, G_3 = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix} %]]></script>
+
+<p>An element of so(3) is then represented as the linear combination of the three generators:</p>
+
+<script type="math/tex; mode=display">\mathbf{\omega} = [\omega_1, \omega_2, \omega_3]^T \in \mathbb{R}^3</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\mathbf{\omega}_{\times} = \omega_1 G_1 + \omega_2 G_2 + \omega_3 G_3 = \begin{bmatrix} 0 & -\omega_3 & \omega_2 \\ \omega_3 & 0 & -\omega_1 \\ -\omega_2 & \omega_1 & 0 \end{bmatrix}  \in so(3) %]]></script>
+
+<p>Since <script type="math/tex">G_1</script>, <script type="math/tex">G_2</script> and <script type="math/tex">G_3</script> are derivatives of rotations around three standard axises, <script type="math/tex">\omega</script> can be considered as the difference of a rotation from the identity.</p>
+
+<p><strong>Properties</strong></p>
+<ul>
+  <li>
+    <p>If <script type="math/tex">\omega_{\times} \in so(3)</script>, then <script type="math/tex">\mathbf{R} = e^{\omega_{\times}} \in SO(3)</script>. (See proof in [2])</p>
+  </li>
+  <li>
+    <p>As a symmetric matrix, <script type="math/tex">\omega_{\times}^3 = -(\omega^T \omega) \cdot \omega_{\times} \triangleq -\theta^2 \omega_{\times}</script>. Here, <script type="math/tex">\theta = \sqrt{\omega_1^2 + \omega_2^2 + \omega_3^2}</script>. It means the cubic of a skew-symmetric matrix is also a skew-symmetric matrix.</p>
+  </li>
+  <li>
+    <p>The eigenvalues of <script type="math/tex">\omega_{\times}</script> are <script type="math/tex">0, i\theta, -i\theta</script>.</p>
+  </li>
+  <li>
+    <p>The eigenvalues of <script type="math/tex">\mathbf{R} = e^{\omega_{\times}}</script> are <script type="math/tex">1, e^{i\theta}, e^{-i\theta}</script>.</p>
+  </li>
+  <li>
+    <p><script type="math/tex">\mathbf{R}</script> is a rotation by angle <script type="math/tex">\theta</script> around an axis. The axis is the engenvector of <script type="math/tex">\omega_{\times}</script> corresponding to eigenvalue <script type="math/tex">0</script>.</p>
+  </li>
+  <li>
+    <p>The addition of <script type="math/tex">\omega</script> corresponds to the multiplication of <script type="math/tex">\mathbf{R}</script>. <script type="math/tex">\mathbf{\omega}_{\times} = \omega_1 G_1 + \omega_2 G_2 + \omega_3 G_3</script> means the addition of a rotation by <script type="math/tex">\omega_1</script> around x-axis, a rotation by <script type="math/tex">\omega_2</script> around y-axis and a rotation by <script type="math/tex">\omega_3</script> around z-axis.</p>
+  </li>
+</ul>
+
+<h3 id="se3">SE(3)</h3>
+
+<h2 id="matrices-in-cv">Matrices in CV</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">DoF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Projection matrix</td>
+      <td style="text-align: center">11</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Fundamental matrix</td>
+      <td style="text-align: center">7</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Essential matrix</td>
+      <td style="text-align: center">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Homograpy matrix</td>
+      <td style="text-align: center">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Affine transform (2d)</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Affine transform (Nd)</td>
+      <td style="text-align: center">(N+1)*N</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Similarity transform (2d)</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Similarity transform (3d)</td>
+      <td style="text-align: center">7</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="http://ethaneade.com/lie.pdf">http://ethaneade.com/lie.pdf</a></p>
+
+<p>[2] <a href="https://www.youtube.com/watch?v=uILYfubYxd0">Mathetical elucidation of SO(3) and so(3)</a></p>
+
+<p>[3] <a href="http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter7.pdf">http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter7.pdf</a></p>
 
 
 </article>
