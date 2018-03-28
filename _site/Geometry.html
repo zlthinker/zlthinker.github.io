@@ -106,6 +106,7 @@
 
 	<ul id="markdown-toc">
   <li><a href="#lie-groups-for-2d-and-3d-transformation" id="markdown-toc-lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</a>    <ul>
+      <li><a href="#mathetical-notations" id="markdown-toc-mathetical-notations">Mathetical notations</a></li>
       <li><a href="#so3--so3" id="markdown-toc-so3--so3">SO(3) &amp; so(3)</a></li>
       <li><a href="#se3" id="markdown-toc-se3">SE(3)</a></li>
     </ul>
@@ -126,10 +127,21 @@
   <p><strong>Definition.</strong> A nonempty subset <script type="math/tex">G \subset \mathbb{R}^{n\times n}</script> is called a Lie group if <script type="math/tex">g, h \in G \Rightarrow gh \in G</script> and <script type="math/tex">g \in G \Rightarrow det(g) \neq 0, g^{-1} \in G</script>.</p>
 </blockquote>
 
+<h3 id="mathetical-notations">Mathetical notations</h3>
+<ul>
+  <li>associative (结合律)- (ab)c=a(bc)</li>
+  <li>Abelian (交换律)- abc = cba</li>
+</ul>
+
 <h3 id="so3--so3">SO(3) &amp; so(3)</h3>
 
 <p>Elements of the 3D rotation group, SO(3), are represented by 3D rotation matrices. They are all orthogonal matrices with determinant <script type="math/tex">+1</script>.
-The Lie algebra so(3), associated with SO(3), is the set of <script type="math/tex">3\times3</script> <strong>skew-symmetric or anti-symmetric</strong> matrices (i.e., <script type="math/tex">A^T=-A</script>). The <strong>infinitestimal generators</strong> of so(3) correspond to the derivatives of rotation around the each of the standard axes, evaluated at the identity.
+The Lie algebra so(3), associated with SO(3), is the set of <script type="math/tex">3\times3</script> <strong>skew-symmetric or anti-symmetric</strong> matrices (i.e., <script type="math/tex">A^T=-A</script>).</p>
+
+<p><strong>Infinitestimal generators</strong></p>
+
+<p>The key idea introudced by Lie is that any finite transformation can be constructed by the repeated application or integration of infinitestimal (极微小的) transformation. 
+The infinitestimal generators of so(3) correspond to the derivatives of rotation around the each of the standard axes, evaluated at the identity.
 We take the the rotation by an angle <script type="math/tex">\phi</script> around x-axes as an example:</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
@@ -177,6 +189,25 @@ G_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, G_2 = 
 </ul>
 
 <h3 id="se3">SE(3)</h3>
+
+<p>The group of rigid transformation in 3D space is SE(3). It is represented by a <script type="math/tex">4\times4</script> matrix:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0} & 1 \end{bmatrix}. %]]></script>
+
+<p>There are six infinitestimal generators of Lie algebra se(3), which correspond to differential translations and rotations:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+G_1 = \begin{bmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \end{bmatrix}, G_2 = \begin{bmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \end{bmatrix}, G_3 = \begin{bmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\0 & 0 & 0 & 0 \end{bmatrix}, %]]></script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+G_4 = \begin{bmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\0 & 0 & 0 & 0 \end{bmatrix},
+G_5 = \begin{bmatrix} 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \\ -1 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \end{bmatrix},
+G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \end{bmatrix}. %]]></script>
+
+<p>An element of se(3) is then represented by linear combination of these generators:</p>
+
+<script type="math/tex; mode=display">u_1G_1 + u_2G_2 + u_3 G_3 + \omega_1 G_4 + \omega_2 G_5 + \omega_3 G_6 \in se(3)</script>
 
 <h2 id="matrices-in-cv">Matrices in CV</h2>
 
