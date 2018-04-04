@@ -108,9 +108,15 @@
   <li><a href="#lie-groups-for-2d-and-3d-transformation" id="markdown-toc-lie-groups-for-2d-and-3d-transformation">Lie Groups for 2d and 3d Transformation</a>    <ul>
       <li><a href="#mathetical-notations" id="markdown-toc-mathetical-notations">Mathetical notations</a></li>
       <li><a href="#so3--so3" id="markdown-toc-so3--so3">SO(3) &amp; so(3)</a></li>
-      <li><a href="#se3" id="markdown-toc-se3">SE(3)</a></li>
+      <li><a href="#se3--se3" id="markdown-toc-se3--se3">SE(3) &amp; se(3)</a></li>
     </ul>
   </li>
+  <li><a href="#essential--fundamental-matrix" id="markdown-toc-essential--fundamental-matrix">Essential &amp; Fundamental Matrix</a>    <ul>
+      <li><a href="#derivation-of-essential-matrix" id="markdown-toc-derivation-of-essential-matrix">Derivation of Essential Matrix</a></li>
+      <li><a href="#derivation-of-fundamental-matrix" id="markdown-toc-derivation-of-fundamental-matrix">Derivation of Fundamental Matrix</a></li>
+    </ul>
+  </li>
+  <li><a href="#pnp" id="markdown-toc-pnp">PnP</a></li>
   <li><a href="#matrices-in-cv" id="markdown-toc-matrices-in-cv">Matrices in CV</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
@@ -188,7 +194,7 @@ G_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, G_2 = 
   </li>
 </ul>
 
-<h3 id="se3">SE(3)</h3>
+<h3 id="se3--se3">SE(3) &amp; se(3)</h3>
 
 <p>The group of rigid transformation in 3D space is SE(3). It is represented by a <script type="math/tex">4\times4</script> matrix:</p>
 
@@ -208,6 +214,44 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 <p>An element of se(3) is then represented by linear combination of these generators:</p>
 
 <script type="math/tex; mode=display">u_1G_1 + u_2G_2 + u_3 G_3 + \omega_1 G_4 + \omega_2 G_5 + \omega_3 G_6 \in se(3)</script>
+
+<h2 id="essential--fundamental-matrix">Essential &amp; Fundamental Matrix</h2>
+
+<h3 id="derivation-of-essential-matrix">Derivation of Essential Matrix</h3>
+
+<p><img src="/images/essential_mat.png" alt="dilated_conv" /></p>
+
+<p>As shown in Figure above, we have two left and right cameras with camera centers <script type="math/tex">O_l</script> and <script type="math/tex">O_r</script>. <script type="math/tex">P</script> is a 3D point co-visible in two cameras. We have notations as follows: <script type="math/tex">P_l</script> is the 3D coordinate of <script type="math/tex">P</script> in local space of camera <script type="math/tex">O_l</script> and <script type="math/tex">P_r</script> is the 3D coordinate of <script type="math/tex">P</script> in local space of camera <script type="math/tex">O_r</script>. <script type="math/tex">T</script> is the 3D coordinate of <script type="math/tex">O_r</script> in local space of camera <script type="math/tex">O_l</script>. The rotation and translation from camera <script type="math/tex">O_l</script> to camera <script type="math/tex">O_r</script> are <script type="math/tex">R</script> and <script type="math/tex">t</script> respectively. Apparently we have</p>
+
+<script type="math/tex; mode=display">\begin{cases} R P_l + t = P_r \\ R T + t = 0 \end{cases}.</script>
+
+<p>Thus, we obtain <script type="math/tex">t = -RT</script> and <script type="math/tex">P_r = R(P_l - T)</script>.</p>
+
+<p>Then, the equation can be derived</p>
+
+<script type="math/tex; mode=display">P_r^T R T_{\times} P_l = 0,</script>
+
+<p>because <script type="math/tex">P_r^T R = (P_l - T)^T</script> and <script type="math/tex">T_{\times} P_l</script> equals to the cross product of vector <script type="math/tex">T</script> and <script type="math/tex">P_l</script>. Therefore, the two terms are orthogonal to each other. <script type="math/tex">R T_{\times}</script> is exactly the essential matrix <script type="math/tex">E=R T_{\times}</script> and <script type="math/tex">P_r^T E P_l = 0</script>. <script type="math/tex">P_l</script> and <script type="math/tex">P_r</script> are essentially two viewing rays in local space of two cameras.</p>
+
+<p>The <script type="math/tex">R</script> and <script type="math/tex">T</script> have six degrees of freedom. The essential matrix has five degree of freedom by eliminating the common scaling.</p>
+
+<h3 id="derivation-of-fundamental-matrix">Derivation of Fundamental Matrix</h3>
+
+<p>Rather than using the camera coordinates, the equation above can be extended to image coordinates, because</p>
+
+<script type="math/tex; mode=display">\begin{cases} p_l = K_l P_l \\ p_r = K_r P_r \end{cases},</script>
+
+<p>where <script type="math/tex">p_l</script> and <script type="math/tex">p_r</script> use homogeneous coordinates and <script type="math/tex">K_l</script> and <script type="math/tex">K_r</script> are intrinsics of left and right cameras. Then the equation <script type="math/tex">P_r^T E P_l = 0</script> can be written into</p>
+
+<script type="math/tex; mode=display">p_r^T K_l^{-T} E K_r^{-1} p_r = p_r^T F p_r = 0.</script>
+
+<p><script type="math/tex">F = K_l^{-T} E K_r^{-1}</script> is called the fundamental matrix.</p>
+
+<p>The <script type="math/tex">3 \times 3</script> homogeneous fundamental matrix has seven degrees of freedom. The common scaling removes one degree and the constraint <script type="math/tex">det F = 0</script> removes another one.</p>
+
+<h2 id="pnp">PnP</h2>
+
+<p><a href="/image-localization">PnP</a></p>
 
 <h2 id="matrices-in-cv">Matrices in CV</h2>
 
@@ -261,6 +305,8 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 <p>[2] <a href="https://www.youtube.com/watch?v=uILYfubYxd0">Mathetical elucidation of SO(3) and so(3)</a></p>
 
 <p>[3] <a href="http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter7.pdf">http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter7.pdf</a></p>
+
+<p>[4] <a href="http://www.cse.psu.edu/~rtc12/CSE486/lecture19.pdf">Essential and Fundamental Matrices</a></p>
 
 
 </article>
