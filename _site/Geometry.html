@@ -93,7 +93,7 @@
 <article>
 	<div class="center">
 		<h1>Geometry</h1>
-		<time>April 6, 2017</time>
+		<time>April 4, 2018</time>
 		<ul id="taglist">
 			Tag:
 			
@@ -117,6 +117,8 @@
     </ul>
   </li>
   <li><a href="#pnp" id="markdown-toc-pnp">PnP</a></li>
+  <li><a href="#homography" id="markdown-toc-homography">Homography</a></li>
+  <li><a href="#the-camera-is-the-measurement-of-angle" id="markdown-toc-the-camera-is-the-measurement-of-angle">“The camera is the measurement of angle.”</a></li>
   <li><a href="#matrices-in-cv" id="markdown-toc-matrices-in-cv">Matrices in CV</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
@@ -243,15 +245,23 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 
 <p>where <script type="math/tex">p_l</script> and <script type="math/tex">p_r</script> use homogeneous coordinates and <script type="math/tex">K_l</script> and <script type="math/tex">K_r</script> are intrinsics of left and right cameras. Then the equation <script type="math/tex">P_r^T E P_l = 0</script> can be written into</p>
 
-<script type="math/tex; mode=display">p_r^T K_l^{-T} E K_r^{-1} p_r = p_r^T F p_r = 0.</script>
+<script type="math/tex; mode=display">p_l^T K_l^{-T} E K_r^{-1} p_r = p_l^T F p_r = 0.</script>
 
 <p><script type="math/tex">F = K_l^{-T} E K_r^{-1}</script> is called the fundamental matrix.</p>
 
-<p>The <script type="math/tex">3 \times 3</script> homogeneous fundamental matrix has seven degrees of freedom. The common scaling removes one degree and the constraint <script type="math/tex">det F = 0</script> removes another one.</p>
+<p>The <script type="math/tex">3 \times 3</script> homogeneous fundamental matrix has seven degrees of freedom. The common scaling removes one degree and the constraint <script type="math/tex">det F = 0</script> (rank=2) removes another one.</p>
 
 <h2 id="pnp">PnP</h2>
 
 <p><a href="/image-localization">PnP</a></p>
+
+<h2 id="homography">Homography</h2>
+
+<blockquote>
+  <p>For any choice of intrinsic parameters, any homography can be realized between two views by some positioning of the two views and a plane.</p>
+</blockquote>
+
+<h2 id="the-camera-is-the-measurement-of-angle">“The camera is the measurement of angle.”</h2>
 
 <h2 id="matrices-in-cv">Matrices in CV</h2>
 
@@ -313,13 +323,10 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 
 <div class="page-navigation">
 	
-    <a class="next" href="/Paper-Notes" title="NEXT: Paper Notes">&lt;&lt;</a>
-		<span> &middot; </span>
-  
 		<a class="home" href="/" title="Back to Homepage">Home</a>
   
 		<span> &middot; </span>
-    <a class="prev" href="/Survey-3D-Point-Cloud-Fusion" title="PREV: Survey - 3D Point Cloud Fusion">&gt;&gt;</a>
+    <a class="prev" href="/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" title="PREV: 读书笔记">&gt;&gt;</a>
   
 </div>
 
