@@ -33,6 +33,7 @@ tag:
 
 * Feature selection
 	* [Avoiding confusing features in place recognition](http://www.di.ens.fr/~josef/publications/knopp10.pdf): (ECCV 2010)
+	* feature re-weighting: [Learned Contextual Feature Reweighting for Image Geo-Localization](http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8099829)
 	
 * State-of-the-art
 	* [MapNet: Geometry-Aware Learning of Maps for Camera Localization](https://arxiv.org/pdf/1712.03342.pdf): Leverage the full map (CVPR2018, spotlight)
@@ -42,6 +43,14 @@ tag:
 	* [Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions](https://arxiv.org/pdf/1707.09092.pdf): Outdoor benchmark (CVPR2018, spotlight, ETH)
 	* [InLoc: Indoor Visual Localization with Dense Matching and View Synthesis](): (CVPR2018, spotlight, ETH)
 	* [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf): The same idea as mine
+
+* encoder-decoder network
+	* Scene coordinate regression: [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf)
+	* Single-view depth estimation: [Unsupervised Learning of Depth and Ego-Motion from Video](https://arxiv.org/pdf/1704.07813.pdf) [Github](https://github.com/tinghuiz/SfMLearner)
+	* Single-view depth estimation: [UnDeepVO: Monocular Visual Odometry through Unsupervised Deep Learning](https://arxiv.org/pdf/1709.06841.pdf) 
+	* Depth completion: [Deep Depth Completion of a Single RGB-D Image](http://deepcompletion.cs.princeton.edu/paper.pdf)
+	* **DispNet**: [A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation](https://arxiv.org/pdf/1512.02134.pdf)
+	
 
 
 # PnP algorithm
