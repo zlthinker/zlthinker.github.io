@@ -17,16 +17,19 @@ tag:
 	* [Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images](http://openaccess.thecvf.com/content_cvpr_2013/papers/Shotton_Scene_Coordinate_Regression_2013_CVPR_paper.pdf)
 	* [Backtracking regression forests for accurate camera relocalization](https://arxiv.org/pdf/1710.07965)
 	* [Random forests versus Neural Networks—What's best for camera localization?](http://cvlab-dresden.de/HTML/people/alexander_krull/publications/ICRA_2017.pdf)
-	* [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
+	* **Sparse regression:** [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
+	* **Dense regression:** [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf): The same idea as mine
 
 * Pose regression
 	* [Posenet: A convolutional network for real-time 6-dof camera relocalization](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf?utm_source=mandiner&utm_medium=link&utm_campaign=mandiner_digit_201512)
 	* [Image-based localization using LSTMs for structured feature correlation](https://arxiv.org/pdf/1611.07890.pdf)
 	* [Geometric loss functions for camera pose regression with deep learning](http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf)
 
-* Temporal
+* Temporal/RNN
 	* [VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf)
 	* [Deep Feature Flow for Video Recognition](http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf)
+	* [Recurrent Fully Convolutional Networks for Video Segmentation](https://arxiv.org/pdf/1606.00487.pdf)
+	* [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
@@ -35,14 +38,14 @@ tag:
 	* [Avoiding confusing features in place recognition](http://www.di.ens.fr/~josef/publications/knopp10.pdf): (ECCV 2010)
 	* feature re-weighting: [Learned Contextual Feature Reweighting for Image Geo-Localization](http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8099829)
 	
-* State-of-the-art
+* Recent works
 	* [MapNet: Geometry-Aware Learning of Maps for Camera Localization](https://arxiv.org/pdf/1712.03342.pdf): Leverage the full map (CVPR2018, spotlight)
 	* [Learning Less is More – 6D Camera Localization via 3D Surface Regression](https://arxiv.org/pdf/1711.10228.pdf): Align to surface
 	* [X-View: Graph-Based Semantic Multi-View Localization](https://arxiv.org/pdf/1709.09905.pdf): Use segmentation
 	* [Semantic Visual Localization](https://arxiv.org/pdf/1712.05773.pdf): Use segmentation (CVPR2018, ETH)
 	* [Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions](https://arxiv.org/pdf/1707.09092.pdf): Outdoor benchmark (CVPR2018, spotlight, ETH)
 	* [InLoc: Indoor Visual Localization with Dense Matching and View Synthesis](): (CVPR2018, spotlight, ETH)
-	* [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf): The same idea as mine
+	
 
 * encoder-decoder network
 	* Scene coordinate regression: [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf)
@@ -50,6 +53,8 @@ tag:
 	* Single-view depth estimation: [UnDeepVO: Monocular Visual Odometry through Unsupervised Deep Learning](https://arxiv.org/pdf/1709.06841.pdf) 
 	* Depth completion: [Deep Depth Completion of a Single RGB-D Image](http://deepcompletion.cs.princeton.edu/paper.pdf)
 	* **DispNet**: [A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation](https://arxiv.org/pdf/1512.02134.pdf)
+
+
 	
 
 
@@ -92,21 +97,45 @@ The overdermined equation system can be easily solved by SVD decomposition, wher
 
 When $$n=4$$, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.
 
+### EPnP
+
+EPnP algorithm is one of the most efficient PnP algorithm which has O(n) complexity. It is composed of three steps:
+
+Step 1. In world coordinate system, find four control points: $$c_j^w (j = 1,...,4)$$. One of them is the centroid of the 3D points and the other three are vectors aligned with principle directions of the 3D point set. Then all the 3D points are represented as a linear combination of the four control points: $$p_i^w = \sum_{j=1}^4 \alpha_{ij} c_j^w (i=1,...,n)$$.
+
+Step 2. In camera coordinate system, the equations between 3D points and control points still preserve:  $$p_i^c = \sum_{j=1}^4 \alpha_{ij} c_j^c$$. Given the 2D projections of the 3D points $$\{p_i\}i=1,...,n$$, we have $$\omega_i \begin{bmatrix} u_i \\v_i \\ 1 \end{bmatrix} = K p_i^c = K \sum_{j=1}^4 \alpha_{ij} c_j^c$$. Here, $$\omega_i$$ and $$\{c_j^c\}j=1,...,4$$ are unknowns. By filling in the camera intrinsic matrix, the equation can be expressed as follow:
+
+$$\omega_i \begin{bmatrix} u_i \\ v_i \\ 1 \end{bmatrix} = \begin{bmatrix} f_u & 0 & u_c \\ 0 & f_v & v_c \\ 0 & 0 & 1 \end{bmatrix}  \begin{bmatrix} \sum_{j=1}^4 \alpha_{ij} x_j^c \\ \sum_{j=1}^4 \alpha_{ij} y_j^c \\ \sum_{j=1}^4 \alpha_{ij} z_j^c \end{bmatrix}.$$
+
+By eliminating $$\omega_i = \sum_{j=1}^4 \alpha_{ij}z_j^c$$, we get two linear equations:
+
+$$\begin{cases} \sum_{j=1}^4 \big( \alpha_{ij}f_u x_j^c + \alpha_{ij} (u_c - u_i) z_j^c \big) = 0 \\ \sum_{j=1}^4 \big( \alpha_{ij}f_v y_j^c + \alpha_{ij} (v_c - v_i) z_j^c \big) = 0 \end{cases}.$$
+
+Therefore, each 3D-2D correspondence yields two linear equations with respect to a 12-vector $$x=[x_1^c, y_1^c, z_1^c, ..., x_4^c, y_4^c, z_4^c]^T$$. If consider all the correspondences, we generate a linear system of the form
+
+$$Mx = 0.$$
+
+Step 3. The solution of the linear equation system lies in the **null space** or **kernel** of $$M^TM$$ and can be expressed as $$x = \sum_{i=1}^N \beta_i v_i$$, where $$v_i$$ are the right-singular vectors of $$M$$ corresponding to the zero singular values. Now the unknowns become $$\{\beta_i\}i=1,...,N$$. Based on the analysis in [2], the dimension $$N$$ of null-space of $$M^TM$$ varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of $$\{\beta_i\}i=1,...,N$$ with the miminum reprojection error.
+
 # Scene COordinate REgression Network (SCORE-Net)
 
 ### Network architecture
 
 1. [Globally and Locally Consistent Image Completion](http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/)
 
-* Dilated convolution (空洞卷积)
+* Dilated convolution (空洞卷积) Fully convolutional betwork, dilated conv
 
-Fully convolutional betwork, dilated conv
+* **[Heteroscedasticity](http://statisticsbyjim.com/regression/heteroscedasticity-regression/)** 异方差，变量的方差各不相同。Remidial actions for severe heteroscedasticity are necessary.
+
+* **[Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
 
 
 
 # Reference
 [1] [Linear N-Point Camera Pose Determination](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=784291)
+
+[2] [EPnP: An Accurate O(n)Solution to the PnP Problem](http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf)
 
 
 

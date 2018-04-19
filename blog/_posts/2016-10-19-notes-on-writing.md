@@ -82,6 +82,7 @@ updated: 2016-10-19 23:37
 * intact 原封不动的，完整的，未受影响的
 * interspersed 分布 = distributed
 * in a fraction of time
+* inconclusive
 * judicious 审慎明智的
 * legitimate 合理的，合法的（可作动词）
 * negligible 微不足道的，可以忽视的
@@ -123,6 +124,8 @@ updated: 2016-10-19 23:37
 * indeterminacy = uncertainty
 * method = technique = approach
 * premise 前提  under the premise of
+* regime    a particular way of doing sth
+* remainder
 * similitude = similarity
 * suboptimality 次优性
 
@@ -141,6 +144,8 @@ updated: 2016-10-19 23:37
 * among the best
 * amount to 相当于，几乎是
 * aside from 除了
+* aspire to = be eager to = seek to
+* a question left open by the present work / left unanswered
 * be monotone increasing / decreasing     单调递增 ／ 递减
 * be termed sth 被称作...
 * boost … quality
@@ -171,6 +176,7 @@ updated: 2016-10-19 23:37
 * subject to
 * numerical
 * on account of 因为
+* in accordance with = follow
 * in view of 鉴于，考虑到
 * provided that
 * outperform sth by a significant margin
