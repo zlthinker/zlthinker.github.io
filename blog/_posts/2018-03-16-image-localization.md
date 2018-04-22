@@ -127,7 +127,7 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 
 * **[Heteroscedasticity](http://statisticsbyjim.com/regression/heteroscedasticity-regression/)** 异方差，变量的方差各不相同。Remidial actions for severe heteroscedasticity are necessary.
 
-* **[Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+* [Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
 
 

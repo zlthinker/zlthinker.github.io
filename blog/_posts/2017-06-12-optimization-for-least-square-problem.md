@@ -4,6 +4,9 @@ updated: 2017-06-12 19:00
 category: [optimization]
 ---
 
+* TOC
+{:toc}
+
 ### The Problem Definition
 The problem is to find solutions to a system of equations that have the form:
 
@@ -43,20 +46,17 @@ $$F(\mathbf{x} + \mathbf{h}) \approx F(\mathbf{x}) + F'(\mathbf{x}) \mathbf{h},$
 
 if $$\|\mathbf{h}\|$$ is sufficiently small. By rearranging the equation, we obtain 
 
-$$F(\mathbf{x}) \approx F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}).$$
+$$F(\mathbf{x}) \approx F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}) = 0.$$
 
-The first-order Tayor series expansion essentially approximate the origin function **locally** with the tangent line at the local point. If the local point is near the zero point we want, it is reasonable to approximate the desired zero point ($$F(\mathbf{x})=0$$) with the zero point of tangent line ($$F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}) = 0$$). In this way, we get the improved estimate of $$\mathbf{x}$$ as $$\mathbf{x}_{t+1}$$ from last estimate $$\mathbf{x}_t$$ that satisfies
+The update step is explicitly written as
 
-$$F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x}_{t+1} - \mathbf{x}_{t}) = 0.$$
+$$\mathbf{x}_{t+1} = \mathbf{x}_{t} - \left[ F'(\mathbf{x}_{t})^T F'(\mathbf{x}_{t}) \right]^{-1} F'(\mathbf{x}_{t})^T F(\mathbf{x}_{t}) \equiv \mathbf{x}_t + \mathbf{h}. $$
 
-The update step is explicitly written as 
-
-$$\mathbf{x}_{t+1} = \mathbf{x}_{t} - \frac{F(\mathbf{x}_t)}{F'(\mathbf{x}_t)} \equiv \mathbf{x}_t + \mathbf{h} $$
 
 ![Minion](../images/newton's_method.png)
 
 
-Newton's method can also be used as a **descent method** for iterative non-linear optimization: from a starting point $$\mathbf{x}_0$$ it produces a series of vectors $$..., \mathbf{x}_t, \mathbf{x}_{t+1},...$$ which (hopefully) converges to $$\mathbf{x}^*$$, a local stationary minimizer for the given function $$F(\mathbf{x})$$. Since $$\mathbf{x}^*$$ is a stationary point, it satisfies $$F'(\mathbf{x}^*) = 0$$. Similarly, we have
+**Connection between Newton's method and optimization.** Newton's method can also be used as a **descent method** for iterative non-linear optimization: from a starting point $$\mathbf{x}_0$$ it produces a series of vectors $$..., \mathbf{x}_t, \mathbf{x}_{t+1},...$$ which (hopefully) converges to $$\mathbf{x}^*$$, a local stationary minimizer for the given function $$F(\mathbf{x})$$. Since $$\mathbf{x}^*$$ is a stationary point, it satisfies $$F'(\mathbf{x}^*) = 0$$. Similarly, we have
 
 $$F'(\mathbf{x}+\mathbf{h}) \approx F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h},$$
 
@@ -71,8 +71,8 @@ $$F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h} = 0.$$
 If $$F''(\mathbf{x})$$ is positive definite, $$\mathbf{h}_N^T F''(\mathbf{x}) \mathbf{h}_N = - \mathbf{h}_N^T F'(\mathbf{x}) > 0$$, which means $$\mathbf{h}_N$$ is a descent direction when minimizing $$F(\mathbf{x})$$. Therefore, Newton's method is only useful in the final stage of the iteration where $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$ so that $$F''(\mathbf{x})$$ is positive definite. The good news about Newton's method is that if $$F''(\mathbf{x})$$ is positive definite, we get **quadratic convergence** while gradient descent (the steepest descent method) can only produce **linear convergence**.
 
 
-### Gauss-Newton Method
-The Gauss-Newton method is based on the linear approximation to $$\mathbf{f}$$ by the first-order **Tayor series expansion** in the neighbourhood of $$\mathbf{x}$$: For small $$\|\mathbf{h}\|$$, we have
+### Line Search - Gauss-Newton Method
+The Gauss-Newton method is based on the linear approximation to $$\mathbf{f}$$ by the **first-order Tayor series expansion** in the neighbourhood of $$\mathbf{x}$$: For small $$\|\mathbf{h}\|$$, we have
 
 $$\mathbf{f}(\mathbf{x} + \mathbf{h}) = \ell(\mathbf{h}) \approx \mathbf{f}(\mathbf{x}) + \mathbf{J}(\mathbf{x}) \mathbf{h},$$
 
@@ -121,9 +121,9 @@ $$\text{Solve}\,\,\,\, (\mathbf{J}^T \mathbf{J}) \mathbf{h}_{GN} = - \mathbf{J}^
 
 $$\mathbf{x}_{t+1} = \mathbf{x}_t + \alpha \mathbf{h}_{GN},$$
 
-where $$\alpha$$ is found by linear search. The classical Gauss-Newton method uses $$\alpha = 1$$ in all steps. In general, the Gauss-Newton method ensure linear convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| \leq a\|\mathbf{x}_t - \mathbf{x}^* \|, 0 < a < 1)$$ and even quadratic convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| = O(\|\mathbf{x}_t - \mathbf{x}^* \|^2))$$ when $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$.
+where $$\alpha$$ is found by line search. The classical Gauss-Newton method uses $$\alpha = 1$$ in all steps. In general, the Gauss-Newton method ensure linear convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| \leq a\|\mathbf{x}_t - \mathbf{x}^* \|, 0 < a < 1)$$ and even quadratic convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| = O(\|\mathbf{x}_t - \mathbf{x}^* \|^2))$$ when $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$.
 
-### The Levenberg–Marquardt Method
+### Trust Region - The Levenberg–Marquardt Method
 
 The LM method suggests to use a *damped Gauss-Newton mothod*. The step $$\mathbf{h}_{LM}$$ is defined by the following modification:
 
@@ -132,9 +132,9 @@ $$(\mathbf{J}^T \mathbf{J} + \mu \mathbf{I}) \mathbf{h}_{LM} = - \mathbf{J}^T\ma
 The damping parameter $$\mu$$ has several effects:
 
 * For all $$\mu > 0$$ the coefficient matrix $$\mathbf{J}^T \mathbf{J} + \mu \mathbf{I}$$ is positive definite, and this ensures that $$\mathbf{h}_{LM}$$ is a descent direction.
-* For large values of $$\mu$$ we get $$\mathbf{h}_{LM} = \frac{1}{\mu} \mathbf{J}^T\mathbf{f} = \frac{1}{\mu} F'(\mathbf{x}),$$
-i.e. a short step in the steepest descent direction. This is desired if the current iterate is far from the solution. But, the larger damping factor $$\mu$$ is, the slower convergence gets.
-* For small values of $$\mu$$, $$\mathbf{h}_{LM} = \mathbf{h}_{GN}$$, which is a good step in the final stage of the iteration. When $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$, the LM can have almost quatratic final convergence as the Gauss-Newton method.
+* For large values of $$\mu$$ we get $$\mathbf{h}_{LM} = -\frac{1}{\mu} \mathbf{J}^T\mathbf{f} = -\frac{1}{\mu} F'(\mathbf{x}),$$
+i.e. a short step in the **steepest descent** direction. This is desired if the current iterate is far from the solution. But, the larger damping factor $$\mu$$ is, the slower convergence gets.
+* For small values of $$\mu$$, $$\mathbf{h}_{LM} = \mathbf{h}_{GN}$$, which is a good step in the final stage of the iteration. When $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$, the LM can have almost quatratic final convergence as the **Gauss-Newton method**.
 
 Thus, the damping parameter influences both the direction and the size of the update step. This leads us to make a method without a specific line search (i.e., to explicitlt determine the step size).
 
@@ -237,6 +237,29 @@ $$ \Rightarrow $$
 Solve $$\mathbf{x}$$ in $$\mathbf{L}^T \mathbf{x} = \mathbf{y}$$ ).
 Depending on the sparsity of the matrix, Cholesky factorization can be implemented in dense, sparse and iterative ways.
 
+
+### Generalized Least Squares
+
+Here, we consider a regression problem: Given a set of observation data $$\{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1,..,n}$$, we want to regress a linear/nonlinear function $$\mathbf{f}(.)$$ which minimizes
+
+$$\sum_{i=1}^n |\mathbf{y}_i - \mathbf{f}(\mathbf{x}_i)|_2^2.$$
+
+The assumption is generally held that the condifition mean of $$\mathbf{Y}$$ given $$\mathbf{X}$$ is equal to \mathbf{f}(\mathbf{X}) and the conditional variance-covariance of $$\mathbf{Y}$$ given $$\mathbf{X}$$ is a known nonsingular matrix $$\mathbf{\Omega}$$.
+Therefore, the conditional mean and covariance of the error term $$\mathbf{\epsilon} = \mathbf{Y} - \mathbf{f}(\mathbf{X})$$ are zero and $$\mathbf{\Omega}$$, i.e.,
+
+$$E(\mathbf{\epsilon} | \mathbf{X}) = 0, C(\mathbf{\epsilon} | \mathbf{X}) = \mathbf{\Omega}.$$
+
+Therefore, the generalized least square problem is formulated as 
+
+$$\min (\mathbf{Y} - \mathbf{f}(\mathbf{X}))^T \Omega^{-1} (\mathbf{Y} - \mathbf{f}(\mathbf{X})),$$
+
+which minimizes the squared Mahalanobis length of this residual vector $$\mathbf{\epsilon}$$.
+
+Since the covariance $$\mathbf{\Omega}$$ is generally unvailable, the **Feasible Generalized Least Squares (FGLS)** estimator is adopted. It proceeds in two stages:
+
+1. the model is estimated by Ordinary Least Squares (OLS) and the residuals are used to build a consistent estimator of the errors covariance matrix $$\mathbf{\Omega}$$;
+
+2. using the estimated $$\mathbf{\Omega}$$, solve the generalized least square problem.
 
 
 

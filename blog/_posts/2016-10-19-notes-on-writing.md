@@ -3,6 +3,9 @@ title: Notes on writing
 updated: 2016-10-19 23:37
 ---
 
+* TOC
+{:toc}
+
 ### Verb.
 
 * adhere to

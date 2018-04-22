@@ -102,7 +102,20 @@
 
 	<div class="divider"></div>
 
-	<h3 id="the-problem-definition">The Problem Definition</h3>
+	<ul id="markdown-toc">
+  <li><a href="#the-problem-definition" id="markdown-toc-the-problem-definition">The Problem Definition</a>    <ul>
+      <li><a href="#terminalogy" id="markdown-toc-terminalogy">Terminalogy</a></li>
+    </ul>
+  </li>
+  <li><a href="#newtons-method" id="markdown-toc-newtons-method">Newton’s Method</a></li>
+  <li><a href="#line-search---gauss-newton-method" id="markdown-toc-line-search---gauss-newton-method">Line Search - Gauss-Newton Method</a></li>
+  <li><a href="#trust-region---the-levenbergmarquardt-method" id="markdown-toc-trust-region---the-levenbergmarquardt-method">Trust Region - The Levenberg–Marquardt Method</a></li>
+  <li><a href="#the-golden-bundle-adjustment" id="markdown-toc-the-golden-bundle-adjustment">The Golden Bundle Adjustment</a></li>
+  <li><a href="#generalized-least-squares" id="markdown-toc-generalized-least-squares">Generalized Least Squares</a></li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h3 id="the-problem-definition">The Problem Definition</h3>
 <p>The problem is to find solutions to a system of equations that have the form:</p>
 
 <script type="math/tex; mode=display">f_1(\mathbf{x}) = 0,</script>
@@ -141,19 +154,15 @@
 
 <p>if <script type="math/tex">\|\mathbf{h}\|</script> is sufficiently small. By rearranging the equation, we obtain</p>
 
-<script type="math/tex; mode=display">F(\mathbf{x}) \approx F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}).</script>
-
-<p>The first-order Tayor series expansion essentially approximate the origin function <strong>locally</strong> with the tangent line at the local point. If the local point is near the zero point we want, it is reasonable to approximate the desired zero point (<script type="math/tex">F(\mathbf{x})=0</script>) with the zero point of tangent line (<script type="math/tex">F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}) = 0</script>). In this way, we get the improved estimate of <script type="math/tex">\mathbf{x}</script> as <script type="math/tex">\mathbf{x}_{t+1}</script> from last estimate <script type="math/tex">\mathbf{x}_t</script> that satisfies</p>
-
-<script type="math/tex; mode=display">F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x}_{t+1} - \mathbf{x}_{t}) = 0.</script>
+<script type="math/tex; mode=display">F(\mathbf{x}) \approx F(\mathbf{x}_t) + F'(\mathbf{x}_t) (\mathbf{x} - \mathbf{x}_{t}) = 0.</script>
 
 <p>The update step is explicitly written as</p>
 
-<script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_{t} - \frac{F(\mathbf{x}_t)}{F'(\mathbf{x}_t)} \equiv \mathbf{x}_t + \mathbf{h}</script>
+<script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_{t} - \left[ F'(\mathbf{x}_{t})^T F'(\mathbf{x}_{t}) \right]^{-1} F'(\mathbf{x}_{t})^T F(\mathbf{x}_{t}) \equiv \mathbf{x}_t + \mathbf{h}.</script>
 
 <p><img src="../images/newton's_method.png" alt="Minion" /></p>
 
-<p>Newton’s method can also be used as a <strong>descent method</strong> for iterative non-linear optimization: from a starting point <script type="math/tex">\mathbf{x}_0</script> it produces a series of vectors <script type="math/tex">..., \mathbf{x}_t, \mathbf{x}_{t+1},...</script> which (hopefully) converges to <script type="math/tex">\mathbf{x}^*</script>, a local stationary minimizer for the given function <script type="math/tex">F(\mathbf{x})</script>. Since <script type="math/tex">\mathbf{x}^*</script> is a stationary point, it satisfies <script type="math/tex">F'(\mathbf{x}^*) = 0</script>. Similarly, we have</p>
+<p><strong>Connection between Newton’s method and optimization.</strong> Newton’s method can also be used as a <strong>descent method</strong> for iterative non-linear optimization: from a starting point <script type="math/tex">\mathbf{x}_0</script> it produces a series of vectors <script type="math/tex">..., \mathbf{x}_t, \mathbf{x}_{t+1},...</script> which (hopefully) converges to <script type="math/tex">\mathbf{x}^*</script>, a local stationary minimizer for the given function <script type="math/tex">F(\mathbf{x})</script>. Since <script type="math/tex">\mathbf{x}^*</script> is a stationary point, it satisfies <script type="math/tex">F'(\mathbf{x}^*) = 0</script>. Similarly, we have</p>
 
 <script type="math/tex; mode=display">F'(\mathbf{x}+\mathbf{h}) \approx F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h},</script>
 
@@ -167,8 +176,8 @@
 
 <p>If <script type="math/tex">F''(\mathbf{x})</script> is positive definite, <script type="math/tex">\mathbf{h}_N^T F''(\mathbf{x}) \mathbf{h}_N = - \mathbf{h}_N^T F'(\mathbf{x}) > 0</script>, which means <script type="math/tex">\mathbf{h}_N</script> is a descent direction when minimizing <script type="math/tex">F(\mathbf{x})</script>. Therefore, Newton’s method is only useful in the final stage of the iteration where <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script> so that <script type="math/tex">F''(\mathbf{x})</script> is positive definite. The good news about Newton’s method is that if <script type="math/tex">F''(\mathbf{x})</script> is positive definite, we get <strong>quadratic convergence</strong> while gradient descent (the steepest descent method) can only produce <strong>linear convergence</strong>.</p>
 
-<h3 id="gauss-newton-method">Gauss-Newton Method</h3>
-<p>The Gauss-Newton method is based on the linear approximation to <script type="math/tex">\mathbf{f}</script> by the first-order <strong>Tayor series expansion</strong> in the neighbourhood of <script type="math/tex">\mathbf{x}</script>: For small <script type="math/tex">\|\mathbf{h}\|</script>, we have</p>
+<h3 id="line-search---gauss-newton-method">Line Search - Gauss-Newton Method</h3>
+<p>The Gauss-Newton method is based on the linear approximation to <script type="math/tex">\mathbf{f}</script> by the <strong>first-order Tayor series expansion</strong> in the neighbourhood of <script type="math/tex">\mathbf{x}</script>: For small <script type="math/tex">\|\mathbf{h}\|</script>, we have</p>
 
 <script type="math/tex; mode=display">\mathbf{f}(\mathbf{x} + \mathbf{h}) = \ell(\mathbf{h}) \approx \mathbf{f}(\mathbf{x}) + \mathbf{J}(\mathbf{x}) \mathbf{h},</script>
 
@@ -214,10 +223,10 @@ F(\mathbf{x}) + \mathbf{h}^T\mathbf{J}^T\mathbf{f} + \frac{1}{2} \mathbf{h}^T \m
 
 <script type="math/tex; mode=display">\mathbf{x}_{t+1} = \mathbf{x}_t + \alpha \mathbf{h}_{GN},</script>
 
-<p>where <script type="math/tex">\alpha</script> is found by linear search. The classical Gauss-Newton method uses <script type="math/tex">\alpha = 1</script> in all steps. In general, the Gauss-Newton method ensure linear convergence <script type="math/tex">% <![CDATA[
+<p>where <script type="math/tex">\alpha</script> is found by line search. The classical Gauss-Newton method uses <script type="math/tex">\alpha = 1</script> in all steps. In general, the Gauss-Newton method ensure linear convergence <script type="math/tex">% <![CDATA[
 (\|\mathbf{x}_{t+1} - \mathbf{x}^* \| \leq a\|\mathbf{x}_t - \mathbf{x}^* \|, 0 < a < 1) %]]></script> and even quadratic convergence <script type="math/tex">(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| = O(\|\mathbf{x}_t - \mathbf{x}^* \|^2))</script> when <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script>.</p>
 
-<h3 id="the-levenbergmarquardt-method">The Levenberg–Marquardt Method</h3>
+<h3 id="trust-region---the-levenbergmarquardt-method">Trust Region - The Levenberg–Marquardt Method</h3>
 
 <p>The LM method suggests to use a <em>damped Gauss-Newton mothod</em>. The step <script type="math/tex">\mathbf{h}_{LM}</script> is defined by the following modification:</p>
 
@@ -227,9 +236,9 @@ F(\mathbf{x}) + \mathbf{h}^T\mathbf{J}^T\mathbf{f} + \frac{1}{2} \mathbf{h}^T \m
 
 <ul>
   <li>For all <script type="math/tex">\mu > 0</script> the coefficient matrix <script type="math/tex">\mathbf{J}^T \mathbf{J} + \mu \mathbf{I}</script> is positive definite, and this ensures that <script type="math/tex">\mathbf{h}_{LM}</script> is a descent direction.</li>
-  <li>For large values of <script type="math/tex">\mu</script> we get <script type="math/tex">\mathbf{h}_{LM} = \frac{1}{\mu} \mathbf{J}^T\mathbf{f} = \frac{1}{\mu} F'(\mathbf{x}),</script>
-i.e. a short step in the steepest descent direction. This is desired if the current iterate is far from the solution. But, the larger damping factor <script type="math/tex">\mu</script> is, the slower convergence gets.</li>
-  <li>For small values of <script type="math/tex">\mu</script>, <script type="math/tex">\mathbf{h}_{LM} = \mathbf{h}_{GN}</script>, which is a good step in the final stage of the iteration. When <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script>, the LM can have almost quatratic final convergence as the Gauss-Newton method.</li>
+  <li>For large values of <script type="math/tex">\mu</script> we get <script type="math/tex">\mathbf{h}_{LM} = -\frac{1}{\mu} \mathbf{J}^T\mathbf{f} = -\frac{1}{\mu} F'(\mathbf{x}),</script>
+i.e. a short step in the <strong>steepest descent</strong> direction. This is desired if the current iterate is far from the solution. But, the larger damping factor <script type="math/tex">\mu</script> is, the slower convergence gets.</li>
+  <li>For small values of <script type="math/tex">\mu</script>, <script type="math/tex">\mathbf{h}_{LM} = \mathbf{h}_{GN}</script>, which is a good step in the final stage of the iteration. When <script type="math/tex">\mathbf{x}</script> is close to <script type="math/tex">\mathbf{x}^*</script>, the LM can have almost quatratic final convergence as the <strong>Gauss-Newton method</strong>.</li>
 </ul>
 
 <p>Thus, the damping parameter influences both the direction and the size of the update step. This leads us to make a method without a specific line search (i.e., to explicitlt determine the step size).</p>
@@ -324,6 +333,34 @@ Solve <script type="math/tex">\mathbf{y}</script> in <script type="math/tex">\ma
 <script type="math/tex">\Rightarrow</script> 
 Solve <script type="math/tex">\mathbf{x}</script> in <script type="math/tex">\mathbf{L}^T \mathbf{x} = \mathbf{y}</script> ).
 Depending on the sparsity of the matrix, Cholesky factorization can be implemented in dense, sparse and iterative ways.</p>
+
+<h3 id="generalized-least-squares">Generalized Least Squares</h3>
+
+<p>Here, we consider a regression problem: Given a set of observation data <script type="math/tex">\{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1,..,n}</script>, we want to regress a linear/nonlinear function <script type="math/tex">\mathbf{f}(.)</script> which minimizes</p>
+
+<script type="math/tex; mode=display">\sum_{i=1}^n |\mathbf{y}_i - \mathbf{f}(\mathbf{x}_i)|_2^2.</script>
+
+<p>The assumption is generally held that the condifition mean of <script type="math/tex">\mathbf{Y}</script> given <script type="math/tex">\mathbf{X}</script> is equal to \mathbf{f}(\mathbf{X}) and the conditional variance-covariance of <script type="math/tex">\mathbf{Y}</script> given <script type="math/tex">\mathbf{X}</script> is a known nonsingular matrix <script type="math/tex">\mathbf{\Omega}</script>.
+Therefore, the conditional mean and covariance of the error term <script type="math/tex">\mathbf{\epsilon} = \mathbf{Y} - \mathbf{f}(\mathbf{X})</script> are zero and <script type="math/tex">\mathbf{\Omega}</script>, i.e.,</p>
+
+<script type="math/tex; mode=display">E(\mathbf{\epsilon} | \mathbf{X}) = 0, C(\mathbf{\epsilon} | \mathbf{X}) = \mathbf{\Omega}.</script>
+
+<p>Therefore, the generalized least square problem is formulated as</p>
+
+<script type="math/tex; mode=display">\min (\mathbf{Y} - \mathbf{f}(\mathbf{X}))^T \Omega^{-1} (\mathbf{Y} - \mathbf{f}(\mathbf{X})),</script>
+
+<p>which minimizes the squared Mahalanobis length of this residual vector <script type="math/tex">\mathbf{\epsilon}</script>.</p>
+
+<p>Since the covariance <script type="math/tex">\mathbf{\Omega}</script> is generally unvailable, the <strong>Feasible Generalized Least Squares (FGLS)</strong> estimator is adopted. It proceeds in two stages:</p>
+
+<ol>
+  <li>
+    <p>the model is estimated by Ordinary Least Squares (OLS) and the residuals are used to build a consistent estimator of the errors covariance matrix <script type="math/tex">\mathbf{\Omega}</script>;</p>
+  </li>
+  <li>
+    <p>using the estimated <script type="math/tex">\mathbf{\Omega}</script>, solve the generalized least square problem.</p>
+  </li>
+</ol>
 
 <h3 id="reference">Reference</h3>
 <p><a href="http://www.math.ohiou.edu/courses/math3600/lecture13.pdf">Nonlinear Systems - Newton’s Method</a></p>
