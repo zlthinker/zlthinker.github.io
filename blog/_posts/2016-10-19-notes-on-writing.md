@@ -75,6 +75,7 @@ updated: 2016-10-19 23:37
 * deficient = inadequate = insufficient
 * drastic ＝ great (change)
 * eminent 突出的     of eminent importance
+* emphatic emphatically 坚决地，断然地
 * erroneous = incorrect
 * handcrafted     手动设定的
 * heterogeneous image collections 多种多样的
@@ -157,12 +158,15 @@ updated: 2016-10-19 23:37
 * dual goal
 * equality up to scale
 * fine-tune … model 微调...
+* for notational convenience
 * from scratch 从头开始
 * give rise to 导致
 * has an abundance of applications 有丰富的应用
 * in what follows
 * in conjunction with
+* isolate the effect of
 * more resilient against failure 对失败更有弹性
+* mutually exclusive	impossible at the same time
 * perform favorably compared to 
 * similar in spirit to 在精神上相似
 * stem from 源自，由...造成

@@ -54,6 +54,10 @@ tag:
 	* Depth completion: [Deep Depth Completion of a Single RGB-D Image](http://deepcompletion.cs.princeton.edu/paper.pdf)
 	* **DispNet**: [A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation](https://arxiv.org/pdf/1512.02134.pdf)
 
+* geometry + deep learning
+	* [Eigendecomposition-free Training of Deep Networks with Zero Eigenvalue-based Losses](https://gfx.uvic.ca/pubs/2018/zheng2018eigen/paper.pdf)
+	* [Learning to Find Good Correspondences](https://gfx.uvic.ca/pubs/2018/yi2018learning/paper.pdf)
+
 
 	
 
@@ -101,7 +105,7 @@ When $$n=4$$, things are a little bit more complicated since the equation system
 
 EPnP algorithm is one of the most efficient PnP algorithm which has O(n) complexity. It is composed of three steps:
 
-Step 1. In world coordinate system, find four control points: $$c_j^w (j = 1,...,4)$$. One of them is the centroid of the 3D points and the other three are vectors aligned with principle directions of the 3D point set. Then all the 3D points are represented as a linear combination of the four control points: $$p_i^w = \sum_{j=1}^4 \alpha_{ij} c_j^w (i=1,...,n)$$.
+Step 1. In world coordinate system, find four control points: $$c_j^w (j = 1,...,4)$$. One of them is the centroid of the 3D points and the other three are vectors aligned with principle directions of the 3D point set. Then all the 3D points are represented by the **[barycentric coordinates](https://en.wikipedia.org/wiki/Barycentric_coordinate_system)** as a linear combination of the four control points: $$p_i^w = \sum_{j=1}^4 \alpha_{ij} c_j^w (i=1,...,n)$$.
 
 Step 2. In camera coordinate system, the equations between 3D points and control points still preserve:  $$p_i^c = \sum_{j=1}^4 \alpha_{ij} c_j^c$$. Given the 2D projections of the 3D points $$\{p_i\}i=1,...,n$$, we have $$\omega_i \begin{bmatrix} u_i \\v_i \\ 1 \end{bmatrix} = K p_i^c = K \sum_{j=1}^4 \alpha_{ij} c_j^c$$. Here, $$\omega_i$$ and $$\{c_j^c\}j=1,...,4$$ are unknowns. By filling in the camera intrinsic matrix, the equation can be expressed as follow:
 
@@ -114,6 +118,10 @@ $$\begin{cases} \sum_{j=1}^4 \big( \alpha_{ij}f_u x_j^c + \alpha_{ij} (u_c - u_i
 Therefore, each 3D-2D correspondence yields two linear equations with respect to a 12-vector $$x=[x_1^c, y_1^c, z_1^c, ..., x_4^c, y_4^c, z_4^c]^T$$. If consider all the correspondences, we generate a linear system of the form
 
 $$Mx = 0.$$
+
+If we have normalized the coordinates of image pixels to $$[u_i, v_i]^T$$, the equation system becomes
+
+$$\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} = \mathbf{0}.$$
 
 Step 3. The solution of the linear equation system lies in the **null space** or **kernel** of $$M^TM$$ and can be expressed as $$x = \sum_{i=1}^N \beta_i v_i$$, where $$v_i$$ are the right-singular vectors of $$M$$ corresponding to the zero singular values. Now the unknowns become $$\{\beta_i\}i=1,...,N$$. Based on the analysis in [2], the dimension $$N$$ of null-space of $$M^TM$$ varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of $$\{\beta_i\}i=1,...,N$$ with the miminum reprojection error.
 
@@ -128,6 +136,8 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 * **[Heteroscedasticity](http://statisticsbyjim.com/regression/heteroscedasticity-regression/)** 异方差，变量的方差各不相同。Remidial actions for severe heteroscedasticity are necessary.
 
 * [Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+
+* ["Data normalization (or called pre-conditioning in the numerical literature) is an essential step in the DLT algorithm."](http://cvrs.whu.edu.cn/downloads/ebooks/Multiple%20View%20Geometry%20in%20Computer%20Vision%20(Second%20Edition).pdf) from Page 107 
 
 
 

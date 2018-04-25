@@ -1,6 +1,6 @@
 ---
 title: Optimization for Least Square Problems
-updated: 2017-06-12 19:00
+updated: 2018-04-22 19:00
 category: [optimization]
 ---
 
@@ -261,14 +261,24 @@ Since the covariance $$\mathbf{\Omega}$$ is generally unvailable, the **Feasible
 
 2. using the estimated $$\mathbf{\Omega}$$, solve the generalized least square problem.
 
+### Covariance Estimation [3][4]
 
+"One way to assess the quality of the solution returned by a non-linear least squares solver is to analyze the covariance of the solution." Let's consider 
 
+$$\mathbf{f}(\mathbf{x}) = \mathbf{\epsilon} \sim N(0, \mathbf{S}).$$
 
+Taking the first-order taylor expansion of $$\mathbf{f}(\mathbf{x})$$, we have 
+
+$$\mathbf{f}(\mathbf{x}_t) + \mathbf{J} (\mathbf{x} - \mathbf{x}_t) = \mathbf{\epsilon}.$$
+
+Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \mathbf{J} C(\mathbf{x}) \mathbf{J}^T$$. Then we get $$C(\mathbf{x}) = \mathbf{J}^{-1} C(\mathbf{\epsilon}) \mathbf{J}^{-T} = \mathbf{J}^{-1} \mathbf{S} \mathbf{J}^{-T}$$. If we assume the error vector takes identity covariance (iid), i.e., $$\mathbf{S} = \sigma^2 \mathbf{I}$$, the covariance of the variable $$\mathbf{x}$$ becomes $$C(\mathbf{x}) = \sigma^2 \mathbf{J}^{-1} \mathbf{J}^{-T} = \sigma^2 (\mathbf{J}^T \mathbf{J})^{-1}$$.
 
 
 ### Reference
-[Nonlinear Systems - Newton’s Method](http://www.math.ohiou.edu/courses/math3600/lecture13.pdf)
+[1] [Nonlinear Systems - Newton’s Method](http://www.math.ohiou.edu/courses/math3600/lecture13.pdf)
 
-[METHODS FOR
-NON-LINEAR LEAST
-SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
+[2] [METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
+
+[3] [Covariance estimation reference 1](https://stats.stackexchange.com/questions/72940/covariance-matrix-of-least-squares-estimator-hat-beta)
+
+[4] [Covariance estimation reference 2](http://ceres-solver.org/nnls_covariance.html)

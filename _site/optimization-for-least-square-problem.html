@@ -93,7 +93,7 @@
 <article>
 	<div class="center">
 		<h1>Optimization for Least Square Problems</h1>
-		<time>June 12, 2017</time>
+		<time>April 22, 2018</time>
 		<ul id="taglist">
 			Tag:
 			
@@ -112,6 +112,7 @@
   <li><a href="#trust-region---the-levenbergmarquardt-method" id="markdown-toc-trust-region---the-levenbergmarquardt-method">Trust Region - The Levenberg–Marquardt Method</a></li>
   <li><a href="#the-golden-bundle-adjustment" id="markdown-toc-the-golden-bundle-adjustment">The Golden Bundle Adjustment</a></li>
   <li><a href="#generalized-least-squares" id="markdown-toc-generalized-least-squares">Generalized Least Squares</a></li>
+  <li><a href="#covariance-estimation-34" id="markdown-toc-covariance-estimation-34">Covariance Estimation [3][4]</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -362,25 +363,36 @@ Therefore, the conditional mean and covariance of the error term <script type="m
   </li>
 </ol>
 
-<h3 id="reference">Reference</h3>
-<p><a href="http://www.math.ohiou.edu/courses/math3600/lecture13.pdf">Nonlinear Systems - Newton’s Method</a></p>
+<h3 id="covariance-estimation-34">Covariance Estimation [3][4]</h3>
 
-<p><a href="http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf">METHODS FOR
-NON-LINEAR LEAST
-SQUARES PROBLEMS</a></p>
+<p>“One way to assess the quality of the solution returned by a non-linear least squares solver is to analyze the covariance of the solution.” Let’s consider</p>
+
+<script type="math/tex; mode=display">\mathbf{f}(\mathbf{x}) = \mathbf{\epsilon} \sim N(0, \mathbf{S}).</script>
+
+<p>Taking the first-order taylor expansion of <script type="math/tex">\mathbf{f}(\mathbf{x})</script>, we have</p>
+
+<script type="math/tex; mode=display">\mathbf{f}(\mathbf{x}_t) + \mathbf{J} (\mathbf{x} - \mathbf{x}_t) = \mathbf{\epsilon}.</script>
+
+<p>Therefore, the covariance of <script type="math/tex">\mathbf{\epsilon}</script>, <script type="math/tex">C(\mathbf{\epsilon}) = \mathbf{J} C(\mathbf{x}) \mathbf{J}^T</script>. Then we get <script type="math/tex">C(\mathbf{x}) = \mathbf{J}^{-1} C(\mathbf{\epsilon}) \mathbf{J}^{-T} = \mathbf{J}^{-1} \mathbf{S} \mathbf{J}^{-T}</script>. If we assume the error vector takes identity covariance (iid), i.e., <script type="math/tex">\mathbf{S} = \sigma^2 \mathbf{I}</script>, the covariance of the variable <script type="math/tex">\mathbf{x}</script> becomes <script type="math/tex">C(\mathbf{x}) = \sigma^2 \mathbf{J}^{-1} \mathbf{J}^{-T} = \sigma^2 (\mathbf{J}^T \mathbf{J})^{-1}</script>.</p>
+
+<h3 id="reference">Reference</h3>
+<p>[1] <a href="http://www.math.ohiou.edu/courses/math3600/lecture13.pdf">Nonlinear Systems - Newton’s Method</a></p>
+
+<p>[2] <a href="http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf">METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS</a></p>
+
+<p>[3] <a href="https://stats.stackexchange.com/questions/72940/covariance-matrix-of-least-squares-estimator-hat-beta">Covariance estimation reference 1</a></p>
+
+<p>[4] <a href="http://ceres-solver.org/nnls_covariance.html">Covariance estimation reference 2</a></p>
 
 
 </article>
 
 <div class="page-navigation">
 	
-    <a class="next" href="/belief-propagation" title="NEXT: Belief Propagation">&lt;&lt;</a>
-		<span> &middot; </span>
-  
 		<a class="home" href="/" title="Back to Homepage">Home</a>
   
 		<span> &middot; </span>
-    <a class="prev" href="/learning-model" title="PREV: Discriminative Modeling VS Generative Modeling">&gt;&gt;</a>
+    <a class="prev" href="/monte-carlo-methods" title="PREV: Monte Carlo Methods">&gt;&gt;</a>
   
 </div>
 

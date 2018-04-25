@@ -183,7 +183,7 @@ G_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, G_2 = 
     <p>As a symmetric matrix, <script type="math/tex">\omega_{\times}^3 = -(\omega^T \omega) \cdot \omega_{\times} \triangleq -\theta^2 \omega_{\times}</script>. Here, <script type="math/tex">\theta = \sqrt{\omega_1^2 + \omega_2^2 + \omega_3^2}</script>. It means the cubic of a skew-symmetric matrix is also a skew-symmetric matrix.</p>
   </li>
   <li>
-    <p>The eigenvalues of <script type="math/tex">\omega_{\times}</script> are <script type="math/tex">0, i\theta, -i\theta</script>.</p>
+    <p>The eigenvalues of <script type="math/tex">\omega_{\times}</script> are <script type="math/tex">0, i\theta, -i\theta</script> (rank 2).</p>
   </li>
   <li>
     <p>The eigenvalues of <script type="math/tex">\mathbf{R} = e^{\omega_{\times}}</script> are <script type="math/tex">1, e^{i\theta}, e^{-i\theta}</script>.</p>
@@ -245,9 +245,11 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 
 <p>where <script type="math/tex">p_l</script> and <script type="math/tex">p_r</script> use homogeneous coordinates and <script type="math/tex">K_l</script> and <script type="math/tex">K_r</script> are intrinsics of left and right cameras. Then the equation <script type="math/tex">P_r^T E P_l = 0</script> can be written into</p>
 
-<script type="math/tex; mode=display">p_l^T K_l^{-T} E K_r^{-1} p_r = p_l^T F p_r = 0.</script>
+<script type="math/tex; mode=display">p_r^T K_r^{-T} E K_l^{-1} p_l = p_r^T F p_l = 0.</script>
 
-<p><script type="math/tex">F = K_l^{-T} E K_r^{-1}</script> is called the fundamental matrix.</p>
+<p><script type="math/tex">F = K_r^{-T} E K_l^{-1}</script> is called the fundamental matrix.</p>
+
+<p>The fundamental matrix has rank 2. Since all the epipolar lines go through the epipole, e.g. in the left image <script type="math/tex">e_l</script>, we have <script type="math/tex">Fe_l = 0</script>. Hence <script type="math/tex">F</script> has a null space which is not just the zero vector. So <script type="math/tex">F</script> is rank 2.</p>
 
 <p>The <script type="math/tex">3 \times 3</script> homogeneous fundamental matrix has seven degrees of freedom. The common scaling removes one degree and the constraint <script type="math/tex">det F = 0</script> (rank=2) removes another one.</p>
 
@@ -323,6 +325,9 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 
 <div class="page-navigation">
 	
+    <a class="next" href="/monte-carlo-methods" title="NEXT: Monte Carlo Methods">&lt;&lt;</a>
+		<span> &middot; </span>
+  
 		<a class="home" href="/" title="Back to Homepage">Home</a>
   
 		<span> &middot; </span>
