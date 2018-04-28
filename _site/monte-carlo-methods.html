@@ -105,21 +105,67 @@
 	<ul id="markdown-toc">
   <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
   <li><a href="#draw-random-samples-uniformly-over-the-cumulative-distribution-function-cdf" id="markdown-toc-draw-random-samples-uniformly-over-the-cumulative-distribution-function-cdf">Draw random samples uniformly over the cumulative distribution function (CDF)</a></li>
-  <li><a href="#markov-chain-monte-carlo-mcmc" id="markdown-toc-markov-chain-monte-carlo-mcmc">Markov Chain Monte-Carlo (MCMC)</a></li>
+  <li><a href="#markov-chain-monte-carlo-mcmc" id="markdown-toc-markov-chain-monte-carlo-mcmc">Markov Chain Monte-Carlo (MCMC)</a>    <ul>
+      <li><a href="#glossary" id="markdown-toc-glossary">Glossary</a></li>
+      <li><a href="#metropolishastings-algorithm" id="markdown-toc-metropolishastings-algorithm">Metropolis–Hastings algorithm</a></li>
+      <li><a href="#gibbs-sampling" id="markdown-toc-gibbs-sampling">Gibbs sampling</a></li>
+      <li><a href="#adaptive-rejection-sampling" id="markdown-toc-adaptive-rejection-sampling">Adaptive rejection sampling</a></li>
+    </ul>
+  </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
-<h3 id="overview">Overview</h3>
+<h1 id="overview">Overview</h1>
 
-<h3 id="draw-random-samples-uniformly-over-the-cumulative-distribution-function-cdf">Draw random samples uniformly over the cumulative distribution function (CDF)</h3>
+<h1 id="draw-random-samples-uniformly-over-the-cumulative-distribution-function-cdf">Draw random samples uniformly over the cumulative distribution function (CDF)</h1>
 
-<h3 id="markov-chain-monte-carlo-mcmc">Markov Chain Monte-Carlo (MCMC)</h3>
+<h1 id="markov-chain-monte-carlo-mcmc">Markov Chain Monte-Carlo (MCMC)</h1>
 
 <p>Markov chain Monte-Carlo uses a homogeneous, ergodic and reversible (see [1] for the meaning of the adjectives) Markov chain to generate consistent samples draw from any given distribution.</p>
 
-<h3 id="reference">Reference</h3>
-<p>[1] <a href="https://www.unige.ch/sciences/astro/files/2713/8971/4086/3_Paltani_MonteCarlo.pdf">Lecture notes</a>
-[2] <a href="http://www.mcmchandbook.net/HandbookChapter1.pdf">Introduction to Markov Chain Monte Carlo</a></p>
+<h3 id="glossary">Glossary</h3>
+
+<ul>
+  <li>
+    <p>Stationary. A markov chain is stationary if <script type="math/tex">P(x_{t+1} \| x_t)</script> does not depend on <script type="math/tex">t</script>.</p>
+  </li>
+  <li>
+    <p>Ergodic. A markov chain is ergodic if <script type="math/tex">x_t</script> converges to a distribution not matter what the starting value is.</p>
+  </li>
+  <li>
+    <p>Irreducible. A markov chain is irreducible if the samples of the chain can move all over the state space, i.e., can eventually reach any region of the state space, no matter its initial value.</p>
+  </li>
+</ul>
+
+<h3 id="metropolishastings-algorithm">Metropolis–Hastings algorithm</h3>
+
+<ol>
+  <li>
+    <p>Given <script type="math/tex">X_t=x_t</script>, generate <script type="math/tex">Y_t \sim q(y \| x_t)</script>, where the conditional density <script type="math/tex">q(y \| x)</script> is called <strong>proposal</strong>, which is used to generate next sample.</p>
+  </li>
+  <li>
+    <p>Take <script type="math/tex">X^{t+1} = Y^t</script> with probability <script type="math/tex">\rho(x^t, Y^t)</script>  or <script type="math/tex">X^{t+1} = x^t</script> with probability <script type="math/tex">1 - \rho(x^t, Y^t)</script>, where <script type="math/tex">\rho(x, y) = \min\{ \frac{\pi(y)}{\pi(x)} \frac{q(x\|y)}{q(y\|x)}, 1 \}</script>. Here we do not need to obtain the exact value of <script type="math/tex">\pi(y)</script> and <script type="math/tex">\pi(x)</script>, but more easily, their ratio.</p>
+  </li>
+</ol>
+
+<p>(The proposal <script type="math/tex">q(y \| x)</script> must be carefully chosen to ensure that the samples of MCMC converge to the target distribution <script type="math/tex">\pi(x)</script>.)</p>
+
+<h3 id="gibbs-sampling">Gibbs sampling</h3>
+
+<p>Gibbs sampling is a multivariate version of Metropolis–Hastings algorithm. Here we consider the multivariate distribution of <script type="math/tex">\mathbf{X} = (x_1, ..., x_n)</script>.</p>
+
+<p>In the transition step （step 2 above）, we generate next proposal <script type="math/tex">\mathbf{X}^{t+1}</script> from <script type="math/tex">\mathbf{X}^t</script> based on the conditional density <script type="math/tex">q(x_j^{t+1} \| x_1^{t+1}, ..., x_{j-1}^{t+1}, x_{j+1}^{t}, ..., x_n^{t})</script>, since the variables are correlated. It means the <script type="math/tex">j</script>th component <script type="math/tex">x_j^{t+1}</script> is conditioned on all the other components at hand.</p>
+
+<h3 id="adaptive-rejection-sampling">Adaptive rejection sampling</h3>
+
+<p>The main idea is to asymptotically optimize the transition function to minimize the rejection rate.</p>
+
+<h1 id="reference">Reference</h1>
+<p>[1] <a href="https://www.unige.ch/sciences/astro/files/2713/8971/4086/3_Paltani_MonteCarlo.pdf">Lecture notes</a></p>
+
+<p>[2] <a href="http://www.mcmchandbook.net/HandbookChapter1.pdf">Introduction to Markov Chain Monte Carlo</a></p>
+
+<p>[3] Very useful for the newers: <a href="https://link.springer.com/content/pdf/10.3758%2Fs13423-016-1015-8.pdf">A simple introduction to Markov Chain Monte–Carlo sampling</a></p>
 
 
 

@@ -250,7 +250,9 @@
 <p>If we have normalized the coordinates of image pixels to <script type="math/tex">[u_i, v_i]^T</script>, the equation system becomes</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} = \mathbf{0}. %]]></script>
+\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} \\ =   \left(\begin{bmatrix} 1 & 0 & -u_i \\ 0 & 1 & -v_i \end{bmatrix}  \otimes \mathbf{\alpha}_i^T \right)  \mathbf{x} =  \mathbf{0}, %]]></script>
+
+<p>where <script type="math/tex">\otimes</script> denotes Kronecker product.</p>
 
 <p>Step 3. The solution of the linear equation system lies in the <strong>null space</strong> or <strong>kernel</strong> of <script type="math/tex">M^TM</script> and can be expressed as <script type="math/tex">x = \sum_{i=1}^N \beta_i v_i</script>, where <script type="math/tex">v_i</script> are the right-singular vectors of <script type="math/tex">M</script> corresponding to the zero singular values. Now the unknowns become <script type="math/tex">\{\beta_i\}i=1,...,N</script>. Based on the analysis in [2], the dimension <script type="math/tex">N</script> of null-space of <script type="math/tex">M^TM</script> varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of <script type="math/tex">\{\beta_i\}i=1,...,N</script> with the miminum reprojection error.</p>
 
@@ -258,11 +260,10 @@
 
 <h3 id="network-architecture">Network architecture</h3>
 
-<ol>
-  <li><a href="http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/">Globally and Locally Consistent Image Completion</a></li>
-</ol>
-
 <ul>
+  <li>
+    <p><a href="http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/">Globally and Locally Consistent Image Completion</a></p>
+  </li>
   <li>
     <p>Dilated convolution (空洞卷积) Fully convolutional betwork, dilated conv</p>
   </li>
@@ -274,6 +275,12 @@
   </li>
   <li>
     <p><a href="http://cvrs.whu.edu.cn/downloads/ebooks/Multiple%20View%20Geometry%20in%20Computer%20Vision%20(Second%20Edition).pdf">“Data normalization (or called pre-conditioning in the numerical literature) is an essential step in the DLT algorithm.”</a> from Page 107</p>
+  </li>
+  <li>
+    <p>rank-constrained optimization</p>
+  </li>
+  <li>
+    <p>degenerate cases and the coplanar case</p>
   </li>
 </ul>
 

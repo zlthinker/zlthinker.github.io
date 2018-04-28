@@ -121,7 +121,9 @@ $$Mx = 0.$$
 
 If we have normalized the coordinates of image pixels to $$[u_i, v_i]^T$$, the equation system becomes
 
-$$\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} = \mathbf{0}.$$
+$$\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} \\ =   \left(\begin{bmatrix} 1 & 0 & -u_i \\ 0 & 1 & -v_i \end{bmatrix}  \otimes \mathbf{\alpha}_i^T \right)  \mathbf{x} =  \mathbf{0},$$
+
+where $$\otimes$$ denotes Kronecker product.
 
 Step 3. The solution of the linear equation system lies in the **null space** or **kernel** of $$M^TM$$ and can be expressed as $$x = \sum_{i=1}^N \beta_i v_i$$, where $$v_i$$ are the right-singular vectors of $$M$$ corresponding to the zero singular values. Now the unknowns become $$\{\beta_i\}i=1,...,N$$. Based on the analysis in [2], the dimension $$N$$ of null-space of $$M^TM$$ varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of $$\{\beta_i\}i=1,...,N$$ with the miminum reprojection error.
 
@@ -129,7 +131,7 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 
 ### Network architecture
 
-1. [Globally and Locally Consistent Image Completion](http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/)
+* [Globally and Locally Consistent Image Completion](http://hi.cs.waseda.ac.jp/~iizuka/projects/completion/en/)
 
 * Dilated convolution (空洞卷积) Fully convolutional betwork, dilated conv
 
@@ -138,6 +140,10 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 * [Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
 * ["Data normalization (or called pre-conditioning in the numerical literature) is an essential step in the DLT algorithm."](http://cvrs.whu.edu.cn/downloads/ebooks/Multiple%20View%20Geometry%20in%20Computer%20Vision%20(Second%20Edition).pdf) from Page 107 
+
+* rank-constrained optimization
+
+* degenerate cases and the coplanar case
 
 
 

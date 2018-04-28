@@ -17,6 +17,7 @@ updated: 2016-10-19 23:37
 * attenuate 减弱
 * comprise sth 包含
 * canonical = typical 典型的
+* circumvent 巧妙避开
 * comprise 由...组成，包含
 * conjecture
 * contaminate 污染
@@ -90,6 +91,7 @@ updated: 2016-10-19 23:37
 * judicious 审慎明智的
 * legitimate 合理的，合法的（可作动词）
 * negligible 微不足道的，可以忽视的
+* post hoc 事后的/地
 * principle 主要的，重要的
 * readily 简单地
 * requisite 必须的，n.必需品
