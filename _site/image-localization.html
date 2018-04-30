@@ -108,6 +108,7 @@
       <li><a href="#p3p" id="markdown-toc-p3p">P3P</a></li>
       <li><a href="#p4p-p5p-pnp" id="markdown-toc-p4p-p5p-pnp">P4P, P5P, PnP</a></li>
       <li><a href="#epnp" id="markdown-toc-epnp">EPnP</a></li>
+      <li><a href="#other-pnps-and-insights" id="markdown-toc-other-pnps-and-insights">Other PnPs and insights</a></li>
     </ul>
   </li>
   <li><a href="#scene-coordinate-regression-network-score-net" id="markdown-toc-scene-coordinate-regression-network-score-net">Scene COordinate REgression Network (SCORE-Net)</a>    <ul>
@@ -255,6 +256,15 @@
 <p>where <script type="math/tex">\otimes</script> denotes Kronecker product.</p>
 
 <p>Step 3. The solution of the linear equation system lies in the <strong>null space</strong> or <strong>kernel</strong> of <script type="math/tex">M^TM</script> and can be expressed as <script type="math/tex">x = \sum_{i=1}^N \beta_i v_i</script>, where <script type="math/tex">v_i</script> are the right-singular vectors of <script type="math/tex">M</script> corresponding to the zero singular values. Now the unknowns become <script type="math/tex">\{\beta_i\}i=1,...,N</script>. Based on the analysis in [2], the dimension <script type="math/tex">N</script> of null-space of <script type="math/tex">M^TM</script> varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of <script type="math/tex">\{\beta_i\}i=1,...,N</script> with the miminum reprojection error.</p>
+
+<h3 id="other-pnps-and-insights">Other PnPs and insights</h3>
+
+<ul>
+  <li>RPnP: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6143946">A Robust O(n) Solution to the Perspective-n-Point Problem</a></li>
+  <li>OPnP: <a href="http://www2.maths.lth.se/vision/publdb/reports/pdf/zheng-kuang-etal-iiccvi-13.pdf">Revisiting the PnP Problem: A Fast, General and Optimal Solution</a></li>
+  <li>REPPnP: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6909465">Very Fast Solution to the PnP Problem with Algebraic Outlier Rejection</a></li>
+  <li>The accuracy of solutions to the PnP problem is closely related to the configuration of the 3D point set [RPnP]. Ordinary 3D case, planar case, quasisingular case and “uncentered data” [EPnP].</li>
+</ul>
 
 <h1 id="scene-coordinate-regression-network-score-net">Scene COordinate REgression Network (SCORE-Net)</h1>
 

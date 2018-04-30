@@ -127,6 +127,13 @@ where $$\otimes$$ denotes Kronecker product.
 
 Step 3. The solution of the linear equation system lies in the **null space** or **kernel** of $$M^TM$$ and can be expressed as $$x = \sum_{i=1}^N \beta_i v_i$$, where $$v_i$$ are the right-singular vectors of $$M$$ corresponding to the zero singular values. Now the unknowns become $$\{\beta_i\}i=1,...,N$$. Based on the analysis in [2], the dimension $$N$$ of null-space of $$M^TM$$ varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of $$\{\beta_i\}i=1,...,N$$ with the miminum reprojection error.
 
+### Other PnPs and insights
+
+* RPnP: [A Robust O(n) Solution to the Perspective-n-Point Problem](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6143946)
+* OPnP: [Revisiting the PnP Problem: A Fast, General and Optimal Solution](http://www2.maths.lth.se/vision/publdb/reports/pdf/zheng-kuang-etal-iiccvi-13.pdf)
+* REPPnP: [Very Fast Solution to the PnP Problem with Algebraic Outlier Rejection](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6909465)
+* The accuracy of solutions to the PnP problem is closely related to the configuration of the 3D point set [RPnP]. Ordinary 3D case, planar case, quasisingular case and "uncentered data" [EPnP].
+
 # Scene COordinate REgression Network (SCORE-Net)
 
 ### Network architecture
