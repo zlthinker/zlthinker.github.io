@@ -81,6 +81,7 @@ updated: 2016-10-19 23:37
 * handcrafted     手动设定的
 * heterogeneous image collections 多种多样的
 * holistic 整体的
+* immune to 对。。。免疫
 * inadvertent 疏忽的，不注意的
 * incoherent with 与不一致
 * injective 单射的 (injective function/mapping)
@@ -153,6 +154,7 @@ updated: 2016-10-19 23:37
 * aspire to = be eager to = seek to
 * a question left open by the present work / left unanswered
 * be monotone increasing / decreasing     单调递增 ／ 递减
+* best suited for real-time applications
 * be termed sth 被称作...
 * boost … quality
 * come to prominence 变得重要
@@ -167,6 +169,7 @@ updated: 2016-10-19 23:37
 * in what follows
 * in conjunction with
 * isolate the effect of
+* let there be n points
 * more resilient against failure 对失败更有弹性
 * mutually exclusive	impossible at the same time
 * perform favorably compared to 

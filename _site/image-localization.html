@@ -107,7 +107,7 @@
   <li><a href="#pnp-algorithm" id="markdown-toc-pnp-algorithm">PnP algorithm</a>    <ul>
       <li><a href="#p3p" id="markdown-toc-p3p">P3P</a></li>
       <li><a href="#p4p-p5p-pnp" id="markdown-toc-p4p-p5p-pnp">P4P, P5P, PnP</a></li>
-      <li><a href="#epnp" id="markdown-toc-epnp">EPnP</a></li>
+      <li><a href="#epnp" id="markdown-toc-epnp"><a href="http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf">EPnP</a></a></li>
       <li><a href="#other-pnps-and-insights" id="markdown-toc-other-pnps-and-insights">Other PnPs and insights</a></li>
     </ul>
   </li>
@@ -229,7 +229,7 @@
 
 <p>When <script type="math/tex">n=4</script>, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.</p>
 
-<h3 id="epnp">EPnP</h3>
+<h3 id="epnp"><a href="http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf">EPnP</a></h3>
 
 <p>EPnP algorithm is one of the most efficient PnP algorithm which has O(n) complexity. It is composed of three steps:</p>
 
@@ -263,7 +263,14 @@
   <li>RPnP: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6143946">A Robust O(n) Solution to the Perspective-n-Point Problem</a></li>
   <li>OPnP: <a href="http://www2.maths.lth.se/vision/publdb/reports/pdf/zheng-kuang-etal-iiccvi-13.pdf">Revisiting the PnP Problem: A Fast, General and Optimal Solution</a></li>
   <li>REPPnP: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6909465">Very Fast Solution to the PnP Problem with Algebraic Outlier Rejection</a></li>
+  <li>ASPnP: <a href="https://www.jstage.jst.go.jp/article/transinf/E96.D/7/E96.D_1525/_pdf">ASPnP: An Accurate and Scalable Solution to the Perspective-n-Point Problem</a></li>
   <li>The accuracy of solutions to the PnP problem is closely related to the configuration of the 3D point set [RPnP]. Ordinary 3D case, planar case, quasisingular case and “uncentered data” [EPnP].</li>
+  <li>Under the assumption of independently and identically distribution (i.i.d.) Gaussian noise, minimizing the reprojection error is statistically optimal in the sense of maximum likelihood estimation (MLE).</li>
+  <li>Pose ambiguity
+    <ol>
+      <li><a href="https://pdfs.semanticscholar.org/85ad/143e7fe0eafe536bb769de3cc5324500dd58.pdf">Robust Pose Estimation from a Planar Target</a></li>
+    </ol>
+  </li>
 </ul>
 
 <h1 id="scene-coordinate-regression-network-score-net">Scene COordinate REgression Network (SCORE-Net)</h1>

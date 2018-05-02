@@ -101,7 +101,7 @@ The overdermined equation system can be easily solved by SVD decomposition, wher
 
 When $$n=4$$, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.
 
-### EPnP
+### [EPnP](http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf)
 
 EPnP algorithm is one of the most efficient PnP algorithm which has O(n) complexity. It is composed of three steps:
 
@@ -132,7 +132,11 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 * RPnP: [A Robust O(n) Solution to the Perspective-n-Point Problem](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6143946)
 * OPnP: [Revisiting the PnP Problem: A Fast, General and Optimal Solution](http://www2.maths.lth.se/vision/publdb/reports/pdf/zheng-kuang-etal-iiccvi-13.pdf)
 * REPPnP: [Very Fast Solution to the PnP Problem with Algebraic Outlier Rejection](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6909465)
+* ASPnP: [ASPnP: An Accurate and Scalable Solution to the Perspective-n-Point Problem](https://www.jstage.jst.go.jp/article/transinf/E96.D/7/E96.D_1525/_pdf)
 * The accuracy of solutions to the PnP problem is closely related to the configuration of the 3D point set [RPnP]. Ordinary 3D case, planar case, quasisingular case and "uncentered data" [EPnP].
+* Under the assumption of independently and identically distribution (i.i.d.) Gaussian noise, minimizing the reprojection error is statistically optimal in the sense of maximum likelihood estimation (MLE).
+* Pose ambiguity
+	1. [Robust Pose Estimation from a Planar Target](https://pdfs.semanticscholar.org/85ad/143e7fe0eafe536bb769de3cc5324500dd58.pdf)
 
 # Scene COordinate REgression Network (SCORE-Net)
 
