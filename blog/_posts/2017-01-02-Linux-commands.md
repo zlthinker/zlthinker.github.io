@@ -68,6 +68,14 @@ ldd
 # Print shared library dependencies
 ```
 
+```
+pkg-config
+# 每当安装一个软件时，系统会将一个描述软件的'.pc'文件放在$PKG_CONFIG_PATH中用来索引。
+
+pkg-config --lib --cflags OpenEXR
+-pthread -I/usr/include/OpenEXR -I/usr/include/libdrm  -pthread -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
+```
+
 # RAID
 
 RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。
