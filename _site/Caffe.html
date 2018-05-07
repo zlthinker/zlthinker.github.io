@@ -118,7 +118,7 @@
 
 <p>在Caffe的blob类中定义了<code class="highlighter-rouge">mutable_cpu_data()</code>和<code class="highlighter-rouge">cpu_data()</code>两种member function。从它们的定义来看两者的区别其实非常小。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const void* SyncedMemory::cpu_data() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const void* SyncedMemory::cpu_data() {
 	check_device();
 	to_cpu();
 	return (const void*)cpu_ptr_;
@@ -129,8 +129,7 @@ void* SyncedMemory::mutable_cpu_data() {
 	head_ = HEAD_AT_CPU;
 	return (const void*)cpu_ptr_;
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 <p><code class="highlighter-rouge">cpu_data()</code>返回的是常指针，说明该函数只能用来读取数据。<code class="highlighter-rouge">mutable_cpu_data()</code>函数用来修改数据，并且多了一句<code class="highlighter-rouge">head_ = HEAD_AT_CPU;</code>，用来提醒系统CPU memory中的数据已经被修改过了，需要小心。类似地，<code class="highlighter-rouge">mutable_gpu_data()</code>和<code class="highlighter-rouge">gpu_data()</code>的差别也是如此。</p>
 
 <h3 id="gpu-cuda-and-caffe">GPU, CUDA and Caffe</h3>

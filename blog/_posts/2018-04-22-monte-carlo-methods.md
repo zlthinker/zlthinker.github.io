@@ -43,6 +43,15 @@ In the transition step （step 2 above）, we generate next proposal $$\mathbf{X
 
 The main idea is to asymptotically optimize the transition function to minimize the rejection rate.
 
+### Cluster sampling
+
+It split an image into individual clusters, which is useful for image segmentation.
+
+[Interpretations of Cluster Sampling by Swendsen-Wang](https://pdfs.semanticscholar.org/4256/35f354bab06f3811eb0093d67ba37445fe12.pdf)
+
+### Random Walk
+[Google Page Rank via random walk](http://www.cs.bu.edu/~snyder/cs109/CS109.Lect15.pdf)
+
 
 
 
