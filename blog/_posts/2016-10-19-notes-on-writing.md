@@ -22,6 +22,7 @@ updated: 2016-10-19 23:37
 * conjecture
 * contaminate 污染
 * cull 剔除
+* delineate 描边, mark the edges of sth
 * denote
 * designate 指定   designate sth as
 * deviate 脱离
@@ -34,6 +35,7 @@ updated: 2016-10-19 23:37
 * envision 预想
 * exacerbate = degenerate 恶化
 * grope for 探索
+* hinge on = depend on
 * impose 利用     impose the conditions 
 * incorporate  
 * identify  鉴定 ＝ identify, determine
@@ -43,6 +45,7 @@ updated: 2016-10-19 23:37
 * necessitate 必需
 * pioneered by
 * possess 拥有，具备
+* (sth) proceeds
 * remedy 补救
 * resemble 近似，像
 * resort to 利用，诉诸
@@ -75,6 +78,7 @@ updated: 2016-10-19 23:37
 * contrived 牵强的
 * deficient = inadequate = insufficient
 * drastic ＝ great (change)
+* elusive 难以描述
 * eminent 突出的     of eminent importance
 * emphatic emphatically 坚决地，断然地
 * erroneous = incorrect
@@ -148,6 +152,7 @@ updated: 2016-10-19 23:37
 ### phrases.
 * a good compromise between accuracy and sparsity
 * all but: almost completely
+* a major obstacle to
 * among the best
 * amount to 相当于，几乎是
 * aside from 除了
@@ -159,6 +164,7 @@ updated: 2016-10-19 23:37
 * boost … quality
 * come to prominence 变得重要
 * compare favorably with   as good as or even better
+* de-facto standard 业界标准
 * dual goal
 * equality up to scale
 * fine-tune … model 微调...
@@ -166,6 +172,7 @@ updated: 2016-10-19 23:37
 * from scratch 从头开始
 * give rise to 导致
 * has an abundance of applications 有丰富的应用
+* in the wild
 * in what follows
 * in conjunction with
 * isolate the effect of

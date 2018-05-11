@@ -109,48 +109,56 @@
 	<h1 id="commands">Commands</h1>
 <h3 id="硬件交互">硬件交互</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lspci (| grep NVIDIA)
+<div class="highlighter-rouge"><pre class="highlight"><code>lspci (| grep NVIDIA)
 # 获取PCI连接的设备信息，如显卡、硬盘、显示器、无线网卡等外设
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk
+<div class="highlighter-rouge"><pre class="highlight"><code>lsblk
 # list block devices.
 # 块设备即以block为单位进行数据读写的设备，
 # 与character device相对
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df -h (-T: show file system type)
+<div class="highlighter-rouge"><pre class="highlight"><code>df -h (-T: show file system type)
 # 显示mount到文件系统中的硬盘空间和分区的使用情况
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="文件系统文本处理">文件系统、文本处理</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>locate /path/to/locate/*opencv*
+<div class="highlighter-rouge"><pre class="highlight"><code>locate /path/to/locate/*opencv*
 # 在/path/to/locate/文件夹中搜索路径名含有opencv的文件
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /path/to/find -name *opencv*
+<div class="highlighter-rouge"><pre class="highlight"><code>find /path/to/find -name *opencv*
 # 在/path/to/find/文件夹中搜索文件名含有opencv的文件
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep -ri 'pattern' /path/to/grep
+<div class="highlighter-rouge"><pre class="highlight"><code>grep -ri 'pattern' /path/to/grep
 # 在/path/to/grep/文件夹中recursively寻找pattern
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sshpass -p "password" scp ...
+<div class="highlighter-rouge"><pre class="highlight"><code>sshpass -p "password" scp ...
 # pass pwd to scp
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="系统环境">系统环境</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH=$PATH:&lt;path1&gt;:&lt;path2&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>export PATH=$PATH:&lt;path1&gt;:&lt;path2&gt;
 # 在环境变量$PATH末尾加多个path
 export LD_LIBRARY_PATH=&lt;path1&gt;:&lt;path2&gt;:$LD_LIBRARY_PATH
 # 在环境变量$LD_LIBRARY_PATH最前加多个path
 # 常见环境变量有$JAVAHOME, $PYTHONPATH
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldconfig
+<div class="highlighter-rouge"><pre class="highlight"><code>ldconfig
 # 系统的动态链接库会默认放在系统目录`/usr/lib`和`/lib`下，或者动态库配置文件`/etc/ld.so.conf`指定的非系统目录下，供应用程序共享。一般系统启动时会执行`ldconfig`命令对所有库文件建立索引。但是如果对链接库目录下的文件增删修改时（例如安装了新的包），就需要手动执行`ldconfig`以刷新索引。
 
 ldconfig -v (| grep cuda)
@@ -158,14 +166,16 @@ ldconfig -v (| grep cuda)
 
 ldd
 # Print shared library dependencies
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkg-config
+<div class="highlighter-rouge"><pre class="highlight"><code>pkg-config
 # 每当安装一个软件时，系统会将一个描述软件的'.pc'文件放在$PKG_CONFIG_PATH中用来索引。
 
 pkg-config --lib --cflags OpenEXR
 -pthread -I/usr/include/OpenEXR -I/usr/include/libdrm  -pthread -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h1 id="raid">RAID</h1>
 

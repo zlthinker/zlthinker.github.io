@@ -22,6 +22,7 @@ tag:
 
 * Pose regression
 	* [Posenet: A convolutional network for real-time 6-dof camera relocalization](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf?utm_source=mandiner&utm_medium=link&utm_campaign=mandiner_digit_201512)
+	* [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
 	* [Image-based localization using LSTMs for structured feature correlation](https://arxiv.org/pdf/1611.07890.pdf)
 	* [Geometric loss functions for camera pose regression with deep learning](http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf)
 
@@ -45,6 +46,7 @@ tag:
 	* [Semantic Visual Localization](https://arxiv.org/pdf/1712.05773.pdf): Use segmentation (CVPR2018, ETH)
 	* [Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions](https://arxiv.org/pdf/1707.09092.pdf): Outdoor benchmark (CVPR2018, spotlight, ETH)
 	* [InLoc: Indoor Visual Localization with Dense Matching and View Synthesis](): (CVPR2018, spotlight, ETH)
+	* Pose regression + visual odometry [Deep Auxiliary Learning for Visual Localization and Odometry](https://arxiv.org/pdf/1803.03642.pdf): (ICLA2018)
 	
 
 * encoder-decoder network
@@ -57,6 +59,12 @@ tag:
 * geometry + deep learning
 	* [Eigendecomposition-free Training of Deep Networks with Zero Eigenvalue-based Losses](https://gfx.uvic.ca/pubs/2018/zheng2018eigen/paper.pdf)
 	* [Learning to Find Good Correspondences](https://gfx.uvic.ca/pubs/2018/yi2018learning/paper.pdf)
+
+* Bayesian Neural Network & MCMC Sampling
+	* [Bayesian Dark Knowledge](https://arxiv.org/pdf/1506.04416.pdf): (NIPS2015)
+	* [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
+	* [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
+	* [Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification](http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf)
 
 
 	

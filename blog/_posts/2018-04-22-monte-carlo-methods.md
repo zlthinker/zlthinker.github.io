@@ -23,6 +23,8 @@ Markov chain Monte-Carlo uses a homogeneous, ergodic and reversible (see [1] for
 
 * Irreducible. A markov chain is irreducible if the samples of the chain can move all over the state space, i.e., can eventually reach any region of the state space, no matter its initial value.
 
+* Aperiodic. Sampling不会周期性地回到某个点.
+
 ### Metropolis–Hastings algorithm
 
 1. Given $$X_t=x_t$$, generate $$Y_t \sim q(y \| x_t)$$, where the conditional density $$q(y \| x)$$ is called **proposal**, which is used to generate next sample.
@@ -38,6 +40,12 @@ Gibbs sampling is a multivariate version of Metropolis–Hastings algorithm. Her
 
 In the transition step （step 2 above）, we generate next proposal $$\mathbf{X}^{t+1}$$ from $$\mathbf{X}^t$$ based on the conditional density $$q(x_j^{t+1} \| x_1^{t+1}, ..., x_{j-1}^{t+1}, x_{j+1}^{t}, ..., x_n^{t})$$, since the variables are correlated. It means the $$j$$th component $$x_j^{t+1}$$ is conditioned on all the other components at hand.
 
+### Metropolis within Gibbs (Hybrid Gibbs)
+
+Metropolis within Gibbs uses the Metropolis Hasting proposal for each component of $$\mathbf{X}^{t+1}$$.
+
+[http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html](http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html)
+
 
 ### Adaptive rejection sampling
 
@@ -52,8 +60,9 @@ It split an image into individual clusters, which is useful for image segmentati
 ### Random Walk
 [Google Page Rank via random walk](http://www.cs.bu.edu/~snyder/cs109/CS109.Lect15.pdf)
 
+## Convergence
 
-
+The structural properties required for a constructed chain to converge appropriately are well understood: essentially irreducibility and aperiodicity.
 
 
 

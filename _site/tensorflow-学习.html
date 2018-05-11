@@ -141,7 +141,7 @@ allocate only as much GPU memory based on runtime allocations</li>
 
 <h3 id="network-layers">Network layers</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">()</span>	<span class="c"># conv2d</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">()</span>	<span class="c"># conv2d</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d</span><span class="p">()</span>	<span class="c"># conv3d</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">()</span>	<span class="c"># deconv2d</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d_transpose</span><span class="p">()</span>	<span class="c"># deconv3d</span>
@@ -172,7 +172,8 @@ allocate only as much GPU memory based on runtime allocations</li>
 <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># stack a list of rank-R tensors into a rank-(R+1) one</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># chipping rank-(R+1) tensor along axis into a amount of num rank-R tensors</span>
 <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="tesorflow变量名">Tesorflow变量名</h3>
 <p><code class="highlighter-rouge">tf.Variable()</code>和<code class="highlighter-rouge">tf.get_variable()</code>是新建变量的两种方式。
@@ -182,18 +183,19 @@ allocate only as much GPU memory based on runtime allocations</li>
 <p><code class="highlighter-rouge">tf.name_scope()</code>和<code class="highlighter-rouge">tf.variable_scope()</code>
 <code class="highlighter-rouge">tf.name_scope()</code>用于对图里面的各种operator进行层次化的管理，类似C++中的<code class="highlighter-rouge">namespce</code>。
 <code class="highlighter-rouge">tf.variable_scope()</code>除了<code class="highlighter-rouge">tf.name_scope()</code>的功能之外，还允许在一个variable_scope下共享变量：</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="s">'my_scope'</span><span class="p">)</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="s">'my_scope'</span><span class="p">)</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
 	<span class="n">var1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 	<span class="n">scope</span><span class="o">.</span><span class="n">reuse_variables</span><span class="p">()</span>
 	<span class="n">var1_reuse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="estimators">Estimators</h3>
 <ul>
   <li>Define Estimator: <code class="highlighter-rouge">tf.estimator</code> are essentially predefined models. The examples are shown below:</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># feature columns specify data type of input</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># feature columns specify data type of input</span>
 <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"x"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">])]</span>
 
 <span class="c"># Build 3 layer DNN with 10, 20, 10 units respectively.</span>
@@ -217,13 +219,14 @@ allocate only as much GPU memory based on runtime allocations</li>
         <span class="n">l2_regularization_strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 	<span class="c"># L1 regularization tends to make model weights stay at zero</span>
 	<span class="c"># L2 regularization also tries to make model weights closer to zero but not necessarily zero</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>Define input function: The input builder function constructs input data in form of <code class="highlighter-rouge">tf.Tensor</code> and <code class="highlighter-rouge">tf.SparseTensor</code> (mostly for categorical data).</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Define the training inputs</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Define the training inputs</span>
 <span class="n">train_input_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">numpy_input_fn</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="s">"x"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">)},</span>
     <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
@@ -267,28 +270,31 @@ allocate only as much GPU memory based on runtime allocations</li>
   <span class="k">return</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span>
 <span class="c"># feature_cols: a dictionary containing key/value pairs that map feature column names to Tensors</span>
 <span class="c"># labels: A tensor containing label values</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>Train, Evaluate or Predict</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Train model.</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Train model.</span>
 <span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">train_input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
 <span class="c"># Evaluate accuracy.</span>
 <span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">test_input_fn</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
 <span class="c"># Predict new samples.</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">predict_input_fn</span><span class="p">))</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="graph-visualization">Graph visualization</h3>
 <p>Inherently, a graph is built after we define tensors or variables that flow through operation nodes. 
 Then the graph can be save into log dir by</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with tf.Session() as sess:
+<div class="highlighter-rouge"><pre class="highlight"><code>with tf.Session() as sess:
     writer = tf.summary.FileWriter(output_folder, sess.graph)
     sess.run(graph_fn)
     writer.close()
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>To visualize the graph, just run command <code class="highlighter-rouge">tensorboard --logdir /your/dir/</code> if tensorflow is installed.</p>
 
 <h3 id="debug">Debug</h3>
@@ -297,15 +303,16 @@ Then the graph can be save into log dir by</p>
   <li>Debug with session: just warp session with a debugger wrapper, then debug in CLI.</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tensorflow.python</span> <span class="kn">import</span> <span class="n">debug</span> <span class="k">as</span> <span class="n">tf_debug</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tensorflow.python</span> <span class="kn">import</span> <span class="n">debug</span> <span class="k">as</span> <span class="n">tf_debug</span>
 <span class="n">sess</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugWrapperSession</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>Debug with estimator: Estimator mannages sessions internally.</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a LocalCLIDebugHook and use it as a monitor when calling fit().</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Create a LocalCLIDebugHook and use it as a monitor when calling fit().</span>
 <span class="n">hooks</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">debug_hook</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugHook</span><span class="p">(</span><span class="n">ui_type</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">ui_type</span><span class="p">,</span>
                                         <span class="n">dump_root</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">dump_root</span><span class="p">)</span>
@@ -322,7 +329,8 @@ Then the graph can be save into log dir by</p>
 	<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
 				<span class="n">y</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
 				<span class="n">hooks</span><span class="o">=</span><span class="n">hooks</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="visiualize-embedding">Visiualize embedding</h3>
 

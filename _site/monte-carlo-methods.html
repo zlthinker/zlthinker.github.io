@@ -109,9 +109,11 @@
       <li><a href="#glossary" id="markdown-toc-glossary">Glossary</a></li>
       <li><a href="#metropolishastings-algorithm" id="markdown-toc-metropolishastings-algorithm">Metropolis–Hastings algorithm</a></li>
       <li><a href="#gibbs-sampling" id="markdown-toc-gibbs-sampling">Gibbs sampling</a></li>
+      <li><a href="#metropolis-within-gibbs-hybrid-gibbs" id="markdown-toc-metropolis-within-gibbs-hybrid-gibbs">Metropolis within Gibbs (Hybrid Gibbs)</a></li>
       <li><a href="#adaptive-rejection-sampling" id="markdown-toc-adaptive-rejection-sampling">Adaptive rejection sampling</a></li>
       <li><a href="#cluster-sampling" id="markdown-toc-cluster-sampling">Cluster sampling</a></li>
       <li><a href="#random-walk" id="markdown-toc-random-walk">Random Walk</a></li>
+      <li><a href="#convergence" id="markdown-toc-convergence">Convergence</a></li>
     </ul>
   </li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
@@ -137,6 +139,9 @@
   <li>
     <p>Irreducible. A markov chain is irreducible if the samples of the chain can move all over the state space, i.e., can eventually reach any region of the state space, no matter its initial value.</p>
   </li>
+  <li>
+    <p>Aperiodic. Sampling不会周期性地回到某个点.</p>
+  </li>
 </ul>
 
 <h3 id="metropolishastings-algorithm">Metropolis–Hastings algorithm</h3>
@@ -158,6 +163,12 @@
 
 <p>In the transition step （step 2 above）, we generate next proposal <script type="math/tex">\mathbf{X}^{t+1}</script> from <script type="math/tex">\mathbf{X}^t</script> based on the conditional density <script type="math/tex">q(x_j^{t+1} \| x_1^{t+1}, ..., x_{j-1}^{t+1}, x_{j+1}^{t}, ..., x_n^{t})</script>, since the variables are correlated. It means the <script type="math/tex">j</script>th component <script type="math/tex">x_j^{t+1}</script> is conditioned on all the other components at hand.</p>
 
+<h3 id="metropolis-within-gibbs-hybrid-gibbs">Metropolis within Gibbs (Hybrid Gibbs)</h3>
+
+<p>Metropolis within Gibbs uses the Metropolis Hasting proposal for each component of <script type="math/tex">\mathbf{X}^{t+1}</script>.</p>
+
+<p><a href="http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html">http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html</a></p>
+
 <h3 id="adaptive-rejection-sampling">Adaptive rejection sampling</h3>
 
 <p>The main idea is to asymptotically optimize the transition function to minimize the rejection rate.</p>
@@ -170,6 +181,10 @@
 
 <h3 id="random-walk">Random Walk</h3>
 <p><a href="http://www.cs.bu.edu/~snyder/cs109/CS109.Lect15.pdf">Google Page Rank via random walk</a></p>
+
+<h2 id="convergence">Convergence</h2>
+
+<p>The structural properties required for a constructed chain to converge appropriately are well understood: essentially irreducibility and aperiodicity.</p>
 
 <h1 id="reference">Reference</h1>
 <p>[1] <a href="https://www.unige.ch/sciences/astro/files/2713/8971/4086/3_Paltani_MonteCarlo.pdf">Lecture notes</a></p>
