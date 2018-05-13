@@ -49,6 +49,7 @@ Metropolis within Gibbs uses the Metropolis Hasting proposal for each component 
 ### Hamiltonian Monte Carlo (Hybrid Monte Carlo)
 
 Hamiltonian dynamics是一种物理学上的动态过程,描述了一个有质量的物体的势能和动能的相互转化.想像一个固定在弹簧末端的小球,在小球左右来回摆动时,小球的动能和弹簧的弹性势能相互转化.其中弹性势能的计算取决于小球的位置$$x$$,动能的计算取决于小球的动量$$p=mv$$,这两个值$$(x,p)$$定义了Hamiltonian dynamics动态过程的一个坐标.随着时间的变化,每一个时间点的坐标可以通过积分的方法计算得到.例如,Leap Fog Method就是一个将连续时间离散为很小的时间段计算每个离散时间点$$(x,p)$$的方法.
+对于一个分布来讲,不同的位置$$(x,p)$$的总能量(势能+动能)是不同的,能量的大小反映了概率分布.对于MAP问题,就是要找能量最低的那个点.
 
 在Hamiltonian Monte Carlo(HMC)采样中,Hamiltonian dynamics被用来生成下一个proposal - $$x$$.此时的energy funciton定义为势能和动能之和,即$$H(x,p)=U(x)+K(p)$$.采样点$$(x,p)$$的概率为$$P(x,p)=\frac{1}{Z}e^{-U(x)-K(p)}$$.整个proposal的过程如下:
 
