@@ -110,6 +110,7 @@
       <li><a href="#metropolishastings-algorithm" id="markdown-toc-metropolishastings-algorithm">Metropolis–Hastings algorithm</a></li>
       <li><a href="#gibbs-sampling" id="markdown-toc-gibbs-sampling">Gibbs sampling</a></li>
       <li><a href="#metropolis-within-gibbs-hybrid-gibbs" id="markdown-toc-metropolis-within-gibbs-hybrid-gibbs">Metropolis within Gibbs (Hybrid Gibbs)</a></li>
+      <li><a href="#hamiltonian-monte-carlo-hybrid-monte-carlo" id="markdown-toc-hamiltonian-monte-carlo-hybrid-monte-carlo">Hamiltonian Monte Carlo (Hybrid Monte Carlo)</a></li>
       <li><a href="#adaptive-rejection-sampling" id="markdown-toc-adaptive-rejection-sampling">Adaptive rejection sampling</a></li>
       <li><a href="#cluster-sampling" id="markdown-toc-cluster-sampling">Cluster sampling</a></li>
       <li><a href="#random-walk" id="markdown-toc-random-walk">Random Walk</a></li>
@@ -168,6 +169,23 @@
 <p>Metropolis within Gibbs uses the Metropolis Hasting proposal for each component of <script type="math/tex">\mathbf{X}^{t+1}</script>.</p>
 
 <p><a href="http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html">http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html</a></p>
+
+<h3 id="hamiltonian-monte-carlo-hybrid-monte-carlo">Hamiltonian Monte Carlo (Hybrid Monte Carlo)</h3>
+
+<p>Hamiltonian dynamics是一种物理学上的动态过程,描述了一个有质量的物体的势能和动能的相互转化.想像一个固定在弹簧末端的小球,在小球左右来回摆动时,小球的动能和弹簧的弹性势能相互转化.其中弹性势能的计算取决于小球的位置<script type="math/tex">x</script>,动能的计算取决于小球的动量<script type="math/tex">p=mv</script>,这两个值<script type="math/tex">(x,p)</script>定义了Hamiltonian dynamics动态过程的一个坐标.随着时间的变化,每一个时间点的坐标可以通过积分的方法计算得到.例如,Leap Fog Method就是一个将连续时间离散为很小的时间段计算每个离散时间点<script type="math/tex">(x,p)</script>的方法.</p>
+
+<p>在Hamiltonian Monte Carlo(HMC)采样中,Hamiltonian dynamics被用来生成下一个proposal - <script type="math/tex">x</script>.此时的energy funciton定义为势能和动能之和,即<script type="math/tex">H(x,p)=U(x)+K(p)</script>.采样点<script type="math/tex">(x,p)</script>的概率为<script type="math/tex">P(x,p)=\frac{1}{Z}e^{-U(x)-K(p)}</script>.整个proposal的过程如下:</p>
+
+<ol>
+  <li>在第<script type="math/tex">t</script>步,给定一个采样<script type="math/tex">x_t</script>,从变量<script type="math/tex">p</script>的标准分布<script type="math/tex">P(p)</script>(canonical distribution,人为定义)中随机采样一个值<script type="math/tex">p_t</script>构成坐标<script type="math/tex">(x_t, p_t)</script>.</li>
+  <li>跑<script type="math/tex">L</script>步的Leap Fog Method来模拟Hamiltonian dynamics动态过程,到达结束位置<script type="math/tex">(x*, p*)</script></li>
+  <li>比较<script type="math/tex">H(x_t,p_t)</script>和<script type="math/tex">H(x*,p*)</script>的相对大小,按照Metropolis–Hastings algorithm的方法accept或者reject,从而得到<script type="math/tex">(x_{t+1}, p_{t+1})</script>.</li>
+</ol>
+
+<p>在每一步生成proposal时,因为引入了随机动量<script type="math/tex">p_t</script>,所以HMC可以有效地探索整个分布空间.
+因为HMC相邻两个采样的距离比Metropolis–Hastings algorithm更大,且相关性(autocorrelation)更小,所以有更快的收敛效果.</p>
+
+<p>详细讲解和示例见:<a href="https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/">https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/</a></p>
 
 <h3 id="adaptive-rejection-sampling">Adaptive rejection sampling</h3>
 

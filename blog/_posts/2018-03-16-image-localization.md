@@ -61,6 +61,8 @@ tag:
 	* [Learning to Find Good Correspondences](https://gfx.uvic.ca/pubs/2018/yi2018learning/paper.pdf)
 
 * Bayesian Neural Network & MCMC Sampling
+	* [Coursera: Bayesian Neural Networks](https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks)
+	* [Bayesian Learning via Stochastic Gradient Langevin Dynamics](https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf): (ICML2011)
 	* [Bayesian Dark Knowledge](https://arxiv.org/pdf/1506.04416.pdf): (NIPS2015)
 	* [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
 	* [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)

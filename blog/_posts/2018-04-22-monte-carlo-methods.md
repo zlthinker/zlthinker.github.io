@@ -46,6 +46,23 @@ Metropolis within Gibbs uses the Metropolis Hasting proposal for each component 
 
 [http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html](http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html)
 
+### Hamiltonian Monte Carlo (Hybrid Monte Carlo)
+
+Hamiltonian dynamics是一种物理学上的动态过程,描述了一个有质量的物体的势能和动能的相互转化.想像一个固定在弹簧末端的小球,在小球左右来回摆动时,小球的动能和弹簧的弹性势能相互转化.其中弹性势能的计算取决于小球的位置$$x$$,动能的计算取决于小球的动量$$p=mv$$,这两个值$$(x,p)$$定义了Hamiltonian dynamics动态过程的一个坐标.随着时间的变化,每一个时间点的坐标可以通过积分的方法计算得到.例如,Leap Fog Method就是一个将连续时间离散为很小的时间段计算每个离散时间点$$(x,p)$$的方法.
+
+在Hamiltonian Monte Carlo(HMC)采样中,Hamiltonian dynamics被用来生成下一个proposal - $$x$$.此时的energy funciton定义为势能和动能之和,即$$H(x,p)=U(x)+K(p)$$.采样点$$(x,p)$$的概率为$$P(x,p)=\frac{1}{Z}e^{-U(x)-K(p)}$$.整个proposal的过程如下:
+
+1. 在第$$t$$步,给定一个采样$$x_t$$,从变量$$p$$的标准分布$$P(p)$$(canonical distribution,人为定义)中随机采样一个值$$p_t$$构成坐标$$(x_t, p_t)$$.
+2. 跑$$L$$步的Leap Fog Method来模拟Hamiltonian dynamics动态过程,到达结束位置$$(x*, p*)$$
+3. 比较$$H(x_t,p_t)$$和$$H(x*,p*)$$的相对大小,按照Metropolis–Hastings algorithm的方法accept或者reject,从而得到$$(x_{t+1}, p_{t+1})$$.
+
+在每一步生成proposal时,因为引入了随机动量$$p_t$$,所以HMC可以有效地探索整个分布空间.
+因为HMC相邻两个采样的距离比Metropolis–Hastings algorithm更大,且相关性(autocorrelation)更小,所以有更快的收敛效果.
+
+详细讲解和示例见:[https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/](https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/)
+
+
+
 
 ### Adaptive rejection sampling
 
