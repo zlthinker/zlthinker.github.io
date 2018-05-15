@@ -8,13 +8,17 @@ updated: 2018-05-14 14:00
 
 ### Related Works
 
-* [Coursera: Bayesian Neural Networks](https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks)
-* SGLD: [Bayesian Learning via Stochastic Gradient Langevin Dynamics](https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf): (ICML2011)
-* preconditioned SGLD: [Preconditioned Stochastic Gradient Langevin Dynamics for Deep Neural Networks](http://people.ee.duke.edu/~lcarin/aaai_psgld_final.pdf): (AAAI 2016)
-* [Bayesian Dark Knowledge](https://arxiv.org/pdf/1506.04416.pdf): (NIPS2015)
-* [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
-* [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
-* [Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification](http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf)
+* [1] [Coursera: Bayesian Neural Networks](https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks)
+* [2] SGLD: [Bayesian Learning via Stochastic Gradient Langevin Dynamics](https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf): (ICML2011)
+* [3] preconditioned SGLD: [Preconditioned Stochastic Gradient Langevin Dynamics for Deep Neural Networks](http://people.ee.duke.edu/~lcarin/aaai_psgld_final.pdf): (AAAI 2016)
+* [4] [Bayesian Dark Knowledge](https://arxiv.org/pdf/1506.04416.pdf): (NIPS2015)
+* [5] [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
+* [6] [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
+* [7] [Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification](http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf)
+
+* Dropout as Bayesian Neural Network
+* [8] [Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning](https://arxiv.org/pdf/1506.02142.pdf): ICML, 2016
+* [9] [Bayesian convolutional neuralnetworks with Bernoulli approximate variational inference](https://arxiv.org/pdf/1506.02158.pdf): ICLR workshop, 2016
 
 
 ### Formulation
@@ -54,6 +58,13 @@ $$\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \fr
 
 by considering a randomly-selected mini-batch $$\{d_{ti} \}_{i=1}^n$$.
 
+### Dropout as Variational Inference
+
+"Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)." [9]
+
+The main rule of **variational infernece** is to approximate the posterior distribution $$p(\theta \| \mathcal{D})$$ by a defined variational distribution $$q(\theta)$$ which is easy to evaluate. The error of approximation is measured by the KL diverence:
+
+$$ \begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}$$
 
 ### TODO
 * Variational inference

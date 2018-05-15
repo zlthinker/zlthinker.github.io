@@ -106,19 +106,25 @@
   <li><a href="#related-works" id="markdown-toc-related-works">Related Works</a></li>
   <li><a href="#formulation" id="markdown-toc-formulation">Formulation</a></li>
   <li><a href="#optimization" id="markdown-toc-optimization">Optimization</a></li>
+  <li><a href="#dropout-as-variational-inference" id="markdown-toc-dropout-as-variational-inference">Dropout as Variational Inference</a></li>
   <li><a href="#todo" id="markdown-toc-todo">TODO</a></li>
 </ul>
 
 <h3 id="related-works">Related Works</h3>
 
 <ul>
-  <li><a href="https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks">Coursera: Bayesian Neural Networks</a></li>
-  <li>SGLD: <a href="https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf">Bayesian Learning via Stochastic Gradient Langevin Dynamics</a>: (ICML2011)</li>
-  <li>preconditioned SGLD: <a href="http://people.ee.duke.edu/~lcarin/aaai_psgld_final.pdf">Preconditioned Stochastic Gradient Langevin Dynamics for Deep Neural Networks</a>: (AAAI 2016)</li>
-  <li><a href="https://arxiv.org/pdf/1506.04416.pdf">Bayesian Dark Knowledge</a>: (NIPS2015)</li>
-  <li><a href="https://arxiv.org/pdf/1509.05909.pdf">Modelling Uncertainty in Deep Learning for Camera Relocalization</a></li>
-  <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf">DSAC-Differentiable RANSAC for camera localization</a></li>
-  <li><a href="http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf">Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification</a></li>
+  <li>[1] <a href="https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks">Coursera: Bayesian Neural Networks</a></li>
+  <li>[2] SGLD: <a href="https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf">Bayesian Learning via Stochastic Gradient Langevin Dynamics</a>: (ICML2011)</li>
+  <li>[3] preconditioned SGLD: <a href="http://people.ee.duke.edu/~lcarin/aaai_psgld_final.pdf">Preconditioned Stochastic Gradient Langevin Dynamics for Deep Neural Networks</a>: (AAAI 2016)</li>
+  <li>[4] <a href="https://arxiv.org/pdf/1506.04416.pdf">Bayesian Dark Knowledge</a>: (NIPS2015)</li>
+  <li>[5] <a href="https://arxiv.org/pdf/1509.05909.pdf">Modelling Uncertainty in Deep Learning for Camera Relocalization</a></li>
+  <li>[6] <a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf">DSAC-Differentiable RANSAC for camera localization</a></li>
+  <li>
+    <p>[7] <a href="http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf">Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification</a></p>
+  </li>
+  <li>Dropout as Bayesian Neural Network</li>
+  <li>[8] <a href="https://arxiv.org/pdf/1506.02142.pdf">Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning</a>: ICML, 2016</li>
+  <li>[9] <a href="https://arxiv.org/pdf/1506.02158.pdf">Bayesian convolutional neuralnetworks with Bernoulli approximate variational inference</a>: ICLR workshop, 2016</li>
 </ul>
 
 <h3 id="formulation">Formulation</h3>
@@ -154,6 +160,15 @@
 <script type="math/tex; mode=display">\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \frac{N}{n} \sum_{i=1}^n \nabla \log p(d_{ti} \| \theta_t) \right)</script>
 
 <p>by considering a randomly-selected mini-batch <script type="math/tex">\{d_{ti} \}_{i=1}^n</script>.</p>
+
+<h3 id="dropout-as-variational-inference">Dropout as Variational Inference</h3>
+
+<p>“Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP).” [9]</p>
+
+<p>The main rule of <strong>variational infernece</strong> is to approximate the posterior distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> by a defined variational distribution <script type="math/tex">q(\theta)</script> which is easy to evaluate. The error of approximation is measured by the KL diverence:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split} %]]></script>
 
 <h3 id="todo">TODO</h3>
 <ul>
