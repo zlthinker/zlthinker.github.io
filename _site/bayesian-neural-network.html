@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Bayesian Neural Network</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Bayesian Neural Network" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/bayesian-neural-network">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Bayesian Neural Network</h1>
+		<time>May 14, 2018</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#related-works" id="markdown-toc-related-works">Related Works</a></li>
+  <li><a href="#formulation" id="markdown-toc-formulation">Formulation</a></li>
+  <li><a href="#optimization" id="markdown-toc-optimization">Optimization</a></li>
+  <li><a href="#todo" id="markdown-toc-todo">TODO</a></li>
+</ul>
+
+<h3 id="related-works">Related Works</h3>
+
+<ul>
+  <li><a href="https://www.coursera.org/learn/bayesian-methods-in-machine-learning/lecture/HI8ta/bayesian-neural-networks">Coursera: Bayesian Neural Networks</a></li>
+  <li>SGLD: <a href="https://www.ics.uci.edu/~welling/publications/papers/stoclangevin_v6.pdf">Bayesian Learning via Stochastic Gradient Langevin Dynamics</a>: (ICML2011)</li>
+  <li>preconditioned SGLD: <a href="http://people.ee.duke.edu/~lcarin/aaai_psgld_final.pdf">Preconditioned Stochastic Gradient Langevin Dynamics for Deep Neural Networks</a>: (AAAI 2016)</li>
+  <li><a href="https://arxiv.org/pdf/1506.04416.pdf">Bayesian Dark Knowledge</a>: (NIPS2015)</li>
+  <li><a href="https://arxiv.org/pdf/1509.05909.pdf">Modelling Uncertainty in Deep Learning for Camera Relocalization</a></li>
+  <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf">DSAC-Differentiable RANSAC for camera localization</a></li>
+  <li><a href="http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf">Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification</a></li>
+</ul>
+
+<h3 id="formulation">Formulation</h3>
+
+<p>Given a training dataset <script type="math/tex">\mathcal{D} = \{d_i\}_{i=1}^N = \{(x_i, y_i)\}_{i=1}^N</script> where <script type="math/tex">d_i = (x_i, y_i)</script> is a pair of input datum and label, the objective of training is to find the optimal model parameter <script type="math/tex">\mathbf{\theta}</script> which maximizes the posterior <script type="math/tex">p(\theta \| \mathcal{D})</script>, i.e.,</p>
+
+<script type="math/tex; mode=display">\theta^* = \arg\max_{\theta} p(\theta \| \mathcal{D}).</script>
+
+<p>The posterior can be expressed as <script type="math/tex">p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta)</script>. Taking the logarithm of both sides, we get <script type="math/tex">\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const</script>. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter <script type="math/tex">\theta</script> fits the training dataset <script type="math/tex">\mathcal{D}</script>.</p>
+
+<p>Given a new testing example <script type="math/tex">x</script>, the prediction of its output <script type="math/tex">y</script> is given by</p>
+
+<script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \int_{\theta} p(\theta \| \mathcal{D}) p(y \| x, \theta) d\theta = E_{p(\theta \| \mathcal{D})}[p(y \| x, \theta)].</script>
+
+<p>Intuitively, it takes the average over the distribution of learned model parameters <script type="math/tex">\theta</script>. Exact estimation of the distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> is intractable. A feasible solution is to apply Monte Carlo sampling to sample <script type="math/tex">\{\theta_i \}_{i=1}^m</script> from the latent distribution <script type="math/tex">p(\theta \| \mathcal{D})</script>. Therefore the estimation of a new testing example is approximated as</p>
+
+<script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \frac{1}{m} \sum_{i=1}^m p(y \| x, \theta_i).</script>
+
+<p>In this way, MAP can be regarded as an over-confident approximation of the equation above which assumes</p>
+
+<script type="math/tex; mode=display">p(\theta \| \mathcal{D} ) = \begin{cases} 1,  \theta = \theta^* \\ 0 ,  \theta \neq \theta^* \end{cases}.</script>
+
+<h3 id="optimization">Optimization</h3>
+
+<p>The update equation of Gradient Descent (GD) at iteration <script type="math/tex">t</script> is expressed as</p>
+
+<script type="math/tex; mode=display">\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \sum_{i=1}^N \nabla \log p(d_i \| \theta_t) \right),</script>
+
+<p>where <script type="math/tex">\epsilon_t</script> is the learning rate or step size at iteration <script type="math/tex">t</script> and we assume the training data <script type="math/tex">\{d_i \}</script> follow iid.</p>
+
+<p>In Stochastic Gradient Descent (SGD), the statistics of the whole dataset is approximated by a mini-batch. The update equation is written into</p>
+
+<script type="math/tex; mode=display">\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \frac{N}{n} \sum_{i=1}^n \nabla \log p(d_{ti} \| \theta_t) \right)</script>
+
+<p>by considering a randomly-selected mini-batch <script type="math/tex">\{d_{ti} \}_{i=1}^n</script>.</p>
+
+<h3 id="todo">TODO</h3>
+<ul>
+  <li>Variational inference</li>
+</ul>
+
+
+
+</article>
+
+<div class="page-navigation">
+	
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/optimization-for-least-square-problem" title="PREV: Optimization for Least Square Problems">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2018 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>
