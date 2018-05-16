@@ -60,14 +60,25 @@ by considering a randomly-selected mini-batch $$\{d_{ti} \}_{i=1}^n$$.
 
 ### Dropout as Variational Inference
 
-"Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)." [9]
-
 The main rule of **variational infernece** is to approximate the posterior distribution $$p(\theta \| \mathcal{D})$$ by a defined variational distribution $$q(\theta)$$ which is easy to evaluate. The error of approximation is measured by the KL diverence:
 
-$$ \begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}$$
+$$ \begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}.$$
 
-### TODO
-* Variational inference
+In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution $$q(\theta)$$. 
+If we assume $$q(\theta)$$ follows certain Gaussian Process (GP), "Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)", as said in [9].
+The parameters $$\theta$$ is composed of a set of parameters of the convolutional layers, i.e., $$\theta = \{ W_i, b_i \}_{i=1}^L$$. $$W_i$$ is a $$K_i \times K_{i-1}$$ matrix involved in the mapping from the output of the layer $$i-1$$ to the output of layer $$i$$, i.e., $$\sigma(W_i \cdot o_{i-1} + b_i)$$. Once dropout is applied, the components of the output of the layer $$i-1$$ are ramdoms set to zero with probability $$p_i$$. Therefore, the distribution of $$W_i$$ follows
+
+$$ W_i = M_i \cdot diag([z_{i,j}]_{j=1}^{K_{i-1}}), $$
+
+$$ z_{i,j} \sim Bernoulli(p_i).$$
+
+Herein $$M_i$$ and $$b_i$$are variational parameters to be inferred. In this way, the variational distribution $$q(\theta)$$ is defined through dropout. Then the integeral $$\int q(\theta)\log p(d_i \| \theta) d\theta$$ is approximated by Monte Carlo with a single sample $$\theta_n \sim q(\theta)$$ to get an unbiased estimate $$\log p(d_i \| \theta_n)$$.
+
+In [8], the term $$KL(q(\theta) , p(\theta) )$$ is approximated by $$\lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2)$$. Therefore, the error of KL divergence is written into 
+
+$$ KL(q(\theta) , p(\theta \| \mathcal{D})) = -\sum_{n=1}^N \log p(d_i \| \theta) + \lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2), $$
+
+which actually has the equivallent objective of learning Dropout Neural Networks. In other words, inferring the posterior distribution of $$p(\theta \| \mathcal{D})$$ via a Bayesian Neural Network is equivalent to learning variational parameters $$M_i$$ and $$b_i$$ via a Dropout Neural Network.
 
 
 

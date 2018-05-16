@@ -107,7 +107,6 @@
   <li><a href="#formulation" id="markdown-toc-formulation">Formulation</a></li>
   <li><a href="#optimization" id="markdown-toc-optimization">Optimization</a></li>
   <li><a href="#dropout-as-variational-inference" id="markdown-toc-dropout-as-variational-inference">Dropout as Variational Inference</a></li>
-  <li><a href="#todo" id="markdown-toc-todo">TODO</a></li>
 </ul>
 
 <h3 id="related-works">Related Works</h3>
@@ -163,17 +162,26 @@
 
 <h3 id="dropout-as-variational-inference">Dropout as Variational Inference</h3>
 
-<p>“Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP).” [9]</p>
-
 <p>The main rule of <strong>variational infernece</strong> is to approximate the posterior distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> by a defined variational distribution <script type="math/tex">q(\theta)</script> which is easy to evaluate. The error of approximation is measured by the KL diverence:</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split} %]]></script>
+\begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}. %]]></script>
 
-<h3 id="todo">TODO</h3>
-<ul>
-  <li>Variational inference</li>
-</ul>
+<p>In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution <script type="math/tex">q(\theta)</script>. 
+If we assume <script type="math/tex">q(\theta)</script> follows certain Gaussian Process (GP), “Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)”, as said in [9].
+The parameters <script type="math/tex">\theta</script> is composed of a set of parameters of the convolutional layers, i.e., <script type="math/tex">\theta = \{ W_i, b_i \}_{i=1}^L</script>. <script type="math/tex">W_i</script> is a <script type="math/tex">K_i \times K_{i-1}</script> matrix involved in the mapping from the output of the layer <script type="math/tex">i-1</script> to the output of layer <script type="math/tex">i</script>, i.e., <script type="math/tex">\sigma(W_i \cdot o_{i-1} + b_i)</script>. Once dropout is applied, the components of the output of the layer <script type="math/tex">i-1</script> are ramdoms set to zero with probability <script type="math/tex">p_i</script>. Therefore, the distribution of <script type="math/tex">W_i</script> follows</p>
+
+<script type="math/tex; mode=display">W_i = M_i \cdot diag([z_{i,j}]_{j=1}^{K_{i-1}}),</script>
+
+<script type="math/tex; mode=display">z_{i,j} \sim Bernoulli(p_i).</script>
+
+<p>Herein <script type="math/tex">M_i</script> and <script type="math/tex">b_i</script>are variational parameters to be inferred. In this way, the variational distribution <script type="math/tex">q(\theta)</script> is defined through dropout. Then the integeral <script type="math/tex">\int q(\theta)\log p(d_i \| \theta) d\theta</script> is approximated by Monte Carlo with a single sample <script type="math/tex">\theta_n \sim q(\theta)</script> to get an unbiased estimate <script type="math/tex">\log p(d_i \| \theta_n)</script>.</p>
+
+<p>In [8], the term <script type="math/tex">KL(q(\theta) , p(\theta) )</script> is approximated by <script type="math/tex">\lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2)</script>. Therefore, the error of KL divergence is written into</p>
+
+<script type="math/tex; mode=display">KL(q(\theta) , p(\theta \| \mathcal{D})) = -\sum_{n=1}^N \log p(d_i \| \theta) + \lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2),</script>
+
+<p>which actually has the equivallent objective of learning Dropout Neural Networks. In other words, inferring the posterior distribution of <script type="math/tex">p(\theta \| \mathcal{D})</script> via a Bayesian Neural Network is equivalent to learning variational parameters <script type="math/tex">M_i</script> and <script type="math/tex">b_i</script> via a Dropout Neural Network.</p>
 
 
 
