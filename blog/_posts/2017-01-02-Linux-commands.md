@@ -76,6 +76,15 @@ pkg-config --lib --cflags OpenEXR
 -pthread -I/usr/include/OpenEXR -I/usr/include/libdrm  -pthread -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
 ```
 
+# 软件应用
+
+```
+# Screen
+Ctrl+A then D # Detach from current screen
+Ctrl+R or screen -R screen_id # Reenter screen
+screen -ls # list running screens
+```
+
 # RAID
 
 RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。
