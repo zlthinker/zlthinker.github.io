@@ -124,6 +124,7 @@
   <li>Dropout as Bayesian Neural Network</li>
   <li>[8] <a href="https://arxiv.org/pdf/1506.02142.pdf">Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning</a>: ICML, 2016</li>
   <li>[9] <a href="https://arxiv.org/pdf/1506.02158.pdf">Bayesian convolutional neuralnetworks with Bernoulli approximate variational inference</a>: ICLR workshop, 2016</li>
+  <li>[10] <a href="https://arxiv.org/pdf/1601.00670.pdf">Variational Inference: A Review for Statisticians</a></li>
 </ul>
 
 <h3 id="formulation">Formulation</h3>
@@ -164,8 +165,12 @@
 
 <p>The main rule of <strong>variational infernece</strong> is to approximate the posterior distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> by a defined variational distribution <script type="math/tex">q(\theta)</script> which is easy to evaluate. The error of approximation is measured by the KL diverence:</p>
 
+<script type="math/tex; mode=display">KL(q(\theta) , p(\theta \| \mathcal{D}))</script>
+
+<p>As stated in [10], minimize the KL divergence above is equivalent to minimize the upper bound:</p>
+
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}. %]]></script>
+\begin{split} -E_{q(\theta)}[\log p(\mathcal{D} \| \theta)] + KL(q(\theta) , p(\theta) ) &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}. %]]></script>
 
 <p>In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution <script type="math/tex">q(\theta)</script>. 
 If we assume <script type="math/tex">q(\theta)</script> follows certain Gaussian Process (GP), “Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)”, as said in [9].

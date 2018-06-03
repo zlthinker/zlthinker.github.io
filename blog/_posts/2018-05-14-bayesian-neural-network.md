@@ -19,7 +19,7 @@ updated: 2018-05-14 14:00
 * Dropout as Bayesian Neural Network
 * [8] [Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning](https://arxiv.org/pdf/1506.02142.pdf): ICML, 2016
 * [9] [Bayesian convolutional neuralnetworks with Bernoulli approximate variational inference](https://arxiv.org/pdf/1506.02158.pdf): ICLR workshop, 2016
-
+* [10] [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf)
 
 ### Formulation
 
@@ -62,7 +62,11 @@ by considering a randomly-selected mini-batch $$\{d_{ti} \}_{i=1}^n$$.
 
 The main rule of **variational infernece** is to approximate the posterior distribution $$p(\theta \| \mathcal{D})$$ by a defined variational distribution $$q(\theta)$$ which is easy to evaluate. The error of approximation is measured by the KL diverence:
 
-$$ \begin{split} KL(q(\theta) , p(\theta \| \mathcal{D})) &= KL(q(\theta) , p(\theta) p(\mathcal{D} \| \theta) ) \\ &= KL(q(\theta) , p(\mathcal{D} \| \theta) ) + KL(q(\theta) , p(\theta) ) \\ &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}.$$
+$$ KL(q(\theta) , p(\theta \| \mathcal{D}))$$
+
+As stated in [10], minimize the KL divergence above is equivalent to minimize the upper bound:
+
+$$ \begin{split} -E_{q(\theta)}[\log p(\mathcal{D} \| \theta)] + KL(q(\theta) , p(\theta) ) &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}.$$
 
 In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution $$q(\theta)$$. 
 If we assume $$q(\theta)$$ follows certain Gaussian Process (GP), "Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)", as said in [9].

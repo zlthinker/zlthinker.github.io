@@ -19,6 +19,7 @@ tag:
 	* [Random forests versus Neural Networks—What's best for camera localization?](http://cvlab-dresden.de/HTML/people/alexander_krull/publications/ICRA_2017.pdf)
 	* **Sparse regression:** [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
 	* **Dense regression:** [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf): The same idea as mine
+	* [Scene Coordinate and Correspondence Learning for Image-Based Localization](https://arxiv.org/pdf/1805.08443.pdf)
 
 * Pose regression
 	* [Posenet: A convolutional network for real-time 6-dof camera relocalization](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf?utm_source=mandiner&utm_medium=link&utm_campaign=mandiner_digit_201512)

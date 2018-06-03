@@ -99,6 +99,7 @@ updated: 2016-10-19 23:37
 * post hoc 事后的/地
 * principle 主要的，重要的
 * readily 简单地
+* reciprocal 互惠的
 * requisite 必须的，n.必需品
 * rigorously 严格的
 * symmetrical  asymmetrical
@@ -133,6 +134,7 @@ updated: 2016-10-19 23:37
 * a fraction of
 * granularity 粒度
 * indeterminacy = uncertainty
+* interplay (between A and B) 相互作用，相互影响
 * method = technique = approach
 * premise 前提  under the premise of
 * regime    a particular way of doing sth
@@ -157,6 +159,7 @@ updated: 2016-10-19 23:37
 * amount to 相当于，几乎是
 * aside from 除了
 * aspire to = be eager to = seek to
+* at odds with 与。。。不一致，冲突
 * a question left open by the present work / left unanswered
 * be monotone increasing / decreasing     单调递增 ／ 递减
 * best suited for real-time applications
