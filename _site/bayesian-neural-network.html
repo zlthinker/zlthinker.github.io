@@ -133,13 +133,18 @@
 
 <script type="math/tex; mode=display">\theta^* = \arg\max_{\theta} p(\theta \| \mathcal{D}).</script>
 
-<p>The posterior can be expressed as <script type="math/tex">p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta)</script>. Taking the logarithm of both sides, we get <script type="math/tex">\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const</script>. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter <script type="math/tex">\theta</script> fits the training dataset <script type="math/tex">\mathcal{D}</script>.</p>
+<p>The posterior can be expressed as <script type="math/tex">p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta)</script> (as known, prior <script type="math/tex">\times</script> likelihood). Taking the logarithm of both sides, we get <script type="math/tex">\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const</script>. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter <script type="math/tex">\theta</script> fits the training dataset <script type="math/tex">\mathcal{D}</script>.</p>
 
 <p>Given a new testing example <script type="math/tex">x</script>, the prediction of its output <script type="math/tex">y</script> is given by</p>
 
 <script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \int_{\theta} p(\theta \| \mathcal{D}) p(y \| x, \theta) d\theta = E_{p(\theta \| \mathcal{D})}[p(y \| x, \theta)].</script>
 
-<p>Intuitively, it takes the average over the distribution of learned model parameters <script type="math/tex">\theta</script>. Exact estimation of the distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> is intractable. A feasible solution is to apply Monte Carlo sampling to sample <script type="math/tex">\{\theta_i \}_{i=1}^m</script> from the latent distribution <script type="math/tex">p(\theta \| \mathcal{D})</script>. Therefore the estimation of a new testing example is approximated as</p>
+<p>Intuitively, it takes the average over the distribution of learned model parameters <script type="math/tex">\theta</script>. 
+Traditionally, the prediction of <script type="math/tex">y</script> is given by <script type="math/tex">f(\theta^*, x)</script>, where <script type="math/tex">y^*</script> is deterministically determined by <script type="math/tex">\theta^*</script>. If we are aware of the distribution of <script type="math/tex">p(\theta \| \mathcal{D})</script>, the prediction can be averaged as</p>
+
+<script type="math/tex; mode=display">E(y\|x, D) = \int_{\theta} p(\theta \| \mathcal{D}) f(\theta, x) d\theta = E_{p(\theta \| \mathcal{D})}[f(\theta, x)].</script>
+
+<p>Exact estimation of the distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> is intractable. A feasible solution is to apply Monte Carlo sampling to sample <script type="math/tex">\{\theta_i \}_{i=1}^m</script> from the latent distribution <script type="math/tex">p(\theta \| \mathcal{D})</script>. Therefore the estimation of a new testing example is approximated as</p>
 
 <script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \frac{1}{m} \sum_{i=1}^m p(y \| x, \theta_i).</script>
 

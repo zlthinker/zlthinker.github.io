@@ -27,13 +27,18 @@ Given a training dataset $$\mathcal{D} = \{d_i\}_{i=1}^N = \{(x_i, y_i)\}_{i=1}^
 
 $$\theta^* = \arg\max_{\theta} p(\theta \| \mathcal{D}).$$
 
-The posterior can be expressed as $$p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta) $$. Taking the logarithm of both sides, we get $$\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const$$. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter $$\theta$$ fits the training dataset $$\mathcal{D}$$.
+The posterior can be expressed as $$p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta) $$ (as known, prior $$\times$$ likelihood). Taking the logarithm of both sides, we get $$\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const$$. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter $$\theta$$ fits the training dataset $$\mathcal{D}$$.
 
 Given a new testing example $$x$$, the prediction of its output $$y$$ is given by 
 
 $$p(y \| x, \mathcal{D}) = \int_{\theta} p(\theta \| \mathcal{D}) p(y \| x, \theta) d\theta = E_{p(\theta \| \mathcal{D})}[p(y \| x, \theta)].$$
 
-Intuitively, it takes the average over the distribution of learned model parameters $$\theta$$. Exact estimation of the distribution $$p(\theta \| \mathcal{D})$$ is intractable. A feasible solution is to apply Monte Carlo sampling to sample $$\{\theta_i \}_{i=1}^m$$ from the latent distribution $$p(\theta \| \mathcal{D})$$. Therefore the estimation of a new testing example is approximated as 
+Intuitively, it takes the average over the distribution of learned model parameters $$\theta$$. 
+Traditionally, the prediction of $$y$$ is given by $$f(\theta^*, x)$$, where $$y^*$$ is deterministically determined by $$\theta^*$$. If we are aware of the distribution of $$p(\theta \| \mathcal{D})$$, the prediction can be averaged as
+
+$$E(y\|x, D) = \int_{\theta} p(\theta \| \mathcal{D}) f(\theta, x) d\theta = E_{p(\theta \| \mathcal{D})}[f(\theta, x)].$$
+
+Exact estimation of the distribution $$p(\theta \| \mathcal{D})$$ is intractable. A feasible solution is to apply Monte Carlo sampling to sample $$\{\theta_i \}_{i=1}^m$$ from the latent distribution $$p(\theta \| \mathcal{D})$$. Therefore the estimation of a new testing example is approximated as 
 
 $$p(y \| x, \mathcal{D}) = \frac{1}{m} \sum_{i=1}^m p(y \| x, \theta_i).$$
 
