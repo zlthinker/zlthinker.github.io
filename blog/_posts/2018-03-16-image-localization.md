@@ -70,6 +70,12 @@ tag:
 	* [DSAC-Differentiable RANSAC for camera localization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Brachmann_DSAC_-_Differentiable_CVPR_2017_paper.pdf)
 	* [Learning Weight Uncertainty with Stochastic Gradient MCMC for Shape Classification](http://openaccess.thecvf.com/content_cvpr_2016/papers/Li_Learning_Weight_Uncertainty_CVPR_2016_paper.pdf)
 
+* Optical Flow
+	* [FlowNet](https://arxiv.org/pdf/1504.06852.pdf)
+	* [FlowNet2.0](https://arxiv.org/pdf/1612.01925.pdf) [[github]](https://github.com/lmb-freiburg/flownet2)
+	* [GeoNet](http://openaccess.thecvf.com/content_cvpr_2018/papers/Yin_GeoNet_Unsupervised_Learning_CVPR_2018_paper.pdf) [[github]](https://github.com/yzcjtr/GeoNet)
+	* [joint optical flow + segmentation](https://arxiv.org/pdf/1607.07716.pdf)
+
 
 	
 
