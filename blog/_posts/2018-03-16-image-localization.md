@@ -78,6 +78,7 @@ tag:
 	* [Unsupervised depth & ego-motion](https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/cvpr17_sfm_final.pdf) [[github]](https://github.com/tinghuiz/SfMLearner) (CVPR 2017 Oral)
 	* [SegFlow: optical flow + object segmentation](https://arxiv.org/pdf/1709.06750.pdf) [[github]](https://github.com/JingchunCheng/SegFlow)
 	* [stereo + segmentation + optical flow](http://www.cvlibs.net/publications/Behl2017ICCV.pdf)
+	* [Unsupervised, depth + stereo](https://arxiv.org/pdf/1609.03677.pdf) (CVPR 2017)
 
 
 	
