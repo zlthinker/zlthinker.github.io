@@ -73,8 +73,11 @@ tag:
 * Optical Flow
 	* [FlowNet](https://arxiv.org/pdf/1504.06852.pdf)
 	* [FlowNet2.0](https://arxiv.org/pdf/1612.01925.pdf) [[github]](https://github.com/lmb-freiburg/flownet2)
-	* [GeoNet](http://openaccess.thecvf.com/content_cvpr_2018/papers/Yin_GeoNet_Unsupervised_Learning_CVPR_2018_paper.pdf) [[github]](https://github.com/yzcjtr/GeoNet)
+	* [GeoNet: unsupervide depth, optical flow & pose](http://openaccess.thecvf.com/content_cvpr_2018/papers/Yin_GeoNet_Unsupervised_Learning_CVPR_2018_paper.pdf) [[github]](https://github.com/yzcjtr/GeoNet)
 	* [joint optical flow + segmentation](https://arxiv.org/pdf/1607.07716.pdf)
+	* [Unsupervised depth & ego-motion](https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/cvpr17_sfm_final.pdf) [[github]](https://github.com/tinghuiz/SfMLearner) (CVPR 2017 Oral)
+	* [SegFlow: optical flow + object segmentation](https://arxiv.org/pdf/1709.06750.pdf) [[github]](https://github.com/JingchunCheng/SegFlow)
+	* [stereo + segmentation + optical flow](http://www.cvlibs.net/publications/Behl2017ICCV.pdf)
 
 
 	
