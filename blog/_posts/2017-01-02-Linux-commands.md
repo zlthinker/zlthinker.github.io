@@ -76,6 +76,14 @@ pkg-config --lib --cflags OpenEXR
 -pthread -I/usr/include/OpenEXR -I/usr/include/libdrm  -pthread -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
 ```
 
+```
+ps -aux | grep chrome
+# Find all processes named chrome
+
+kill -9 PID
+# kill process
+```
+
 # 软件应用
 
 ```

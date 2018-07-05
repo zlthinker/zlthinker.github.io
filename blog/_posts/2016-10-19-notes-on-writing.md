@@ -21,6 +21,7 @@ updated: 2016-10-19 23:37
 * comprise 由...组成，包含
 * conjecture
 * contaminate 污染
+* counteract 抵消
 * cull 剔除
 * delineate 描边, mark the edges of sth
 * denote
