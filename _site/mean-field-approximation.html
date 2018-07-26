@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Mean Field Approximation</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Mean Field Approximation" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/mean-field-approximation">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Mean Field Approximation</h1>
+		<time>July 26, 2018</time>
+		<ul id="taglist">
+			Tag:
+			
+		</ul>
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#formulation" id="markdown-toc-formulation">Formulation</a></li>
+  <li><a href="#mean-field-inference-on-ising-model" id="markdown-toc-mean-field-inference-on-ising-model">Mean Field Inference on Ising Model</a></li>
+</ul>
+
+<blockquote>
+  <p>基于概率图模型的近似推断方法大概分为三种：(1) Mean field approximation; (2) Belief propagation; (3) Monte Carlo Sampling. —-林达华</p>
+</blockquote>
+
+<h2 id="overview">Overview</h2>
+
+<p>In mean field theory, a complex probabilistic model is approximated by a set of individual models defined on each vertex. It overlooks the interaction within cliques and averages the interactive effect among the vertices. Mathematically, it approximates the joint distribution <script type="math/tex">p^*(\mathbf{z})</script> by the product of factorized distributions: <script type="math/tex">q(\mathbf{z}) \approx \prod_{i=1}^d q_i(z_i)</script> by minimizing the KL divergence. Throughout the writing, we are going to elaborate mean field approximation based on Ising model.</p>
+
+<h2 id="formulation">Formulation</h2>
+
+<p>The objective is mean field inference is to minimize the KL divergence:</p>
+
+<script type="math/tex; mode=display">\min_{q_1, ..., q_n} KL(q \| p^*) = KL(\prod_{i=1}^d q_i(z_i) \| p^*).</script>
+
+<p>Steps are taken iteratively by optimizing <script type="math/tex">q_k</script> while fixing other factorized distributions until convergence, i.e.,</p>
+
+<script type="math/tex; mode=display">\min_{q_k} KL(q \| p^*) = KL(\prod_{i=1}^d q_i(z_i) \| p^*).</script>
+
+<script type="math/tex; mode=display">KL(\prod_{i=1}^d q_i(z_i) \| p^*) = \int \prod_{i=1}^d q_i \log \frac{\prod_{i=1}^d q_i}{p^*} d \mathbf{z} \\  = \sum_{i=1}^d \int \log q_i \prod_{j=1}^d q_j d \mathbf{z} - \int \prod_{j=1}^d q_j \log p^* d \mathbf{z}  \\ = \int \log q_k \prod_{j=1}^d q_j d \mathbf{z} + \sum_{i \neq k} \int \log q_i \prod_{j=1}^d q_j d \mathbf{z} - \int \prod_{j=1}^d q_j \log p^* d \mathbf{z} \\</script>
+
+<script type="math/tex; mode=display">\left( \int \log q_k \prod_{j=1}^d q_j d \mathbf{z} = \int q_k \log q_k \int \prod_{j \neq k}^d q_j d z_{\neq k} d z_k \\ = \int q_k \log q_k d z_k \right)</script>
+
+<script type="math/tex; mode=display">\left( \sum_{i \neq k} \int \log q_i \prod_{j=1}^d q_j d \mathbf{z} = const\right)</script>
+
+<script type="math/tex; mode=display">= \int q_k \log q_k d z_k - \int q_k \int \prod_{j\neq k} q_j \log p^* d z_{\neq k} d z_k + const \\ = \int q_k (\log q_k - \int \prod_{j\neq k} q_j \log p^* d z_{\neq k}) d z_k + const</script>
+
+<script type="math/tex; mode=display">\left( h(z_k) = \int \prod_{j\neq k} q_j \log p^* d z_{\neq k} = E_{q_{-k}}(\log p^*) \right)</script>
+
+<script type="math/tex; mode=display">\left(t(z_k) = e^{h(z_k)} = E_{q_{-k}}(p^*)  \right)</script>
+
+<script type="math/tex; mode=display">= \int q_k \log \frac{q_k}{t} d z_k + const</script>
+
+<p>So in each optimization step, we minimize <script type="math/tex">KL(q_k \| t)</script>.</p>
+
+<script type="math/tex; mode=display">\log q_k = \log t(z_k) = h(z_k) = E_{q_{-k}}(\log p^*) + const,</script>
+
+<p>where the constant is added to ensure a legal distribution.</p>
+
+<h2 id="mean-field-inference-on-ising-model">Mean Field Inference on Ising Model</h2>
+
+<p>Ising model is defined by</p>
+
+<script type="math/tex; mode=display">p(y) \propto exp(\frac{1}{2} J \sum_i \sum_{j \in Nbr(i)} y_i y_j + \sum_i b_i y_i ),</script>
+
+<p>where <script type="math/tex">y_i \in \{1, -1 \}</script>.</p>
+
+<p>Then we approximate the distribution by mean field <script type="math/tex">p(y) \approx q(y) = \prod_i q_i(y_i)</script>.</p>
+
+<script type="math/tex; mode=display">log(q_k(y_k)) = E_{q_{-k}} \log p(y) + const \\ = E_{q_{-k}} (J \sum_{j \in Nbr(k)} y_k y_j + b_k y_k) + const \\ = J \sum_{j \in Nbr(k)} y_k E_{q_{-k}}(y_j) + b_k y_k + const \\ = J y_k \sum_{j \in Nbr(k)} E(y_j) + b_k y_k + const \\ = y_k (J \sum_{j \in Nbr(k)} E(y_j) + b_k) + const \\ =  y_k M + const</script>
+
+<script type="math/tex; mode=display">\left( q_k(y_k=1) + q_k(y_k=-1) = C exp(M) + C exp(-M) = 1 \right)</script>
+
+<script type="math/tex; mode=display">\left( C = \frac{1}{exp(M) + exp(-M)}  = \right)</script>
+
+<script type="math/tex; mode=display">q_k(y_k=1) = \frac{exp(M)}{exp(M) + exp(-M)} = \frac{1}{1+exp(-2M)} = sigmoid(2M)</script>
+
+<script type="math/tex; mode=display">q_k(y_k=-1) = \frac{exp(-M)}{exp(M) + exp(-M)} = \frac{1}{1+exp(2M)} = sigmoid(-2M)</script>
+
+<script type="math/tex; mode=display">E(y_k) = q_k(y_k=1) - q_k(y_k=-1) =\frac{exp(M) - exp(-M)}{exp(M) + exp(-M)} = tanh(M)</script>
+
+
+
+</article>
+
+<div class="page-navigation">
+	
+		<a class="home" href="/" title="Back to Homepage">Home</a>
+  
+		<span> &middot; </span>
+    <a class="prev" href="/bayesian-neural-network" title="PREV: Bayesian Neural Network">&gt;&gt;</a>
+  
+</div>
+
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">&copy; 2018 Lei ZHOU</span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		</center>  
+
+	</body>
+
+</html>

@@ -80,6 +80,11 @@ tag:
 	* [stereo + segmentation + optical flow](http://www.cvlibs.net/publications/Behl2017ICCV.pdf)
 	* [Unsupervised, depth + stereo](https://arxiv.org/pdf/1609.03677.pdf) (CVPR 2017)
 
+* CRF
+	* [Deep Convolutional Neural Fields for Depth Estimation from a Single Imag](https://arxiv.org/pdf/1411.6387.pdf)
+	* [Multi-Scale Continuous CRFs as Sequential Deep Networks for Monocular Depth Estimation](http://openaccess.thecvf.com/content_cvpr_2017/papers/Xu_Multi-Scale_Continuous_CRFs_CVPR_2017_paper.pdf)
+	* [Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials](https://arxiv.org/pdf/1210.5644.pdf)
+
 
 	
 

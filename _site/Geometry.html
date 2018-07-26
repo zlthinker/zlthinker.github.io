@@ -238,7 +238,7 @@ G_6 = \begin{bmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\0 & 0 &
 
 <script type="math/tex; mode=display">P_r^T R T_{\times} P_l = 0,</script>
 
-<p>because <script type="math/tex">P_r^T R = (P_l - T)^T</script> and <script type="math/tex">T_{\times} P_l</script> equals to the cross product of vector <script type="math/tex">T</script> and <script type="math/tex">P_l</script>. Therefore, the two terms are orthogonal to each other. <script type="math/tex">R T_{\times}</script> is exactly the essential matrix <script type="math/tex">E=R T_{\times}</script> and <script type="math/tex">P_r^T E P_l = 0</script>. <script type="math/tex">P_l</script> and <script type="math/tex">P_r</script> are essentially two viewing rays in local space of two cameras.</p>
+<p>because <script type="math/tex">P_r^T R = (P_l - T)^T</script> and <script type="math/tex">T_{\times} P_l</script> (<script type="math/tex">T_{\times}</script> is the skew-symmetric matrix) equals to the cross product of vector <script type="math/tex">T</script> and <script type="math/tex">P_l</script>. Therefore, the two terms are orthogonal to each other. <script type="math/tex">R T_{\times}</script> is exactly the essential matrix <script type="math/tex">E=R T_{\times}</script> and <script type="math/tex">P_r^T E P_l = 0</script>. <script type="math/tex">P_l</script> and <script type="math/tex">P_r</script> are essentially two viewing rays in local space of two cameras.</p>
 
 <p>The <script type="math/tex">R</script> and <script type="math/tex">T</script> have six degrees of freedom. The essential matrix has five degree of freedom by eliminating the common scaling.</p>
 

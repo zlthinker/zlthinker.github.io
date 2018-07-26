@@ -87,6 +87,7 @@ updated: 2016-10-19 23:37
 * heterogeneous image collections 多种多样的
 * holistic 整体的
 * immune to 对。。。免疫
+* imperative extremely important or urgent
 * inadvertent 疏忽的，不注意的
 * incoherent with 与不一致
 * injective 单射的 (injective function/mapping)
@@ -169,6 +170,7 @@ updated: 2016-10-19 23:37
 * come to prominence 变得重要
 * compare favorably with   as good as or even better
 * de-facto standard 业界标准
+* depend/rely crucially on
 * dual goal
 * equality up to scale
 * fine-tune … model 微调...
@@ -181,6 +183,7 @@ updated: 2016-10-19 23:37
 * in conjunction with
 * isolate the effect of
 * let there be n points
+* mathematically/ statistically sound
 * more resilient against failure 对失败更有弹性
 * mutually exclusive	impossible at the same time
 * perform favorably compared to 
