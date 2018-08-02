@@ -109,6 +109,7 @@
       <li><a href="#prediction" id="markdown-toc-prediction">Prediction</a></li>
     </ul>
   </li>
+  <li><a href="#a-toy-model" id="markdown-toc-a-toy-model">A toy model</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -119,9 +120,8 @@
 <h4 id="derivation">Derivation</h4>
 <p>The calculus of the main component of EKF can be expressed as</p>
 
-<script type="math/tex; mode=display">\mathbf{x}_k = \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1)</script>
-
-<script type="math/tex; mode=display">\mathbf{z}_k = \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2)</script>
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{split} \mathbf{x}_k &= \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1) \\ \mathbf{z}_k &= \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2) \end{split} %]]></script>
 
 <p>where</p>
 
@@ -177,18 +177,18 @@
   </tbody>
 </table>
 
-<p>In a dynamic process, the initial state <script type="math/tex">\mathbf{x}_0</script> is known with a mean <script type="math/tex">\mathbf{\mu}_0</script> and a covariance <script type="math/tex">\mathbf{P}_0</script>. If the process function <script type="math/tex">\mathbf{f}(.)</script> and the observation function <script type="math/tex">\mathbf{h}(.)</script> are linear, the Extended Kalman Filter will be equivalent to Kalman Filter and all the subsequent states are gaussian distributed. Most often, the two functions are nonlinear, so that the Extended Kalman Filter approximates them linearly by Taylor Expansion.</p>
+<p>In a dynamic process, the initial state <script type="math/tex">\mathbf{x}_0</script> is known with a mean <script type="math/tex">\mathbf{\mu}_0^a</script> and a covariance <script type="math/tex">\mathbf{P}_0^a</script>. If the process function <script type="math/tex">\mathbf{f}(.)</script> and the observation function <script type="math/tex">\mathbf{h}(.)</script> are linear, the Extended Kalman Filter will be equivalent to Kalman Filter and all the subsequent states are gaussian distributed. Most often, the two functions are nonlinear, so that the Extended Kalman Filter approximates them linearly by Taylor Expansion.</p>
 
 <h4 id="prediction">Prediction</h4>
 
 <p>In the new time step <script type="math/tex">k</script>, two pieces of information are available.</p>
 
-<p>(a) The first one can be obtained by Eq. (1) where current state <script type="math/tex">\mathbf{x}_k^f</script> with covariance <script type="math/tex">\mathbf{P}_k^f</script> is inferred from last state <script type="math/tex">\mathbf{x}_{k-1}</script> with mean <script type="math/tex">\mu_{k-1}^a</script> and covariance <script type="math/tex">\mathbf{P}_{k-1}^a</script>. The taylor expansion of <script type="math/tex">\mathbf{f}(\mathbf{x})</script> at <script type="math/tex">\mathbf{x}_{k-1}</script> gives</p>
+<p>(a) The first one can be obtained by Eq. (1) where current state <script type="math/tex">\mathbf{x}_k^f</script> with mean <script type="math/tex">\mu_k^f</script> and covariance <script type="math/tex">\mathbf{P}_k^f</script> is inferred from last state <script type="math/tex">\mathbf{x}_{k-1}</script> with mean <script type="math/tex">\mu_{k-1}^a</script> and covariance <script type="math/tex">\mathbf{P}_{k-1}^a</script>. The taylor expansion of <script type="math/tex">\mathbf{f}(\mathbf{x})</script> around <script type="math/tex">\mu_{k-1}^a</script> gives</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{split} \mathbf{f}(\mathbf{x}_{k-1}) & \approx \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) (\mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a, \end{split} %]]></script>
 
-<p>where <script type="math/tex">\mathbf{J}(.)</script> is the Jacobian function and <script type="math/tex">\mathbf{e}_{k-1} = \mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a</script>.</p>
+<p>where <script type="math/tex">\mathbf{J}_{\mathbf{f}}(.)</script> is the Jacobian function and <script type="math/tex">\mathbf{e}_{k-1}^a = \mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a</script>.</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{split} \mu_k^f &= E(\mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1}) \\ &=  E(\mathbf{f}(\mathbf{x}_{k-1})) \\ &= E(\mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) E(\mathbf{e}_{k-1}) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a). \end{split} %]]></script>
@@ -196,12 +196,12 @@
 <p>The error of estimate <script type="math/tex">\mathbf{x}_{k}</script> by <script type="math/tex">\mu_k^f</script> is:</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{split} e_k^f & = \mathbf{x}_{k} - \mathbf{\mu}_k^f \\ &= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mathbf{f}(\mathbf{\mu}_{k-1}^a) \\ & \approx \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} \end{split} %]]></script>
+\begin{split} \mathbf{e}_k^f & = \mathbf{x}_{k} - \mathbf{\mu}_k^f \\ &= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mathbf{f}(\mathbf{\mu}_{k-1}^a) \\ & \approx \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} \end{split} %]]></script>
 
 <script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{P}_k^f &= E(e_k^f {e_k^f}^T) \\ &= \mathbf{J}_{\mathbf{f}} E(e_{k-1} e_{k-1}^T) \mathbf{J}_{\mathbf{f}}^T + E(\mathbf{w}_{k-1} \mathbf{w}_{k-1}^T) \\ &= \mathbf{J}_{\mathbf{f}} \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}^T + \mathbf{Q}_{k-1}. \end{split} %]]></script>
+\begin{split} \mathbf{P}_k^f &= E(\mathbf{e}_k^f {\mathbf{e}_k^f}^T) \\ &= \mathbf{J}_{\mathbf{f}} E(\mathbf{e}_{k-1}^a {\mathbf{e}_{k-1}^a}^T) \mathbf{J}_{\mathbf{f}}^T + E(\mathbf{w}_{k-1} \mathbf{w}_{k-1}^T) \\ &= \mathbf{J}_{\mathbf{f}} \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}^T + \mathbf{Q}_{k-1}. \end{split} %]]></script>
 
-<p>Overall, the last state yield the gaussian estimation of current state: <script type="math/tex">mean = \mu_k^f = \mathbf{f}(\mu_{k-1}^a)</script>, <script type="math/tex">covariance = \mathbf{P}_k^f</script>.</p>
+<p>Overall, the last state yield the gaussian estimation of current state: <script type="math/tex">mean = \mu_k^f = \mathbf{f}(\mu_{k-1}^a)</script>, <script type="math/tex">covariance = \mathbf{P}_k^f</script>. The covariance of the estimation is the sum of the covariance derived from last estimate and the covariance of process noise.</p>
 
 <p>(b) The second one is obtained by Eq. (2) based on measurements from current observation <script type="math/tex">\mathbf{z}_k</script> with covariance <script type="math/tex">\mathbf{R}_k</script>.</p>
 
@@ -241,7 +241,26 @@
 
 <p>The optimal factor <script type="math/tex">\mathbf{K}_k</script> should minimize the covariance of estimation <script type="math/tex">\mathbf{P}_k</script>. Since <script type="math/tex">\mathbf{P}_k</script> is in square of <script type="math/tex">\mathbf{K}_k</script>, the minimum is achieved when</p>
 
-<script type="math/tex; mode=display">\frac{\partial tr(\mathbf{P}_k)}{\partial \mathbf{K}_k} = 0.</script>
+<script type="math/tex; mode=display">\frac{\partial tr(\mathbf{P}_k)}{\partial \mathbf{K}_k} = 0</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{split}  \mathbf{K}_k &= \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) \left( \mathbf{J}_h(\mu_k^f)  \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) + \mathbf{R}_k \right)^{-1}  \\ \mathbf{P}_k &= \left( \mathbf{I} - \mathbf{K}_k (\mathbf{J}_h(\mu_k^f) \right) \mathbf{P}_k^f \end{split} %]]></script>
+
+<h2 id="a-toy-model">A toy model</h2>
+
+<p>Now we show a toy example with determined model where <script type="math/tex">\mathbf{f}(.)</script> and <script type="math/tex">\mathbf{h}(.)</script> are both linear functions:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{split} x_{k} &= x_{k-1} + cos(k/5) + w_{k-1} \\ z_{k} &= x_{k} + v_{k} \end{split} %]]></script>
+
+<p>Following the derivation above, we have the updates:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{split} \mu_{k}^f &= \mu_{k-1}^a + cos(k/5) \\ P_{k}^f &= P_{k-1}^a + Q_{k-1} \\ K_{k} &= \frac{P_k^f}{P_k^f + R_k}   \\ \mu_k^a &= \mu_{k}^f + K_{k} (z_k - \mu_{k}^f) = (1-K_k) \mu_k^f + K_k z_k \\ P_k^a &= (1 - K_k) P_k^f = \frac{R_k P_k^f}{ P_k^f + R_k} \end{split} %]]></script>
+
+<p>The estimated mean value of the new state <script type="math/tex">\mu_k^a</script> is actually the weighted average of the estimations from last state and from current measurements. The combination of two sources helps to decrease the uncertainty of estimation compared with using only one source, as <script type="math/tex">% <![CDATA[
+P_k^a < P_k^f %]]></script> and <script type="math/tex">% <![CDATA[
+P_k^a < R_k %]]></script>.</p>
 
 <h2 id="reference">Reference</h2>
 
