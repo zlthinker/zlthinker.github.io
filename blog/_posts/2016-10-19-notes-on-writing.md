@@ -77,6 +77,7 @@ updated: 2016-10-19 23:37
 * competent 胜任的
 * condensed 简单的，扼要的
 * contrived 牵强的
+* crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
 * drastic ＝ great (change)
 * elusive 难以描述
@@ -103,6 +104,7 @@ updated: 2016-10-19 23:37
 * readily 简单地
 * reciprocal 互惠的
 * requisite 必须的，n.必需品
+* respectably 可观地 achieve a reasonable result
 * rigorously 严格的
 * symmetrical  asymmetrical
 * superficial 外表的
@@ -187,6 +189,7 @@ updated: 2016-10-19 23:37
 * more resilient against failure 对失败更有弹性
 * mutually exclusive	impossible at the same time
 * perform favorably compared to 
+* phrase/express ... as a ... problem
 * similar in spirit to 在精神上相似
 * stem from 源自，由...造成
 * this method involves doing
@@ -211,6 +214,7 @@ updated: 2016-10-19 23:37
 * perform favorably compared to 
 * well outperform
 * with a 10% margin to
+* among the top-ranked algorithms
 
 
 
