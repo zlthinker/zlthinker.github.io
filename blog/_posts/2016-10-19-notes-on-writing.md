@@ -23,6 +23,7 @@ updated: 2016-10-19 23:37
 * contaminate 污染
 * counteract 抵消
 * cull 剔除
+* dampen the effect of outlying cases
 * delineate 描边, mark the edges of sth
 * denote
 * designate 指定   designate sth as
@@ -47,6 +48,7 @@ updated: 2016-10-19 23:37
 * pioneered by
 * possess 拥有，具备
 * (sth) proceeds
+* recapitulate = recap 概括
 * remedy 补救
 * resemble 近似，像
 * resort to 利用，诉诸
@@ -98,6 +100,7 @@ updated: 2016-10-19 23:37
 * inconclusive
 * judicious 审慎明智的
 * legitimate 合理的，合法的（可作动词）
+* liberal vs. conservative
 * negligible 微不足道的，可以忽视的
 * post hoc 事后的/地
 * principle 主要的，重要的
@@ -145,6 +148,7 @@ updated: 2016-10-19 23:37
 * remainder
 * similitude = similarity
 * suboptimality 次优性
+* vicinity = neighborhood
 
 ### conj.
 * albeit 虽然，即使
