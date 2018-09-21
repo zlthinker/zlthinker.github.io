@@ -27,6 +27,7 @@ updated: 2016-10-19 23:37
 * delineate 描边, mark the edges of sth
 * denote
 * designate 指定   designate sth as
+* deter = prevent/discourage
 * deviate 脱离
 * devise 设计
 * diminish = decrease = reduce
@@ -95,6 +96,7 @@ updated: 2016-10-19 23:37
 * incoherent with 与不一致
 * injective 单射的 (injective function/mapping)
 * intact 原封不动的，完整的，未受影响的
+* invariably = always
 * interspersed 分布 = distributed
 * in a fraction of time
 * inconclusive
