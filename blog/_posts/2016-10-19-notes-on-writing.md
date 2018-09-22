@@ -133,6 +133,7 @@ updated: 2016-10-19 23:37
 * viable 可行的
 
 ### noun.
+* adversity 困难，逆境
 * clarity 清晰简明
 * close-up 特写
 * degeneracy(ies)  > degenerate
