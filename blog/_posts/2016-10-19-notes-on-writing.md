@@ -82,6 +82,7 @@ updated: 2016-10-19 23:37
 * contrived 牵强的
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
+* dispensable indispensable 不可或缺的
 * drastic ＝ great (change)
 * elusive 难以描述
 * eminent 突出的     of eminent importance
@@ -100,6 +101,7 @@ updated: 2016-10-19 23:37
 * interspersed 分布 = distributed
 * in a fraction of time
 * inconclusive
+* indispensable 不可或缺的
 * judicious 审慎明智的
 * legitimate 合理的，合法的（可作动词）
 * liberal vs. conservative
@@ -134,6 +136,7 @@ updated: 2016-10-19 23:37
 
 ### noun.
 * adversity 困难，逆境
+* affinity 相似性，因相似产生好感
 * clarity 清晰简明
 * close-up 特写
 * degeneracy(ies)  > degenerate
