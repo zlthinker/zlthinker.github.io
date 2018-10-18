@@ -10,6 +10,7 @@ updated: 2016-10-19 23:37
 
 * adhere to
 * adopt
+* advent 出现
 * advocate 主张，提倡
 * alleviate 减轻，缓和  the impact of
 * assemble 聚集，组装
@@ -154,6 +155,7 @@ updated: 2016-10-19 23:37
 * remainder
 * similitude = similarity
 * suboptimality 次优性
+* surge 剧增，涌现
 * vicinity = neighborhood
 
 ### conj.
