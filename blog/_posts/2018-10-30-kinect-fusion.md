@@ -36,10 +36,14 @@ $${\mathbf{V}_k^g}^{(n)} = \mathbf{R} {\mathbf{V}_k^g}^{(n-1)} + \mathbf{t} = \m
 
 ## Update Reconstruction
 
-当估算出新的一帧的pose之后，就要用当前帧的信息对基于TSDF的volumetric reconstruction进行更新。首先，在全局坐标空间中放置了一组$$512\times512\times512$$（假设）的voxel grids。TSDF的原理就是，对于每一帧由深度图产生的点云，我们对每一个voxel计算一个TSDF的值以及一个weight权重，即$$(F_k, W_k)$$。TSDF值表示的是某个三维空间中的点在该相机坐标系中的深度与它的投影的深度值的差（带符号）。如果该点正好落在surface上，那么两个深度值应该相等，$$TSDF=0$$。权重的计算公式为$$W = \frac{cos\theta}{depth}$$。$$\theta$$表示投影的射线和投影点法线的夹角。若夹角为0，即surface正对着该点，那权重更大，因为这样计算出的TSDF更可靠。
+当估算出新的一帧的pose之后，就要用当前帧的信息对基于TSDF的volumetric reconstruction进行更新。首先，在全局坐标空间中放置了一组$$512\times512\times512$$（举例）的voxel grids。TSDF的原理就是，对于每一帧由深度图产生的点云，我们对每一个voxel计算一个TSDF的值以及一个weight权重，即$$(F_k, W_k)$$。TSDF值表示的是某个三维空间中的点在该相机坐标系中的深度与它的投影的深度值$$depth$$的差（带符号，truncated）。如果该点正好落在surface上，那么两个深度值应该相等，$$TSDF=0$$。权重的计算公式为$$W = \frac{cos\theta}{depth}$$。$$\theta$$表示投影的射线和投影点法线的夹角。若夹角为$$0$$，即surface正对着该点，那权重更大，因为这样计算出的TSDF更可靠。$$depth$$越大，深度的误差也越大，所以权重越小。
 
 每当有新的一帧要集成进来时，就会对新的帧算出的TSDF值和原有的TSDF值做加权平均处理。计算方法为
 
-$$F = \frac{W_{k-1}F_{k-1} + W_{k}F_{k}}{W_{k-1} + W_{k}},$$
+$$F_{:k} = \frac{W_{:k-1}F_{:k-1} + W_{k}F_{k}}{W_{k-1} + W_{k}},$$
 
-$$W = W_{k-1} + W_{k}.$$
+$$W_{:k} = W_{:k-1} + W_{k}.$$
+
+## Surfact Predicition
+
+这一步的任务是从fuse好的存储了TSDF值的voxel grids估计出surface，即估计出surface上的点的位置和normal。所用的方法是ray casting，即对每一个pixel，沿着射线方向按一定步长marching，一旦相邻两步的TSDF值的符号出现了变化（由正到负为front surface，由负到正为back surface），表明surface点落在其中，通过差值可以计算出更精确的位置。点的normal方向为TSDF的derivative方向，可以理解为在接近surface处，沿着surface方向，TSDF几乎不变（属于zero level set），垂直于surface方向，TSDF变化最大。
