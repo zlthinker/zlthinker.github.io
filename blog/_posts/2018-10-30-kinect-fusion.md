@@ -46,4 +46,8 @@ $$W_{:k} = W_{:k-1} + W_{k}.$$
 
 ## Surfact Predicition
 
-这一步的任务是从fuse好的存储了TSDF值的voxel grids中估计出surface，即估计出surface上的点的位置和normal。所用的方法是ray casting，即对每一个pixel，沿着射线方向按一定步长marching，一旦相邻两步的TSDF值的符号出现了变化（由正到负为front surface，由负到正为back surface），表明surface点落在其中，通过差值可以计算出更精确的位置。点的normal方向为TSDF的derivative方向，可以理解为在接近surface处，沿着surface方向，TSDF几乎不变（属于zero level set），垂直于surface方向，TSDF变化最大。
+这一步的任务是从fuse好的存储了TSDF值的voxel grids中估计出surface，即估计出surface上的点的位置和normal。所用的算法是ray casting，即对每一个pixel，沿着射线方向按一定步长marching，一旦相邻两步的TSDF值的符号出现了变化（由正到负为front surface，由负到正为back surface），表明surface点落在其中，通过差值可以计算出更精确的位置。点的normal方向为TSDF的derivative方向，可以理解为在接近surface处，沿着surface方向，TSDF几乎不变（属于zero level set），垂直于surface方向，TSDF变化最大。
+
+## Reference
+
+[KinectFusion: Real-Time Dense Surface Mapping and Tracking](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ismar2011.pdf)
