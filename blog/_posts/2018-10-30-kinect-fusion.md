@@ -1,5 +1,5 @@
 ---
-title: How does KinectFusion works
+title: How does KinectFusion works?
 updated: 2018-10-20 14:00
 ---
 
@@ -40,7 +40,7 @@ $${\mathbf{V}_k^g}^{(n)} = \mathbf{R} {\mathbf{V}_k^g}^{(n-1)} + \mathbf{t} = \m
 
 每当有新的一帧要集成进来时，就会对新的帧算出的TSDF值和原有的TSDF值做加权平均处理。计算方法为
 
-$$F_{:k} = \frac{W_{:k-1}F_{:k-1} + W_{k}F_{k}}{W_{k-1} + W_{k}},$$
+$$F_{:k} = \frac{W_{:k-1}F_{:k-1} + W_{k}F_{k}}{W_{:k-1} + W_{k}},$$
 
 $$W_{:k} = W_{:k-1} + W_{k}.$$
 
