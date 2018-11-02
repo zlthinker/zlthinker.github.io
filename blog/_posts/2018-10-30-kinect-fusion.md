@@ -30,7 +30,7 @@ $$\mathbf{T}_{inc} = [\mathbf{R} \| \mathbf{t}] = \begin{bmatrix} 1 & \alpha & -
 
 $${\mathbf{V}_k^g}^{(n)} = \mathbf{R} {\mathbf{V}_k^g}^{(n-1)} + \mathbf{t} = \mathbf{G} \mathbf{x} + {\mathbf{V}_k^g}^{(n-1)},$$
 
-此处，$$\mathbf{G}=\left[ [{\mathbf{V}_k^g}^{(n-1)}]_{\times} \| \mathbf{I}_{3\times3} \right]$$。这样一来，error fuction就变成关于$$\mathbf{x}$$的线性函数。在每一步迭代更新都变成一个convex least square问题，只需将derivative设为0，求出\mathbf{x}的最优解即可。
+此处，$$\mathbf{G}=\left[ [{\mathbf{V}_k^g}^{(n-1)}]_{\times} \| \mathbf{I}_{3\times3} \right]$$。这样一来，error fuction就变成关于$$\mathbf{x}$$的线性函数。在每一步迭代更新都变成一个convex least square问题，只需将derivative设为0，求出$$\mathbf{x}$$的最优解即可。
 
 一旦tracking失败，例如相邻两帧motion过大导致不能用上一帧的pose初始化当前帧（判断tracking是否失败的方法详见论文），将不得不做relocalization。KinectFusion用交互的方式手动进行重定位。
 
