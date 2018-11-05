@@ -11,13 +11,15 @@ updated: 2018-08-01 14:00
 
 [Long Short-Term Memory Kalman Filters: Recurrent Neural Estimators for Pose Regularization](http://openaccess.thecvf.com/content_ICCV_2017/papers/Coskun_Long_Short-Term_Memory_ICCV_2017_paper.pdf)
 
+[Understanding the Kalman Filter](http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&singpurwalla.pdf) An expository material laying out the derivation of kalman filter under the Bayesian formulation.
+
 
 #### Derivation
 The calculus of the main component of EKF can be expressed as
 
 $$\begin{split} \mathbf{x}_k &= \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1) \\ \mathbf{z}_k &= \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2) \end{split}$$
 
-where 
+where
 
 |Variable| Dim | Description |
 |:--:|:--:|:--:|
@@ -34,7 +36,7 @@ In a dynamic process, the initial state $$\mathbf{x}_0$$ is known with a mean $$
 
 #### Prediction
 
-In the new time step $$k$$, two pieces of information are available. 
+In the new time step $$k$$, two pieces of information are available.
 
 (a) The first one can be obtained by Eq. (1) where current state $$\mathbf{x}_k^f$$ with mean $$\mu_k^f$$ and covariance $$\mathbf{P}_k^f$$ is inferred from last state $$\mathbf{x}_{k-1}$$ with mean $$\mu_{k-1}^a$$ and covariance $$\mathbf{P}_{k-1}^a$$. The taylor expansion of $$\mathbf{f}(\mathbf{x})$$ around $$\mu_{k-1}^a$$ gives
 
@@ -52,7 +54,7 @@ $$\begin{split} \mathbf{P}_k^f &= E(\mathbf{e}_k^f {\mathbf{e}_k^f}^T) \\ &= \ma
 
 Overall, the last state yield the gaussian estimation of current state: $$mean = \mu_k^f = \mathbf{f}(\mu_{k-1}^a)$$, $$covariance = \mathbf{P}_k^f$$. The covariance of the estimation is the sum of the covariance derived from last estimate and the covariance of process noise.
 
-(b) The second one is obtained by Eq. (2) based on measurements from current observation $$\mathbf{z}_k$$ with covariance $$\mathbf{R}_k$$. 
+(b) The second one is obtained by Eq. (2) based on measurements from current observation $$\mathbf{z}_k$$ with covariance $$\mathbf{R}_k$$.
 
 One way to combine the two pieces of information is to assume the estimation as a linear combination of both $$\mathbf{x}_k^f$$ and $$\mathbf{z}_k$$. Let
 
@@ -66,7 +68,7 @@ $$\mathbf{a} = \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)).$$
 
 $$\begin{split} \mu_k^a &= \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)) + \mathbf{K}_k \mathbf{z}_k \\ &= \mu_k^f + \mathbf{K}_k (\mathbf{z}_k - E(\mathbf{h}(\mathbf{x}_k))). \end{split}$$
 
-Similarly, expand $$\mathbf{h}(\mathbf{x}_k)$$ in Taylor series around $$\mu_k^f$$, 
+Similarly, expand $$\mathbf{h}(\mathbf{x}_k)$$ in Taylor series around $$\mu_k^f$$,
 
 $$\mathbf{h}(\mathbf{x}_k) \approx \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) (\mathbf{x}_k - \mu_k^f) = \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) \mathbf{e}_k^f.$$
 
@@ -84,7 +86,7 @@ $$\begin{split} \mathbf{P}_k^a &= E(\mathbf{e}^k {\mathbf{e}^k}^T) \\ &= (\mathb
 
 In conclusion, the covariance of final estimate is the linear combination of covariances induced by the estimation based on transition from last state and the estimation from current measurements. The weights of covariances are controlled by the factor $$\mathbf{K}_k$$.
 
-The optimal factor $$\mathbf{K}_k$$ should minimize the covariance of estimation $$\mathbf{P}_k$$. Since $$\mathbf{P}_k$$ is in square of $$\mathbf{K}_k$$, the minimum is achieved when 
+The optimal factor $$\mathbf{K}_k$$ should minimize the covariance of estimation $$\mathbf{P}_k$$. Since $$\mathbf{P}_k$$ is in square of $$\mathbf{K}_k$$, the minimum is achieved when
 
 $$\frac{\partial tr(\mathbf{P}_k)}{\partial \mathbf{K}_k} = 0 $$
 
@@ -106,27 +108,3 @@ The estimated mean value of the new state $$\mu_k^a$$ is actually the weighted a
 ## Reference
 
 [1] [Extended Kalman Filter Tutorial](https://www.cse.sc.edu/~terejanu/files/tutorialEKF.pdf)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
