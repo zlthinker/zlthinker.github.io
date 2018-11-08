@@ -19,6 +19,8 @@ A Gaussian process is a collection of **infinite** random variables $$\{f(\mathb
 
 Consider a simple example of a zero-mean Gaussian process,
 
-$$f(.) \sim \mathcal{GP}(0, k(.,.),$$
+$$f(.) \sim \mathcal{GP}(0, k(.,.)),$$
 
-where $$k(x, x') = exp(-\frac{1}{2\tau^2}||x-x'||^2)$$ is the squared exponential kernel function. $$f(x)$$ and $$f(x')$$ will tend to have high covariance (i.e., nearby in output space) if $$x$$ and $$x'$$ are nearby in the input space, and low covariance in the reverse case.
+where $$k(x, x') = exp(-\frac{1}{2\tau ^2}\|x-x'\|^2)$$ is the squared exponential kernel function. $$f(x)$$ and $$f(x')$$ will tend to have high covariance (i.e., nearby in output space) if $$x$$ and $$x'$$ are nearby in the input space, and low covariance in the reverse case. It means that functions drawn from this Gaussian process will tend to be "locally smooth", as shown in figure below. As the bandwidth parameter $$\tau$$ increases, points located far away will have higher correlations, and hence the function tends to be smoother overall.
+
+![]({{site.baseurl}}/images/gaussian_process.png)
