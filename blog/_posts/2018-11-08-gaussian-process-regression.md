@@ -41,7 +41,7 @@ $$m'(x) = K(x, X) [K(X,X) + \sigma^2 I]^{-1} Y$$
 
 and kernel function
 
-$$k'(x, x') = k(x, x') - K(x, X) [K(X,X) + \sigma^2 I]^{-1} K(X, x)$$
+$$k'(x, x') = k(x, x') - K(x, X) [K(X,X) + \sigma^2 I]^{-1} K(X, x')$$
 
 
 ### Interpretation of GPR from the weight view
@@ -50,7 +50,7 @@ We can rewrite the posterior mean function as
 
 $$m'(x) =  \sum_{i=1}^n w_i k(x_i, x), $$
 
-where $$x_i in X$$ is previously observed and $$w_i \in w = [K(X,X) + \sigma^2 I]^{-1} Y$$. This equation shows that Gaussian process regression is equivalent to a linear regression model using basis functions $$k$$ to project the input into a feature space. To make new predictions, every output $$y_i$$ is weighted by how similar its associated input $$x_i$$ is to the to-be-predicted point $$x$$ by a similarity measure induced by the kernel. In figure below, Panel left shows a set of Gaussian process drawn from the prior and Panel right shows Gaussian processes drawn from the posterior with observations marked by the dots. The mean function is marked in dark grey.
+where $$x_i \in X$$ is previously observed and $$w_i \in w = [K(X,X) + \sigma^2 I]^{-1} Y$$. This equation shows that Gaussian process regression is equivalent to a linear regression model using basis functions $$k$$ to project the input into a feature space. To make new predictions, every output $$y_i$$ is weighted by how similar its associated input $$x_i$$ is to the to-be-predicted point $$x$$ by a similarity measure induced by the kernel $$k(x_i, x)$$. In figure below, Panel left shows a set of Gaussian process drawn from the prior and Panel right shows Gaussian processes drawn from the posterior with observations marked by the dots. The mean function is marked in dark grey.
 
 
 ![]({{site.baseurl}}/images/gaussian_process_regression.png)
