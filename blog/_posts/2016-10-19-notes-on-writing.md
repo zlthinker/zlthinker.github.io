@@ -40,13 +40,14 @@ updated: 2016-10-19 23:37
 * exacerbate = degenerate 恶化
 * grope for 探索
 * hinge on = depend on
-* impose 利用     impose the conditions 
+* impose 利用     impose the conditions
 * incorporate  
 * identify  鉴定 ＝ identify, determine
 * leverage 利用
 * manipulate 操纵，操作
 * mitigate effect 减轻影响
 * necessitate 必需
+* pertain to 与...有关
 * pioneered by
 * possess 拥有，具备
 * (sth) proceeds
@@ -77,7 +78,7 @@ updated: 2016-10-19 23:37
 * at significant computational expense  
 * burdensome 累赘的，繁重的
 * catastrophic 灾难性的
-* combinatorial 组合的 
+* combinatorial 组合的
 * competent 胜任的
 * condensed 简单的，扼要的
 * contrived 牵强的
@@ -200,13 +201,13 @@ updated: 2016-10-19 23:37
 * mathematically/ statistically sound
 * more resilient against failure 对失败更有弹性
 * mutually exclusive	impossible at the same time
-* perform favorably compared to 
+* perform favorably compared to
 * phrase/express ... as a ... problem
 * similar in spirit to 在精神上相似
 * stem from 源自，由...造成
 * this method involves doing
 * time critical
-* with computation scaling as the square of the number 
+* with computation scaling as the square of the number
 * cycle deviation to identity is larger than 5 degrees.
 * residual transformation over loop
 * weed out 淘汰
@@ -223,7 +224,7 @@ updated: 2016-10-19 23:37
 * outperform sth by a significant margin
 
 ### 超过、好于的表达：
-* perform favorably compared to 
+* perform favorably compared to
 * well outperform
 * with a 10% margin to
 * among the top-ranked algorithms
@@ -250,7 +251,7 @@ underpin: give support or strength
 methods rooted in some place
 AUC: area under curve
 
-engaged in 
+engaged in
 made up of
 adhere to
 in line with
@@ -273,4 +274,4 @@ resort to
 endeavor
 mirroring
 
-drift: small error will accumulated and grow over time 
+drift: small error will accumulated and grow over time

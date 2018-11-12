@@ -13,6 +13,10 @@ updated: 2018-08-01 14:00
 
 [Understanding the Kalman Filter](http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&singpurwalla.pdf) An expository material laying out the derivation of kalman filter under the Bayesian formulation.
 
+[Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
+
+[Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
+
 
 #### Derivation
 The calculus of the main component of EKF can be expressed as

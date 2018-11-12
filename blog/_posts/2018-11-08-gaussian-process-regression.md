@@ -23,7 +23,7 @@ where $$k(x, x') = exp(-\frac{1}{2\tau ^2}\|x-x'\|^2)$$ is the squared exponenti
 
 Given a set of training data $$D = \{(X,Y)\} = \{(x_i, y_i) \}$$, $$i \in [1,n]$$, we would like to fit a model to it ($$y=f(x)$$), so that a new output $$y_{n+1}$$ can be predicted for the new input set $$X^*$$. Sometimes, it is hard to claim $$f(x)$$ to some specific models. A Gaussian process is clearly preferable, because it can represent $$f(x)$$ obliquely but rigorously by letting the data "speak" for themselves. To make prediction for the new input $$x_{n+1}$$ is equivalent to drawing function $$f$$ from the posterior distribution $$p(f\|D)$$.
 
-For ease of elaboration, we still assume a prior Gaussian process with zero mean and squared exponential kernel for regression as above. By definition, previous outputs and to-be-determined outputs folow a joint multivariate normal distribution:
+For ease of elaboration, we still assume a prior Gaussian process with zero mean for regression. By definition, previous outputs and to-be-determined outputs folow a joint multivariate normal distribution:
 
 $$\begin{bmatrix} Y \\ Y^* \end{bmatrix} ~ N \left(\mathbf{0}, \begin{bmatrix} K(X,X)+\sigma^2 I & K(X, X^*) \\ K(X^*, X) & K(X^*, X^*) \end{bmatrix}  \right),$$
 
