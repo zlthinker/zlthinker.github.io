@@ -13,12 +13,7 @@ updated: 2018-08-01 14:00
 
 [Understanding the Kalman Filter](http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&singpurwalla.pdf) An expository material laying out the derivation of kalman filter under the Bayesian formulation.
 
-[Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
-
-[Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
-
-
-#### Derivation
+## Derivation
 The calculus of the main component of EKF can be expressed as
 
 $$\begin{split} \mathbf{x}_k &= \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1) \\ \mathbf{z}_k &= \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2) \end{split}$$
@@ -38,7 +33,6 @@ where
 
 In a dynamic process, the initial state $$\mathbf{x}_0$$ is known with a mean $$\mathbf{\mu}_0^a$$ and a covariance $$\mathbf{P}_0^a$$. If the process function $$\mathbf{f}(.)$$ and the observation function $$\mathbf{h}(.)$$ are linear, the Extended Kalman Filter will be equivalent to Kalman Filter and all the subsequent states are gaussian distributed. Most often, the two functions are nonlinear, so that the Extended Kalman Filter approximates them linearly by Taylor Expansion.
 
-#### Prediction
 
 In the new time step $$k$$, two pieces of information are available.
 
@@ -108,7 +102,27 @@ $$\begin{split} \mu_{k}^f &= \mu_{k-1}^a + cos(k/5) \\ P_{k}^f &= P_{k-1}^a + Q_
 
 The estimated mean value of the new state $$\mu_k^a$$ is actually the weighted average of the estimations from last state and from current measurements. The combination of two sources helps to decrease the uncertainty of estimation compared with using only one source, as $$P_k^a < P_k^f$$ and $$P_k^a < R_k$$.
 
+## Filter Consistency
+
+The goal of filter consistency checks is to identify when
+the filter has an incorrect estimate. The validity of an
+estimate can be evaluated based on whether the measurements
+predicted by the estimate agree with the observed measurements.
+This is typically done by monitoring the innovations
+or the error residual of the filter. The consistency check assesses
+whether the measured innovations follow their expected
+statistical properties.
+
+One of the most widely-used consistency measures is the Normalized
+Innovations Squared (NIS) test. Specifically, a flag is thrown if
+the windowed average of the NIS metric exceeds a threshold.
+This test is chosen due to its robustness and ease of implementation.
+We refer the readers to [here](https://pdfs.semanticscholar.org/cd84/4024e586881c666473984a2b5df89e9db457.pdf) to details.
 
 ## Reference
 
 [1] [Extended Kalman Filter Tutorial](https://www.cse.sc.edu/~terejanu/files/tutorialEKF.pdf)
+
+[Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
+
+[Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
