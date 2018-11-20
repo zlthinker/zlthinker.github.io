@@ -126,3 +126,7 @@ We refer the readers to [here](https://pdfs.semanticscholar.org/cd84/4024e586881
 [Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
 
 [Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
+
+[Applied Kalman filter theory (book)](http://people.duke.edu/~hpgavin/SystemID/References/Balut-KalmanFilter-PhD-NEU-2011.pdf)
+
+[Statistical Process Control of a Kalman Filter Model](https://www.mdpi.com/1424-8220/14/10/18053/pdf-vor)

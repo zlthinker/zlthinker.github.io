@@ -52,6 +52,7 @@ updated: 2016-10-19 23:37
 * possess 拥有，具备
 * (sth) proceeds
 * recapitulate = recap 概括
+* refrain from 克制住没做
 * remedy 补救
 * resemble 近似，像
 * resort to 利用，诉诸
