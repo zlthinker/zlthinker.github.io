@@ -11,8 +11,6 @@ updated: 2018-08-01 14:00
 
 [Long Short-Term Memory Kalman Filters: Recurrent Neural Estimators for Pose Regularization](http://openaccess.thecvf.com/content_ICCV_2017/papers/Coskun_Long_Short-Term_Memory_ICCV_2017_paper.pdf)
 
-[Understanding the Kalman Filter](http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&singpurwalla.pdf) An expository material laying out the derivation of kalman filter under the Bayesian formulation.
-
 ## Derivation
 The calculus of the main component of EKF can be expressed as
 
@@ -123,10 +121,12 @@ We refer the readers to [here](https://pdfs.semanticscholar.org/cd84/4024e586881
 
 [1] [Extended Kalman Filter Tutorial](https://www.cse.sc.edu/~terejanu/files/tutorialEKF.pdf)
 
-[Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
+[2] [Understanding the Kalman Filter](http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&singpurwalla.pdf) An expository material laying out the derivation of kalman filter under the Bayesian formulation.
 
-[Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
+[3] [Checking consistency for Kalman filter](https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf)
 
-[Applied Kalman filter theory (book)](http://people.duke.edu/~hpgavin/SystemID/References/Balut-KalmanFilter-PhD-NEU-2011.pdf)
+[4] [Kalman Filters: A Tutorial](https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf)
 
-[Statistical Process Control of a Kalman Filter Model](https://www.mdpi.com/1424-8220/14/10/18053/pdf-vor)
+[5] [Applied Kalman filter theory (book)](http://people.duke.edu/~hpgavin/SystemID/References/Balut-KalmanFilter-PhD-NEU-2011.pdf)
+
+[6] [Statistical Process Control of a Kalman Filter Model](https://www.mdpi.com/1424-8220/14/10/18053/pdf-vor)
