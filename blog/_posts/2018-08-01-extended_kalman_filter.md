@@ -117,6 +117,19 @@ the windowed average of the NIS metric exceeds a threshold.
 This test is chosen due to its robustness and ease of implementation.
 We refer the readers to [here](https://pdfs.semanticscholar.org/cd84/4024e586881c666473984a2b5df89e9db457.pdf) to details.
 
+[6] "The reasons for such a discrepancy could be either in the
+prediction, the stochastic model used in the KF or in the observations."
+
+[5] "The basic idea used to implement the filter as a detector is the fact that the innovation process is white. When the system changes due to damage the innovations are no longer white and correlation can be used to detect it."
+
+[5] "The covariance of innovations process has significant importance for validation of the optimality of the Kalman gain, K. The consistency between theoretical covariance of innovations process and its experimental estimate demonstrates that the filter gain is optimal."
+
+[7] "If all noise is Gaussian, the Kalman filter minimises the mean square error of the estimated parameters."
+
+[7] "Given only the mean and standard deviation of noise, the Kalman filter is the best linear estimator. Non-linear estimators may be better."
+
+[8] "If the measurement noise covariance parameter in a Kalman filter is too small relative to the actual noise, the filter gives too much weight to measurements relative to the process model, and estimated state trajectories are overly erratic. On the other hand, if the parameter is too large, the filter gives too little weight to measurements, and its response is sluggish."
+
 ## Reference
 
 [1] [Extended Kalman Filter Tutorial](https://www.cse.sc.edu/~terejanu/files/tutorialEKF.pdf)
@@ -130,3 +143,7 @@ We refer the readers to [here](https://pdfs.semanticscholar.org/cd84/4024e586881
 [5] [Applied Kalman filter theory (book)](http://people.duke.edu/~hpgavin/SystemID/References/Balut-KalmanFilter-PhD-NEU-2011.pdf)
 
 [6] [Statistical Process Control of a Kalman Filter Model](https://www.mdpi.com/1424-8220/14/10/18053/pdf-vor)
+
+[7] [Understanding and Applying Kalman Filtering](http://biorobotics.ri.cmu.edu/papers/sbp_papers/integrated3/kleeman_kalman_basics.pdf)
+
+[8] [Online tests of Kalman filter consistency](https://tutcris.tut.fi/portal/files/3250626/KFconsistency2015.pdf)
