@@ -243,18 +243,18 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |:--:|:--:|:--:|
 |minimizer type|TRUST_REGION|first direction, second step size|
 ||LINE_SEARCH|first step size, second direction|
-|line_search_direction_type|LBFGS|LINE_SEARCH requires the computation of Hessian. LBFGS approximates the inverse of Hessian by a low-rank positive-definite matrix.|
-|line_search_type|WOLFE||
-|nonlinear_conjugate_gradient_type|FLETCHER_REEVES||
-|max_lbfgs_rank|20||
-|use_approximate_eigenvalue_bfgs_scaling|false||
-|line_search_interpolation_type|CUBIC||
-|min_line_search_step_size|1e-9||
-|line_search_sufficient_function_decrease|1e-4||
-|max_line_search_contraction|1e-3||
-|min_line_search_contraction|0.6||
-|max_num_line_search_step_size_iterations|||
-|max_num_line_search_direction_restarts|||
+|line search direction type|LBFGS|LINE_SEARCH requires the computation of Hessian. LBFGS approximates the inverse of Hessian by a low-rank positive-definite matrix.|
+|line search type|WOLFE||
+|nonlinear conjugate gradient type|FLETCHER_REEVES||
+|max lbfgs rank|20||
+|use approximate eigenvalue bfgs scaling|false|BFGS initially takes the inverse Hessian approximation to be identity. It rescales the approximation by a eigenvalue of the true inverse Hessian.|
+|line search interpolation type|CUBIC||
+|min line search step size|1e-9||
+|line search sufficient function decrease|1e-4||
+|max line search contraction|1e-3||
+|min line search contraction|0.6||
+|max num line search step size iterations|||
+|max num line search direction restarts|||
 
 
 ## Generalized Least Squares

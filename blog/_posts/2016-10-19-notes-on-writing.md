@@ -86,6 +86,7 @@ updated: 2016-10-19 23:37
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
 * dispensable indispensable 不可或缺的
+* detrimentally 不利地，有害地
 * drastic ＝ great (change)
 * elusive 难以描述
 * eminent 突出的     of eminent importance
