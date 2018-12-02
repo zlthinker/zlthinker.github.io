@@ -28,6 +28,7 @@ tag:
 	* [Modelling Uncertainty in Deep Learning for Camera Relocalization](https://arxiv.org/pdf/1509.05909.pdf)
 	* [Image-based localization using LSTMs for structured feature correlation](https://arxiv.org/pdf/1611.07890.pdf)
 	* [Geometric loss functions for camera pose regression with deep learning](http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf)
+	* [RelocNet: Continuous Metric Learning Relocalisation using Neural Nets](http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf): Retrieval + relative pose regression
 
 * Temporal/RNN
 	* [VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf)

@@ -10,6 +10,7 @@ updated: 2016-10-19 23:37
 
 * adhere to
 * adopt
+* advent 出现
 * advocate 主张，提倡
 * alleviate 减轻，缓和  the impact of
 * assemble 聚集，组装
@@ -23,9 +24,11 @@ updated: 2016-10-19 23:37
 * contaminate 污染
 * counteract 抵消
 * cull 剔除
+* dampen the effect of outlying cases
 * delineate 描边, mark the edges of sth
 * denote
 * designate 指定   designate sth as
+* deter = prevent/discourage
 * deviate 脱离
 * devise 设计
 * diminish = decrease = reduce
@@ -37,16 +40,19 @@ updated: 2016-10-19 23:37
 * exacerbate = degenerate 恶化
 * grope for 探索
 * hinge on = depend on
-* impose 利用     impose the conditions 
+* impose 利用     impose the conditions
 * incorporate  
 * identify  鉴定 ＝ identify, determine
 * leverage 利用
 * manipulate 操纵，操作
 * mitigate effect 减轻影响
 * necessitate 必需
+* pertain to 与...有关
 * pioneered by
 * possess 拥有，具备
 * (sth) proceeds
+* recapitulate = recap 概括
+* refrain from 克制住没做
 * remedy 补救
 * resemble 近似，像
 * resort to 利用，诉诸
@@ -73,12 +79,13 @@ updated: 2016-10-19 23:37
 * at significant computational expense  
 * burdensome 累赘的，繁重的
 * catastrophic 灾难性的
-* combinatorial 组合的 
+* combinatorial 组合的
 * competent 胜任的
 * condensed 简单的，扼要的
 * contrived 牵强的
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
+* dispensable indispensable 不可或缺的
 * drastic ＝ great (change)
 * elusive 难以描述
 * eminent 突出的     of eminent importance
@@ -93,11 +100,14 @@ updated: 2016-10-19 23:37
 * incoherent with 与不一致
 * injective 单射的 (injective function/mapping)
 * intact 原封不动的，完整的，未受影响的
+* invariably = always
 * interspersed 分布 = distributed
 * in a fraction of time
 * inconclusive
+* indispensable 不可或缺的
 * judicious 审慎明智的
 * legitimate 合理的，合法的（可作动词）
+* liberal vs. conservative
 * negligible 微不足道的，可以忽视的
 * post hoc 事后的/地
 * principle 主要的，重要的
@@ -128,6 +138,8 @@ updated: 2016-10-19 23:37
 * viable 可行的
 
 ### noun.
+* adversity 困难，逆境
+* affinity 相似性，因相似产生好感
 * clarity 清晰简明
 * close-up 特写
 * degeneracy(ies)  > degenerate
@@ -145,6 +157,8 @@ updated: 2016-10-19 23:37
 * remainder
 * similitude = similarity
 * suboptimality 次优性
+* surge 剧增，涌现
+* vicinity = neighborhood
 
 ### conj.
 * albeit 虽然，即使
@@ -188,13 +202,13 @@ updated: 2016-10-19 23:37
 * mathematically/ statistically sound
 * more resilient against failure 对失败更有弹性
 * mutually exclusive	impossible at the same time
-* perform favorably compared to 
+* perform favorably compared to
 * phrase/express ... as a ... problem
 * similar in spirit to 在精神上相似
 * stem from 源自，由...造成
 * this method involves doing
 * time critical
-* with computation scaling as the square of the number 
+* with computation scaling as the square of the number
 * cycle deviation to identity is larger than 5 degrees.
 * residual transformation over loop
 * weed out 淘汰
@@ -211,7 +225,7 @@ updated: 2016-10-19 23:37
 * outperform sth by a significant margin
 
 ### 超过、好于的表达：
-* perform favorably compared to 
+* perform favorably compared to
 * well outperform
 * with a 10% margin to
 * among the top-ranked algorithms
@@ -238,7 +252,7 @@ underpin: give support or strength
 methods rooted in some place
 AUC: area under curve
 
-engaged in 
+engaged in
 made up of
 adhere to
 in line with
@@ -261,4 +275,4 @@ resort to
 endeavor
 mirroring
 
-drift: small error will accumulated and grow over time 
+drift: small error will accumulated and grow over time

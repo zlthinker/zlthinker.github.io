@@ -4,7 +4,8 @@ I'm a third-year PhD candidate in Deparment of Computer Science and Engineering,
 # Publication
 
 * "Learning and Matching Multi-View Descriptors for Registration of Point Clouds" \\
-ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.05653)] [[github](https://github.com/zlthinker/RMBP)] \\
+ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.05653)]
+[[supp](./files/eccv2018_supp.pdf)] [[github](https://github.com/zlthinker/RMBP)] \\
 **Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan
 
 * "GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints" \\
