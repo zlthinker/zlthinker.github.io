@@ -248,15 +248,18 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |line search direction type|LBFGS|LINE_SEARCH requires the computation of Hessian. LBFGS approximates the inverse of Hessian by a low-rank positive-definite matrix.|
 |line search type|WOLFE|solve inexact line search using Wolfe conditions|
 |nonlinear conjugate gradient type|FLETCHER_REEVES|Fletcher–Reeves evaluates the increments of each iteration: $$\Delta \mathbf{x}$$|
-|max lbfgs rank|20||
+|max lbfgs rank|20|Limited-memory BFGS constrains the rank of approximate inverse Hessian to be below 20 for memory efficiency.|
 |use approximate eigenvalue bfgs scaling|false|BFGS initially takes the inverse Hessian approximation to be identity. It rescales the approximation by a eigenvalue of the true inverse Hessian.|
-|line search interpolation type|CUBIC||
+|line search interpolation type|CUBIC/BISECTION/QUATRATIC|Interpolation methods are a kind of line search methods. It fits the loss $$f(x+\alpha\Delta x)$$ by quatratic or cubic polynomial in $$\alpha$$. It leads to easier computation of derivatives and so on.|
 |min line search step size|1e-9||
 |line search sufficient function decrease|1e-4||
-|max line search contraction|1e-3||
+|max line search contraction|1e-3|The update is written as $$s_t = \alpha \Delta x + \beta s_{t-1}$$. The contraction $$\beta$$ is a multiplier of last step. 0 < max_step_contraction < min_step_contraction < 1.|
 |min line search contraction|0.6||
-|max num line search step size iterations|||
-|max num line search direction restarts|||
+|max num line search step size iterations|20|Max number of trials of finding a satisfying step size in each iteration.|
+|max num line search direction restarts|5|Maximum number of restarts of the line search direction|
+|line search sufficient curvature_decrease|0.9|Wolfe conditions require a step size to satisfy $$|f'(step_size)| <= sufficient_curvature_decrease * |f'(0)|$$.|
+|max line search step expansion|10.0|Wolfe conditions require $$new_step_size <= max_step_expansion * step_size$$.|
+|trust region strategy type|LEVENBERG_MARQUARDT||
 
 
 ## Generalized Least Squares
