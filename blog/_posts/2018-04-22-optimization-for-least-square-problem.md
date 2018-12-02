@@ -258,7 +258,7 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |max num line search step size iterations|20|Max number of trials of finding a satisfying step size in each iteration.|
 |max num line search direction restarts|5|Maximum number of restarts of the line search direction|
 |line search sufficient curvature_decrease|0.9|Wolfe conditions require a step size to satisfy \|f'(step_size)\| <= sufficient_curvature_decrease * \|f'(0)\|.|
-|max line search step expansion|10.0|Wolfe conditions require $$new_step_size <= max_step_expansion * step_size$$.|
+|max line search step expansion|10.0|Wolfe conditions require new_step_size <= max_step_expansion * step_size.|
 |trust region strategy type|LEVENBERG_MARQUARDT||
 
 
