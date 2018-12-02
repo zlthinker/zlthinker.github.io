@@ -123,6 +123,8 @@ $$\mathbf{x}_{t+1} = \mathbf{x}_t + \alpha \mathbf{h}_{GN},$$
 
 where $$\alpha$$ is found by line search. The classical Gauss-Newton method uses $$\alpha = 1$$ in all steps. In general, the Gauss-Newton method ensure linear convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| \leq a\|\mathbf{x}_t - \mathbf{x}^* \|, 0 < a < 1)$$ and even quadratic convergence $$(\|\mathbf{x}_{t+1} - \mathbf{x}^* \| = O(\|\mathbf{x}_t - \mathbf{x}^* \|^2))$$ when $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$.
 
+The method of locating the direction by solving $$L'(\mathbf{h}) = 0$$ is called **exact line search**. An alternative is **inexact line search** which loosely asks for a sufficient decrease in $$L(\mathbf{h})$$, e.g., using backtracking line search or Wolfe conditions to loosely find step length along given search direction.
+
 ## Trust Region - The Levenberg–Marquardt Method
 
 The LM method suggests to use a *damped Gauss-Newton mothod*. The step $$\mathbf{h}_{LM}$$ is defined by the following modification:
@@ -244,8 +246,8 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |minimizer type|TRUST_REGION|first direction, second step size|
 ||LINE_SEARCH|first step size, second direction|
 |line search direction type|LBFGS|LINE_SEARCH requires the computation of Hessian. LBFGS approximates the inverse of Hessian by a low-rank positive-definite matrix.|
-|line search type|WOLFE||
-|nonlinear conjugate gradient type|FLETCHER_REEVES||
+|line search type|WOLFE|solve inexact line search using Wolfe conditions|
+|nonlinear conjugate gradient type|FLETCHER_REEVES|Fletcher–Reeves evaluates the increments of each iteration: $$\Delta \mathbf{x}$$|
 |max lbfgs rank|20||
 |use approximate eigenvalue bfgs scaling|false|BFGS initially takes the inverse Hessian approximation to be identity. It rescales the approximation by a eigenvalue of the true inverse Hessian.|
 |line search interpolation type|CUBIC||
