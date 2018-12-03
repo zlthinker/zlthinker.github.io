@@ -260,6 +260,7 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |line search sufficient curvature_decrease|0.9|Wolfe conditions require a step size to satisfy \|f'(step_size)\| <= sufficient_curvature_decrease * \|f'(0)\|.|
 |max line search step expansion|10.0|Wolfe conditions require new_step_size <= max_step_expansion * step_size.|
 |trust region strategy type|LEVENBERG_MARQUARDT||
+|Dogleg Type |TRADITIONAL_DOGLEG|LM works with combinations of Gauss-Newton and steepest descent directions. Dogleg methods find an approximate step of LM by combining the steps of both.|
 
 
 ## Generalized Least Squares
