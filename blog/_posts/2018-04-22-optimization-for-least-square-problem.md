@@ -266,10 +266,10 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |min lm diagonal | 1e-6 | For LM, the scaled diagonal of $$J^TJ$$ is used to control the size of trust region. The diagonal values need to be clamped to ensure successful regularization.|
 |max lm diagonal | 1e32 | |
 |linear solver type|SPARSE NORMAL CHOLESKY||
-|linear solver type|DENSE QR||
+||DENSE QR||
 |preconditioner type| JACOBI| 关于预调节器(preconditioner)的理解，请参考[知乎帖子](https://zhuanlan.zhihu.com/p/33820289)|
-|preconditioner type| CLUSTER_JACOBI| |
-|preconditioner type| CLUSTER_TRADITIONAL| |
+|| CLUSTER_JACOBI| |
+|| CLUSTER_TRADITIONAL| |
 |linear solver ordering| |In bundle adjustment, points are desired to have an order prior to cameras.|
 |use postordering| false | Sparse Cholesky factorization permutes the columns and then computes the jacobian or do the inverse.|
 |use inner iterations| false| Once the Newton/Trust Resion step has been computed for all params, the inner iterations will further optimize them from this starting point.|
