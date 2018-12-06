@@ -75,6 +75,10 @@ The upper bound of L2 error for a pair $$(x_i, y_i)$$ is above bounded by $$e_i(
 
 $$\begin{split} e_i(R, t) &= \|R x_i + t - y_i  \| \\ &=  \|(R_0 x_i + t_0 - y_i) + (Rx_i - R_0 x_i) + (t - t_0)\| \\ &\geq  \|(R_0 x_i + t_0 - y_i) \|  - (\| Rx_i - R_0 x_i \|  + \|t - t_0  \|)  \\ &\geq \|(R_0 x_i + t_0 - y_i) \|  - (\gamma_r + \gamma_t)\\ &=  e_i(R_0, t_0) - (\gamma_r + \gamma_t) \end{split}$$
 
+#### Algorithm
+
+![]({{site.baseurl}}/images/BnB_algorithm.png)
+
 ## Reference
 
 [Branch and Bound Methods](https://web.stanford.edu/class/ee364b/lectures/bb_slides.pdf)
