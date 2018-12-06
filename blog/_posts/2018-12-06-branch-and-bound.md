@@ -48,6 +48,8 @@ The domain of 3D motions (the SE(3) group) is minimally parameterized by axis-an
 
 ![]({{site.baseurl}}/images/BnB_domain.png)
 
+Rather than search inside a 6-D space, GO-ICP uses a nested BnB search. The outer BnB searches the rotation space and solves the bounds and corresponding optimal translations by calling an inner translation BnB. In this way, it only needs to maintain two queues with significantly fewer cubes.
+
 #### Bound of registration error
 
 Given a sub-domain of rotation and translation $$C_r \times C_t$$, we aim to compute the bound of registration error between two point sets, i.e.,
@@ -64,9 +66,14 @@ Similarly, given a translation cube $$C_t$$ with half side-length $$\sigma_t$$ c
 
 $$\|(x-t) - (x-t_0)  \| \leq \sqrt{3} \sigma_t = \gamma_t.$$
 
-The upper bound of L2 error for a pair $$(x_i, y_i)$$ is above bounded by $$e_i(R_0, t_0)$$, since it cannot be less than the minimal error.
+Illustration shown below.
 
-$$\begin{split} e_i(R, t) &= \|R x_i + t - y_i  \| \\ &=  \|(R_0 x_i + t_0 - y_i) + (Rx_i - R_0 x_i) + (t - t_0)\| \\ &\geq  \|(R_0 x_i + t_0 - y_i) \|  - (\| Rx_i - R_0 x_i \|  + \|t - t_0  \|)  \\ &\geq \|(R_0 x_i + t_0 - y_i) \|  - (\gamma_r + \gamma_t) =  e_i(R_0, t_0) - (\gamma_r + \gamma_t) \end{split}$$
+![]({{site.baseurl}}/images/BnB_radius.png)
+
+
+The upper bound of L2 error for a pair $$(x_i, y_i)$$ is above bounded by $$e_i(R_0, t_0)$$, since it cannot be less than the minimal error. The lower bound is derived as
+
+$$\begin{split} e_i(R, t) &= \|R x_i + t - y_i  \| \\ &=  \|(R_0 x_i + t_0 - y_i) + (Rx_i - R_0 x_i) + (t - t_0)\| \\ &\geq  \|(R_0 x_i + t_0 - y_i) \|  - (\| Rx_i - R_0 x_i \|  + \|t - t_0  \|)  \\ &\geq \|(R_0 x_i + t_0 - y_i) \|  - (\gamma_r + \gamma_t)\\ &=  e_i(R_0, t_0) - (\gamma_r + \gamma_t) \end{split}$$
 
 ## Reference
 
