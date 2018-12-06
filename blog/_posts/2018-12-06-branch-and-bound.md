@@ -50,6 +50,24 @@ The domain of 3D motions (the SE(3) group) is minimally parameterized by axis-an
 
 #### Bound of registration error
 
+Given a sub-domain of rotation and translation $$C_r \times C_t$$, we aim to compute the bound of registration error between two point sets, i.e.,
+
+$$E(R, t) = \sum_{i=1}^N e_i(R, t) =\sum_{i=1}^N \|R x_i + t - y_i  \|,$$
+
+where $$(x_i, y_i)$$ is a pair of correspondence found by nearest neighbor search. To identify the error bound of each pair, we need to first determine the bound of transformed point $$R x_i + t$$.
+
+Given a rotation cube $$C_r$$ of half side-length $$\sigma_r$$ with angle-axis $$r_0$$ as the center, for any angle-axis $$r \in C_r$$, the distance from $$R_r x$$ to $$R_{r_0} x$$ can be proved to be bounded by
+
+$$\| R_r x - R_{r_0} x \| \leq  2sin(\min( \sqrt{3} \sigma_r / 2, \pi/2)) \|x \| = \gamma_r.$$
+
+Similarly, given a translation cube $$C_t$$ with half side-length $$\sigma_t$$ centered at $$t_0$$, for any $$t \in C_t$$, the distance is bounded by
+
+$$\|(x-t) - (x-t_0)  \| \leq \sqrt{3} \sigma_t = \gamma_t.$$
+
+The upper bound of L2 error for a pair $$(x_i, y_i)$$ is above bounded by $$e_i(R_0, t_0)$$, since it cannot be less than the minimal error.
+
+$$\begin{split} e_i(R, t) &= \|R x_i + t - y_i  \| \\ &=  \|(R_0 x_i + t_0 - y_i) + (Rx_i - R_0 x_i) + (t - t_0)\| \\ &\geq  \|(R_0 x_i + t_0 - y_i) \|  - (\| Rx_i - R_0 x_i \|  + \|t - t_0  \|)  \\ &\geq \|(R_0 x_i + t_0 - y_i) \|  - (\gamma_r + \gamma_t) =  e_i(R_0, t_0) - (\gamma_r + \gamma_t) \end{split}$$
+
 ## Reference
 
 [Branch and Bound Methods](https://web.stanford.edu/class/ee364b/lectures/bb_slides.pdf)
