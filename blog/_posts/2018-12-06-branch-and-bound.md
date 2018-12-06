@@ -7,6 +7,10 @@ updated: 2018-12-16 11:00
 * TOC
 {:toc}
 
+## Related works
+
+[Go-ICP: A Globally Optimal Solution to 3D ICP Point-Set Registration](https://arxiv.org/pdf/1605.03344.pdf)
+
 ## Introduction
 
 > Branch and bound is the most commonly used tool for solving NP-hard optimization problems.
@@ -28,8 +32,8 @@ Then, the Branch and Bound algorithm takes steps as follows:
 3. compute $$\Phi_{lb}(\mathcal{Q}_i)$$ and $$\Phi_{ub}(\mathcal{Q}_i)$$ , $$i=1,2$$
 
 4. update lower and upper bounds on $$f^*$$
-  * $$L = \min\left{\Phi_{lb}(\mathcal{Q}_1), \Phi_{lb}(\mathcal{Q}_2) \right}$$
-  * $$U = \min\left{\Phi_{ub}(\mathcal{Q}_1), \Phi_{ub}(\mathcal{Q}_2) \right}$$
+  * $$L = \min\{\Phi_{lb}(\mathcal{Q}_1), \Phi_{lb}(\mathcal{Q}_2) \}$$
+  * $$U = \min\{\Phi_{ub}(\mathcal{Q}_1), \Phi_{ub}(\mathcal{Q}_2) \}$$
   * terminate if $$U - L \leq \sigma$$
 
 5. partition $$\mathcal{Q}_1$$ and $$\mathcal{Q}_2$$, and repeat 3 and 4
