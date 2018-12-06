@@ -70,6 +70,7 @@ updated: 2016-10-19 23:37
 
 ### adj. & adv.
 
+* ambivalent 矛盾的，e.g. p = 0.5
 * additive vs. multiplicative
 * a diversity of = a variety of 多种的
 * aforementioned 上述的 ＝ preceding
