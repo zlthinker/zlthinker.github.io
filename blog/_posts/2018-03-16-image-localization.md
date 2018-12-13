@@ -1,7 +1,7 @@
 ---
 title: Image Localization
 updated: 2018-03-16 20:00
-category: 
+category:
 tag:
 ---
 
@@ -9,6 +9,9 @@ tag:
 {:toc}
 
 # Related works
+
+* Feature-Based
+  * [From Coarse to Fine: Robust Hierarchical Localization at Large Scale](https://arxiv.org/pdf/1812.03506.pdf)
 
 * Tutorial
 	* [Learning-based Visual Localization](https://alexgkendall.com/media/presentations/lsvpr_2017_cvpr_tutorial_alex_kendall.pdf)
@@ -35,6 +38,7 @@ tag:
 	* [Deep Feature Flow for Video Recognition](http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf)
 	* [Recurrent Fully Convolutional Networks for Video Segmentation](https://arxiv.org/pdf/1606.00487.pdf)
 	* [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+	* [End-to-end Flow Correlation Tracking with Spatial-temporal Attention](https://arxiv.org/pdf/1711.01124.pdf) Aggregate temporal feature maps through FlowNet & similarity-weighting.
 
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
@@ -42,7 +46,7 @@ tag:
 * Feature selection
 	* [Avoiding confusing features in place recognition](http://www.di.ens.fr/~josef/publications/knopp10.pdf): (ECCV 2010)
 	* feature re-weighting: [Learned Contextual Feature Reweighting for Image Geo-Localization](http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8099829)
-	
+
 * Recent works
 	* [MapNet: Geometry-Aware Learning of Maps for Camera Localization](https://arxiv.org/pdf/1712.03342.pdf): Leverage the full map (CVPR2018, spotlight)
 	* [X-View: Graph-Based Semantic Multi-View Localization](https://arxiv.org/pdf/1709.09905.pdf): Use segmentation
@@ -50,12 +54,12 @@ tag:
 	* [Benchmarking 6DOF Outdoor Visual Localization in Changing Conditions](https://arxiv.org/pdf/1707.09092.pdf): Outdoor benchmark (CVPR2018, spotlight, ETH)
 	* [InLoc: Indoor Visual Localization with Dense Matching and View Synthesis](): (CVPR2018, spotlight, ETH)
 	* Pose regression + visual odometry [Deep Auxiliary Learning for Visual Localization and Odometry](https://arxiv.org/pdf/1803.03642.pdf): (ICLA2018)
-	
+
 
 * encoder-decoder network
 	* Scene coordinate regression: [Full-Frame Scene Coordinate Regression for Image-Based Localization](https://arxiv.org/pdf/1802.03237.pdf)
 	* Single-view depth estimation: [Unsupervised Learning of Depth and Ego-Motion from Video](https://arxiv.org/pdf/1704.07813.pdf) [Github](https://github.com/tinghuiz/SfMLearner)
-	* Single-view depth estimation: [UnDeepVO: Monocular Visual Odometry through Unsupervised Deep Learning](https://arxiv.org/pdf/1709.06841.pdf) 
+	* Single-view depth estimation: [UnDeepVO: Monocular Visual Odometry through Unsupervised Deep Learning](https://arxiv.org/pdf/1709.06841.pdf)
 	* Depth completion: [Deep Depth Completion of a Single RGB-D Image](http://deepcompletion.cs.princeton.edu/paper.pdf)
 	* **DispNet**: [A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation](https://arxiv.org/pdf/1512.02134.pdf)
 
@@ -88,7 +92,7 @@ tag:
 	* [Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials](https://arxiv.org/pdf/1210.5644.pdf)
 
 
-	
+
 
 
 # PnP algorithm
@@ -179,7 +183,7 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 
 * [Weighted least square](https://stats.stackexchange.com/questions/97832/how-do-you-find-weights-for-weighted-least-squares-regression?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
 
-* ["Data normalization (or called pre-conditioning in the numerical literature) is an essential step in the DLT algorithm."](http://cvrs.whu.edu.cn/downloads/ebooks/Multiple%20View%20Geometry%20in%20Computer%20Vision%20(Second%20Edition).pdf) from Page 107 
+* ["Data normalization (or called pre-conditioning in the numerical literature) is an essential step in the DLT algorithm."](http://cvrs.whu.edu.cn/downloads/ebooks/Multiple%20View%20Geometry%20in%20Computer%20Vision%20(Second%20Edition).pdf) from Page 107
 
 * rank-constrained optimization
 
@@ -192,8 +196,3 @@ Step 3. The solution of the linear equation system lies in the **null space** or
 [1] [Linear N-Point Camera Pose Determination](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=784291)
 
 [2] [EPnP: An Accurate O(n)Solution to the PnP Problem](http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf)
-
-
-
-
-
