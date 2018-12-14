@@ -39,6 +39,9 @@ tag:
 	* [Recurrent Fully Convolutional Networks for Video Segmentation](https://arxiv.org/pdf/1606.00487.pdf)
 	* [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 	* [End-to-end Flow Correlation Tracking with Spatial-temporal Attention](https://arxiv.org/pdf/1711.01124.pdf) Aggregate temporal feature maps through FlowNet & similarity-weighting.
+	[Learning Blind Video Temporal Consistency](http://openaccess.thecvf.com/content_ECCV_2018/papers/Wei-Sheng_Lai_Real-Time_Blind_Video_ECCV_2018_paper.pdf) Fuse last prediction and current prediction by directly regressing the residual
+	[Spatio-Temporal Transformer Network
+for Video Restoration](http://openaccess.thecvf.com/content_ECCV_2018/papers/Tae_Hyun_Kim_Spatio-temporal_Transformer_Network_ECCV_2018_paper.pdf) Spatio-temporal transformer samples an image from multiple frames ($$T\times H \times W \rightarrow 1\times H \times W$$)
 
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
