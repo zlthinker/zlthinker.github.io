@@ -70,6 +70,7 @@ updated: 2016-10-19 23:37
 
 ### adj. & adv.
 
+* ambivalent 矛盾的，e.g. p = 0.5
 * additive vs. multiplicative
 * a diversity of = a variety of 多种的
 * aforementioned 上述的 ＝ preceding
@@ -86,12 +87,14 @@ updated: 2016-10-19 23:37
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
 * dispensable indispensable 不可或缺的
+* detrimentally 不利地，有害地
 * drastic ＝ great (change)
 * elusive 难以描述
 * eminent 突出的     of eminent importance
 * emphatic emphatically 坚决地，断然地
 * erroneous = incorrect
 * handcrafted     手动设定的
+* henceforth 从此以后
 * heterogeneous image collections 多种多样的
 * holistic 整体的
 * immune to 对。。。免疫
