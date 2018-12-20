@@ -94,6 +94,7 @@ updated: 2016-10-19 23:37
 * emphatic emphatically 坚决地，断然地
 * erroneous = incorrect
 * handcrafted     手动设定的
+* henceforth 从此以后
 * heterogeneous image collections 多种多样的
 * holistic 整体的
 * immune to 对。。。免疫
