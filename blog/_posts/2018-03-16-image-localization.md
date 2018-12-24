@@ -42,6 +42,8 @@ tag:
 	* [Learning Blind Video Temporal Consistency](http://openaccess.thecvf.com/content_ECCV_2018/papers/Wei-Sheng_Lai_Real-Time_Blind_Video_ECCV_2018_paper.pdf) Fuse last prediction and current prediction by directly regressing the residual
 	* [Spatio-Temporal Transformer Network for Video Restoration](http://openaccess.thecvf.com/content_ECCV_2018/papers/Tae_Hyun_Kim_Spatio-temporal_Transformer_Network_ECCV_2018_paper.pdf) Spatio-temporal transformer samples an image from multiple frames ($$T\times H \times W \rightarrow 1\times H \times W$$)
 	* [Switchable Temporal Propagation Networ](https://arxiv.org/pdf/1804.08758.pdf)
+  * [Online Video Object Detection using Association LSTM](http://openaccess.thecvf.com/content_ICCV_2017/papers/Lu__Online_Video_ICCV_2017_paper.pdf)
+  * [Long-term Recurrent Convolutional Networks for Visual Recognition and Description](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Donahue_Long-Term_Recurrent_Convolutional_2015_CVPR_paper.pdf)
 
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
