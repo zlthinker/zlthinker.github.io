@@ -90,6 +90,8 @@ tag:
 	* [SegFlow: optical flow + object segmentation](https://arxiv.org/pdf/1709.06750.pdf) [[github]](https://github.com/JingchunCheng/SegFlow)
 	* [stereo + segmentation + optical flow](http://www.cvlibs.net/publications/Behl2017ICCV.pdf)
 	* [Unsupervised, depth + stereo](https://arxiv.org/pdf/1609.03677.pdf) (CVPR 2017)
+  * [Flowing ConvNets for Human Pose Estimation in Videos](https://www.robots.ox.ac.uk/~vgg/publications/2015/Pfister15a/pfister15a.pdf) Optical flow + human pose
+  * [Thin-Slicing Network: A Deep Structured Model for Pose Estimation in Videos](https://arxiv.org/pdf/1703.10898.pdf) Optical flow + human pose
 
 * CRF
 	* [Deep Convolutional Neural Fields for Depth Estimation from a Single Imag](https://arxiv.org/pdf/1411.6387.pdf)
