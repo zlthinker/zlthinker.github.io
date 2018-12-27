@@ -44,6 +44,7 @@ tag:
 	* [Switchable Temporal Propagation Networ](https://arxiv.org/pdf/1804.08758.pdf)
   * [Online Video Object Detection using Association LSTM](http://openaccess.thecvf.com/content_ICCV_2017/papers/Lu__Online_Video_ICCV_2017_paper.pdf)
   * [Long-term Recurrent Convolutional Networks for Visual Recognition and Description](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Donahue_Long-Term_Recurrent_Convolutional_2015_CVPR_paper.pdf)
+  * [Semantic Video Segmentation by Gated Recurrent Flow Propagation](http://openaccess.thecvf.com/content_cvpr_2018/papers/Nilsson_Semantic_Video_Segmentation_CVPR_2018_paper.pdf)
 
 * Traditional
 	* [Efficient & effective prioritized matching for large-scale image-based localization](http://ieeexplore.ieee.org/abstract/document/7572201/)
