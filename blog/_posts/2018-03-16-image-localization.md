@@ -94,7 +94,7 @@ tag:
   * [Flowing ConvNets for Human Pose Estimation in Videos](https://www.robots.ox.ac.uk/~vgg/publications/2015/Pfister15a/pfister15a.pdf) Optical flow + human pose
   * [Thin-Slicing Network: A Deep Structured Model for Pose Estimation in Videos](https://arxiv.org/pdf/1703.10898.pdf) Optical flow + human pose
   * [DCFlow: Accurate Optical Flow via Direct Cost Volume Processing](http://vladlen.info/papers/DCFlow.pdf)
-  * [PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume](https://arxiv.org/pdf/1709.02371.pdf) [github](https://github.com/NVlabs/PWC-Net)
+  * [PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume](https://arxiv.org/pdf/1709.02371.pdf) [[github]](https://github.com/NVlabs/PWC-Net)
 
 * CRF
 	* [Deep Convolutional Neural Fields for Depth Estimation from a Single Imag](https://arxiv.org/pdf/1411.6387.pdf)

@@ -25,6 +25,11 @@ df -h (-T: show file system type)
 # 显示mount到文件系统中的硬盘空间和分区的使用情况
 ```
 
+```
+du -sh /folder
+# 统计文件夹大小
+```
+
 ### 文件系统、文本处理
 
 ```
