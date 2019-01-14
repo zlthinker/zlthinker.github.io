@@ -236,12 +236,13 @@ updated: 2016-10-19 23:37
 
 
 ### idioms
-*  beauty is only skin deep
+* beauty is only skin deep
 * forewarned is forearmed
 
 ### sentences
 * This approach alone will fail for large changes in camera parameters or large camera motions.
 * There is an immense body of literature on some work.
+* ~ means equality up to scale.
 
 
 equate
