@@ -23,7 +23,8 @@ updated: 2019-01-14 10:00
 
 #### Probabilistic Registration
 
-[A Generative Model for the Joint Registration of
+[**JRMPC** A Generative Model for the Joint Registration of
 Multiple Point Sets](https://hal.archives-ouvertes.fr/hal-01019661v2/document)
-
-[Density Adaptive Point Set Registration](https://arxiv.org/pdf/1804.01495.pdf)
+[**CPPSR** A Probabilistic Framework for Color-Based Point Set Registration](http://openaccess.thecvf.com/content_cvpr_2016/papers/Danelljan_A_Probabilistic_Framework_CVPR_2016_paper.pdf)
+[**FPPSR** Aligning the dissimilar: A probabilistic method for feature-based point set registration](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7899641&tag=1)
+[**DARE** Density Adaptive Point Set Registration](https://arxiv.org/pdf/1804.01495.pdf) [[github]](https://github.com/felja633/DARE)
