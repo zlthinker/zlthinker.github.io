@@ -11,7 +11,7 @@ updated: 2019-01-14 10:00
 
 #### Feature-based
 
-[Fast Global Registration](http://qianyi.info/docs/papers/eccv16_registration.pdf)
+* [Fast Global Registration](http://qianyi.info/docs/papers/eccv16_registration.pdf)
 
 #### ICP
 
@@ -20,6 +20,9 @@ updated: 2019-01-14 10:00
 #### Branch and bound
 
 * [Go-ICP: A Globally Optimal Solution to 3D ICP Point-Set Registration](https://arxiv.org/pdf/1605.03344.pdf)
+* [GOGMA: Globally-Optimal Gaussian Mixture Alignment](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Campbell_GOGMA_Globally-Optimal_Gaussian_CVPR_2016_paper.pdf)
+* [Efficient Global Point Cloud Alignment using Bayesian Nonparametric Mixtures](http://openaccess.thecvf.com/content_cvpr_2017/papers/Straub_Efficient_Global_Point_CVPR_2017_paper.pdf) [[github]](https://github.com/jstraub/dpOptTrans)
+
 
 #### Probabilistic Registration
 
