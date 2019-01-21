@@ -226,6 +226,7 @@ updated: 2016-10-19 23:37
 * in view of 鉴于，考虑到
 * provided that
 * outperform sth by a significant margin
+* heavily shaded 形容阴影的暗区
 
 ### 超过、好于的表达：
 * perform favorably compared to
