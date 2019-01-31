@@ -32,10 +32,12 @@ updated: 2016-10-19 23:37
 * deviate 脱离
 * devise 设计
 * diminish = decrease = reduce
+* discern 辨认出  it is straightforward to discern a termination criterion.
 * elevate 提升
 * elucidate 阐明，解释清楚，make clear
 * endeavor 努力
 * endow     endowed with
+* enduring = lasting 持久的
 * envision 预想
 * exacerbate = degenerate 恶化
 * grope for 探索
@@ -82,6 +84,7 @@ updated: 2016-10-19 23:37
 * catastrophic 灾难性的
 * combinatorial 组合的
 * competent 胜任的
+* concomitant 伴随而来的，随之发生的，相应的
 * condensed 简单的，扼要的
 * contrived 牵强的
 * crude 简陋的，粗糙的
@@ -93,6 +96,7 @@ updated: 2016-10-19 23:37
 * eminent 突出的     of eminent importance
 * emphatic emphatically 坚决地，断然地
 * erroneous = incorrect
+* exclusively = only = solelydiscenr
 * handcrafted     手动设定的
 * henceforth 从此以后
 * heterogeneous image collections 多种多样的

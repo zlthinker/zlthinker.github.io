@@ -15,6 +15,7 @@ updated: 2019-01-14 10:00
 
 #### ICP
 
+* **经典** [Robust Registration of 2D and 3D Point Sets](https://www.robots.ox.ac.uk/~cvrg/michaelmas2004/fitzgibbon01c.pdf)
 * [Colored-ICP](http://qianyi.info/docs/papers/iccv17_colored_registration.pdf)
 
 #### Branch and bound
