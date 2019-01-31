@@ -7,6 +7,18 @@ updated: 2019-01-14 10:00
 * TOC
 {:toc}
 
+## DoF of transformations
+
+|n-D Transformation|DoF|
+|:----------------:|:-:|
+|2D Euclidean      | 3 |
+|2D Affine         | 6 |
+|2D Projective     | 8 |
+|3D Euclidean      | 6 |
+|3D Similarity     | 7 |
+|3D Affine         | 12|
+|3D Projective     | 15|
+
 ## Related works
 
 #### Feature-based
