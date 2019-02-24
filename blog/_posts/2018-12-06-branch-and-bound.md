@@ -23,20 +23,16 @@ $$\Phi_{lb}(\mathcal{Q}) < \Phi_{min}(\mathcal{Q}) < \Phi_{ub}(\mathcal{Q}).$$
 
 Then, the Branch and Bound algorithm takes steps as follows:
 
-1. compute lower and upper bounds on $$f^*$$
-  * set $$L = \Phi_{lb}(\mathcal{Q}_{init})$$ and $$U = \Phi_{ub}(\mathcal{Q}_{init})$$,
-  * terminate if $$U - L \leq \epsilon$$, ($$\epsilon$$-suboptimality).
+1. partition $$\mathcal{Q}_{init}$$ into e.g. two subspaces $$\mathcal{Q}_{init} = \mathcal{Q}_1 \cup \mathcal{Q}_2$$
 
-2. partition $$\mathcal{Q}_{init}$$ into two subspaces $$\mathcal{Q}_{init} = \mathcal{Q}_1 \cup \mathcal{Q}_2$$
+2. compute lower and upper bound for each subspace: $$\Phi_{lb}(\mathcal{Q}_i)$$ and $$\Phi_{ub}(\mathcal{Q}_i)$$ , $$i=1,2$$. The upper bound is actually the value at one feasible point.
 
-3. compute $$\Phi_{lb}(\mathcal{Q}_i)$$ and $$\Phi_{ub}(\mathcal{Q}_i)$$ , $$i=1,2$$
-
-4. update lower and upper bounds on $$f^*$$
+3. update the global lower and upper bounds on $$f^*$$ and terminate if lower and upper bounds are close enough.
   * $$L = \min\{\Phi_{lb}(\mathcal{Q}_1), \Phi_{lb}(\mathcal{Q}_2) \}$$,
   * $$U = \min\{\Phi_{ub}(\mathcal{Q}_1), \Phi_{ub}(\mathcal{Q}_2) \}$$,
   * terminate if $$U - L \leq \epsilon$$.
 
-5. partition $$\mathcal{Q}_1$$ and $$\mathcal{Q}_2$$, and repeat 3 and 4
+4. partition $$\mathcal{Q}_1$$ and $$\mathcal{Q}_2$$, and repeat 2 and 3. (The number of subspaces grows exponentially.)
 
 ## Example
 
