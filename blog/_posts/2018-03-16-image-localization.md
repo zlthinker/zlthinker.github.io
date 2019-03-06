@@ -33,7 +33,13 @@ tag:
 	* [Geometric loss functions for camera pose regression with deep learning](http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf)
 	* [RelocNet: Continuous Metric Learning Relocalisation using Neural Nets](http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf): Retrieval + relative pose regression
 
+  * [Camera Relocalization by Computing Pairwise Relative Poses Using Convolutional Neural Network](http://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w17/Laskar_Camera_Relocalization_by_ICCV_2017_paper.pdf)
+  * [MapNet: Geometry-Aware Learning of Maps for Camera Localization](http://openaccess.thecvf.com/content_cvpr_2018/papers/Brahmbhatt_Geometry-Aware_Learning_of_CVPR_2018_paper.pdf)
+  * [RelocNet: Continuous Metric Learning Relocalisation using Neural Nets](http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf)
+
+
 * Temporal/RNN
+  * [Deep Auxiliary Learning for Visual Localization and Odometry](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8462979)
 	* [VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization](http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf)
 	* [Deep Feature Flow for Video Recognition](http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf)
 	* [Recurrent Fully Convolutional Networks for Video Segmentation](https://arxiv.org/pdf/1606.00487.pdf)
