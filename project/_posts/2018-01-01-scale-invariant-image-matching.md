@@ -14,6 +14,8 @@ The power of modern image matching approaches is still fundamentally limited by 
 
 ### Ground-Aerial SfM
 
+This dataset encompasses a collection of ground and aerial images. It is composed of three blocks (see table below) each of which is captured from both street views and ground views. 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below.
+
 | Area | #Images | #Aerial images | #Ground images |
 |:----:|:-------:|:--------------:|:--------------:|
 | Block A | 2309 | 822 | 1487 |
