@@ -20,4 +20,4 @@ The power of modern image matching approaches is still fundamentally limited by 
 | Block B | 3292 | 1945| 1347 |
 | Block C | 4866 | 1963| 2903 |
 
-![]({{site.baseurl}}/images/HKUST.pdf)
+![]({{site.baseurl}}/images/HKUST.png)
