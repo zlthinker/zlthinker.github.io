@@ -8,7 +8,7 @@ updated: 2018-01-01 23:37
 
 # Abstract
 
-The power of modern image matching approaches is still fundamentally limited by the abrupt scale changes in images. In this paper, we propose a scale-invariant image matching approach to tackling the very large scale variation of views. Drawing inspiration from the scale space theory, we start with encoding the image’s scale space into a compact multi-scale representation. Then, rather than trying to find the exact feature matches all in one step, we propose a progressive two-stage approach. First, we determine the related scale levels in scale space, enclosing the inlier feature correspondences, based on an optimal and exhaustive matching in a limited scale space. Second, we produce both the image similarity measurement and feature correspondences simultaneously after restricting matching between the related scale levels in a robust way. The matching performance has been intensively evaluated on vision tasks including image retrieval, feature matching and Structure-from-Motion (SfM). The successful integration of the challenging fusion of high aerial and low ground-level views with significant scale differences manifests the superiority of the proposed approach.
+The power of modern image matching approaches is still fundamentally limited by the abrupt scale changes in images. In this paper, we propose a scale-invariant image matching approach to tackling the very large scale variation of views. Drawing inspiration from the scale space theory, we start with encoding the image’s scale space into a compact multi-scale representation. Then, rather than trying to find the exact feature matches all in one step, we propose a progressive two-stage approach. First, we determine the related scale levels in scale space, enclosing the inlier feature correspondences, based on an optimal and exhaustive matching in a limited scale space. Second, we produce both the image similarity measurement and feature correspondences simultaneously after restricting matching between the related scale levels in a robust way. The matching performance has been intensively evaluated on vision tasks including image retrieval, feature matching and Structure-from-Motion (SfM). The successful integration of the challenging fusion of high aerial and low ground-level views with significant scale differences manifests the superiority of the proposed approach. (Access the full paper [here](./files/iccv2017.pdf))
 
 # Datasets
 
@@ -31,5 +31,18 @@ The Book-Cover dataset is composed of two series of photographs acquired from tw
 See sample matching results in the figure below.
 
 ![]({{site.baseurl}}/images/scale_match.png)
+
+# Reference
+
+Here is the Bibtex snippet for citing the Dataset in your work.
+
+```python
+@InProceedings{Zhou_2017_ICCV,
+author = {Zhou, Lei and Zhu, Siyu and Shen, Tianwei and Wang, Jinglu and Fang, Tian and Quan, Long},
+title = {Progressive Large Scale-Invariant Image Matching in Scale Space},
+booktitle = {ICCV},
+year = {2017}
+}
+```
 
 
