@@ -32,6 +32,10 @@ See sample matching results in the figure below.
 
 ![]({{site.baseurl}}/images/scale_match.png)
 
+### Terms of Use
+
+The dataset is provided for research purposes only and without any warranty. Any commercial use is prohibited. 
+
 # Reference
 
 Here is the Bibtex snippet for citing the Dataset in your work.
