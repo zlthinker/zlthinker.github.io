@@ -14,7 +14,7 @@ The power of modern image matching approaches is still fundamentally limited by 
 
 ### The Ground-Aerial Dataset
 
-This dataset encompasses a collection of ground and aerial images. It is composed of three individual blocks (see table below) each of which is captured from both aerial views (of resolution $$4000\times3000$$) and street views (of resolution $$4032\times3024$$). 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below.
+This dataset encompasses a collection of ground and aerial images. It is composed of three individual blocks (see table below) each of which is captured from both aerial views (of resolution $$4000\times3000$$) and street views (of resolution $$4032\times3024$$). 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below. Download link: [Block A (8.3G)](https://drive.google.com/open?id=1HhZfye7_fPGiXNnbrpqzhskfcl3d9Pgm), [Block B (13.3G)](https://drive.google.com/open?id=1mkYktK_q-C2ykpb1slVAclBIlrq7Fsci), [Block C (19.5G)](https://drive.google.com/open?id=1E-IUbNfX_l8gP_zFt0-Zpclk6Jk72IUP).
 
 | Area | #Images | #Aerial images | #Ground images |
 |:----:|:-------:|:--------------:|:--------------:|
@@ -28,7 +28,7 @@ This dataset encompasses a collection of ground and aerial images. It is compose
 ### The Book-Cover Dataset
 
 The Book-Cover dataset is composed of two series of photographs acquired from two viewpoint angles $$0$$° and $$30$$° with increasing zoom. The $$28$$ images have the same size of $$3024\times4032$$ pixels. The closet-captured photograph of a book cover is used as reference image and is matched against other $$27$$ ones with image scale ratio ranging from $$2$$ to $$64$$ times.
-See sample matching results in the figure below.
+See sample matching results in the figure below. Download link: [The Book-Cover Dataset (87.7M)](https://drive.google.com/file/d/1IO533xhsEAME-phqYX0fnOPI3TWkWSA9/view?usp=sharing).
 
 ![]({{site.baseurl}}/images/scale_match.png)
 
@@ -40,7 +40,7 @@ The datasets above are provided for research purposes only and without any warra
 
 Here is the Bibtex snippet for citing the Dataset in your work.
 
-```python
+```
 @InProceedings{Zhou_2017_ICCV,
 author = {Zhou, Lei and Zhu, Siyu and Shen, Tianwei and Wang, Jinglu and Fang, Tian and Quan, Long},
 title = {Progressive Large Scale-Invariant Image Matching in Scale Space},
