@@ -12,9 +12,9 @@ The power of modern image matching approaches is still fundamentally limited by 
 
 # Datasets
 
-### Ground-Aerial Dataset
+### The Ground-Aerial Dataset
 
-This dataset encompasses a collection of ground and aerial images. It is composed of three individual blocks (see table below) each of which is captured from both street views (of resolution $$4000\times3000$$) and ground views (of resolution $$4032\times3024$$). 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below.
+This dataset encompasses a collection of ground and aerial images. It is composed of three individual blocks (see table below) each of which is captured from both aerial views (of resolution $$4000\times3000$$) and street views (of resolution $$4032\times3024$$). 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below.
 
 | Area | #Images | #Aerial images | #Ground images |
 |:----:|:-------:|:--------------:|:--------------:|
@@ -25,16 +25,16 @@ This dataset encompasses a collection of ground and aerial images. It is compose
 ![]({{site.baseurl}}/images/ground_aerial.png)
 
 
-### Book-Cover Dataset
+### The Book-Cover Dataset
 
-The Book-Cover dataset is composed of two series of photographs acquired from two viewpoint angles 0° and 30° with increasing zoom. The 28 images have the same size of $$3024\times4032$$ pixels. The closet-captured photograph of a book cover is used as reference image and is matched against other 27 ones with image scale ratio ranging from 2 to 64 times.
+The Book-Cover dataset is composed of two series of photographs acquired from two viewpoint angles $$0$$° and $$30$$° with increasing zoom. The $$28$$ images have the same size of $$3024\times4032$$ pixels. The closet-captured photograph of a book cover is used as reference image and is matched against other $$27$$ ones with image scale ratio ranging from $$2$$ to $$64$$ times.
 See sample matching results in the figure below.
 
 ![]({{site.baseurl}}/images/scale_match.png)
 
 ### Terms of Use
 
-The dataset is provided for research purposes only and without any warranty. Any commercial use is prohibited. 
+The datasets above are provided for research purposes only and without any warranty. Any commercial use is prohibited. 
 
 # Reference
 
