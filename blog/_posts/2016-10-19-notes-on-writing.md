@@ -41,9 +41,11 @@ updated: 2016-10-19 23:37
 * envision 预想
 * exacerbate = degenerate 恶化
 * grope for 探索
+* harness = take advantage of
 * hinge on = depend on
 * impose 利用     impose the conditions
 * incorporate  
+* inhibit 抑制，阻止
 * identify  鉴定 ＝ identify, determine
 * leverage 利用
 * manipulate 操纵，操作
@@ -66,6 +68,7 @@ updated: 2016-10-19 23:37
 * strive to do/ for sth 努力
 * suffice to 足以  sufficient
 * surpass = outperform
+* surrogate adj. 替代的，n. 替代物 a surrogate for sth
 * tackle 处理
 * tune 调整
 * take sth a step further
@@ -116,7 +119,7 @@ updated: 2016-10-19 23:37
 * in a fraction of time
 * inconclusive
 * indispensable 不可或缺的
-* judicious 审慎明智的
+* judicious 审慎明智的		it is judicious to
 * legitimate 合理的，合法的（可作动词）
 * liberal vs. conservative
 * negligible 微不足道的，可以忽视的
@@ -144,6 +147,7 @@ updated: 2016-10-19 23:37
 * substantially 实质上，很大程度地
 * substantial 大量的，实质的
 * subsequent = succeeding
+* surrogate adj. 替代的，n. 替代物 a surrogate for sth
 * susceptible to sth 易受影响的
 * ultimately 最终地，最重要地
 * viable 可行的
