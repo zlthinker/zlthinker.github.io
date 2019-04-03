@@ -36,7 +36,7 @@ updated: 2016-10-19 23:37
 * elevate 提升
 * elucidate 阐明，解释清楚，make clear
 * endeavor 努力
-* endow     endowed with
+* endow     endowed with 享有...(品质)
 * enduring = lasting 持久的
 * envision 预想
 * exacerbate = degenerate 恶化
@@ -49,6 +49,8 @@ updated: 2016-10-19 23:37
 * manipulate 操纵，操作
 * mitigate effect 减轻影响
 * necessitate 必需
+* oscillate wildly 剧烈震荡   = fluctuate
+* overtake 大于，超过，赶上
 * pertain to 与...有关
 * pioneered by
 * possess 拥有，具备
@@ -59,6 +61,7 @@ updated: 2016-10-19 23:37
 * resemble 近似，像
 * resort to 利用，诉诸
 * retain 保留
+* revolve around 围绕着
 * signify  mean
 * strive to do/ for sth 努力
 * suffice to 足以  sufficient
@@ -74,6 +77,7 @@ updated: 2016-10-19 23:37
 
 * ambivalent 矛盾的，e.g. p = 0.5
 * additive vs. multiplicative
+* admittedly 诚然，不可否认
 * a diversity of = a variety of 多种的
 * aforementioned 上述的 ＝ preceding
 * asymptotic 渐进的
@@ -231,6 +235,8 @@ updated: 2016-10-19 23:37
 * provided that
 * outperform sth by a significant margin
 * heavily shaded 形容阴影的暗区
+* vary by a factor of 10 times 波动超过10倍
+* to and fro = back and forth
 
 ### 超过、好于的表达：
 * perform favorably compared to
