@@ -321,3 +321,5 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [3] [Covariance estimation reference 1](https://stats.stackexchange.com/questions/72940/covariance-matrix-of-least-squares-estimator-hat-beta)
 
 [4] [Covariance estimation reference 2](http://ceres-solver.org/nnls_covariance.html)
+
+[5] [HESSIAN MATRIX VS. GAUSS–NEWTON HESSIAN MATRIX](https://epubs.siam.org/doi/pdf/10.1137/100799988)

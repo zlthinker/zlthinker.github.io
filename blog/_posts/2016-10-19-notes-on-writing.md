@@ -93,6 +93,7 @@ updated: 2016-10-19 23:37
 * competent 胜任的
 * concomitant 伴随而来的，随之发生的，相应的
 * condensed 简单的，扼要的
+* comtemporay 同一时期的，当代的
 * contrived 牵强的
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
@@ -114,6 +115,7 @@ updated: 2016-10-19 23:37
 * incoherent with 与不一致
 * injective 单射的 (injective function/mapping)
 * intact 原封不动的，完整的，未受影响的
+* interspersed with 散布着...
 * invariably = always
 * interspersed 分布 = distributed
 * in a fraction of time
@@ -167,6 +169,7 @@ updated: 2016-10-19 23:37
 * indeterminacy = uncertainty
 * interplay (between A and B) 相互作用，相互影响
 * method = technique = approach
+* odds 可能性，概率
 * premise 前提  under the premise of
 * regime    a particular way of doing sth
 * remainder
@@ -192,7 +195,7 @@ updated: 2016-10-19 23:37
 * amount to 相当于，几乎是
 * aside from 除了
 * aspire to = be eager to = seek to
-* at odds with 与。。。不一致，冲突
+* at odds with 与...不一致，冲突
 * a question left open by the present work / left unanswered
 * be monotone increasing / decreasing     单调递增 ／ 递减
 * best suited for real-time applications
