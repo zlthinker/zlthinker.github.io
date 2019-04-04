@@ -29,9 +29,9 @@ The SG methods are built upon two assumptions stated below. The first is about t
 
 ### Assumption 1
 
-**The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuously differentiable and its gradient, namely $$\nabla F(w): \mathbb{R}^d \rightarrow \mathbb{R}^d$$, is Lipschitz continuous with Lipschitz constant $$L>0$$, i.e., **
+The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuously differentiable and its gradient, namely $$\nabla F(w): \mathbb{R}^d \rightarrow \mathbb{R}^d$$, is Lipschitz continuous with Lipschitz constant $$L>0$$, i.e.,
 
-$$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \text{for all} w \in \mathbb{R}^d, w' \in \mathbb{R}^d}. $$
+$$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{for all} w \in \mathbb{R}^d, w' \in \mathbb{R}^d}. $$
 
 # SG for Strongly Convex Objectives
 
