@@ -31,7 +31,15 @@ The SG methods are built upon two assumptions stated below. The first is about t
 
 The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuously differentiable and its gradient, namely $$\nabla F(w): \mathbb{R}^d \rightarrow \mathbb{R}^d$$, is Lipschitz continuous with Lipschitz constant $$L>0$$, i.e.,
 
-$$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{for all} w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
+$$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
+
+***Interpretation* The Lipschitz continuity assumption over the gradient of $$F(w)$$ requires that the gradient should not change arbitrarily quickly with respect to the parameter vector $$w$$. It also means that the Hessian function of $$F(w)$$ is bounded above by the Lipschitz constant $$L$$. Then based on the second-order taylor expansion of $$F(w)$$, we arrive at the inequality that
+
+$$$$
+
+### Assumption 2
+
+***Interpretation*
 
 # SG for Strongly Convex Objectives
 
