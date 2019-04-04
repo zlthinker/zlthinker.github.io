@@ -33,13 +33,13 @@ The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuo
 
 $$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
 
-***Interpretation* The Lipschitz continuity assumption over the gradient of $$F(w)$$ requires that the gradient should not change arbitrarily quickly with respect to the parameter vector $$w$$. It also means that the Hessian function of $$F(w)$$ is bounded above by the Lipschitz constant $$L$$. Then based on the second-order taylor expansion of $$F(w)$$, we arrive at the inequality that
+**Interpretation** The Lipschitz continuity assumption over the gradient of $$F(w)$$ requires that the gradient should not change arbitrarily quickly with respect to the parameter vector $$w$$. It also means that the Hessian function of $$F(w)$$ is bounded above by the Lipschitz constant $$L$$. Then based on the second-order taylor expansion of $$F(w)$$, we arrive at the inequality that
 
 $$$$
 
 ### Assumption 2
 
-***Interpretation*
+**Interpretation**
 
 # SG for Strongly Convex Objectives
 
