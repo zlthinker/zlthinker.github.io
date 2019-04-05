@@ -39,7 +39,7 @@ $$F(w) \leq F(w') + \nabla F(w') (w-w') + \frac{1}{2} L \|w-w'\|_2^2, \textrm{ f
 
 Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k,xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
 
-$$F(w_{k+1}) - F(w_k) \leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2.$$
+$$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
 
 Taking expectations in these equalities with respect to the distribution of $$\xi_k$$, we have
 
