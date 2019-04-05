@@ -60,7 +60,13 @@ $$\begin{split} \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] & \geq \mu \|
 
 $$\begin{split} \mathbb{V}_{\xi_k} [g(w_k, \xi_k)] &:= \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] - \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \\ &\leq M + M_V \| \nabla F(w_k) \|_2^2. \end{split}$$
 
-**Interpretation** The second condition above is to satisfy Lemma 1 which ensures sufficient convergence of SG. The third condition restricts the variance of $$g(w_k, \xi_k)$$ ($$g(w_k, \xi_k)$$ should not change a lot for different $$\xi_k$$). For example, if $$F$$ is a quatratic function, then $$\| \nabla F(w_k) \|_2^2$$ is quatratic w.r.t $$w_k$$, so that the variance is allowed to grow quadratically in any direction.
+**Interpretation** The second condition above is to satisfy **Lemma 1** which ensures sufficient convergence of SG. The third condition restricts the variance of $$g(w_k, \xi_k)$$ ($$g(w_k, \xi_k)$$ should not change a lot for different $$\xi_k$$). For example, if $$F$$ is a quatratic function, then $$\| \nabla F(w_k) \|_2^2$$ is quatratic w.r.t $$w_k$$, so that the variance is allowed to grow quadratically in any direction.
+
+From Assumption 2, we can induce that 
+
+$$\begin{split} \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] &= \mathbb{V}_{\xi_k} [g(w_k, \xi_k)] + \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \\  \leq M + M_G \| \nabla F(w_k) \|_2^2 ,\end{split}$$
+
+where $$M_G = M_V + \mu_G^2 \geq \mu^2 > 0.$$
 
 # SG for Strongly Convex Objectives
 
