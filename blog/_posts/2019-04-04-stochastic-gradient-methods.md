@@ -45,9 +45,20 @@ Taking expectations in these equalities with respect to the distribution of $$\x
 
 $$\mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq -\alpha_k \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ].$$
 
-**Interpretation** The inequality above implies that the expected decrease in the objective function yielded by the k-th step is bounded above by the quantity on the right hand side. The convergence is guaranteed as long as the step size $$\alpha_k$$ and the stochastic direction $$g(w_k, \xi_k)$$ are chosen such that the quantity is negative. Intuitively, the first term $$\nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)]$$ should be as large as possible (The stochastic gradient should correlate with the true gradient better with less noise), and the second term $$\mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ]$$ should be as small as possible (A smaller variance of the stochastic gradient is desired. If we use batch gradient, the variance is zero.).
+**Interpretation** The inequality above implies that the expected decrease in the objective function yielded by the k-th step is bounded above by the quantity on the right hand side. The convergence is guaranteed as long as the quantity is negative by choosing the step size $$\alpha_k$$ and the stochastic direction $$g(w_k, \xi_k)$$ carefully. Intuitively, the first term $$\nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)]$$ should be as large as possible (The stochastic gradient should correlate with the true gradient better with less noise), and the second term $$\mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ]$$ should be as small as possible. And this is how Assumption 2 below is derived.
 
 ### Assumption 2
+
+The objective function and SG satisfy the following:
+
+* $$F(w_k)$$ is bounded below by a scalar $$F_{inf}$$ for all $$w_k$$.
+* There exist scalars $$\mu_G \geq \mu > 0$$ such that, for all $$k \in \mathbb{N}$$,
+
+$$\begin{split} \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] & \geq \mu \| \nabla F(w_k) \|_2^2  \\ \|\mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2 \leq \mu_G  \| \nabla F(w_k) \|_2 .\end{split}$$
+
+* There exist scalars $$M \geq 0$$ and $$M_V \geq 0$$ such that, for all $$k \in \mathbb{N}$$, 
+
+$$\mathbb{V}_{\xi_k} [g(w_k, \xi_k)] := \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] - \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \leq M + M_V \| \nabla F(w_k) \|_2^2.$$
 
 **Interpretation**
 
