@@ -33,9 +33,17 @@ The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuo
 
 $$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
 
-**Interpretation** The Lipschitz continuity assumption over the gradient of $$F(w)$$ requires that the gradient should not change arbitrarily quickly with respect to the parameter vector $$w$$. It also means that the Hessian function of $$F(w)$$ is bounded above by the Lipschitz constant $$L$$. Then based on the second-order taylor expansion of $$F(w)$$, we arrive at the inequality that
+**Interpretation** The Lipschitz continuity assumption over the gradient of $$F(w)$$ requires that the gradient should not change arbitrarily quickly with respect to the parameter vector $$w$$. It also means that the Hessian function $$\nabla^2F(w): \mathbb{R}^d \rightarrow \mathbb{R}^{d\times d}$$ is bounded above by the Lipschitz constant $$L$$. Then based on the second-order taylor expansion of $$F(w)$$, we arrive at the inequality that
 
-$$$$
+$$F(w) \leq F(w') + \nabla F(w') (w-w') + \frac{1}{2} L \|w-w'\|_2^2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
+
+Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k,xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
+
+$$F(w_{k+1}) - F(w_k) \leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2.$$
+
+Taking expectations in these equalities with respect to the distribution of $$\xi_k$$, we have
+
+$$\mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq -\alpha_k \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ].$$
 
 ### Assumption 2
 
