@@ -41,7 +41,7 @@ Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute
 
 $$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
 
-Taking expectations in these equalities with respect to the distribution of $$\xi_k$$, we have
+**Lemma 1** Taking expectations in these equalities with respect to the distribution of $$\xi_k$$, we have
 
 $$\mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq -\alpha_k \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ].$$
 
@@ -54,13 +54,13 @@ The objective function and SG satisfy the following:
 * $$F(w_k)$$ is bounded below by a scalar $$F_{inf}$$ for all $$w_k$$.
 * There exist scalars $$\mu_G \geq \mu > 0$$ such that, for all $$k \in \mathbb{N}$$,
 
-$$\begin{split} \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] & \geq \mu \| \nabla F(w_k) \|_2^2  \\ \|\mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2 \leq \mu_G  \| \nabla F(w_k) \|_2 .\end{split}$$
+$$\begin{split} \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] & \geq \mu \| \nabla F(w_k) \|_2^2  \\ \|\mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2 &\leq \mu_G  \| \nabla F(w_k) \|_2 .\end{split}$$
 
 * There exist scalars $$M \geq 0$$ and $$M_V \geq 0$$ such that, for all $$k \in \mathbb{N}$$, 
 
-$$\mathbb{V}_{\xi_k} [g(w_k, \xi_k)] := \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] - \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \leq M + M_V \| \nabla F(w_k) \|_2^2.$$
+$$\begin{split} \mathbb{V}_{\xi_k} [g(w_k, \xi_k)] &:= \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] - \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \\ &\leq M + M_V \| \nabla F(w_k) \|_2^2. \end{split}$$
 
-**Interpretation**
+**Interpretation** The second condition above is to satisfy Lemma 1 which ensures sufficient convergence of SG. The third condition restricts the variance of $$g(w_k, \xi_k)$$ ($$g(w_k, \xi_k)$$ should not change a lot for different $$\xi_k$$). For example, if $$F$$ is a quatratic function, then $$\| \nabla F(w_k) \|_2^2$$ is quatratic w.r.t $$w_k$$, so that the variance is allowed to grow quadratically in any direction.
 
 # SG for Strongly Convex Objectives
 
