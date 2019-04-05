@@ -70,7 +70,7 @@ where $$M_G = M_V + \mu_G^2 \geq \mu^2 > 0.$$
 
 **Lemma 2** Combining **Assumption 2**, the inequality of **Lemma 1** can be expanded as
 
-$$\begin{split} \mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq - \mu \alpha_k \| \nabla F(w_k) \|_2^2 +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] \\ & \leq - (\mu - \frac{1}{2} \alpha_k L M_G) \alpha_k \| \nabla F(w_k) \|_2^2 + \frac{1}{2} \alpha_k^2 L M .\end{split}$$
+$$\begin{split} \mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) &\leq - \mu \alpha_k \| \nabla F(w_k) \|_2^2 +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] \\ & \leq - (\mu - \frac{1}{2} \alpha_k L M_G) \alpha_k \| \nabla F(w_k) \|_2^2 + \frac{1}{2} \alpha_k^2 L M .\end{split}$$
 
 Note that the first term on the right hand side is strictly negative for small step size $$\alpha_k$$, while the second term could be large enough to allow the objective to increase. Balancing the two terms is critical in the design of SG methods.
 
