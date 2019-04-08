@@ -92,7 +92,7 @@ $$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + 
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{v}{\gamma + k},$$
 
-where $$v = \max \left{\frac{beta^2 LM}{2(betac\mu - 1), (\gamma + 1)(F(w_1) - F_*)}  \right}.$$
+where $$v = \max \left{\frac{beta^2 LM}{2(betac\mu - 1)}, (\gamma + 1)(F(w_1) - F_*)}  \right}.$$
 
 # SG for General Objectives
 
