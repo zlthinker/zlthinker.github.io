@@ -76,7 +76,7 @@ Note that the first term on the right hand side is strictly negative for small s
 
 # SG for Strongly Convex Objectives
 
-As a starting point, we analyze SG of strong convex objective with parameter $$c$$, i.e.,
+As a starting point, we analyze SG of strong convex objective with parameter $$c (c<L)$$, i.e.,
 
 $$F(w') \geq F(w) + \nablaF(w)^T (w - w') + \frac{1}{2} c \|w' - w \|_2^2.$$
 
