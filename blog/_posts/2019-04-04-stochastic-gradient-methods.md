@@ -92,7 +92,7 @@ $$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + 
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{v}{\gamma + k},$$
 
-where $$v = \max \left{\frac{beta^2 LM}{2(betac\mu - 1)}, (\gamma + 1)(F(w_1) - F_*)  \right}.$$
+where $$v = \mathbb{max} \left{\frac{beta^2 LM}{2(betac\mu - 1)}, (\gamma + 1)(F(w_1) - F_*)  \right}.$$
 
 **Remark** For practical purposes, the initial step size should be chosen as large as allowed, i.e., the upper bound $$\frac{\mu}{LM_G}$$. More rigorously, the step size should satisfy
 
@@ -104,7 +104,7 @@ If we use a mini batch size of $$n_{mb}$$, the constants $$M$$ and $$M_V$$ will 
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{\bar{\alpha} LM}{2c\mu n_{mb}}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu n_{mb}}  \right) .$$
 
-We notice that the gap to the optimal value is also reduced by a factor of $$n_{mb}$$. Suppose we run the simple SG with batch size of $$1$$, we should the set the step size to $$\bar{\alpha}/n_{mb}$$ to achieve the same optimality gap when convergence, then the expected optimality gap at iterate $$k$$ becomes
+We notice that the gap to the optimal value is also reduced by a factor of $$n_{mb}$$. Suppose we run the simple SG with batch size of $$1$$, we should set the step size to $$\bar{\alpha}/n_{mb}$$ to achieve the same optimality gap when convergence, then the expected optimality gap at iterate $$k$$ becomes
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{\bar{\alpha} LM}{2c\mu n_{mb}}  + (1- \frac{\bar{\alpha} c \mu}{n_{mb}})^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu n_{mb}}  \right) .$$
 
