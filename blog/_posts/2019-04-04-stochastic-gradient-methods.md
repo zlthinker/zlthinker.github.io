@@ -129,7 +129,7 @@ $$\begin{split} \lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alph
 
 Roughly speaking, the SG methods have a sublinear rate of convergence as opposed to bacth gradient methods with linear convergence. Although the SG methods converge more slowly, they have a lower computational cost at each iterates. When optimizing a strongly convex function, the time required given optimality $$\epsilon $$ and the optimality gap given time budget $$T_{max}$$ are concluded in table below.
 
-|   | Batch | Stochastic |
+|   | Batch Gradient| Stochastic Gradient|
 |:-:|:-----:|:----------:|
 |$$T(n, \epsilon)$$ |  $$\sim n \log(\frac{1}{\epsilon})$$ | $$\frac{1}{\epsilon}$$ |
 | $$ \epsilo$$  | $$ \sim \frac{ \log(T_{max})}{ T_{max}} + \frac{1}{ T_{max} }  $$ | $$\frac{1}{T_{max}}$$   |
