@@ -122,5 +122,7 @@ $$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & 
 
 $$\begin{split} lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] & < \infty \textrm{ therefore,} \\ lim_{K \rightarrow \infty} \mathbb{E} \left[ frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] &= 0 \end{split}$$
 
+**Interpretation** The second equality above indicates that the weighted average of the gradient normal converges to zero even if the gradients are noisy.
+
 
 # Complexity Analysis
