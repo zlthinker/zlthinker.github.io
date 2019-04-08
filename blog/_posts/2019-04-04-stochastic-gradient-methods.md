@@ -78,13 +78,13 @@ Note that the first term on the right hand side is strictly negative for small s
 
 As a starting point, we analyze SG of strong convex objective with parameter $$c (c<L)$$, i.e.,
 
-$$F(w') \geq F(w) + \nablaF(w)^T (w - w') + \frac{1}{2} c \|w' - w \|_2^2.$$
+$$F(w') \geq F(w) + \nabla F(w)^T (w - w') + \frac{1}{2} c \|w' - w \|_2^2.$$
 
 It amounts to $$\nabla^2F(w) \succeq c$$ (the minimum eigenvalue of $$\nabla^2F(w)$$ is no less than $$c$$).
 
-**Lemma 3** Suppose that SG a fix stepsize $$0 < \bat{\alpha} \leq \frac{\mu}{LM_G}$$, then the expected optimality gap satisfies
+**Lemma 3** Suppose that SG a fix stepsize $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the expected optimality gap satisfies
 
-$$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu}  \right) \\ & \rightarrow \frac{\bar{\alpha} LM}{2c\mu} (k \rightarrow \infinity) \end{split}$$
+$$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu}  \right) \\ & \rightarrow \frac{\bar{\alpha} LM}{2c\mu} (k \rightarrow \infty) \end{split}$$
 
 # SG for General Objectives
 
