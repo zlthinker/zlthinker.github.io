@@ -116,5 +116,7 @@ We can see that the gap contracts more slowly than mini-batch SG, which means on
 
 $$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infity)   \end{split}$$
 
+**Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nablaF(w_k)\| \rightarrow 0 (k \rightarrow \infity)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
+
 
 # Complexity Analysis
