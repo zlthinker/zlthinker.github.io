@@ -126,6 +126,7 @@ updated: 2016-10-19 23:37
 * liberal vs. conservative
 * negligible 微不足道的，可以忽视的
 * post hoc 事后的/地
+* pracmatic 务实的，实际的
 * principle 主要的，重要的
 * readily 简单地
 * reciprocal 互惠的
