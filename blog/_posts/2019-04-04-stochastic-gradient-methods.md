@@ -114,13 +114,13 @@ We can see that the gap contracts more slowly than mini-batch SG, which means on
 
 **Lemma 6 （Nonconvex objective, fixed stepsize）** Suppose that SG is run with a fixed stepsize $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the sum-of-square and average-squared gradients of the objective satisfy
 
-$$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}}, \textrm{ therefore,} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infity)   \end{split}$$
+$$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}}, \textrm{ therefore,} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infty)   \end{split}$$
 
-**Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nablaF(w_k)\| \rightarrow 0 (k \rightarrow \infty)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
+**Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nabla F(w_k)\| \rightarrow 0 (k \rightarrow \infty)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
 
 **Lemma 6 （Nonconvex objective, diminishing stepsize）** Suppose that SG is run with a stepsize sequence satisfying $$\sum_{k=1}^\infty \alpha_k= \infty$$ and $$\sum_{k=1}^\infty \alpha_k^2 < \infty$$, then
 
-$$\begin{split} lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] & < \infty \textrm{ therefore,} \\ lim_{K \rightarrow \infty} \mathbb{E} \left[ frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] &= 0 \end{split}$$
+$$\begin{split} lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] & < \infty \textrm{ therefore,} \\ lim_{K \rightarrow \infty} \mathbb{E} \left[ \frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] &= 0 \end{split}$$
 
 **Interpretation** The second equality above indicates that the weighted average of the gradient normal converges to zero even if the gradients are noisy.
 
