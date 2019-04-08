@@ -132,4 +132,6 @@ Roughly speaking, the SG methods have a sublinear rate of convergence as opposed
 |   | Batch Gradient| Stochastic Gradient|
 |:-:|:-----:|:----------:|
 |$$T(n, \epsilon)$$ |  $$\sim n \log(\frac{1}{\epsilon})$$ | $$\frac{1}{\epsilon}$$ |
-| $$ \epsilo$$  | $$ \sim \frac{ \log(T_{max})}{ T_{max}} + \frac{1}{ T_{max} }  $$ | $$\frac{1}{T_{max}}$$   |
+| $$ \epsilon$$  | $$ \sim \frac{ \log(T_{max})}{ T_{max}} + \frac{1}{ T_{max} }  $$ | $$\frac{1}{T_{max}}$$   |
+
+Here, $$n$$ is the number of examples. If a algorithm is only allowed to read the examples $$k$$ times, the best accuracy it can achieve is $$\Omega(1/k)$$.
