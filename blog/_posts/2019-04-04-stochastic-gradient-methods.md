@@ -86,13 +86,17 @@ It amounts to $$\nabla^2F(w) \succeq c$$ (the minimum eigenvalue of $$\nabla^2F(
 
 $$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu}  \right) \\ & \rightarrow \frac{\bar{\alpha} LM}{2c\mu} (k \rightarrow \infty) \end{split}$$
 
-**Interpretation** If there were no noise in gradient computation ($$M=0$$), the expected optimality gap will converge to zero with linear convergence rate ($$\mathbb{E}[F(w_k) - F_*] \leq (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* \right) $$). If the gradient computation is noisy, the expected objective value will first converge linearly, but after some point, the noise prevent further convergence and a smaller step size is desired. A smaller step size allows one to arrive closer to the optimal value, but slows down the convergence.
+**Interpretation** If there were no noise in gradient computation ($$M=0$$), the expected optimality gap will converge to zero with linear convergence rate ($$\mathbb{E}[F(w_k) - F_*] \leq (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* \right) $$). If the gradient computation is noisy, the expected objective value will first converge linearly, but after some point, the noise prevent further convergence and a smaller step size is desired. A smaller step size allows one to arrive closer to the optimal value, but slows down the convergence. Due to the strongly convex assumption, the positive $$c$$ lead to contraction of the expected optimality gap.
 
 **Lemma 4 （Strongly convex objective, dimishing stepsize）** Suppose that SG is run with a stepsize sequence such that $$\alpha_k = \frac{\beta}{\gamma + k}$$ for some $$\beta > \frac{1}{c\mu}$$ and $$\mu > 0$$ (ensure $$\alpha_1 \leq \frac{\mu}{LM_G}$$), then the expected optimality gap satisfies
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{v}{\gamma + k},$$
 
 where $$v = \max \left{\frac{beta^2 LM}{2(betac\mu - 1)}, (\gamma + 1)(F(w_1) - F_*)}  \right}.$$
+
+**Remark** For practical purposes, the initial step size should be chosen as large as allowed, i.e., the upper bound $$\frac{\mu}{LM_G}$$. More rigorously, the step size should satisfy
+
+$$\sum_{k=1}^\infty \alpha_k= \infty \textrm{ and } \sum_{k=1}^\infty \alpha_k^2 < \infty.$$ 
 
 # SG for General Objectives
 
