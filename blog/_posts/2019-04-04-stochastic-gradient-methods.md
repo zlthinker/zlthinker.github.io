@@ -106,7 +106,7 @@ where $$v = \max \{\frac{\beta^2 LM}{2(\beta c\mu - 1)}, (\gamma + 1)(F(w_1) - F
 
 $$\sum_{k=1}^\infty \alpha_k= \infty \textrm{ and } \sum_{k=1}^\infty \alpha_k^2 < \infty.$$ 
 
-###Lemma 5 （Strongly convex objective, fixed step size and batch size)
+### Lemma 5 （Strongly convex objective, fixed step size and batch size)
 
 If we use a mini batch size of $$n_{mb}$$, the constants $$M$$ and $$M_V$$ will become $$M/n_{mb}$$ and $$M_V/n_{mb}$$. Then the expected optimality gap will be turned into
 
@@ -120,7 +120,7 @@ We can see that the gap contracts more slowly than mini-batch SG, which means on
 
 # SG for General Objectives
 
-###Lemma 6 （Nonconvex objective, fixed stepsize）
+### Lemma 6 （Nonconvex objective, fixed stepsize）
 
 Suppose that SG is run with a fixed stepsize $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the sum-of-square and average-squared gradients of the objective satisfy
 
