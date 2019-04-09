@@ -27,7 +27,7 @@ For the simple SG methods, the stochastic direction at iterate $$k$$ is evaluate
 
 The SG methods are built upon two assumptions stated below. The first is about the smoothness of the objective function $$F(w)$$. The second is about the first and second moments of the stochastic vector $$g(w_k, \xi_k)$$. _(In the context of probability, the first moment is the mean, the second central moment is the variance.)_
 
-### Assumption 1
+### Assumption 1 (Lipschitz continuity of gradient)
 
 The objective function $$F(w): \mathbb{R}^d \rightarrow \mathbb{R}$$ is continuously differentiable and its gradient, namely $$\nabla F(w): \mathbb{R}^d \rightarrow \mathbb{R}^d$$, is Lipschitz continuous with Lipschitz constant $$L>0$$, i.e.,
 
@@ -41,7 +41,7 @@ Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute
 
 $$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
 
-### Lemma 1 
+### Lemma 1 (Upper bound of expected decrease of objective)
 
 Taking expectations in above inequalities with respect to the distribution of $$\xi_k$$, we have
 
@@ -49,7 +49,7 @@ $$\mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq -\alpha_k \nabla F(w_k)^T \mathb
 
 **Interpretation** The inequality above implies that the expected decrease in the objective function yielded by the k-th step is bounded above by the quantity on the right hand side. The convergence is guaranteed as long as the quantity is negative by choosing the step size $$\alpha_k$$ and the stochastic direction $$g(w_k, \xi_k)$$ carefully. Intuitively, the first term $$\nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)]$$ should be as large as possible (The stochastic gradient should correlate with the true gradient better with less noise), and the second term $$\mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ]$$ should be as small as possible. And this is how Assumption 2 below is derived.
 
-### Assumption 2
+### Assumption 2 (Upper bound of gradient variance)
 
 The objective function and SG satisfy the following:
 
@@ -70,7 +70,7 @@ $$\begin{split} \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] &= \mathbb{V}_{\xi
 
 where $$M_G = M_V + \mu_G^2 \geq \mu^2 > 0.$$
 
-### Lemma 2
+### Lemma 2 (expansion of Lemma 1)
 
 Combining **Assumption 2**, the inequality of **Lemma 1** can be expanded as
 
