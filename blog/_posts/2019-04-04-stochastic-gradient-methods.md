@@ -37,9 +37,9 @@ $$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d,
 
 $$F(w) \leq F(w') + \nabla F(w') (w-w') + \frac{1}{2} L \|w-w'\|_2^2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
 
-Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k,xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
+Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k, \xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
 
-$$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq \alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
+$$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq -\alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
 
 ### Lemma 1 (Upper bound of expected decrease of objective)
 
@@ -76,27 +76,27 @@ Combining **Assumption 2**, the inequality of **Lemma 1** can be expanded as
 
 $$\begin{split} \mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) &\leq - \mu \alpha_k \| \nabla F(w_k) \|_2^2 +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] \\ & \leq - (\mu - \frac{1}{2} \alpha_k L M_G) \alpha_k \| \nabla F(w_k) \|_2^2 + \frac{1}{2} \alpha_k^2 L M .\end{split}$$
 
-Note that the first term on the right hand side is strictly negative for small step size $$\alpha_k$$, while the second term could be large enough to allow the objective to increase. Balancing the two terms is critical in the design of SG methods.
+Note that the first term on the right hand side is strictly negative for small step size $$\alpha_k$$, while the second term could be large enough to allow the objective to increase. Balancing the two terms is critical in the design of SG methods. If there is no noise in the gradient ($$M=0$$), the expected objective will decrease strictly.
 
 # SG for Strongly Convex Objectives
 
-As a starting point, we analyze SG of strong convex objective with parameter $$c (c<L)$$, i.e.,
+As a starting point, we analyze SG of strong convex objective with parameter $$c$$ $$(c<L)$$, i.e.,
 
 $$F(w') \geq F(w) + \nabla F(w)^T (w - w') + \frac{1}{2} c \|w' - w \|_2^2.$$
 
 It amounts to $$\nabla^2F(w) \succeq c$$ (the minimum eigenvalue of $$\nabla^2F(w)$$ is no less than $$c$$).
 
-### Lemma 3 （Strongly convex objective, fixed stepsize
+### Lemma 3 （Strongly convex objective, fixed step size)
 
-Suppose that SG is run with a fixed stepsize $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the expected optimality gap satisfies
+Suppose that SG is run with a fixed step size $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$ ($$\frac{\mu}{LM_G}$$ is the upper bound of the initial step size), then the expected optimality gap satisfies
 
 $$\begin{split} \mathbb{E}[F(w_k) - F_*] &\leq \frac{\bar{\alpha} LM}{2c\mu}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu}  \right) \\ & \rightarrow \frac{\bar{\alpha} LM}{2c\mu} (k \rightarrow \infty) \end{split}$$
 
-**Interpretation** If there were no noise in gradient computation ($$M=0$$), the expected optimality gap will converge to zero with linear convergence rate ($$\mathbb{E}[F(w_k) - F_*] \leq (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* \right) $$). If the gradient computation is noisy, the expected objective value will first converge linearly, but after some point, the noise prevent further convergence and a smaller step size is desired. A smaller step size allows one to arrive closer to the optimal value, but slows down the convergence. Due to the strongly convex assumption, the positive $$c$$ lead to contraction of the expected optimality gap.
+**Interpretation** If there were no noise in gradient computation ($$M=0$$), the expected optimality gap will converge to zero with linear convergence rate ($$\mathbb{E}[F(w_k) - F_*] \leq (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* \right) $$). If the gradient computation is noisy, the expected objective value will first converge linearly, but after some point, the noise prevent further convergence and a smaller step size is desired. A smaller step size allows one to arrive closer to the optimal value, but slows down the convergence. Due to the strongly convex assumption, the positive $$c$$ leads to contraction of the expected optimality gap.
 
-### Lemma 4 （Strongly convex objective, dimishing stepsize)
+### Lemma 4 （Strongly convex objective, dimishing step size)
 
-Suppose that SG is run with a stepsize sequence such that $$\alpha_k = \frac{\beta}{\gamma + k}$$ for some $$\beta > \frac{1}{c\mu}$$ and $$\mu > 0$$ (ensure $$\alpha_1 \leq \frac{\mu}{LM_G}$$), then the expected optimality gap satisfies
+Suppose that SG is run with a step size sequence such that $$\alpha_k = \frac{\beta}{\gamma + k}$$ for some $$\beta > \frac{1}{c\mu}$$ and $$\mu > 0$$ (to ensure $$\alpha_1 \leq \frac{\mu}{LM_G}$$), then the expected optimality gap satisfies
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{v}{\gamma + k},$$
 
@@ -116,21 +116,21 @@ We notice that the gap to the optimal value is also reduced by a factor of $$n_{
 
 $$\mathbb{E}[F(w_k) - F_*] \leq \frac{\bar{\alpha} LM}{2c\mu n_{mb}}  + (1- \frac{\bar{\alpha} c \mu}{n_{mb}})^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu n_{mb}}  \right) .$$
 
-We can see that the gap contracts more slowly than mini-batch SG, which means one need to run $$n_{mb}$$ times more iterations to obtain an equivalent optimality gap. However, the simple SG only consumes $$1/n_{mb}$$ cost of mini-batch SG at each iterate, it amounts to the same total computation as for the mini-bacth SG.
+We can see that the gap contracts more slowly than mini-batch SG ($$1-\frac{\bar{\alpha} c \mu}{n_{mb}}$$ v.s. $$1 - \bar{\alpha} c \mu$$), which means one need to run $$n_{mb}$$ times more iterations to obtain an equivalent optimality gap. However, the simple SG only consumes $$1/n_{mb}$$ cost of mini-batch SG at each iterate, it amounts to the same total computation as for the mini-bacth SG.
 
 # SG for General Objectives
 
-### Lemma 6 （Nonconvex objective, fixed stepsize）
+### Lemma 6 （Nonconvex objective, fixed step size）
 
-Suppose that SG is run with a fixed stepsize $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the sum-of-square and average-squared gradients of the objective satisfy
+Suppose that SG is run with a fixed step size $$0 < \bar{\alpha} \leq \frac{\mu}{LM_G}$$, then the sum-of-square and average-squared gradients of the objective satisfy
 
 $$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}}, \textrm{ therefore,} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infty)   \end{split}$$
 
 **Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nabla F(w_k)\| \rightarrow 0 (k \rightarrow \infty)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
 
-### Lemma 7 （Nonconvex objective, diminishing stepsize）
+### Lemma 7 （Nonconvex objective, diminishing step size）
 
-Suppose that SG is run with a stepsize sequence satisfying $$\sum_{k=1}^\infty \alpha_k= \infty$$ and $$\sum_{k=1}^\infty \alpha_k^2 < \infty$$, then
+Suppose that SG is run with a step size sequence satisfying $$\sum_{k=1}^\infty \alpha_k= \infty$$ and $$\sum_{k=1}^\infty \alpha_k^2 < \infty$$, then
 
 $$\begin{split} \lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] & < \infty, \textrm{ therefore,} \\ \lim_{K \rightarrow \infty} \mathbb{E} \left[ \frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] &= 0 \end{split}$$
 
