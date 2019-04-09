@@ -150,7 +150,7 @@ Here, $$n$$ is the total number of examples. If an algorithm is only allowed to 
 
 # Episode: What is ill-conditioning?
 
-Ill-conditioning describes the problem whose condition number is too large. For example, for a twice differentialobjective $$F(x)$$, the condition number measures the ratio of the maximum eigenvalue $$L$$ and the minimum eigenvalue $$\mu$$ of the Hessian function ($$\nabla^2 F(x)$$ is positive definite). Based on Taylor expansion, the objective is approximated locally as
+Ill-conditioning describes the problem whose condition number is too large. For example, for a twice differentiable objective $$F(x)$$, the condition number measures the ratio of the maximum eigenvalue $$L$$ and the minimum eigenvalue $$\mu$$ of the Hessian function ($$\nabla^2 F(x)$$ is positive definite). Based on Taylor expansion, the objective is approximated locally as
 
 $$ F(x + \Delta x) \approx  F(x) + \nabla F(x) \Delta x +  \frac{1}{2} \Delta x^T  \nabla^2F(x) \Delta x  .$$ 
 
@@ -160,7 +160,7 @@ $$\Delta x = - \frac{1}{\nabla^2F(x)} \nabla F(x).$$
 
 Newton methods are more suited to cope with ill-conditioning, as it preconditions the gradient $$\nabla F(x)$$ by re-scaling it with the inverse of Hessian.
 
-In contrast, gradient descent methods realizes the update step as 
+In contrast, gradient descent methods realize the update step as 
 
 $$\Delta x = - \alpha \nabla F(x).$$
 
