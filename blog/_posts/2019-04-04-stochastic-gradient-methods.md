@@ -126,13 +126,13 @@ Suppose that SG is run with a fixed step size $$0 < \bar{\alpha} \leq \frac{\mu}
 
 $$\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}}, \textrm{ therefore,} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] & \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infty)   \end{split}$$
 
-**Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nabla F(w_k)\| \rightarrow 0 (k \rightarrow \infty)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
+**Interpretation** If there were no noise with the gradient ($$M=0$$), the sum-of-square gradients will remain finite, implying that $$\| \nabla F(w_k)\| \rightarrow 0 \;\;(k \rightarrow \infty)$$. If there were noise with the gradient ($$M>0$$), the average norm of gradients decreases when $$K$$ increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.
 
 ### Lemma 7 （Nonconvex objective, diminishing step size）
 
 Suppose that SG is run with a step size sequence satisfying $$\sum_{k=1}^\infty \alpha_k= \infty$$ and $$\sum_{k=1}^\infty \alpha_k^2 < \infty$$, then
 
-$$\begin{split} \lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] & < \infty, \textrm{ therefore,} \\ \lim_{K \rightarrow \infty} \mathbb{E} \left[ \frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla(w_k)  \|_2^2 \right] &= 0 \end{split}$$
+$$\begin{split} \lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nablaF(w_k)  \|_2^2 \right] & < \infty, \textrm{ therefore,} \\ \lim_{K \rightarrow \infty} \mathbb{E} \left[ \frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nablaF(w_k)  \|_2^2 \right] &= 0 \end{split}$$
 
 **Interpretation** The second equality above indicates that the weighted average of the gradient normal converges to zero even if the gradients are noisy.
 
@@ -146,4 +146,4 @@ Roughly speaking, the SG methods have a sublinear rate of convergence as opposed
 |$$T(n, \epsilon)$$ |  $$\sim n \log(\frac{1}{\epsilon})$$ | $$\frac{1}{\epsilon}$$ |
 | $$ \epsilon$$  | $$ \sim \frac{ \log(T_{max})}{ T_{max}} + \frac{1}{ T_{max} }  $$ | $$\frac{1}{T_{max}}$$   |
 
-Here, $$n$$ is the number of examples. If a algorithm is only allowed to read the examples $$k$$ times, the best accuracy it can achieve is $$\Omega(1/k)$$.
+Here, $$n$$ is the total number of examples. If an algorithm is only allowed to read the examples $$k$$ times, the best accuracy it can achieve is $$\Omega(1/k)$$ (by stochastic gradient methods).
