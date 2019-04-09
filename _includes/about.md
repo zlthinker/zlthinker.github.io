@@ -3,7 +3,7 @@ I'm a fourth-year PhD candidate in Deparment of Computer Science and Engineering
 
 # News
 
-__"A dataset for scale-invariant image matching is released [here](https://zlthinker.github.io/scale-invariant-image-matching#datasets)."__
+_"A dataset for scale-invariant image matching is released [here](https://zlthinker.github.io/scale-invariant-image-matching#datasets)."_
 
 # Blog
 [Blog link](blog)
