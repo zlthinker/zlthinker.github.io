@@ -150,23 +150,21 @@ Here, $$n$$ is the total number of examples. If an algorithm is only allowed to 
 
 # Episode: What is ill-conditioning?
 
-Ill-conditioning describes the problem whose the condition number is too large. For example, if the problem of minimizing the objective $$F(x)$$ is ill-conditioned, it would be hard for optimization.
+Ill-conditioning describes the problem whose condition number is too large. For example, for a twice differentialobjective $$F(x)$$, the condition number measures the ratio of the maximum eigenvalue $$L$$ and the minimum eigenvalue $$\mu$$ of the Hessian function ($$\nabla^2 F(x)$$ is positive definite). Based on Taylor expansion, the objective is approximated locally as
 
-Formally, the condition number measures the ratio of the maximum eigenvalue $$L$$ and the minimum eigenvalue $$\mu$$ of the Hessian function ($$\nabla^2 F(x)$$) for twice differential objective functions. Based on Taylor expansion, the objective is bounded below and above as
+$$ F(x + \Delta x) \approx  F(x) + \nabla F(x) \Delta x +  \frac{1}{2} \Delta x^T  \nabla^2F(x) \Delta x  .$$ 
 
-$$ F(x + \Delta x) \approx  F(x) + \nabla F(x) \Delta x +  \Delta x^T  \nabla^2F(x) \Delta x  .$$ 
-
-The newton methods realizes the update step by minimizing the approxited quadratic function as
+The newton methods realize the update step by minimizing the approximated quadratic function as
 
 $$\Delta x = - \frac{1}{\nabla^2F(x)} \nabla F(x).$$
 
-Newton methods are more suited to cope with ill-conditioning, as it preconditions the gradient by re-scaling each dimension of it separately with the inverse of Hessian.
+Newton methods are more suited to cope with ill-conditioning, as it preconditions the gradient $$\nabla F(x)$$ by re-scaling it with the inverse of Hessian.
 
 In contrast, gradient descent methods realizes the update step as 
 
 $$\Delta x = - \alpha \nabla F(x).$$
 
-Intuitively, they approximate the inverse Hessian by$$\alpha \mathbf{I}$$. The step size $$\alpha$$ is better to locate in range $$[1/L, 1/\mu]$$. In ill-conditioning cases, the gap of range $$[1/L, 1/\mu]$$ is large and the approximation of inverse Hessian by $$\alpha \mathbf{I}$$ is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.
+Intuitively, they approximate the inverse Hessian by $$\alpha \mathbf{I}$$. The step size $$\alpha$$ is better to locate in range $$[1/L, 1/\mu]$$ for convergence. In ill-conditioning cases, the gap of range $$[1/L, 1/\mu]$$ is large and the approximation of inverse Hessian by $$\alpha \mathbf{I}$$ is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.
 
 # Reference
 
