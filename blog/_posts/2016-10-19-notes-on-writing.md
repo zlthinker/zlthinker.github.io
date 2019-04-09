@@ -35,6 +35,7 @@ updated: 2016-10-19 23:37
 * discern 辨认出  it is straightforward to discern a termination criterion.
 * elevate 提升
 * elucidate 阐明，解释清楚，make clear
+* embark on 开始做...新的或重要的事情
 * endeavor 努力
 * endow     endowed with 享有...(品质)
 * enduring = lasting 持久的
@@ -98,7 +99,7 @@ updated: 2016-10-19 23:37
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
 * dispensable indispensable 不可或缺的
-* detrimentally 不利地，有害地
+* detrimental/detrimentally 不利的/地，有害的/地
 * drastic ＝ great (change)
 * elusive 难以描述
 * eminent 突出的     of eminent importance
