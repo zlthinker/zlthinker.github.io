@@ -126,6 +126,7 @@ updated: 2016-10-19 23:37
 * legitimate 合理的，合法的（可作动词）
 * liberal vs. conservative
 * negligible 微不足道的，可以忽视的
+* onerous 艰巨的，繁重的
 * post hoc 事后的/地
 * pracmatic 务实的，实际的
 * principle 主要的，重要的
@@ -155,6 +156,7 @@ updated: 2016-10-19 23:37
 * susceptible to sth 易受影响的
 * ultimately 最终地，最重要地
 * viable 可行的
+* worrisome 令人担忧的
 
 ### noun.
 * adversity 困难，逆境
@@ -167,6 +169,7 @@ updated: 2016-10-19 23:37
 * efficacy 功效
 * excerpt
 * a fraction of
+* the gist = the main idea
 * granularity 粒度
 * indeterminacy = uncertainty
 * interplay (between A and B) 相互作用，相互影响

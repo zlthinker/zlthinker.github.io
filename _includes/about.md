@@ -30,7 +30,7 @@ Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Qu
 
 * "Very Large-Scale Global SfM by Distributed Motion Averaging" \\
 CVPR 2018 \\
-Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan
+Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan [[pdf](http://openaccess.thecvf.com/content_ICCV_2017/papers/Zhang_Distributed_Very_Large_ICCV_2017_paper.pdf)]
 
 * "Progressive Large Scale-Invariant Image Matching in Scale Space" \\
 ICCV 2017 [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
