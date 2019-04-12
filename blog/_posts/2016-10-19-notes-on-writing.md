@@ -122,7 +122,7 @@ updated: 2016-10-19 23:37
 * in a fraction of time
 * inconclusive
 * indispensable 不可或缺的
-* judicious 审慎明智的		it is judicious to
+* judicious 审慎明智的		it is judicious to  = advisable, sensible
 * legitimate 合理的，合法的（可作动词）
 * liberal vs. conservative
 * negligible 微不足道的，可以忽视的
@@ -135,6 +135,7 @@ updated: 2016-10-19 23:37
 * requisite 必须的，n.必需品
 * respectably 可观地 achieve a reasonable result
 * rigorously 严格的
+* spectacularly = dramatically = remarkably
 * symmetrical  asymmetrical
 * superficial 外表的
 * tratable
@@ -142,6 +143,7 @@ updated: 2016-10-19 23:37
 * typical = general = regular = standard
 * miscellaneous 多种多样的
 * persuasively 令人信服的
+* presumably 大概地
 * prohibitively 过分地，过于地, 过高地
 * prominently = remarkably 显著地
 * plausible 貌似合理的
@@ -169,6 +171,7 @@ updated: 2016-10-19 23:37
 * efficacy 功效
 * excerpt
 * a fraction of
+* formulae formula的复数
 * the gist = the main idea
 * granularity 粒度
 * indeterminacy = uncertainty

@@ -164,7 +164,7 @@ In contrast, gradient descent methods realize the update step as
 
 $$\Delta x = - \alpha \nabla F(x).$$
 
-Intuitively, they approximate the inverse Hessian by $$\alpha \mathbf{I}$$. The step size $$\alpha$$ is better to locate in range $$[1/L, 1/\mu]$$ for convergence. In ill-conditioning cases, the gap of range $$[1/L, 1/\mu]$$ is large and the approximation of inverse Hessian by $$\alpha \mathbf{I}$$ is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.
+Intuitively, they approximate the inverse Hessian by identity matrix $$\mathbf{I}$$. In ill-conditioning cases, the gap of range $$[1/L, 1/\mu]$$ is large and the approximation of inverse Hessian by $$\alpha \mathbf{I}$$ is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.
 
 # Reference
 
