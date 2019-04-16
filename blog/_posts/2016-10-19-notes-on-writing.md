@@ -47,6 +47,7 @@ updated: 2016-10-19 23:37
 * impose 利用     impose the conditions
 * incorporate  
 * inhibit 抑制，阻止
+* inpede = hinder 阻碍，阻止
 * identify  鉴定 ＝ identify, determine
 * leverage 利用
 * manipulate 操纵，操作
@@ -91,6 +92,7 @@ updated: 2016-10-19 23:37
 * burdensome 累赘的，繁重的
 * catastrophic 灾难性的
 * combinatorial 组合的
+* commutative 可交换的
 * competent 胜任的
 * concomitant 伴随而来的，随之发生的，相应的
 * condensed 简单的，扼要的
@@ -101,7 +103,7 @@ updated: 2016-10-19 23:37
 * dispensable indispensable 不可或缺的
 * detrimental/detrimentally 不利的/地，有害的/地
 * drastic ＝ great (change)
-* elusive 难以描述
+* elusive 难以描述(找到，达到，记起)的
 * eminent 突出的     of eminent importance
 * emphatic emphatically 坚决地，断然地
 * erroneous = incorrect

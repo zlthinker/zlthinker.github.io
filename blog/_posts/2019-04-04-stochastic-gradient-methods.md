@@ -166,6 +166,14 @@ $$\Delta x = - \alpha \nabla F(x).$$
 
 Intuitively, they approximate the inverse Hessian by identity matrix $$\mathbf{I}$$. In ill-conditioning cases, the gap of range $$[1/L, 1/\mu]$$ is large and the approximation of inverse Hessian by $$\alpha \mathbf{I}$$ is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.
 
+### Relationship between condition number and convergence rate
+
+For gradient descent, the convergence rate is described in the form:
+
+$$F_{k+1} - F^* \leq c (F_k - F^*),$$
+
+where $$c = \left(\frac{k-1}{k+1} \right)^2$$ and $$k$$ is the condition number. Although gradient descent has a linear convergence rate, a too large condition number $$k$$ would result in $c \approx 1$$, and the convergence would be quite slow.
+
 # Reference
 
 [Optimization Methods for Large-Scale Machine Learning](https://arxiv.org/pdf/1606.04838.pdf)

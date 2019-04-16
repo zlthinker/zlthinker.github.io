@@ -7,7 +7,7 @@ category: [optimization]
 * TOC
 {:toc}
 
-## The Problem Definition
+# The Problem Definition
 The problem is to find solutions to a system of equations that have the form:
 
 $$f_1(\mathbf{x}) = 0,$$
@@ -39,7 +39,7 @@ $$\nabla^2 F(\mathbf{x}) = F''(\mathbf{x}) = \mathbf{J}(\mathbf{x})^T \mathbf{J}
 
 where $$\mathbf{H}_i(\mathbf{x}) = f_i''(\mathbf{x})$$ is the $$n \times n$$ Hessian matrix of the scalar-valued function $$f_i(\mathbf{x})$$.
 
-## Newton's Method
+# Newton's Method
 Newton's method is an algorithm originally designated to locate roots of equations, e.g., $$F(\mathbf{x})=0$$. It is derived from the linear approximation of the function $$F(\mathbf{x})$$ by first-order Tayor series expansion. From Calculus, the following is the linear approximation of $$F(\mathbf{x})$$ at $$\mathbf{x}+\mathbf{h}$$:
 
 $$F(\mathbf{x} + \mathbf{h}) \approx F(\mathbf{x}) + F'(\mathbf{x}) \mathbf{h},$$
@@ -71,7 +71,7 @@ $$F'(\mathbf{x}) + F''(\mathbf{x}) \mathbf{h} = 0.$$
 If $$F''(\mathbf{x})$$ is positive definite, $$\mathbf{h}_N^T F''(\mathbf{x}) \mathbf{h}_N = - \mathbf{h}_N^T F'(\mathbf{x}) > 0$$, which means $$\mathbf{h}_N$$ is a descent direction when minimizing $$F(\mathbf{x})$$. Therefore, Newton's method is only useful in the final stage of the iteration where $$\mathbf{x}$$ is close to $$\mathbf{x}^*$$ so that $$F''(\mathbf{x})$$ is positive definite. The good news about Newton's method is that if $$F''(\mathbf{x})$$ is positive definite, we get **quadratic convergence** while gradient descent (the steepest descent method) can only produce **linear convergence**.
 
 
-## Line Search - Gauss-Newton Method
+# Line Search - Gauss-Newton Method
 The Gauss-Newton method is based on the linear approximation to $$\mathbf{f}$$ by the **first-order Tayor series expansion** in the neighbourhood of $$\mathbf{x}$$: For small $$\|\mathbf{h}\|$$, we have
 
 $$\mathbf{f}(\mathbf{x} + \mathbf{h}) = \ell(\mathbf{h}) \approx \mathbf{f}(\mathbf{x}) + \mathbf{J}(\mathbf{x}) \mathbf{h},$$
@@ -125,7 +125,7 @@ where $$\alpha$$ is found by line search. The classical Gauss-Newton method uses
 
 The method of locating the direction by solving $$L'(\mathbf{h}) = 0$$ is called **exact line search**. An alternative is **inexact line search** which loosely asks for a sufficient decrease in $$L(\mathbf{h})$$, e.g., using backtracking line search or Wolfe conditions to loosely find step length along given search direction.
 
-## Trust Region - The Levenberg–Marquardt Method
+# Trust Region - The Levenberg–Marquardt Method
 
 The LM method suggests to use a *damped Gauss-Newton mothod*. The step $$\mathbf{h}_{LM}$$ is defined by the following modification:
 
@@ -140,7 +140,7 @@ i.e. a short step in the **steepest descent** direction. This is desired if the 
 
 Thus, the damping parameter influences both the direction and the size of the update step. This leads us to make a method without a specific line search (i.e., to explicitlt determine the step size).
 
-## The Golden Bundle Adjustment
+# The Golden Bundle Adjustment (BA)
 
 Bundle Adjustment (BA) is a classic optimization problem developed in photogrammetry in the 50's. Each error function corresponds to a reprojection error concerning a camera and a 3D point.
 
@@ -203,6 +203,7 @@ $$
   \end{array} } \right].
 $$
 
+### Schur Complement trick
 Now, the problem is to solve the linear equation system of this form:
 
 $$
@@ -239,7 +240,11 @@ $$ \Rightarrow $$
 Solve $$\mathbf{x}$$ in $$\mathbf{L}^T \mathbf{x} = \mathbf{y}$$ ).
 Depending on the sparsity of the matrix, Cholesky factorization can be implemented in dense, sparse and iterative ways.
 
-#### Parameters (e.g. of ceres solver)
+### Conditioning of BA
+
+The BA problem is generally known to be ill-conditioned, because of the varying sensativity of the objective function to different parameters. For example, small changes in the translation of a camera affect the objective much less than small changes in the radial distortion parameters. (See [Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf))
+
+### Parameters (e.g. of ceres solver)
 
 |name|option|description|
 |:--:|:--:|:--:|
@@ -277,7 +282,7 @@ Depending on the sparsity of the matrix, Cholesky factorization can be implement
 |jacobi scaling|true|Normalize the jacobian using Jacobi scaling before calling the linear least squares solver.|
 
 
-## Generalized Least Squares
+# Generalized Least Squares
 
 Here, we consider a regression problem: Given a set of observation data $$\{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1,..,n}$$, we want to regress a linear/nonlinear function $$\mathbf{f}(.)$$ which minimizes
 
@@ -300,7 +305,7 @@ Since the covariance $$\mathbf{\Omega}$$ is generally unvailable, the **Feasible
 
 2. using the estimated $$\mathbf{\Omega}$$, solve the generalized least square problem.
 
-## Covariance Estimation [3][4]
+### Covariance Estimation [3][4]
 
 "One way to assess the quality of the solution returned by a non-linear least squares solver is to analyze the covariance of the solution." Let's consider
 
@@ -313,7 +318,7 @@ $$\mathbf{f}(\mathbf{x}_t) + \mathbf{J} (\mathbf{x} - \mathbf{x}_t) = \mathbf{\e
 Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \mathbf{J} C(\mathbf{x}) \mathbf{J}^T$$. Then we get $$C(\mathbf{x}) = \mathbf{J}^{-1} C(\mathbf{\epsilon}) \mathbf{J}^{-T} = \mathbf{J}^{-1} \mathbf{S} \mathbf{J}^{-T}$$. If we assume the error vector takes identity covariance (iid), i.e., $$\mathbf{S} = \sigma^2 \mathbf{I}$$, the covariance of the variable $$\mathbf{x}$$ becomes $$C(\mathbf{x}) = \sigma^2 \mathbf{J}^{-1} \mathbf{J}^{-T} = \sigma^2 (\mathbf{J}^T \mathbf{J})^{-1}$$.
 
 
-### Reference
+# Reference
 [1] [Nonlinear Systems - Newton’s Method](http://www.math.ohiou.edu/courses/math3600/lecture13.pdf)
 
 [2] [METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
