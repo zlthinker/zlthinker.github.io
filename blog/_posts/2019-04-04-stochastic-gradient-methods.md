@@ -172,7 +172,11 @@ For gradient descent, the convergence rate is described in the form:
 
 $$F_{k+1} - F^* \leq c (F_k - F^*),$$
 
-where $$c = \left(\frac{k-1}{k+1} \right)^2$$ and $$k$$ is the condition number. Although gradient descent has a linear convergence rate, a too large condition number $$k$$ would result in $c \approx 1$$, and the convergence would be quite slow.
+where $$c = \left(\frac{k-1}{k+1} \right)^2$$ and $$k$$ is the condition number. Although gradient descent has a linear convergence rate, a too large condition number $$k$$ would result in $$c \approx 1$$, and the convergence would be quite slow.
+
+### Preconditioned gradient descent
+
+For the minimization of the objective $$F(x)$$, we change the variable as $$x = Sy$$, so that $$\Phi(y) = F(Sy)$$. The gradient of $$\Phi(y)$$ is written as $$\nabla \Phi(y) = S^T \nablaF(Sy)$$. Then, the gradient step in $$y$$ is $$y^{k+1} = y^{k} - \alpha_k S^T \nablaF(Sy)$$. Converting $$y$$ back to $$x$$, we have $$x^{k+1} = x^k - \alpha_k S S^T \nablaF(Sy)$$.
 
 # Reference
 
