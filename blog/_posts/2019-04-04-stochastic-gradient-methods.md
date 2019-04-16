@@ -178,6 +178,8 @@ where $$c = \left(\frac{k-1}{k+1} \right)^2$$ and $$k$$ is the condition number.
 
 For the minimization of the objective $$F(x)$$, we change the variable as $$x = Sy$$, so that $$\Phi(y) = F(Sy)$$. The gradient of $$\Phi(y)$$ is written as $$\nabla \Phi(y) = S^T \nabla F(Sy)$$. Then, the gradient step in $$y$$ is $$y^{k+1} = y^{k} - \alpha_k S^T \nabla F(Sy)$$. Converting $$y$$ back to $$x$$, we have $$x^{k+1} = x^k - \alpha_k S S^T \nabla F(x)$$, which is equivalent to rescale the gradient $$\nabla F(x)$$ by matrix $$M = S S^T$$.
 
+(See [Youtube](https://www.youtube.com/watch?v=9LT-i5LiK7A) for the derivative and [StackExchange](https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent) for the way of setting precondition matrix.)
+
 # Reference
 
 [Optimization Methods for Large-Scale Machine Learning](https://arxiv.org/pdf/1606.04838.pdf)
