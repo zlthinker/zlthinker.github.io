@@ -189,3 +189,5 @@ which is equivalent to rescale the gradient $$\nabla F(x)$$ by matrix $$M = S S^
 [Optimization Methods for Large-Scale Machine Learning](https://arxiv.org/pdf/1606.04838.pdf)
 
 [Optimization by General-Purpose Methods](http://web.eecs.umich.edu/~fessler/book/c-opt.pdf)
+
+[Bundle Adjustment - A Modern Synthesis](https://hal.inria.fr/inria-00548290/document)
