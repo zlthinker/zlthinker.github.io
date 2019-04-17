@@ -184,6 +184,10 @@ which is equivalent to rescale the gradient $$\nabla F(x)$$ by matrix $$M = S S^
 
 (See [Youtube](https://www.youtube.com/watch?v=9LT-i5LiK7A) for the derivative and [StackExchange](https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent) for the way of setting preconditioning matrix.)
 
+### How to choose preconditioning matrix
+
+For quadratic cost functions, the ideal preconditioner would be $$P = H^{-1}$$ so that $$PH = I$$, because identity matrix has the minimal condition number and preconditioned gradient descent would converge in one step (simply equates to Newton's method). For nonquadratic cost functions, the inverse-Hessian preconditioner $$P(x) = H^{-1}(x)$$ wold yield superlinear convergence rates akin to the Newton-Raphson method. Because we cannot compute $$H^{-1}$$ for large problems, one must develop preconditioner that approximates $$H^{-1}$$. (Credit for [Ch 11.3.7](http://web.eecs.umich.edu/~fessler/book/c-opt.pdf))
+
 # Reference
 
 [Optimization Methods for Large-Scale Machine Learning](https://arxiv.org/pdf/1606.04838.pdf)
