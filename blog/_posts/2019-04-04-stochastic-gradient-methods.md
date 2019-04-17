@@ -182,6 +182,8 @@ $$x^{k+1} = x^k - \alpha_k S S^T \nabla F(x),$$
 
 which is equivalent to rescale the gradient $$\nabla F(x)$$ by matrix $$M = S S^T$$.
 
+**Interpretation** Preconditioning is equivalent to a coordinate change. Geometrically, a good preconditioner is related to coordinates in which the cost function has nearly spherical level sets, because in such a coordinate sytem the gradient vector towards the minimizer.
+
 (See [Youtube](https://www.youtube.com/watch?v=9LT-i5LiK7A) for the derivative and [StackExchange](https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent) for the way of setting preconditioning matrix.)
 
 ### How to choose preconditioning matrix
