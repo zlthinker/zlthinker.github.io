@@ -182,8 +182,10 @@ $$x^{k+1} = x^k - \alpha_k S S^T \nabla F(x),$$
 
 which is equivalent to rescale the gradient $$\nabla F(x)$$ by matrix $$M = S S^T$$.
 
-(See [Youtube](https://www.youtube.com/watch?v=9LT-i5LiK7A) for the derivative and [StackExchange](https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent) for the way of setting precondition matrix.)
+(See [Youtube](https://www.youtube.com/watch?v=9LT-i5LiK7A) for the derivative and [StackExchange](https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent) for the way of setting preconditioning matrix.)
 
 # Reference
 
 [Optimization Methods for Large-Scale Machine Learning](https://arxiv.org/pdf/1606.04838.pdf)
+
+[Optimization by General-Purpose Methods](http://web.eecs.umich.edu/~fessler/book/c-opt.pdf)
