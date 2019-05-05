@@ -197,3 +197,5 @@ For quadratic cost functions, the ideal preconditioner would be $$P = H^{-1}$$ s
 [Optimization by General-Purpose Methods](http://web.eecs.umich.edu/~fessler/book/c-opt.pdf)
 
 [Bundle Adjustment - A Modern Synthesis](https://hal.inria.fr/inria-00548290/document)
+
+[Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf)
