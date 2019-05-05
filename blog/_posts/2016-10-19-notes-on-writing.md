@@ -101,6 +101,7 @@ updated: 2016-10-19 23:37
 * crude 简陋的，粗糙的
 * deficient = inadequate = insufficient
 * dispensable indispensable 不可或缺的
+* discernible =notable 可注意的，可辨认的
 * detrimental/detrimentally 不利的/地，有害的/地
 * drastic ＝ great (change)
 * elusive 难以描述(找到，达到，记起)的
