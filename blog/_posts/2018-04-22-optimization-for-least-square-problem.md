@@ -332,3 +332,5 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [6] [Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
 
 [7] [Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)
+
+[8] [Generalized Subgraph Preconditioners for Large-Scale Bundle Adjustment](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.648.7053&rep=rep1&type=pdf)
