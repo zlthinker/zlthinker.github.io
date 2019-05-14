@@ -328,3 +328,7 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [4] [Covariance estimation reference 2](http://ceres-solver.org/nnls_covariance.html)
 
 [5] [HESSIAN MATRIX VS. GAUSS–NEWTON HESSIAN MATRIX](https://epubs.siam.org/doi/pdf/10.1137/100799988)
+
+[6] [Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
+
+[7] [Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)

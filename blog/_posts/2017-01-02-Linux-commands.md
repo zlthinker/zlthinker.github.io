@@ -89,6 +89,14 @@ kill -9 PID
 # kill process
 ```
 
+```
+yum install sth
+# One of the configured repositories failed (Unknown), and yum doesn't have enough cached data to continue.
+# This issue mat occur due to corruption of the local machine cache, try to clear cache on system:
+yum clean all
+rm -r /var/cache/yum/*
+```
+
 # 软件应用
 
 ```
