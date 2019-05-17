@@ -334,3 +334,7 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [7] [Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)
 
 [8] [Generalized Subgraph Preconditioners for Large-Scale Bundle Adjustment](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.648.7053&rep=rep1&type=pdf)
+
+[9] [Tutorial on computing Jacobian for Bundle Adjustment Problem - Part1](http://www.telesens.co/2016/10/13/bundle-adjustment-part-1-jacobians/)
+
+[9] [Tutorial on computing Jacobian for Bundle Adjustment Problem - Part2](http://www.telesens.co/2016/10/19/bundle-adjustment-part-2/)
