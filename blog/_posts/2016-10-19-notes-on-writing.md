@@ -133,6 +133,7 @@ updated: 2016-10-19 23:37
 * post hoc 事后的/地
 * pracmatic 务实的，实际的
 * principle 主要的，重要的
+* promptly 快速地，敏捷地 converge promptly
 * readily 简单地
 * reciprocal 互惠的
 * requisite 必须的，n.必需品
