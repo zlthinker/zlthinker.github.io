@@ -340,3 +340,5 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [9] [Tutorial on computing Jacobian for Bundle Adjustment Problem - Part2](http://www.telesens.co/2016/10/19/bundle-adjustment-part-2/)
 
 [10] [Indicative parameter setting for LM based Bundle Adjustment](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
+
+[11] [METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
