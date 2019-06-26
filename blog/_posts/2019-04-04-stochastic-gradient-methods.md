@@ -37,7 +37,7 @@ $$\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d,
 
 $$F(w) \leq F(w') + \nabla F(w') (w-w') + \frac{1}{2} L \|w-w'\|_2^2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d. $$
 
-Now, let's consider the k-th iterate where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k, \xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
+Now, let's consider the k-th iteration where we draw a sample $$\xi_k$$ to compute the stochastic gradient vector $$g(w_k, \xi_k)$$ and update the step as $$w_{k+1} = w_k - \alpha_k g(w_k, \xi_k)$$. Under Assumption 1, the iterate satisfies the following inequality:
 
 $$\begin{split} F(w_{k+1}) - F(w_k) &\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &\leq -\alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}$$
 
@@ -199,3 +199,12 @@ For quadratic cost functions, the ideal preconditioner would be $$P = H^{-1}$$ s
 [Bundle Adjustment - A Modern Synthesis](https://hal.inria.fr/inria-00548290/document)
 
 [Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf)
+
+[The Levenverg-Marquardt Algorithm: Implementation and Theory](https://link.springer.com/content/pdf/10.1007/BFb0067700.pdf)
+
+[Newton-Type Methods for Non-Convex Optimization Under Inexact Hessian Information](https://arxiv.org/pdf/1708.07164.pdf)
+
+[Second-Order Optimization for Non-Convex Machine Learning: An Empirical Study](https://arxiv.org/pdf/1708.07827.pdf)
+
+[NONLINEAR LEAST SQUARES — THE LEVENBERG
+ALGORITHM REVISITED](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/BD5B9EA8DB2F092020CC173354C4C86E/S033427000000120Xa.pdf/nonlinear_least_squares_the_levenberg_algorithm_revisited.pdf)
