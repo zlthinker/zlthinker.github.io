@@ -52,6 +52,17 @@ sshpass -p "password" scp ...
 # pass pwd to scp
 ```
 
+```
+ln -s src_file link_to_src_file
+# create soft symbol link for src_file
+```
+
+```
+tar -zcvf file.tar.gz file	# compress
+tar -zxvf file.tar.gz (-C dst_dir)	# extract
+
+```
+
 ### 系统环境
 
 ```
