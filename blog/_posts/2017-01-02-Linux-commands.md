@@ -63,6 +63,11 @@ tar -zxvf file.tar.gz (-C dst_dir)	# extract
 
 ```
 
+```
+md5sum file
+# calculate MD5 hashes of file to verify file's integrity
+```
+
 ### 系统环境
 
 ```
