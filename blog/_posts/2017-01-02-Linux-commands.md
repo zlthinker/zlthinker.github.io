@@ -28,11 +28,6 @@ df -h (-T: show file system type)
 # 显示mount到文件系统中的硬盘空间和分区的使用情况
 ```
 
-```
-du -sh /folder
-# 统计文件夹大小
-```
-
 ### 文件系统、文本处理
 
 ```
@@ -69,6 +64,11 @@ tar -zxvf file.tar.gz (-C dst_dir)	# extract
 ```
 md5sum file
 # calculate MD5 hashes of file to verify file's integrity
+```
+
+```
+du -sh /folder
+# 统计文件夹大小
 ```
 
 ### 系统环境
