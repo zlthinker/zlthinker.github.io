@@ -5,6 +5,9 @@ tags: [linux, cmd]
 category: Linux
 ---
 
+* TOC
+{:toc}
+
 # Commands
 ### 硬件交互
 
@@ -122,7 +125,8 @@ Ctrl+R or screen -R screen_id # Reenter screen
 screen -ls # list running screens
 ```
 
-# RAID
+# 硬件设备
+### RAID
 
 RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。
 * **RAID0** 将连续的数据在物理上存放到不同的硬盘上，这样在读写时可以多个硬盘同时读写，从而提升带宽。
