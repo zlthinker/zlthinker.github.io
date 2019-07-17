@@ -26,6 +26,8 @@ A graph $$G$$ is a pair of sets $$G = (V, E)$$. $$V$$ is the set of vertices and
 * An **induced subgraph** $$G(S)$$ of a graph $$G=(V,E)$$ is the graph with the vertex set $$S\subseteq V$$ with an edge set being $$E(S) = \{\{v,u\}\| v\in S, u\in S, \{v,u\}\in E  \}$$.
 * An induced subgraph that is a complete graph is called a **clique**.
 * **Isomorphism**
-* The **spectrum** of a graph is defined as the list of eigenvalues (together with their multiplicities) of its adjacency matrix $$A_G$$.
-* **Laplacian matrix** of graph $$G$$: $$L = I - A_G$$.
-* **Normalized laplacian matrix** of graph $$G$$: $$\mathcal{L} = D^{-\frac{1}{2}} L D^{-\frac{1}{2}} = I - D^{-\frac{1}{2}} A_G D^{-\frac{1}{2}}$$.
+* The **spectrum** of a graph is defined as the list of eigenvalues (together with their multiplicities) of its adjacency matrix $$A_G$$. 
+* **Cospectral or Isospectral**. Graphs that have the same spectrum are called cospectral or isospectral. Even nonisomorphic graphs can be cospectral.
+* **Laplacian matrix** of graph $$G$$: $$L = D_G - A_G$$.
+* **Normalized laplacian matrix** of graph $$G$$: $$\mathcal{L} = D_G^{-\frac{1}{2}} L D_G^{-\frac{1}{2}} = I - D_G^{-\frac{1}{2}} A_G D_G^{-\frac{1}{2}}$$. The eigenvalues of $$\mathcal{L}$$ is always zero. The smallest eigenvalue is always zero, as $$\mathcal{L}$$ is singular, and the corresponding eigenvector is simply a vector with each element being the square-root of the degree of the corresponding vertex.
+* **Line graph**. A line graph $$G_L = (V_L, E_L)$$ of a given graph $$G = (V, E)$$ is a graph where the vertex set $$V_L$$ is the set of edges $$E$$ of the original graph $$G$$ and two vertices $$v_{ij} \in V_L$$ (corresponding to the edge $$\{v_i, v_j \} \in E$$) and $$v_{kl} \in V_L$$ are connected by an edge $$\{v_{ij}, v_{kl} \} \in E_L$$ if and only if the vertex subsets $$\{v_i, v_j \}$$ and $$\{v_k, v_l \}$$ have a nonempty intersection.
