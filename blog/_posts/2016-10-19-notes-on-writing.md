@@ -165,6 +165,7 @@ updated: 2016-10-19 23:37
 * worrisome 令人担忧的
 
 ### noun.
+* acronym 首字母缩写
 * adversity 困难，逆境
 * affinity 相似性，因相似产生好感
 * clarity 清晰简明

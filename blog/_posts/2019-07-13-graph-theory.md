@@ -24,3 +24,8 @@ A graph $$G$$ is a pair of sets $$G = (V, E)$$. $$V$$ is the set of vertices and
 * A connected acylic subgraph that includes all vertices is called a **spanning tree** of the graph. A spanning tree has necessarily exactly $$n-1$$ edges.
 * The spanning tree with smallest total weight is called the **minimum spanning tree**.
 * An **induced subgraph** $$G(S)$$ of a graph $$G=(V,E)$$ is the graph with the vertex set $$S\subseteq V$$ with an edge set being $$E(S) = \{\{v,u\}\| v\in S, u\in S, \{v,u\}\in E  \}$$.
+* An induced subgraph that is a complete graph is called a **clique**.
+* **Isomorphism**
+* The **spectrum** of a graph is defined as the list of eigenvalues (together with their multiplicities) of its adjacency matrix $$A_G$$.
+* **Laplacian matrix** of graph $$G$$: $$L = I - A_G$$.
+* **Normalized laplacian matrix** of graph $$G$$: $$\mathcal{L} = D^{-\frac{1}{2}} L D^{-\frac{1}{2}} = I - D^{-\frac{1}{2}} A_G D^{-\frac{1}{2}}$$.
