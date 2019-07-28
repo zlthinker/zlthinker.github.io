@@ -71,6 +71,10 @@ du -sh /folder
 # 统计文件夹大小
 ```
 
+```
+mount -t nfs (-o lookupcache=none) 192.168.0.1:/
+```
+
 ### 系统环境
 
 ```
