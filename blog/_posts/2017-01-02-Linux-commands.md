@@ -26,6 +26,8 @@ lsblk
 ```
 df -h (-T: show file system type)
 # 显示mount到文件系统中的硬盘空间和分区的使用情况
+df -i 
+# 显示硬盘分区的节点使用情况
 ```
 
 ### 文件系统、文本处理
