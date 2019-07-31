@@ -26,7 +26,7 @@ Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang
 
 * "Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus" \\
 TPAMI 2018 \\
-Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan [[pdf](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8365816)]
+Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan [[pdf](./files/distributed_bundle.pdf)]
 
 * "Very Large-Scale Global SfM by Distributed Motion Averaging" \\
 CVPR 2018 \\
