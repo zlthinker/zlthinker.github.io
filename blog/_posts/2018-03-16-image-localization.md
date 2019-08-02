@@ -10,6 +10,8 @@ tag:
 
 # Related works
 
+* [Neural-Guided RANSAC: Learning Where to Sample Model Hypotheses](https://arxiv.org/pdf/1905.04132.pdf)
+
 * Feature-Based
   * [From Coarse to Fine: Robust Hierarchical Localization at Large Scale](https://arxiv.org/pdf/1812.03506.pdf)
 
