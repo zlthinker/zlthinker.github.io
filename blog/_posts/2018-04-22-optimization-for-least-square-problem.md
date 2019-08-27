@@ -342,3 +342,16 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 [10] [Indicative parameter setting for LM based Bundle Adjustment](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
 
 [11] [METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
+
+Bundle Adjustment
+
+[Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
+
+[Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)
+
+[Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf)
+
+[Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus](https://zlthinker.github.io/files/distributed_bundle.pdf)
+
+[A Consensus-Based Framework for Distributed Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2016/papers/Eriksson_A_Consensus-Based_Framework_CVPR_2016_paper.pdf)
+

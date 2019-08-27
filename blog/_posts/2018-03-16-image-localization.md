@@ -10,7 +10,10 @@ tag:
 
 # Related works
 
+* [Does Computer Vision Matter for Action?](http://vladlen.info/papers/does-vision-matter.pdf)
+
 * [Neural-Guided RANSAC: Learning Where to Sample Model Hypotheses](https://arxiv.org/pdf/1905.04132.pdf)
+* [VLocNet++](https://arxiv.org/pdf/1804.08366.pdf)
 
 * Feature-Based
   * [From Coarse to Fine: Robust Hierarchical Localization at Large Scale](https://arxiv.org/pdf/1812.03506.pdf)
