@@ -355,3 +355,7 @@ Bundle Adjustment
 
 [A Consensus-Based Framework for Distributed Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2016/papers/Eriksson_A_Consensus-Based_Framework_CVPR_2016_paper.pdf)
 
+[pOSE: Pseudo Object Space Error for Initialization-Free Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2018/papers/Hong_pOSE_Pseudo_Object_CVPR_2018_paper.pdf)
+
+[ICE-BA: Incremental, Consistent and Efficient Bundle Adjustment for Visual-Inertial SLAM](http://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_ICE-BA_Incremental_Consistent_CVPR_2018_paper.pdf)
+
