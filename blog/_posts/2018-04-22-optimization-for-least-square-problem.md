@@ -359,3 +359,5 @@ Bundle Adjustment
 
 [ICE-BA: Incremental, Consistent and Efficient Bundle Adjustment for Visual-Inertial SLAM](http://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_ICE-BA_Incremental_Consistent_CVPR_2018_paper.pdf)
 
+[Is Levenberg-Marquardt the Most Efficient Optimization Algorithm for Implementing Bundle Adjustment?](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
+

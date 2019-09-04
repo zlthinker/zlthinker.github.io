@@ -10,6 +10,8 @@ tag:
 
 # Related works
 
+* [Local Supports Global: Deep Camera Relocalization with Sequence Enhancement](https://arxiv.org/pdf/1908.04391.pdf)
+
 * [Does Computer Vision Matter for Action?](http://vladlen.info/papers/does-vision-matter.pdf)
 
 * [Neural-Guided RANSAC: Learning Where to Sample Model Hypotheses](https://arxiv.org/pdf/1905.04132.pdf)
