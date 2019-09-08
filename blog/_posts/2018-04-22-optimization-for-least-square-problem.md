@@ -343,6 +343,8 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 
 [11] [METHODS FOR NON-LINEAR LEAST SQUARES PROBLEMS](http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/3215/pdf/imm3215.pdf)
 
+[12] [A review of trust region algorithms for optimization](file:///Users/Larry/Downloads/download.pdf)
+
 Bundle Adjustment
 
 [Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
