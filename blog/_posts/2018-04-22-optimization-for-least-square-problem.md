@@ -363,3 +363,9 @@ Bundle Adjustment
 
 [Is Levenberg-Marquardt the Most Efficient Optimization Algorithm for Implementing Bundle Adjustment?](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
 
+[Sparse bundle adjustment](http://users.ics.forth.gr/~lourakis/sba/sba-toms.pdf)
+
+[Sparse sparse bundle adjustment](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.604.5805&rep=rep1&type=pdf)
+
+[Multicore Bundle Adjustment](http://grail.cs.washington.edu/projects/mcba/pba.pdf)
+
