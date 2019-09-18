@@ -15,6 +15,16 @@ _"A dataset for scale-invariant image matching is released [here](https://zlthin
 
 # Publications
 
+* "Learning Two-View Correspondences and Geometry Using Order-Aware Network" \\ ICCV 2019 [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)] \\
+Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan,
+Hongen Liao
+
+* "ContextDesc: Local Descriptor Augmentation with Cross-Modality Context" \\ CVPR 2019 [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)] \\
+Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan
+
+* "Learning Fully Dense Neural Networks for Image Semantic Segmentation" \\ AAAI 2019 [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
+Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan
+
 * "Learning and Matching Multi-View Descriptors for Registration of Point Clouds" \\
 ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.05653)]
 [[supp](./files/eccv2018_supp.pdf)] [[github](https://github.com/zlthinker/RMBP)] \\
@@ -24,9 +34,12 @@ ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.05653)]
 ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.06294)] [[github](https://github.com/lzx551402/geodesc)] \\
 Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan
 
+* "Matchable Image Retrieval by Learning from Surface Reconstruction" \\ ACCV 2018 [[arviv](https://arxiv.org/pdf/1811.10343.pdf)] \\
+Tianwei Shen, Zixin Luo, Lei Zhou, Runze Zhang, Siyu Zhu, Tian Fang, Long Quan
+
 * "Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus" \\
-TPAMI 2018 \\
-Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan [[pdf](./files/distributed_bundle.pdf)]
+TPAMI 2018 [[pdf](./files/distributed_bundle.pdf)] \\
+Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan 
 
 * "Very Large-Scale Global SfM by Distributed Motion Averaging" \\
 CVPR 2018 \\
