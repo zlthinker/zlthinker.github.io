@@ -10,9 +10,27 @@ tag:
 
 # Related works
 
+## ICCV2019
+* [Fine-Grained Segmentation Networks: Self-Supervised Segmentation for Improved Long-Term Visual Localization](https://arxiv.org/pdf/1908.06387.pdf)
+
+* [Cascaded Parallel Filtering for Memory-Efficient Image-Based Localization](https://arxiv.org/pdf/1908.06141.pdf)
+
+* [Stochastic Attraction-Repulsion Embedding for Large Scale Image Localization](https://arxiv.org/pdf/1808.08779.pdf)
+
+* [Is This The Right Place? Geometric-Semantic Pose Verification for Indoor Visual Localization](https://arxiv.org/pdf/1908.04598.pdf)
+
 * [Local Supports Global: Deep Camera Relocalization with Sequence Enhancement](https://arxiv.org/pdf/1908.04391.pdf)
 
 * [Does Computer Vision Matter for Action?](http://vladlen.info/papers/does-vision-matter.pdf)
+
+* [Expert Sample Consensus Applied to Camera Re-Localization](https://arxiv.org/pdf/1908.02484.pdf)
+
+* [	CamNet: Coarse-to-Fine Retrieval for Camera Re-Localization]()
+
+* [Prior Guided Dropout for Robust Visual Localization in Dynamic Environments]()
+
+
+## Works before ICCV2019
 
 * [Neural-Guided RANSAC: Learning Where to Sample Model Hypotheses](https://arxiv.org/pdf/1905.04132.pdf)
 * [VLocNet++](https://arxiv.org/pdf/1804.08366.pdf)
