@@ -11,13 +11,13 @@ tag:
 # Related works
 
 ## ICCV2019
-* [Fine-Grained Segmentation Networks: Self-Supervised Segmentation for Improved Long-Term Visual Localization](https://arxiv.org/pdf/1908.06387.pdf)
+* [Fine-Grained Segmentation Networks: Self-Supervised Segmentation for Improved Long-Term Visual Localization](https://arxiv.org/pdf/1908.06387.pdf) segmentation to handler season changes
 
-* [Cascaded Parallel Filtering for Memory-Efficient Image-Based Localization](https://arxiv.org/pdf/1908.06141.pdf)
+* [Cascaded Parallel Filtering for Memory-Efficient Image-Based Localization](https://arxiv.org/pdf/1908.06141.pdf) filtering for matching against SfM
 
-* [Stochastic Attraction-Repulsion Embedding for Large Scale Image Localization](https://arxiv.org/pdf/1808.08779.pdf)
+* [Stochastic Attraction-Repulsion Embedding for Large Scale Image Localization](https://arxiv.org/pdf/1808.08779.pdf) image retrieval
 
-* [Is This The Right Place? Geometric-Semantic Pose Verification for Indoor Visual Localization](https://arxiv.org/pdf/1908.04598.pdf)
+* [Is This The Right Place? Geometric-Semantic Pose Verification for Indoor Visual Localization](https://arxiv.org/pdf/1908.04598.pdf) pose verification (e.g. used in ransac), needs semantic info
 
 * [Local Supports Global: Deep Camera Relocalization with Sequence Enhancement](https://arxiv.org/pdf/1908.04391.pdf)
 
