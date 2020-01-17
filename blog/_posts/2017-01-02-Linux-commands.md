@@ -77,6 +77,11 @@ du -sh /folder
 mount -t nfs (-o lookupcache=none) 192.168.0.1:/
 ```
 
+```
+command | tee out.txt
+# redirect the stdout to file out.txt
+```
+
 ### 系统环境
 
 ```
