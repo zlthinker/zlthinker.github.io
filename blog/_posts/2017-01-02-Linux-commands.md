@@ -134,6 +134,15 @@ rm -r /var/cache/yum/*
 Ctrl+A then D # Detach from current screen
 Ctrl+R or screen -R screen_id # Reenter screen
 screen -ls # list running screens
+
+# docker
+docker ps	# list running containers
+docker ps -a # list all containers
+
+docker create --name=<container-name> -it <image-name/ID>
+docker start <container-name/ID>	# start a existing container
+docker stop <container-name/ID>	# stop a running container
+docker exec -it <container-name/ID> bash	# log in the shell of the container
 ```
 
 # 硬件设备
