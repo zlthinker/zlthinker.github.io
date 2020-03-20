@@ -79,19 +79,11 @@ International Conference on Computer Vision (ICCV) 2017
 **Parallel Structure from Motion from Local Increment to Global Averaging** [[arxiv](./files/parallel_sfm.pdf)] \\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
 
-# Blog
-
-
-# Projects
-
-[Project link](project)
-
 # Other links
 
+* [Project link](project)
 * [Blog link](blog) 
 * [Life link](life)
-
-
 
 
 
