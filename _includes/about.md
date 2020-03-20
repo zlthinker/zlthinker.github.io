@@ -13,13 +13,14 @@ International Conference on Computer Vision (ICCV) 2019
 
 **ContextDesc: Local Descriptor Augmentation with Cross-Modality Context** [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)][[github](https://github.com/lzx551402/contextdesc)] \\
 Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
-IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019 (**oral**)
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019 **(oral)**
 
 **Learning Fully Dense Neural Networks for Image Semantic Segmentation** [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
 Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan \\
 Association for the Advancement of Artificial Intelligence (AAAI) 2019
 
 * **2018** 
+
 **Learning and Matching Multi-View Descriptors for Registration of Point Clouds** [[arxiv](https://arxiv.org/abs/1807.05653)][[supp](./files/eccv2018_supp.pdf)][[github](https://github.com/zlthinker/RMBP)]\\
 **Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan \\
 European Conference on Computer Vision (ECCV) 2018
@@ -41,6 +42,7 @@ Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Qua
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018
 
 * **2017**
+
 **Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
 **Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan \\
 International Conference on Computer Vision (ICCV) 2017
