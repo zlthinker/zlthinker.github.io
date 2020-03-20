@@ -186,7 +186,7 @@ iframe {
 ul,   // stylize (un)ordered list
 ol {
   margin: 0px 0;
-  padding-left: 10px;   // 30px, change padding of list
+  padding-left: 0px;   // 30px, change padding of list
   li {
     word-wrap: break-word;
     line-height: 1.4em;
@@ -348,7 +348,7 @@ section {
     margin: 0;
     padding: 0;
     li {
-      margin: 0px 0;   // 25px 0
+      margin: 25px 0;   // 25px 0
       .title {
         max-width: 100%;
         //overflow: hidden !important;

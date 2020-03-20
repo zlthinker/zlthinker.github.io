@@ -5,45 +5,47 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 * **2020**
 
-**Learning Two-View Correspondences and Geometry Using Order-Aware Network** \\
+* **2019**
+
+**Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)] \\
 Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
-ICCV 2019 [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)]
+International Conference on Computer Vision (ICCV) 2019 
 
-* "ContextDesc: Local Descriptor Augmentation with Cross-Modality Context" \\
-CVPR 2019 [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)] \\
-Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan
+**ContextDesc: Local Descriptor Augmentation with Cross-Modality Context** [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)][[github](https://github.com/lzx551402/contextdesc)] \\
+Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019 (**oral**)
 
-* "Learning Fully Dense Neural Networks for Image Semantic Segmentation" \\
-AAAI 2019 [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
-Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan
+**Learning Fully Dense Neural Networks for Image Semantic Segmentation** [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
+Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan \\
+Association for the Advancement of Artificial Intelligence (AAAI) 2019
 
-* "Learning and Matching Multi-View Descriptors for Registration of Point Clouds" \\
-ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.05653)]
-[[supp](./files/eccv2018_supp.pdf)] [[github](https://github.com/zlthinker/RMBP)] \\
-**Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan
+* **2018** 
+**Learning and Matching Multi-View Descriptors for Registration of Point Clouds** [[arxiv](https://arxiv.org/abs/1807.05653)][[supp](./files/eccv2018_supp.pdf)][[github](https://github.com/zlthinker/RMBP)]\\
+**Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan \\
+European Conference on Computer Vision (ECCV) 2018
 
-* "GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints" \\
-ECCV 2018 [[arxiv](https://arxiv.org/abs/1807.06294)] [[github](https://github.com/lzx551402/geodesc)] \\
-Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan
+**GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints** [[arxiv](https://arxiv.org/abs/1807.06294)] [[github](https://github.com/lzx551402/geodesc)] \\
+Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan \\
+European Conference on Computer Vision (ECCV) 2018
 
-* "Matchable Image Retrieval by Learning from Surface Reconstruction" \\
-ACCV 2018 [[arviv](https://arxiv.org/pdf/1811.10343.pdf)] \\
-Tianwei Shen, Zixin Luo, Lei Zhou, Runze Zhang, Siyu Zhu, Tian Fang, Long Quan
+**Matchable Image Retrieval by Learning from Surface Reconstruction** [[arxiv](https://arxiv.org/pdf/1811.10343.pdf)][[github](https://github.com/hlzz/mirror)] \\
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Runze Zhang, Siyu Zhu, Tian Fang, Long Quan \\
+Asian Conference on Computer Vision (ACCV) 2018
 
-* "Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus" \\
-TPAMI 2018 [[pdf](./files/distributed_bundle.pdf)] \\
-Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan 
+**Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus** [[pdf](./files/distributed_bundle.pdf)] \\
+Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan  \\
+IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2018
 
-* "Very Large-Scale Global SfM by Distributed Motion Averaging" \\
-CVPR 2018 [[pdf](http://openaccess.thecvf.com/content_cvpr_2018/papers/Zhu_Very_Large-Scale_Global_CVPR_2018_paper.pdf)]\\
-Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan
+**Very Large-Scale Global SfM by Distributed Motion Averaging** [[pdf](http://openaccess.thecvf.com/content_cvpr_2018/papers/Zhu_Very_Large-Scale_Global_CVPR_2018_paper.pdf)]\\
+Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018
 
-* "Progressive Large Scale-Invariant Image Matching in Scale Space" \\
-ICCV 2017 [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
-**Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan
+* **2017**
+**Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
+**Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan \\
+International Conference on Computer Vision (ICCV) 2017
 
-* "Parallel Structure from Motion from Local Increment to Global Averaging" \\
-arXiv:1702.08601 [[pdf](./files/parallel_sfm.pdf)]\\
+**Parallel Structure from Motion from Local Increment to Global Averaging** [[arxiv](./files/parallel_sfm.pdf)] \\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
 
 # Blog
