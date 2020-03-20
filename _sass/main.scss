@@ -253,7 +253,7 @@ iframe {
   width: 100%;
 }
 article {
-  max-width: 900px; //change article width here
+  max-width: 750px; //650px, change article width here
   margin: 0 auto;
   .title {
     line-height: 1.4em;
@@ -277,7 +277,7 @@ article {
     margin: 30px 0;
   }
   p {
-    font-size: 20px;    // change font size here
+    font-size: 17px;    // 16px, change font size here
     line-height: 1.5em; // change line space here
     word-wrap: break-word;
   }
