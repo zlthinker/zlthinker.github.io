@@ -1,21 +1,5 @@
 # About
-I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering, HKUST. I am now undertaking research on 3D reconstruction, structure-from-motion and point cloud registration under esteemed tutelage of [Prof. Long Quan](https://www.cse.ust.hk/~quan/). Previously, I achieved bachelor's degree at College of Information Science & Electronic Engineering, Zhejiang University. My CV can be accessed [here](./files/cv.pdf). (Edited on 2019/12/31)
-
-# News
-
-_"A dataset for scale-invariant image matching is released [here](https://zlthinker.github.io/scale-invariant-image-matching#datasets)."_
-
-# Blog
-[Blog link](blog)
-
-# Projects
-
-[Project link](project)
-
-# Life
-
-[Life link](life)
-
+I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering, HKUST. I am now undertaking research on image localization, structure-from-motion and point cloud registration under esteemed tutelage of [Prof. Long Quan](https://www.cse.ust.hk/~quan/). Previously, I achieved bachelor's degree at College of Information Science & Electronic Engineering, Zhejiang University. My CV can be accessed [here](./files/cv.pdf). (Edited on 2019/12/31)
 
 # Publications
 
@@ -60,6 +44,21 @@ ICCV 2017 [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\
 * "Parallel Structure from Motion from Local Increment to Global Averaging" \\
 arXiv:1702.08601 [[pdf](./files/parallel_sfm.pdf)]\\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
+
+# Blog
+
+
+# Projects
+
+[Project link](project)
+
+# Other links
+
+* [Blog link](blog) 
+* [Life link](life)
+
+
+
 
 
 # Contact
