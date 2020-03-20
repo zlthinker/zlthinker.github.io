@@ -5,11 +5,36 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 * **2020**
 
+**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[github](https://github.com/zlthinker/KFNet)] \\
+**Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020 **(oral)**
+
+**D3Feat: Joint Learning of Dense Detection and Description of 3D Local Features** [[arxiv](https://arxiv.org/pdf/2003.03164.pdf)][[github](https://github.com/XuyangBai/D3Feat)] \\
+Xuyang Bai, Zixin Luo, **Lei Zhou**, Hongbo Fu, Long Quan, Chiew-Lan Tai \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020 **(oral)**
+
+**ASLFeat: Learning Local Features of Accurate Shape and Localization** \\
+Zixin Luo, **Lei Zhou**, Xuyang Bai, Hongkai Chen, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
+
+**BlendedMVS: A Large-scale Dataset for Generalized Multi-view Stereo Networks** [[arxiv](https://arxiv.org/pdf/1911.10127.pdf)][[github](https://github.com/YoYo000/BlendedMVS)] \\
+Yao Yao, Zixin Luo, Shiwei Li, Jingyang Zhang, Yufan Ren, **Lei Zhou**, Tian Fang, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
+
+**Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts** \\
+Mingmin Zhen, Jinglu Wang, Lei Zhou, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
+
+
 * **2019**
 
 **Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)] \\
 Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
 International Conference on Computer Vision (ICCV) 2019 
+
+**Self-Supervised Learning of Depth and Motion Under Photometric Inconsistency** [[arxiv](https://arxiv.org/pdf/1909.09115.pdf)][[github](https://github.com/hlzz/DeepMatchVO)] \\
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Yao Yao, Shiwei Li, Jiahui Zhang, Tian Fang, Long Quan
+International Conference on Computer Vision Workshop (ICCVW) 2019 
 
 **ContextDesc: Local Descriptor Augmentation with Cross-Modality Context** [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)][[github](https://github.com/lzx551402/contextdesc)] \\
 Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
@@ -18,6 +43,10 @@ IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019 **(oral)*
 **Learning Fully Dense Neural Networks for Image Semantic Segmentation** [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
 Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan \\
 Association for the Advancement of Artificial Intelligence (AAAI) 2019
+
+**Beyond Photometric Loss for Self-Supervised Ego-Motion Estimation** [[arxiv](https://arxiv.org/pdf/1902.09103.pdf)][[github](https://github.com/hlzz/DeepMatchVO)]
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Hanyu Deng, Runze Zhang, Tian Fang, Long Quan \\
+International Conference on Robotics and Automation (ICRA) 2019
 
 * **2018** 
 
