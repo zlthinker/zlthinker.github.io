@@ -3,10 +3,11 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 # Publications
 
-* "Learning Two-View Correspondences and Geometry Using Order-Aware Network" \\
-ICCV 2019 [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)] \\
-Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan,
-Hongen Liao
+* **2020**
+
+**Learning Two-View Correspondences and Geometry Using Order-Aware Network** \\
+Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
+ICCV 2019 [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)]
 
 * "ContextDesc: Local Descriptor Augmentation with Cross-Modality Context" \\
 CVPR 2019 [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)] \\
