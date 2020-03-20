@@ -142,7 +142,8 @@ docker ps -a # list all containers
 docker create --name=<container-name> -it <image-name/ID>
 docker start <container-name/ID>	# start a existing container
 docker stop <container-name/ID>	# stop a running container
-docker exec -it <container-name/ID> bash	# log in the shell of the container
+docker exec -it <container-name/ID> bash	# log in the shell of a container
+docker rm <container-name/ID> # remove a container
 ```
 
 # 硬件设备
