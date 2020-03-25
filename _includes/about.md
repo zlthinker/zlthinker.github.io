@@ -13,7 +13,7 @@ IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020 **(oral)*
 Xuyang Bai, Zixin Luo, **Lei Zhou**, Hongbo Fu, Long Quan, Chiew-Lan Tai \\
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020 **(oral)**
 
-**ASLFeat: Learning Local Features of Accurate Shape and Localization** \\
+**ASLFeat: Learning Local Features of Accurate Shape and Localization** [[arxiv](https://arxiv.org/abs/2003.10071)][[github](https://github.com/lzx551402/aslfeat)]\\
 Zixin Luo, **Lei Zhou**, Xuyang Bai, Hongkai Chen, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
 
@@ -22,7 +22,7 @@ Yao Yao, Zixin Luo, Shiwei Li, Jingyang Zhang, Yufan Ren, **Lei Zhou**, Tian Fan
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
 
 **Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts** \\
-Mingmin Zhen, Jinglu Wang, Lei Zhou, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
+Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020
 
 
