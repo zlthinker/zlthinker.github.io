@@ -5,7 +5,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 * **2020**
 
-**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[github](https://github.com/zlthinker/KFNet)] \\
+**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)] \\
 **Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020 **(oral)**
 
@@ -54,7 +54,7 @@ International Conference on Robotics and Automation (ICRA) 2019
 **Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan \\
 European Conference on Computer Vision (ECCV) 2018
 
-**GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints** [[arxiv](https://arxiv.org/abs/1807.06294)] [[github](https://github.com/lzx551402/geodesc)] \\
+**GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints** [[arxiv](https://arxiv.org/abs/1807.06294)][[github](https://github.com/lzx551402/geodesc)] \\
 Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan \\
 European Conference on Computer Vision (ECCV) 2018
 
@@ -72,7 +72,7 @@ IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018
 
 * **2017**
 
-**Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)] [[video](https://youtu.be/GXFufpVK-gI)]\\
+**Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)][[video](https://youtu.be/GXFufpVK-gI)]\\
 **Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan \\
 International Conference on Computer Vision (ICCV) 2017
 
