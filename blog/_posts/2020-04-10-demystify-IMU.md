@@ -49,7 +49,9 @@ $$\frac{d p_w(t)}{dt} = v_w(t).$$
 
 * $$\Delta R_b(t)$$ is the infinitestimal rotation from time $$t + \Delta t$$ to time $$t$$ in the body frame.
 
-$$R_{wb}(t + \Delta t) = $R_{wb}(t) Exp( \bar{\omega}_b(t) \Delta t ),$$
+The update step of the IMU state can be expressed as
+
+$$R_{wb}(t + \Delta t) = R_{wb}(t) Exp( \bar{\omega}_b(t) \Delta t ),$$
 
 $$v_w(t + \Delta t) = v_w(t) + \bar{a}_w(t) \Delta t,$$
 
