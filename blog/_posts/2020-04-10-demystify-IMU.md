@@ -27,13 +27,23 @@ updated: 2020-04-10 14:00
 At time $$t$$,
 
 $$\omega_b(t) = \bar{\omega}_b(t) + b^g(t) + n^g(t),$$
-$$a_b(t) = R_{wb}^T (\bar{a}_w(t) - g_w) + b^a(t) + n^a(t).$$
+
+$$a_b(t) = R_{wb}(t)^T (\bar{a}_w(t) - g_w) + b^a(t) + n^a(t).$$
 
 * $$\bar{\omega}$$ and $$\bar{a}$$ are the true rotational velocity and acceleration in contrast to the noisy measurements $$\omega$$ and $$a$$.
 * $$n^g(t)$$ and $$n^a(t)$$ are Gaussian noise of the gyroscope and acceleration measurements.
-* $$R_{wb}$$ is the rotation which rotate a point in the body frame into the world frame.
+* $$R_{wb}(t)$$ is the rotation which rotates a point from the body frame into the world frame at time $$t$$.
 * $$g_w$$ is the gravity acceleration vector in the world frame.
 
 # Application 
 
-### Localization
+### Inertial odometry
+
+$$\frac{d R_{wb}(t)}{dt} = R_{wb}(t) \frac{d \Delta R_b(t)}{dt} = R_{wb}(t) \omega_b(t),$$
+
+$$\frac{d v_w(t)}{dt} = \bar{a}_w(t),$$
+
+$$\frac{d p_w(t)}{dt} = v_w(t).$$
+
+* $$\Delta R_b(t)$$ is the infinitestimal rotation in the body frame.
+* $$p_w(t)$$ is the position of IMU in the world frame.
