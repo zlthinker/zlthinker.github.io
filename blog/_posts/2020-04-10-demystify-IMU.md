@@ -51,8 +51,8 @@ $$\frac{d p_w(t)}{dt} = v_w(t).$$
 
 The update step of the IMU state can be expressed as
 
-$$R_{wb}(t + \Delta t) = R_{wb}(t) Exp( \bar{\omega}_b(t) \Delta t ),$$
+$$R_{wb}(t + \Delta t) = R_{wb}(t) Exp( \bar{\omega}_b(t) \Delta t ) = R_{wb}(t) Exp( (\omega_b(t) - b^g(t) - n^g(t)) \Delta t ),$$
 
-$$v_w(t + \Delta t) = v_w(t) + \bar{a}_w(t) \Delta t,$$
+$$v_w(t + \Delta t) = v_w(t) + \bar{a}_w(t) \Delta t = v_w(t) + g_w \Delta t + R_{wb}(t) (a_b(t) - b^a(t) - n^a(t)) \Delta t,$$
 
-$$p_w(t + \Delta t) = p_w(t) + v_w(t) \Delta t + \frac{1}{2} \bar{a}_w(t) \Delta t^2. $$
+$$p_w(t + \Delta t) = p_w(t) + v_w(t) \Delta t + \frac{1}{2} \bar{a}_w(t) \Delta t^2 = p_w(t) + v_w(t) \Delta t + \frac{1}{2} g_w \Delta t^2 + \frac{1}{2} R_{wb}(t) (a_b(t) - b^a(t) - n^a(t)) \Delta t^2. $$
