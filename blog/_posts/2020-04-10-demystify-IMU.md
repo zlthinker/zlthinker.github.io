@@ -57,5 +57,5 @@ p_w(t + \Delta t) &= p_w(t) + v_w(t) \Delta t + \frac{1}{2} \bar{a}_w(t) \Delta 
 Equivalently, we can express the equations above in discrete time steps. Subscripts are omitted for each of notation.
 
 $$\begin{split} R_{i+1} &= R_i exp( \bar{\omega}_i \Delta t) \\ &= R_i exp( (\omega_i - b^g_i_ - n^g_i) \Delta t), \\
-v_{i+1} &= v_i + \bar{a}_i \Delta t \\ &= v_i + g \Delta t + R_i (a_i - b^a_i_ - n^a_i_) \Delta t, \\
+v_{i+1} &= v_i + \bar{a}_i \Delta t \\ &= v_i + g \Delta t + R_i (a_i - b^a_i - n^a_i) \Delta t, \\
 p_{i+1} &= p_i + v_i \Delta t + \frac{1}{2} \bar{a}_i \Delta t^2 \\ &= p_i + v_i \Delta t + \frac{1}{2} g \Delta t^2 + \frac{1}{2} R_i (a_i - b^a_i - n^a_i) \Delta t^2. \end{split} $$
