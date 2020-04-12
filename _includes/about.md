@@ -33,7 +33,7 @@ Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yuro
 _International Conference on Computer Vision (ICCV) 2019_
 
 **Self-Supervised Learning of Depth and Motion Under Photometric Inconsistency** [[arxiv](https://arxiv.org/pdf/1909.09115.pdf)][[github](https://github.com/hlzz/DeepMatchVO)] \\
-Tianwei Shen, Zixin Luo, **Lei Zhou**, Yao Yao, Shiwei Li, Jiahui Zhang, Tian Fang, Long Quan
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Yao Yao, Shiwei Li, Jiahui Zhang, Tian Fang, Long Quan \\
 _International Conference on Computer Vision Workshop (ICCVW) 2019_
 
 **ContextDesc: Local Descriptor Augmentation with Cross-Modality Context** [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)][[github](https://github.com/lzx551402/contextdesc)] \\
