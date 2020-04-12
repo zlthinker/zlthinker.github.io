@@ -83,4 +83,4 @@ $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k 
 
 ### Noise/Covariance propagation
 
-The estimation of noise covariance is crucial to the probabilistic modeling like MAP estimation. Concretely, the inverse of the covariance is used to weight the terms in the optimization.
+The estimation of noise covariance is indispensible to the probabilistic modeling like MAP estimation. Concretely, the inverse of the covariance is used to weight the terms in the optimization.

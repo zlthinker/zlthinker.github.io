@@ -28,7 +28,7 @@ _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 
 * **2019**
 
-**Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)] \\
+**Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)][[github](https://github.com/zjhthu/OANet)] \\
 Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
 _International Conference on Computer Vision (ICCV) 2019_
 
@@ -44,7 +44,7 @@ _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019_ **(oral
 Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan \\
 _Association for the Advancement of Artificial Intelligence (AAAI) 2019_
 
-**Beyond Photometric Loss for Self-Supervised Ego-Motion Estimation** [[arxiv](https://arxiv.org/pdf/1902.09103.pdf)][[github](https://github.com/hlzz/DeepMatchVO)]
+**Beyond Photometric Loss for Self-Supervised Ego-Motion Estimation** [[arxiv](https://arxiv.org/pdf/1902.09103.pdf)][[github](https://github.com/hlzz/DeepMatchVO)] \\
 Tianwei Shen, Zixin Luo, **Lei Zhou**, Hanyu Deng, Runze Zhang, Tian Fang, Long Quan \\
 _International Conference on Robotics and Automation (ICRA) 2019_
 
