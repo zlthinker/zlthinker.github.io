@@ -69,12 +69,13 @@ p_j &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + \frac{1}{2} \sum_{k=i}^{j-1} \bar{a
 
 The problem of the equations above is that they require the knowledge of the initial state at time $$i$$, i.e., $$x_i = [R_i, p_i, v_i]^T$$. However, in some cases, we have no idea of the initial state. Therefore, pre-integration is usually adopted to integrate the measurements in the body frame of the last state. Then, once the initial state is available, the subsequent states can be brought into the world frame by simple addition or multiplication with the pre-integration values. 
 
-Below, we ignore the addition terms concerning $$g$$, since they are constant for a fixed length of interval. The pre-integration is written as below.
+Below, we ignore the addition terms concerning $$g$$ for simplicity, since they are constant for a fixed length of interval. The pre-integration is written as below.
 
 $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k - n^g_k) \Delta t) \\
 \Delta v_{ij} &= R_i^T(v_j - v_i) = \sum_{k=i}^{j-1} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t, \\
 \Delta p_{ij} &= R_i^T (p_j - p_i - (j-i) v_i )=  \sum_{k=i}^{j-1} \Delta v_{ik} \Delta t +  \sum_{k=i}^{j-1} \frac{1}{2} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t^2. \end{split} $$
 
-* $$\Delta R_{ij}$$ denotes the relative rotation that brings a point in the j-th body frame into the i-th body frame.
-* $$\Delta v_{ij}$$ and $$\Delta p_{ij}$$ do not correspond to the true **physical** change in the velocity and position.
+* $$\Delta R_{ij}$$ denotes the **physical** relative rotation that brings a point in the j-th body frame into the i-th body frame.
+* But $$\Delta v_{ij}$$ and $$\Delta p_{ij}$$ do not correspond to the true **physical** change in the velocity and position.
 * Currently, the right hand side of the above equations are independent of the initial state $$x_i = [R_i, p_i, v_i]^T$$.
+* Once $$[R_i, p_i, v_i]^T$$ and $$[\Delta R_{ij}, \Delta p_{ij}, \Delta v_{ij}]^T$$ are known, the state $$[R_j, p_j, v_j]^T$$ can be easily computed.
