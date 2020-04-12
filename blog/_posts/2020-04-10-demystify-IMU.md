@@ -17,7 +17,7 @@ updated: 2020-04-10 14:00
 
 # Properties
 
-* High sampling rate
+* High sampling rate (on the order of hundreds of samples per second)
 * Accurate in a short time
 * Suffering from drift in a long time range
 * Accelerometer and gyroscope can be biased, which means that their measurement errors are not zero-mean. The bias can vary as time goes. We denote the biases of the accelerometer and gyroscope measurements as $$b^a$$ and $$b^g$$ respectively.
@@ -30,12 +30,10 @@ $$\begin{split} \omega_b(t) &= \bar{\omega}_b(t) + b^g(t) + n^g(t), \\ a_b(t) &=
 
 * $$\bar{\omega}$$ and $$\bar{a}$$ are the true rotational velocity and acceleration in contrast to the noisy measurements $$\omega$$ and $$a$$.
 * $$n^g(t)$$ and $$n^a(t)$$ are Gaussian noise of the gyroscope and acceleration measurements. **Please note that the bias terms and the noise terms are all expressed in the body frame.**
-* $$R_{wb}(t)$$ is the rotation which rotates a point from the body frame into the world frame at time $$t$$.
+* $$R_{wb}(t)$$ is the rotation which rotates a point **from the body frame into the world frame** at time $$t$$.
 * $$g_w$$ is the gravity acceleration vector in the world frame.
 
-# Application 
-
-### Inertial odometry
+# Inertial odometry
 
 Inertial odometry aims at estimating the state of IMU, which is denoted as $$x(t) = [R_{wb}(t), p_w(t), v_w(t)]^T$$. $$p_w(t)$$ and $$v_w(t)$$ are the position and velocity of IMU in the world frame respectively.
 
@@ -65,3 +63,18 @@ Rather than looking at a discrete step $$(i, i+1)$$, we can pre-integrate the st
 $$\begin{split} R_j &= R_i exp( \sum_{k=i}^{j-1} \bar{\omega}_k \Delta t) \\ &= R_i exp( \sum_{k=i}^{j-1} (\omega_k - b^g_k - n^g_k) \Delta t) \\ &= R_i \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k - n^g_k) \Delta t) \\
 v_j &= v_i + \sum_{k=i}^{j-1} \bar{a}_k \Delta t \\ &= v_i + (j-i) g \Delta t + \sum_{k=i}^{j-1} R_k (a_k - b^a_k - n^a_k) \Delta t, \\
 p_j &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + \frac{1}{2} \sum_{k=i}^{j-1} \bar{a}_k \Delta t^2 \\ &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + (j-i) \frac{1}{2} g \Delta t^2 + \sum_{k=i}^{j-1} \frac{1}{2} R_k (a_k - b^a_k - n^a_k) \Delta t^2. \end{split} $$
+
+
+### Pre-integration
+
+The problem of the equations above is that they require the knowledge of the initial state at time $$i$$, i.e., $$x_i = [R_i, p_i, v_i]^T$$. However, in some cases, we have no idea of the initial state. Therefore, pre-integration is usually adopted to integrate the measurements in the body frame of the last state. Then, once the initial state is available, the subsequent states can be brought into the world frame by simple addition or multiplication with the pre-integration values. 
+
+Below, we ignore the addition terms concerning $$g$$, since they are constant for a fixed length of interval. The pre-integration is written as below.
+
+$$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k - n^g_k) \Delta t) \\
+\Delta v_{ij} &= R_i^T(v_j - v_i) = \sum_{k=i}^{j-1} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t, \\
+\Delta p_{ij} &= R_i^T (p_j - p_i - (j-i) v_i )=  \sum_{k=i}^{j-1} \Delta v_{ik} \Delta t +  \sum_{k=i}^{j-1} \frac{1}{2} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t^2. \end{split} $$
+
+* $$\Delta R_{ij}$$ denotes the relative rotation that brings a point in the j-th body frame into the i-th body frame.
+* $$\Delta v_{ij}$$ and $$\Delta p_{ij}$$ do not correspond to the true **physical** change in the velocity and position.
+* Currently, the right hand side of the above equations are independent of the initial state $$x_i = [R_i, p_i, v_i]^T$$.
