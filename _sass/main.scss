@@ -314,6 +314,10 @@ article {
 .block {
   display: block;
 }
+.block-vertical-center {
+  display: inline-block;
+  vertical-align: middle;
+}
 .page-navigation,
 .footer {
   text-align: center;
