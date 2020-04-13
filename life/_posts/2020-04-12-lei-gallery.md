@@ -25,3 +25,13 @@ updated: 2020-04-20 20：50
 <p align="center">
 <img src="/images/painting/brain-storm.jpg" alt="brain-storm" width="300"/>
 </p>
+
+* 无题。_15/10/2014_
+<p align="center">
+<img src="/images/painting/cut-phones.jpg" alt="cut-phones" width="300"/>
+</p>
+
+* 音乐是点燃情绪的🔥。_04/10/2014_
+<p align="center">
+<img src="/images/painting/music-fire.jpg" alt="music-fire" width="300"/>
+</p>
