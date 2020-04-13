@@ -15,3 +15,13 @@ updated: 2020-04-20 20：50
 <p align="center">
 <img src="/images/painting/miehuoqi.jpg" alt="miehuoqi" width="200"/>
 </p>
+
+* 一只特立独行的猪。_15/10/2013_
+<p align="center">
+<img src="/images/painting/pig.jpg" alt="pig" width="350"/>
+</p>
+
+* 头脑风暴。_11/04/2014_
+<p align="center">
+<img src="/images/painting/pig.jpg" alt="pig" width="300"/>
+</p>
