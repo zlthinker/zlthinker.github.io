@@ -3,7 +3,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 # Publications
 
-* **2020**
+<h3>2020 &#172;</h3>
 
 **KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)] \\
 **Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
@@ -25,8 +25,7 @@ _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 
-
-* **2019**
+<h3>2019 &#172;</h3>
 
 **Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)][[github](https://github.com/zjhthu/OANet)] \\
 Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
@@ -48,7 +47,7 @@ _Association for the Advancement of Artificial Intelligence (AAAI) 2019_
 Tianwei Shen, Zixin Luo, **Lei Zhou**, Hanyu Deng, Runze Zhang, Tian Fang, Long Quan \\
 _International Conference on Robotics and Automation (ICRA) 2019_
 
-* **2018** 
+<h3>2018 &#172;</h3>
 
 **Learning and Matching Multi-View Descriptors for Registration of Point Clouds** [[arxiv](https://arxiv.org/abs/1807.05653)][[supp](./files/eccv2018_supp.pdf)][[github](https://github.com/zlthinker/RMBP)]\\
 **Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan \\
@@ -70,7 +69,7 @@ _IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2018_
 Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018_
 
-* **2017**
+<h3>2017 &#172;</h3>
 
 **Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)][[video](https://youtu.be/GXFufpVK-gI)]\\
 **Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan \\
