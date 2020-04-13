@@ -18,20 +18,20 @@ updated: 2020-04-20 20：50
 
 * 一只特立独行的猪。_15/10/2013_
 <p align="center">
-<img src="/images/painting/pig.jpg" alt="pig" width="350"/>
+<img src="/images/painting/pig.jpg" alt="pig" width="250"/>
 </p>
 
 * 头脑风暴。_11/04/2014_
 <p align="center">
-<img src="/images/painting/brain-storm.jpg" alt="brain-storm" width="300"/>
+<img src="/images/painting/brain-storm.jpg" alt="brain-storm" width="200"/>
 </p>
 
 * 无题。_15/10/2014_
 <p align="center">
-<img src="/images/painting/cut-phones.jpg" alt="cut-phones" width="300"/>
+<img src="/images/painting/cut-phones.jpg" alt="cut-phones" width="200"/>
 </p>
 
 * 音乐是点燃情绪的🔥。_04/10/2014_
 <p align="center">
-<img src="/images/painting/music-fire.jpg" alt="music-fire" width="300"/>
+<img src="/images/painting/music-fire.jpg" alt="music-fire" width="200"/>
 </p>
