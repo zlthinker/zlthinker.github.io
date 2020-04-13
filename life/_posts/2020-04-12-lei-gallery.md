@@ -23,5 +23,5 @@ updated: 2020-04-20 20：50
 
 * 头脑风暴。_11/04/2014_
 <p align="center">
-<img src="/images/painting/pig.jpg" alt="pig" width="300"/>
+<img src="/images/painting/brain-storm.jpg" alt="brain-storm" width="300"/>
 </p>
