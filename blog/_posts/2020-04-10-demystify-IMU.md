@@ -84,3 +84,11 @@ $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k 
 ### Noise/Covariance propagation
 
 The estimation of noise covariance is indispensible to the probabilistic modeling like MAP estimation. Concretely, the inverse of the covariance is used to weight the terms in the optimization.
+
+# Reference
+
+[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf)
+
+[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf)
+
+[3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
