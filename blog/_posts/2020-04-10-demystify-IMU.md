@@ -20,7 +20,7 @@ updated: 2020-04-10 14:00
 * High sampling rate (on the order of hundreds of samples per second)
 * Accurate in a short time
 * Suffering from drift in a long time range
-* Accelerometer and gyroscope can be biased, which means that their measurement errors are not zero-mean. The bias can vary as time goes. We denote the biases of the accelerometer and gyroscope measurements as $$b^a$$ and $$b^g$$ respectively.
+* Accelerometer and gyroscope can be biased, which means that their measurement errors are not zero-mean (零偏). The bias can vary as time goes. We denote the biases of the accelerometer and gyroscope measurements as $$b^a$$ and $$b^g$$ respectively.
 
 # Model
 
@@ -51,7 +51,7 @@ p_w(t + \Delta t) &= p_w(t) + v_w(t) \Delta t + \frac{1}{2} \bar{a}_w(t) \Delta 
 
 * Here we use lie algebra for the representation of rotation velocity.
 * Note that we assume a constant rotation $$R_{wb}(t)$$ during the short sampling period $$\Delta t$$.
-* Computing $$R_{wb}(t + \Delta t)$$ is straightforward just by intergating the rotational velocity, while computing $$p_w(t + \Delta t)$$ is cumbersome because not only does it rely on the acceleration measurements but also the estimation of orientation $$R_{wb}(t)$$.
+* Computing $$R_{wb}(t + \Delta t)$$ is straightforward just by intergating the rotational velocity, while computing $$p_w(t + \Delta t)$$ is cumbersome because not only does it rely on the double integration of the acceleration measurements but also the estimation of orientation $$R_{wb}(t)$$.
 
 Equivalently, we can express the equations above in discrete time steps of length $$\Delta t$$. Subscripts are omitted for each of notation.
 
@@ -87,8 +87,8 @@ The estimation of noise covariance is indispensible to the probabilistic modelin
 
 # Reference
 
-[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf)
+[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) （* Note: there are errors with Eqs. 26.）
 
-[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf)
+[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) (* Note: journal version of [1], recommended.)
 
 [3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
