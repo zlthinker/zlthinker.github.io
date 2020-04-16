@@ -99,9 +99,9 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
  $$\begin{split}
- \Delta v_{ij} &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^^) (a_k - b^a_k - n^a_k) \Delta t \\
- &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^^ (a_k - b^a_k) \Delta t - \tilde{R}_{ik} n^a_k \Delta t \\
- &= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^^  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
+ \Delta v_{ij} &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k - n^a_k) \Delta t \\
+ &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t - \tilde{R}_{ik} n^a_k \Delta t \\
+ &= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
  &= \Delta \tilde{v}_{ij} - \delta v_{ij}
  \end{split}
  $$
