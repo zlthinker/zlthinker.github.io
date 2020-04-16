@@ -82,7 +82,7 @@ $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k 
 * Currently, the right hand side of the above equations are independent of the initial state $$x_i = [R_i, p_i, v_i]^T$$, and can be obtained solely from the measurements.
 * Once $$[R_i, p_i, v_i]^T$$ and $$[\Delta R_{ij}, \Delta p_{ij}, \Delta v_{ij}]^T$$ are known, the state $$[R_j, p_j, v_j]^T$$ can be easily computed.
 
-### Noise modelling
+### Noise propagation
 
 The pre-integrated measurements above involve the raw measurement noise. It is better to isolate the noise terms from the pre-integated quantities, so that likelihood models can be easily applied. Therefore, below the noise modeling of the pre-integrated measurements are derived in a way of simple addition or multication with the noise-free terms.
 
