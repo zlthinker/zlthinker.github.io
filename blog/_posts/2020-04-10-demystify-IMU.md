@@ -94,6 +94,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  \end{split} 
  $$
 
+ * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
  * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t$$ is essentially the weighted sum of the raw measurement noise $$n_k^g$$. 
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
@@ -105,6 +106,9 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  &= \Delta \tilde{v}_{ij} - \delta v_{ij}
  \end{split}
  $$
+
+ * $$(a_k - b^a_k) \Delta t$$ is the noise-free velocity change in frame k, and $$\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ transforms the change into frame i. Therefore, $$\Delta \tilde{v}_{ij} = \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ accumutates the velocity changes in later steps in the local frame i.
+ * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is concerned with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$.
 
 # Reference
 
