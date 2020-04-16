@@ -121,7 +121,8 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
 $$\begin{split}
 \Delta p_{ij} &= 
 \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
-&= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) \\
+&- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
 &= \Delta \tilde{p}_{ij} + \delta p_{ij}
 \end{split}$$
 
