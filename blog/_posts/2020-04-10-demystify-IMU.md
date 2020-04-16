@@ -90,14 +90,14 @@ The pre-integrated measurements above involve the raw measurement noise. It is b
 
 $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) \\
 &=  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
-&= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J^k n_k^g \Delta t)  \\
-&= \Delta\tilde{R}_{ij}  exp (-\sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t) \\
+&= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t)  \\
+&= \Delta\tilde{R}_{ij}  exp (-\sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) \\
 &= \Delta\tilde{R}_{ij} exp(-\delta \Phi_{ij})
  \end{split} 
  $$
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
- * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t$$ is essentially the weighted sum of the raw measurement noise $$n_k^g$$. 
+ * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$ is essentially the linear combination of the raw measurement noise $$n_k^g$$, thus it is zero-mean and Gaussian. 
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
@@ -122,7 +122,7 @@ $$\begin{split}
 \Delta p_{ij} &= 
 \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
 &= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) \\
-&- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
 &= \Delta \tilde{p}_{ij} + \delta p_{ij}
 \end{split}$$
 
@@ -131,8 +131,8 @@ $$\begin{split}
 
 # Reference
 
-[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) \\ (* Note: there are errors with Eqs. 26.）
+[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) (* Note: there are errors with Eqs. 26.）
 
-[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) \\ (* Note: journal version of [1], recommended.)
+[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) (* Note: journal version of [1], recommended.)
 
 [3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
