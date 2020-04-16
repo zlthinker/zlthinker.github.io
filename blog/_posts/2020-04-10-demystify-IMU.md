@@ -98,7 +98,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
  * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t$$ is essentially the weighted sum of the raw measurement noise $$n_k^g$$. 
- * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \Phi)$$ is the first-order approximation.
+ * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
 #### Velocity noise
@@ -121,8 +121,12 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
 $$\begin{split}
 \Delta p_{ij} &= 
 \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
-&= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \tilde{R}_{ik} \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2)
+&= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&= \Delta \tilde{p}_{ij} + \delta p_{ij}
 \end{split}$$
+
+* $$\Delta \tilde{p}_{ij}$$ is the noise-free accumulated translation in the local frame i.
+* $$\delta p_{ij}$$ is concerned with the pre-integrated rotation noise $$\delta \Phi_{ik}$$, the pre-integrated velocity noise $$\delta v_{ik}$$ and the acceleration noise $$n_k^a$$.
 
 # Reference
 
