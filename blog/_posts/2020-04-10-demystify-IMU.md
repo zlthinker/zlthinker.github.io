@@ -76,19 +76,28 @@ $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k 
 \Delta v_{ij} &= R_i^T(v_j - v_i) = \sum_{k=i}^{j-1} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t, \\
 \Delta p_{ij} &= R_i^T (p_j - p_i - (j-i) v_i )=  \sum_{k=i}^{j-1} \Delta v_{ik} \Delta t +  \sum_{k=i}^{j-1} \frac{1}{2} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t^2. \end{split} $$
 
+* Here $$\Delta R_{ij}$$, $$\Delta v_{ij}$$ and $$\Delta p_{ij}$$ represent the pre-integrated measurements derived from the raw IMU measurements $$a$$ and $$\omega$$, which relate the states of keyframes i and j.
 * $$\Delta R_{ij}$$ denotes the **physical** relative rotation that brings a point in the j-th body frame into the i-th body frame.
 * But $$\Delta v_{ij}$$ and $$\Delta p_{ij}$$ do not correspond to the true **physical** change in the velocity and position.
 * Currently, the right hand side of the above equations are independent of the initial state $$x_i = [R_i, p_i, v_i]^T$$, and can be obtained solely from the measurements.
 * Once $$[R_i, p_i, v_i]^T$$ and $$[\Delta R_{ij}, \Delta p_{ij}, \Delta v_{ij}]^T$$ are known, the state $$[R_j, p_j, v_j]^T$$ can be easily computed.
 
-### Noise/Covariance propagation
+### Noise modelling
 
-The estimation of noise covariance is indispensible to the probabilistic modeling like MAP estimation. Concretely, the inverse of the covariance is used to weight the terms in the optimization.
+The pre-integrated measurements above involve the raw measurement noise. It is better to isolate the noise terms from the pre-integated quantities, so that likelihood models can be easily applied. Therefore, below the noise modeling of the pre-integrated measurements are derived in a way of simple addition or multication with the noise-free terms.
+
+$$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) =  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
+&= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J^k n_k^g \Delta t) \\
+&= \Delta\tilde{R}_{ij}  exp (-\sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t) \\
+&= \Delta\tilde{R}_{ij} exp(-\delta \Phi_{ij})
+ \end{split} $$
+
+ * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J^k n_k^g \Delta t$$ is essentially the weighted sum of the raw measurement noise $$n_k^g$$. 
 
 # Reference
 
-[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) （* Note: there are errors with Eqs. 26.）
+[1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) \\(* Note: there are errors with Eqs. 26.）
 
-[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) (* Note: journal version of [1], recommended.)
+[2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) \\(* Note: journal version of [1], recommended.)
 
 [3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
