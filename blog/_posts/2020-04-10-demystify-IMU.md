@@ -116,7 +116,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is concerned with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$.
  * The higher-order noise terms such as $$\Phi_{ik} * n^a_k$$ are neglected.
 
- #### Position noise
+#### Position noise
 
 $$\begin{split}
 \Delta p_{ij} &= 
