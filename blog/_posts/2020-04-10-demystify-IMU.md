@@ -86,6 +86,8 @@ $$\begin{split} \Delta R_{ij} &=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k 
 
 The pre-integrated measurements above involve the raw measurement noise. It is better to isolate the noise terms from the pre-integated quantities, so that likelihood models can be easily applied. Therefore, below the noise modeling of the pre-integrated measurements are derived in a way of simple addition or multication with the noise-free terms.
 
+#### Rotation noise
+
 $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) \\
 &=  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
 &= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J^k n_k^g \Delta t)  \\
@@ -99,16 +101,28 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
+#### Velocity noise
+
  $$\begin{split}
- \Delta v_{ij} &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k - n^a_k) \Delta t \\
+ \Delta v_{ij} 
+ & \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k - n^a_k) \Delta t \\
  &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t - \tilde{R}_{ik} n^a_k \Delta t \\
  &= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
  &= \Delta \tilde{v}_{ij} - \delta v_{ij}
  \end{split}
  $$
 
- * $$(a_k - b^a_k) \Delta t$$ is the noise-free velocity change in frame k, and $$\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ transforms the change into frame i. Therefore, $$\Delta \tilde{v}_{ij} = \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ accumutates the velocity changes in later steps in the local frame i.
+ * $$(a_k - b^a_k) \Delta t$$ is the noise-free velocity change in frame k, and $$\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ transforms the change into frame i. Therefore, $$\Delta \tilde{v}_{ij} = \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ accumutates the velocity changes in later steps in the local frame i.
  * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is concerned with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$.
+ * The higher-order noise terms such as $$\Phi_{ik} * n^a_k$$ are neglected.
+
+ #### Position noise
+
+$$\begin{split}
+\Delta p_{ij} &= 
+\sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
+&= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t + \tilde{R}_{ik} \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2)
+\end{split}$$
 
 # Reference
 
