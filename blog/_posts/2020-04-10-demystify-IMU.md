@@ -91,13 +91,12 @@ The pre-integrated measurements above involve the raw measurement noise. It is b
 $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) \\
 &=  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
 &= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t)  \\
-&= \Delta\tilde{R}_{ij}  exp (-\sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) \\
 &= \Delta\tilde{R}_{ij} exp(-\delta \Phi_{ij})
  \end{split} 
  $$
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
- * The rotation noise $$\delta \Phi_{ij} = \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$ is essentially the linear combination of the raw measurement noise $$n_k^g$$, thus it is zero-mean and Gaussian. 
+ * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$$$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
@@ -113,7 +112,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  $$
 
  * $$(a_k - b^a_k) \Delta t$$ is the noise-free velocity change in frame k, and $$\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ transforms the change into frame i. Therefore, $$\Delta \tilde{v}_{ij} = \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ accumutates the velocity changes in later steps in the local frame i.
- * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is concerned with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$.
+ * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is linear with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$, and is thus zero-mean and Gaussian.
  * The higher-order noise terms such as $$\Phi_{ik} * n^a_k$$ are neglected.
 
 #### Position noise
@@ -127,7 +126,7 @@ $$\begin{split}
 \end{split}$$
 
 * $$\Delta \tilde{p}_{ij}$$ is the noise-free accumulated translation in the local frame i.
-* $$\delta p_{ij}$$ is concerned with the pre-integrated rotation noise $$\delta \Phi_{ik}$$, the pre-integrated velocity noise $$\delta v_{ik}$$ and the acceleration noise $$n_k^a$$.
+* $$\delta p_{ij}$$ is linear with the pre-integrated rotation noise $$\delta \Phi_{ik}$$, the pre-integrated velocity noise $$\delta v_{ik}$$ and the acceleration noise $$n_k^a$$, and is thus zero-mean and Gaussian.
 
 # Reference
 
