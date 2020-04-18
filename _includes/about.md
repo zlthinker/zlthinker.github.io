@@ -21,7 +21,7 @@ _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 Yao Yao, Zixin Luo, Shiwei Li, Jingyang Zhang, Yufan Ren, **Lei Zhou**, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 
-**Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts** \\
+**Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts** [[arxiv](https://arxiv.org/pdf/2004.07684.pdf)] \\
 Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
 
