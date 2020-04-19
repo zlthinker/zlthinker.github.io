@@ -1,6 +1,10 @@
 # About
 I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering, HKUST. I am now undertaking research on image localization, structure-from-motion and point cloud registration under esteemed tutelage of [Prof. Long Quan](https://www.cse.ust.hk/~quan/). Previously, I achieved bachelor's degree at College of Information Science & Electronic Engineering, Zhejiang University. My CV can be accessed [here](./files/cv.pdf). (Edited on 2019/12/31)
 
+# Links
+
+[Blog](blog) / [Life](life) / [Project](project) / [Google scholar](https://scholar.google.com.hk/citations?user=4szsHuQAAAAJ&hl=en)
+
 # Publications
 
 <h3>2020 &#172;</h3>
@@ -77,13 +81,6 @@ _International Conference on Computer Vision (ICCV) 2017_
 
 **Parallel Structure from Motion from Local Increment to Global Averaging** [[arxiv](./files/parallel_sfm.pdf)] \\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
-
-# Other links
-
-* [Project link](project)
-* [Blog link](blog) 
-* [Life link](life)
-
 
 
 # Contact
