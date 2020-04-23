@@ -66,7 +66,7 @@ v_j &= v_i + \sum_{k=i}^{j-1} \bar{a}_k \Delta t \\ &= v_i + (j-i) g \Delta t + 
 p_j &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + \frac{1}{2} \sum_{k=i}^{j-1} \bar{a}_k \Delta t^2 \\ &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + (j-i) \frac{1}{2} g \Delta t^2 + \sum_{k=i}^{j-1} \frac{1}{2} R_k (a_k - b^a_k - n^a_k) \Delta t^2. \end{split} $$
 
 
-### Pre-integration
+### Pre-integration (see [2] for reference)
 
 The problem of the equations above is that they require the knowledge of the initial state at time $$i$$, i.e., $$x_i = [R_i, p_i, v_i]^T$$. However, in some cases, we have no idea of the initial state. Therefore, pre-integration is usually adopted to integrate the measurements in the body frame of the last state. Then, once the initial state is available, the subsequent states can be brought into the world frame by simple addition or multiplication with the pre-integration values. 
 
@@ -96,7 +96,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  $$
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
- * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$$$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
+ * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
@@ -127,6 +127,8 @@ $$\begin{split}
 
 * $$\Delta \tilde{p}_{ij}$$ is the noise-free accumulated translation in the local frame i.
 * $$\delta p_{ij}$$ is linear with the pre-integrated rotation noise $$\delta \Phi_{ik}$$, the pre-integrated velocity noise $$\delta v_{ik}$$ and the acceleration noise $$n_k^a$$, and is thus zero-mean and Gaussian.
+
+# Visual inertial odometry
 
 # Reference
 
