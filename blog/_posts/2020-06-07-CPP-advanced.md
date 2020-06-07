@@ -1,6 +1,6 @@
 ---
-title: Geometry
-updated: 2020-04-17 17:00
+title: C++ Advanced
+updated: 2020-06-07 11:00
 category: [CV]
 tags: [Notes]
 ---
@@ -46,9 +46,10 @@ std::for_each(A.begin(), A.end(), unary_function)   // return the the unary func
 
 ```
 for (auto i : v)
-for (auto& i : v)
+for (auto&& i : v)  // when you want to modify the elements
 for (const auto& i : v)
 for (int j = 0; int i : {0, 1, 2})
+for (auto [first, second] : map)
 ```
 
 ## Smart pointers
