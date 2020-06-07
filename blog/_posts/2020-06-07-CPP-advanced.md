@@ -55,4 +55,28 @@ for (auto [first, second] : map)
 ## Smart pointers
 
 
-## Variadic template
+## Variadic templates
+
+```
+template<typename... Args>
+void Foo(Args... args) {
+}
+
+// You can call it by
+Foo(1.0);
+Foo("string", bool, 10);
+```
+
+Variadic templates can be used to implement recursive functions. For example,
+
+```
+template<typename T>
+T Sum(T arg) {
+    return arg;
+}
+
+template<typename... Args>
+T Sum(T t, Args... args) {
+    return t + Sum(args...);
+}
+```
