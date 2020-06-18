@@ -9,7 +9,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 <h3>2020 &#172;</h3>
 
-**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)] \\
+**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)][[poster](./files/KFNet_poster.pdf)] \\
 **Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_ **(oral)**
 
