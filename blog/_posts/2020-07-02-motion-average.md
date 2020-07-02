@@ -34,4 +34,4 @@ By aggregating such equations, the iteration steps of all the global rotations c
 
 $$\mathbf{A} \Delta \omega_{global} = \Delta \omega_{rel},$$
 
-where $$\mathbf{A}$$ consists of a $$\mathbf{I}$$ and a $$-\mathbf{I}$$ for each camera edge.
+where $$\mathbf{A}$$ consists of a $$\mathbf{I}_3$$ and a $$-\mathbf{I}_3$$ on each row for each camera edge.
