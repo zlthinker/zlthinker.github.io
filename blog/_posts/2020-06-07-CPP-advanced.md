@@ -80,3 +80,35 @@ T Sum(T t, Args... args) {
     return t + Sum(args...);
 }
 ```
+
+## type_traits
+
+Type traits are used to in template programming to support type inference and type transformation **at compile time**. There are three types of `type_traits`: 
+
+1. Unary type traits: describe a property of a type;
+
+2. Binary type traits: describe a relationship between two types;
+
+3. Transformation traits: modify a property of a type.
+
+| Traits types | Examples | Function |
+|:--:|:--:|:--:|
+|Unary traits| `is_integral<>` | if of type like bool, char, short, int, long |
+|| `is_void<>` | if of type void |
+|| `is_floating_point<>` | if of type floating point |
+|| `is_const<>` | if of constant type |
+|| `is_pointer<>` | if of pointer type |
+|| `is_array<>` | if of array type |
+|| `is_class<>` | if it is a class |
+|| `is_enum<>` | if it is a enum |
+|| `is_function<>` | if it is a function type |
+|Binary traits| `is_same<T,U>`| if T and U are the same type|
+|| `is_base_of<T,U>`| if T is the base type of U|
+|| `is_convertible<T,U>`| if T can be converted to U|
+|Transformation traits| `remove_const<>`| const int -> int|
+|| `add_const<>`| int -> const int|
+|| `add_pointer<>`| int -> int*|
+|| `remove_pointer<>`| int* -> int|
+|| `remove_all_extent<>`| int[][][] -> int|
+|| `enable_if<>`| used in **SFINAE**|
+
