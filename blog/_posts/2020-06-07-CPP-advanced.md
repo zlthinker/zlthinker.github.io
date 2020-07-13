@@ -92,8 +92,8 @@ Type traits are used to in template programming to support type inference and ty
 3. Transformation traits: modify a property of a type.
 
 | Traits types | Examples | Function |
-|:--:|:--:|:--:|
-|Unary traits| `is_integral<>` | if of type like bool, char, short, int, long |
+|:--:|:--|:--|
+|Unary traits| `is_integral<>` | if of types like bool, char, short, int, long |
 || `is_void<>` | if of type void |
 || `is_floating_point<>` | if of type floating point |
 || `is_const<>` | if of constant type |
