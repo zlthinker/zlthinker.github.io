@@ -9,6 +9,21 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 
 <h3>2020 &#172;</h3>
 
+**Stochastic Bundle Adjustment for Efficient and Scalable 3D Reconstruction**
+[[github](https://github.com/zlthinker/STBA)] \\
+**Lei Zhou**, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
+**Learning Discriminative Feature with CRF for Unsupervised Video Object Segmentation** \\
+Mingmin Zhen, Shiwei Li, **Lei Zhou**, Jiaxiang Shang, Haoan Feng, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
+**Self-Supervised Monocular 3D Face Reconstruction by Occlusion-Aware Multi-view Geometry Consistency**
+[[arxiv](https://arxiv.org/abs/2007.12494)]
+[[github](https://github.com/jiaxiangshang/MGCNet)] \\
+Jiaxiang Shang, Tianwei Shen, Shiwei Li, **Lei Zhou**, Mingmin Zhen, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
 **KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)][[poster](./files/KFNet_poster.pdf)] \\
 **Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_ **(oral)**
