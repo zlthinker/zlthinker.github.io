@@ -10,7 +10,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 <h3>2020 &#172;</h3>
 
 **Stochastic Bundle Adjustment for Efficient and Scalable 3D Reconstruction**
-[[github](https://github.com/zlthinker/STBA)] \\
+[[arxiv](https://arxiv.org/abs/2008.00446)][[github](https://github.com/zlthinker/STBA)] \\
 **Lei Zhou**, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan \\
 _European Conference on Computer Vision (ECCV) 2020_
 
