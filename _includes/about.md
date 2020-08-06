@@ -10,7 +10,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 <h3>2020 &#172;</h3>
 
 **Stochastic Bundle Adjustment for Efficient and Scalable 3D Reconstruction**
-[[arxiv](https://arxiv.org/abs/2008.00446)][[github](https://github.com/zlthinker/STBA)] \\
+[[arxiv](https://arxiv.org/abs/2008.00446)][[github](https://github.com/zlthinker/STBA)][[video](https://youtu.be/eHhARE25xx4)] \\
 **Lei Zhou**, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan \\
 _European Conference on Computer Vision (ECCV) 2020_
 
@@ -24,7 +24,7 @@ _European Conference on Computer Vision (ECCV) 2020_
 Jiaxiang Shang, Tianwei Shen, Shiwei Li, **Lei Zhou**, Mingmin Zhen, Tian Fang, Long Quan \\
 _European Conference on Computer Vision (ECCV) 2020_
 
-**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)][[poster](./files/KFNet_poster.pdf)] \\
+**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)][[poster](./files/KFNet_poster.pdf)][[video](https://youtu.be/3T55iY-EuHw)] \\
 **Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
 _IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_ **(oral)**
 
