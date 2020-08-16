@@ -90,13 +90,13 @@ The pre-integrated measurements above involve the raw measurement noise. It is b
 
 $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) \\
 &=  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
-&= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t)  \\
+&= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t)  \\
 &= \Delta\tilde{R}_{ij} exp(-\delta \Phi_{ij})
  \end{split} 
  $$
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
- * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
+ * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
@@ -105,14 +105,14 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  $$\begin{split}
  \Delta v_{ij} 
  & \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k - n^a_k) \Delta t \\
- &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t - \tilde{R}_{ik} n^a_k \Delta t \\
- &= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
+ &= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t \\
+ &= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) \\
  &= \Delta \tilde{v}_{ij} - \delta v_{ij}
  \end{split}
  $$
 
  * $$(a_k - b^a_k) \Delta t$$ is the noise-free velocity change in frame k, and $$\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ transforms the change into frame i. Therefore, $$\Delta \tilde{v}_{ij} = \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t$$ accumutates the velocity changes in later steps in the local frame i.
- * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t)$$ is linear with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$, and is thus zero-mean and Gaussian.
+ * The velocity noise $$\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t)$$ is linear with both integrated rotational noise $$\delta \Phi_{ik}$$ and the acceleration noise $$n^a_k$$, and is thus zero-mean and Gaussian.
  * The higher-order noise terms such as $$\Phi_{ik} * n^a_k$$ are neglected.
 
 #### Position noise
@@ -121,7 +121,7 @@ $$\begin{split}
 \Delta p_{ij} &= 
 \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
 &= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) \\
-&- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
 &= \Delta \tilde{p}_{ij} + \delta p_{ij}
 \end{split}$$
 
@@ -143,27 +143,19 @@ $$
 
 The transition of the covariances of rotation noise $$\delta \Phi_{ij}$$, velocity noise $$\delta v_{ij}$$ and position noise $$\delta p_{ij}$$ is a bit more complicated because the velocity noise $$\delta v_{ij}$$ depends on the rotation noise $$\delta \Phi_{ij}$$, and the position noise $$\delta p_{ij}$$ depends on both the rotation noise $$\delta \Phi_{ij}$$ and the velocity noise $$\delta v_{ij}$$. 
 
-$$\begin{split}\delta \Phi_{ij} &\approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t \\ 
-&= \sum_{k=i}^{j-2} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
-&= \sum_{k=i}^{j-2} (\tilde{R}_{k+1,j-1} \tilde{R}_{j,j-1} )^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
-&= \tilde{R}_{j,j-1}^T \sum_{k=i}^{j-2} \tilde{R}_{k+1,j-1}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
-&= \tilde{R}_{j,j-1}^T \delta \Phi_{i,j-1} + J_{j-1} n_{j-1}^g \Delta t.
-\end{split}$$
-
-$$
+$$\begin{split}\delta \Phi_{ij} &\approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t \\ 
+&= \sum_{k=i}^{j-2} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \sum_{k=i}^{j-2} (\Delta\tilde{R}_{k+1,j-1} \Delta\tilde{R}_{j,j-1} )^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \Delta\tilde{R}_{j,j-1}^T \sum_{k=i}^{j-2} \Delta\tilde{R}_{k+1,j-1}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \Delta\tilde{R}_{j,j-1}^T \delta \Phi_{i,j-1} + J_{j-1} n_{j-1}^g \Delta t. \\
 \begin{split}
-\delta v_{ij} &= - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
-&= - \sum_{k=i}^{j-2} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t -+ \tilde{R}_{i,j-1} n^a_{j-1} \Delta t \\
-&= \delta v_{i,j-1} - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t -+ \tilde{R}_{i,j-1} n^a_{j-1} \Delta t.
-\end{split}
-$$
-
-$$
-\begin{split}
-\delta p_{ij} &= - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
-&= - \sum_{k=i}^{j-2} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
-&- (\delta v_{i,j-1} \Delta t - \frac{1}{2} \tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2) \\
-&= \delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
+\delta v_{ij} &= - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) \\
+&= - \sum_{k=i}^{j-2} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \tilde{R}_{i,j-1} n^a_{j-1} \Delta t \\
+&= \delta v_{i,j-1} - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \Delta\tilde{R}_{i,j-1} n^a_{j-1} \Delta t. \\
+\delta p_{ij} &= - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&= - \sum_{k=i}^{j-2} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&- (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2) \\
+&= \delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
 \end{split}
 $$
 
