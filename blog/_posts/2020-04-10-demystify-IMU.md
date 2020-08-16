@@ -128,6 +128,18 @@ $$\begin{split}
 * $$\Delta \tilde{p}_{ij}$$ is the noise-free accumulated translation in the local frame i.
 * $$\delta p_{ij}$$ is linear with the pre-integrated rotation noise $$\delta \Phi_{ik}$$, the pre-integrated velocity noise $$\delta v_{ik}$$ and the acceleration noise $$n_k^a$$, and is thus zero-mean and Gaussian.
 
+### Update
+
+If we consider the inertial dynamics as a recurrent process, one of the important steps is to update the inherent states as new measurements are collected over time. Here, the states include the pre-integrated noise-free rotation $$\Delta\tilde{R}_{ij}$$, velocity $$\Delta \tilde{v}_{ij}$$, position $$\Delta \tilde{p}_{ij}$$, rotation noise $$\delta \Phi_{ij}$$, velocity noise $$\delta v_{ij}$$, position noise $$\delta p_{ij}$$.
+
+The transition of the aforementioned states can be computed as follows.
+
+$$\Delta\tilde{R}_{ij} = \Delta\tilde{R}_{i,j-1} exp( (\omega_j - b^g_j) \Delta t),$$
+
+$$\Delta \tilde{v}_{ij} = \Delta \tilde{v}_{i,j-1} + \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t, $$ 
+
+$$ \Delta \tilde{p}_{ij} = \Delta \tilde{p}_{i,j-1} + \Delta \tilde{v}_{i,j-1} \Delta t, \frac{1}{2} \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t^2,$$
+
 # Visual inertial odometry
 
 # Reference
