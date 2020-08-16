@@ -148,7 +148,6 @@ $$\begin{split}\delta \Phi_{ij} &\approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,
 &= \sum_{k=i}^{j-2} (\Delta\tilde{R}_{k+1,j-1} \Delta\tilde{R}_{j,j-1} )^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
 &= \Delta\tilde{R}_{j,j-1}^T \sum_{k=i}^{j-2} \Delta\tilde{R}_{k+1,j-1}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
 &= \Delta\tilde{R}_{j,j-1}^T \delta \Phi_{i,j-1} + J_{j-1} n_{j-1}^g \Delta t. \\
-\begin{split}
 \delta v_{ij} &= - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) \\
 &= - \sum_{k=i}^{j-2} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \tilde{R}_{i,j-1} n^a_{j-1} \Delta t \\
 &= \delta v_{i,j-1} - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \Delta\tilde{R}_{i,j-1} n^a_{j-1} \Delta t. \\
