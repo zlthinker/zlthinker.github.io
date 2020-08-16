@@ -130,15 +130,50 @@ $$\begin{split}
 
 ### Update
 
-If we consider the inertial dynamics as a recurrent process, one of the important steps is to update the inherent states as new measurements are collected over time. Here, the states include the pre-integrated noise-free rotation $$\Delta\tilde{R}_{ij}$$, velocity $$\Delta \tilde{v}_{ij}$$, position $$\Delta \tilde{p}_{ij}$$, rotation noise $$\delta \Phi_{ij}$$, velocity noise $$\delta v_{ij}$$, position noise $$\delta p_{ij}$$.
+If we consider the inertial dynamics as a recurrent process, one of the important steps is to update the inherent states as new measurements are collected over time. Here, the states include the pre-integrated noise-free rotation $$\Delta\tilde{R}_{ij}$$, velocity $$\Delta \tilde{v}_{ij}$$, position $$\Delta \tilde{p}_{ij}$$, covariances of rotation noise $$\delta \Phi_{ij}$$, velocity noise $$\delta v_{ij}$$ and position noise $$\delta p_{ij}$$.
 
 The transition of the aforementioned states can be computed as follows.
 
-$$\Delta\tilde{R}_{ij} = \Delta\tilde{R}_{i,j-1} exp( (\omega_j - b^g_j) \Delta t),$$
+$$\begin{split}
+\Delta\tilde{R}_{ij} &= \Delta\tilde{R}_{i,j-1} exp( (\omega_j - b^g_j) \Delta t), \\
+\Delta \tilde{v}_{ij} &= \Delta \tilde{v}_{i,j-1} + \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t, \\
+\Delta \tilde{p}_{ij} &= \Delta \tilde{p}_{i,j-1} + \Delta \tilde{v}_{i,j-1} \Delta t + \frac{1}{2} \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t^2.
+\end{split}
+$$
 
-$$\Delta \tilde{v}_{ij} = \Delta \tilde{v}_{i,j-1} + \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t, $$ 
+The transition of the covariances of rotation noise $$\delta \Phi_{ij}$$, velocity noise $$\delta v_{ij}$$ and position noise $$\delta p_{ij}$$ is a bit more complicated because the velocity noise $$\delta v_{ij}$$ depends on the rotation noise $$\delta \Phi_{ij}$$, and the position noise $$\delta p_{ij}$$ depends on both the rotation noise $$\delta \Phi_{ij}$$ and the velocity noise $$\delta v_{ij}$$. 
 
-$$ \Delta \tilde{p}_{ij} = \Delta \tilde{p}_{i,j-1} + \Delta \tilde{v}_{i,j-1} \Delta t, \frac{1}{2} \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t^2,$$
+$$\begin{split}\delta \Phi_{ij} &\approx \sum_{k=i}^{j-1} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t \\ 
+&= \sum_{k=i}^{j-2} \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \sum_{k=i}^{j-2} (\tilde{R}_{k+1,j-1} \tilde{R}_{j,j-1} )^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \tilde{R}_{j,j-1}^T \sum_{k=i}^{j-2} \tilde{R}_{k+1,j-1}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&= \tilde{R}_{j,j-1}^T \delta \Phi_{i,j-1} + J_{j-1} n_{j-1}^g \Delta t.
+\end{split}$$
+
+$$
+\begin{split}
+\delta v_{ij} &= - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) \\
+&= - \sum_{k=i}^{j-2} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \tilde{R}_{ik} n^a_k \Delta t) - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t -+ \tilde{R}_{i,j-1} n^a_{j-1} \Delta t \\
+&= \delta v_{i,j-1} - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t -+ \tilde{R}_{i,j-1} n^a_{j-1} \Delta t.
+\end{split}
+$$
+
+$$
+\begin{split}
+\delta p_{ij} &= - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&= - \sum_{k=i}^{j-2} (\delta v_{ik} \Delta t - \frac{1}{2} \tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&- (\delta v_{i,j-1} \Delta t - \frac{1}{2} \tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2) \\
+&= \delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
+\end{split}
+$$
+
+Let $$N_{ij} = [\delta \Phi_{ij}^T, \delta v_{ij}^T, \delta p_{ij}^T]^T$$, then relationship between $$N_{ij}$$ and $$N_{i,j-1}$$ can be expressed as
+
+$$N_{ij} = \mathbf{A}_{j-1} N_{i,j-1} + \mathbf{B}_{j-1} n_{j-1}^g + \mathbf{C}_{j-1} n_{j-1}^a.$$
+
+In this way, the covariance of noise $$N_{ij}$$ can be updated as below: 
+
+$$\Sigma_{ij} =  \mathbf{A}_{j-1} \Sigma_{i,j-1} \mathbf{A}_{j-1}^T + \mathbf{B}_{j-1} \Sigma_{i,j-1}^g \mathbf{B}_{j-1}^T + \mathbf{C}_{j-1} \Sigma_{i,j-1}^a \mathbf{C}_{j-1}^T.$$
 
 # Visual inertial odometry
 
