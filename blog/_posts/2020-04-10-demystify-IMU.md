@@ -170,6 +170,12 @@ where $$\Sigma_{i,j-1}^g$$ is the measurement noise covariance of gyroscope and 
 
 # Visual inertial odometry
 
+### Optimization
+
+The factor graph of visual inertial optimization using both visual and inertial measurements is shown as below.
+
+![vio_factor_graph]({{site.baseurl}}/images/vio_factor_graph.png)
+
 # Reference
 
 [1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) (* Note: there are errors with Eqs. 26.）
