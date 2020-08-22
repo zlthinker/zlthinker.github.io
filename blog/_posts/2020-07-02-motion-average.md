@@ -22,7 +22,7 @@ $$\mathbf{R}_{ij} = (\mathbf{R}_j \Delta\mathbf{R}_j) (\mathbf{R}_i \Delta \math
 
 $$\mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i = \Delta\mathbf{R}_j \Delta\mathbf{R}_i^{-1}.$$
 
-Let $$e^\omega_{ij} = \mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i$$, $$e^{\Delta \omega_j} = \Delta\mathbf{R}_j$$, $$e^{\Delta \omega_i} = \Delta\mathbf{R}_i$$, then
+Let $$e^{\omega_{ij}} = \mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i$$, $$e^{\Delta \omega_j} = \Delta\mathbf{R}_j$$, $$e^{\Delta \omega_i} = \Delta\mathbf{R}_i$$, then
 
 $$e^{\Delta\omega_{ij}} = e^{\Delta \omega_j} e^{-\Delta \omega_i}.$$
 
