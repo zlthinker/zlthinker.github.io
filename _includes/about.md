@@ -14,7 +14,7 @@ I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering,
 **Lei Zhou**, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan \\
 _European Conference on Computer Vision (ECCV) 2020_
 
-**Learning Discriminative Feature with CRF for Unsupervised Video Object Segmentation** \\
+**Learning Discriminative Feature with CRF for Unsupervised Video Object Segmentation** [[arxiv](https://arxiv.org/abs/2008.01270)] \\
 Mingmin Zhen, Shiwei Li, **Lei Zhou**, Jiaxiang Shang, Haoan Feng, Tian Fang, Long Quan \\
 _European Conference on Computer Vision (ECCV) 2020_
 

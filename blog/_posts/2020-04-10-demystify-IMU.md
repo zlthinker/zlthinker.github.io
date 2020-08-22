@@ -176,6 +176,17 @@ The factor graph of visual inertial optimization using both visual and inertial 
 
 ![vio_factor_graph]({{site.baseurl}}/images/vio_factor_graph.png)
 
+Since the three types of factors arise from different types of measurements, i.e., the visual measurements, the pre-integrated IMU measurements and random walk measurements for bias. In order to sum up the errors from the factors, an information matrix must be multiplied with each error term as a way of weighting (e.g., $$e^T \Sigma e$$). 
+
+* For the visual measurements, the information matrix is inversely proportional to the feature scales.
+
+* For the pre-integrated IMU measurements, the information matrix is the inverse of the covariance of the rotation, velocity and position noise introduced above.
+
+* For the random walk measurements for bias, the information matrix is inversely proportional to the white noise covariance whose magnitude grows as time lasts. (See the explanation below.)
+
+> The output of a gyro (same for accelerometer) will be perturbed by some thermo-mechanical noise which fluctuates at a rate much greater than the sampling rate of the sensor. As a result the samples obtained from the sensor
+are perturbed by a white noise sequence, which is simply a sequence of zero-mean uncorrelated random variables. In this case each random variable is identically distributed and has a finite variance d.
+
 # Reference
 
 [1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) (* Note: there are errors with Eqs. 26.）
