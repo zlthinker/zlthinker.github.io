@@ -45,7 +45,7 @@ $$\lambda_{ij}\mathbf{t}_{ij} = \mathbf{R}_j (\mathbf{c}_i - \mathbf{c}_j),$$
 
 where $$\|\mathbf{t}_{ij} \|_2 = 1$$ and $$\lambda_{ij}$$ is the unknown baseline length between camera centers $$\mathbf{c}_i$$ and $$\mathbf{c}_j$$. The objective of translation averaging is defined as 
 
-$$\min_{\mathbf{c}_i, \mathbf{c}_j} \sum_{\{i, j \} \in \mathcal{E}} \| \mathbf{t}_{ij} - \frac{\mathbf{c}_i - \mathbf{c}_j}{\| \mathbf{c}_i - \mathbf{c}_j\|_2}  \| .$$
+$$\min_{\mathbf{c}_i, \mathbf{c}_j} \sum_{\{i, j \} \in \mathcal{E}} \| \mathbf{R}_j^T \mathbf{t}_{ij} - \frac{\mathbf{c}_i - \mathbf{c}_j}{\| \mathbf{c}_i - \mathbf{c}_j\|_2}  \| .$$
 
 ## Reference
 
