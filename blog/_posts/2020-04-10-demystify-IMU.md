@@ -191,7 +191,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  \end{split} 
  $$
  
- where $$\delta \Psi_{ij} \approx \sum_{k=i}^{j-1} \Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t$$ and it can be updated recursively by $$\Psi_{i,j+1} = \Delta\hat{R}_{j+1,j} \Psi_{ij} + J_j b_j^g \Delta t$$.
+ where $$\delta \Psi_{ij} \approx \sum_{k=i}^{j-1} \Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t$$ and it can be updated recursively by $$\delta \Psi_{i,j+1} = \Delta\hat{R}_{j+1,j} \delta \Psi_{ij} + J_j b_j^g \Delta t$$.
 $$\Delta\hat{R}_{ij} = \prod_{k=i}^{j-1} exp( \omega_k \Delta t).$$
 
 If we run visual SLAM, we can also get the relative rotation between keyframe i and j as $$\Delta R_{ij} = R_i R_j^T$$. In this way, the Gyroscope bias can be estimated by minimizing the loss $$\sum \| (R_i R_j^T)^T  \Delta\hat{R}_{ij} exp(-\delta \Psi_{ij}) \|^2$$.
