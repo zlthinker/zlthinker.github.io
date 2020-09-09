@@ -10,10 +10,9 @@ updated: 2020-04-10 14:00
 
 |Components| Measurements| DoF  | Description |
 |:--------:|:-----------:|:----:|:------------:|
-| accelerometer | $$a_b = [a_{bx}, a_{by}, a_{bz}]^T$$ | 3 | acceleration (togerher with gravity) in x-, y-, z-axes|
-| gyroscope | $$\omega_b = [\omega_{bx}, \omega_{by}, \omega_{bz}]^T$$ | 3 | angular velocity around x-, y-, z-axes|
+| accelerometer | $$a_b = [a_{bx}, a_{by}, a_{bz}]^T$$ | 3 | acceleration (together with gravity) in the sensor body frame|
+| gyroscope | $$\omega_b = [\omega_{bx}, \omega_{by}, \omega_{bz}]^T$$ | 3 | angular velocity in the sensor body frame|
 
-**Remark** The subscript $$*_b$$ means that the measurements are expressed in the body frame of IMU.
 
 # Properties
 
@@ -29,7 +28,7 @@ At time $$t$$,
 $$\begin{split} \omega_b(t) &= \bar{\omega}_b(t) + b^g(t) + n^g(t), \\ a_b(t) &= R_{wb}(t)^T (\bar{a}_w(t) - g_w) + b^a(t) + n^a(t). \end{split}$$
 
 * $$\bar{\omega}$$ and $$\bar{a}$$ are the true rotational velocity and acceleration in contrast to the noisy measurements $$\omega$$ and $$a$$.
-* $$n^g(t)$$ and $$n^a(t)$$ are Gaussian noise of the gyroscope and acceleration measurements. **Please note that the bias terms and the noise terms are all expressed in the body frame.**
+* $$n^g(t)$$ and $$n^a(t)$$ are Gaussian noise of the gyroscope and acceleration measurements. **Please note that the bias terms and the noise terms are all expressed in the body frame of frame t.**
 * $$R_{wb}(t)$$ is the rotation which rotates a point **from the body frame into the world frame** at time $$t$$.
 * $$g_w$$ is the gravity acceleration vector in the world frame.
 
@@ -96,7 +95,7 @@ $$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delt
  $$
 
  * $$\Delta\tilde{R}_{ij}$$ is the noise-free rotation from frame j to frame i.
- * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\Phi_{ij} \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$\Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
+ * The rotation noise $$\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )$$ depends on the raw measurement noise $$n_k^g$$. Since $$n_k^g$$ is small noise, we can approximately get $$\delta \Phi_{ij} \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t$$. In this way, $$\delta \Phi_{ij}$$ is the linear combination of $$n_k^g$$ and is thus zero-mean and Gaussian.
  * $$J_k$$ is the **right Jacobian of SO(3)** and $$exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)$$ is the first-order approximation.
  * The third line above is derived based on the formula $$exp(\Phi)R = R exp(R^T \phi)$$, so that $$R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)$$. By a series of such operations, we can move the noise terms to the end.
 
@@ -154,7 +153,7 @@ $$\begin{split}\delta \Phi_{ij} &\approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,
 \delta p_{ij} &= - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
 &= - \sum_{k=i}^{j-2} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
 &- (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2) \\
-&= -\delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
+&= \delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
 \end{split}
 $$
 
@@ -169,6 +168,30 @@ $$\Sigma_{ij} =  \mathbf{A}_{j-1} \Sigma_{i,j-1} \mathbf{A}_{j-1}^T + \mathbf{B}
 where $$\Sigma_{i,j-1}^g$$ is the measurement noise covariance of gyroscope and $$\Sigma_{i,j-1}^a$$ is the measurement noise covariance of accelerometer.
 
 # Visual inertial odometry
+
+### Initialization
+
+The initialization is to estimate or calibrate the variables:
+
+* scale (of visual coordinate system),
+* gravity direction,
+* gyroscope bias and accelerometer bias,
+* velocity.
+
+The variables are hard to be solved by one pass. Therefore, they are generally computed sequentially followed by a global optimization.
+
+##### Gyroscope bias estimation
+
+If we ignore the noise terms in the preintegration formula for rotation, we get  
+
+$$\begin{split} \Delta R_{ij} &= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) \\
+&=  \prod_{k=i}^{j-1} exp( \omega_k \Delta t) exp( - J_k b^g_k \Delta t) \\
+&= \Delta\hat{R}_{ij} \prod_{k=i}^{j-1} exp (-\Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t)  \\
+&= \Delta\hat{R}_{ij} exp(-\delta \Psi_{ij}),
+ \end{split} 
+ $$
+ 
+ where $$\delta \Psi_{ij} \approx \sum_{k=i}^{j-1} \Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t$$ and it can be updated recursively by $$\Psi_{i,j+1} = \Delta\hat{R}_{j+1,j} \Psi_{ij} + J_j b_j^g \Delta t$$.
 
 ### Optimization
 
