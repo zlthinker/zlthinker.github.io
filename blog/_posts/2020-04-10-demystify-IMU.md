@@ -196,6 +196,42 @@ $$\Delta\hat{R}_{ij} = \prod_{k=i}^{j-1} exp( \omega_k \Delta t).$$
 
 If we run visual SLAM, we can also get the relative rotation between keyframe i and j as $$\Delta R_{ij} = R_i R_j^T$$. In this way, the Gyroscope bias can be estimated by minimizing the loss $$\sum \| (R_i R_j^T)^T  \Delta\hat{R}_{ij} exp(-\delta \Psi_{ij}) \|^2$$.
 
+##### Scale and gravity estimation
+
+Let $$p_{cb}$$ denote the position of IMU sensor in the camera coordinate frame. The IMU coordinates can be transformed into the camera frame up to an unknown scale $$s$$:
+
+$$p_i = s p_i^c + R_c p_{cb},$$
+
+where $$p_i^c$$ is the coordinates of the camera center of keyframe i.
+
+From above, we have that 
+
+$$\begin{split} p_j &= p_i + \sum_{k=i}^{j-1} v_k \Delta t + (j-i) \frac{1}{2} g \Delta t^2 + \sum_{k=i}^{j-1} \frac{1}{2} R_k (a_k - b^a_k - n^a_k) \Delta t^2 \\ &= p_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij}.\end{split}$$
+
+Substitute $$p_i = s p_i^c + R_c p_{cb}$$ into the equation above, we get
+
+$$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb}. $$
+
+In order to eliminate the variable $$v_i$$ to reduce the complexity, we write two consecutive equations for keyframe 1, 2 and 3:
+
+$$\begin{split}
+sp_2 = sp_1 + v_1 \Delta t_{12} + \frac{1}{2}g\Delta t_{12}^2 + R_1 \Delta p_{12} + (R_1 - R_2)p_{cb}, \\
+sp_3 = sp_2 + v_2 \Delta t_{23} + \frac{1}{2}g\Delta t_{23}^2 + R_2 \Delta p_{23} + (R_2 - R_3)p_{cb}.
+\end{split}$$
+
+Multiply $$\Delta t_{23}$$ and $$\Delta t_{12}$$ with above equation respectively,
+
+$$\begin{split}
+sp_2 \Delta t_{23} = sp_1 \Delta t_{23} + v_1 \Delta t_{12} \Delta t_{23} + \frac{1}{2}g\Delta t_{12}^2 \Delta t_{23} + R_1 \Delta p_{12} \Delta t_{23} + (R_1 - R_2)p_{cb} \Delta t_{23}, \\
+sp_3 \Delta t_{12} = sp_2 \Delta t_{12} + v_2 \Delta t_{23} \Delta t_{12} + \frac{1}{2}g\Delta t_{23}^2 \Delta t_{12} + R_2 \Delta p_{23} \Delta t_{12} + (R_2 - R_3)p_{cb} \Delta t_{12}.
+\end{split}$$
+
+After the substraction, we get
+
+$$((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \frac{1}{2}(\Delta t_{23}^2 \Delta t_{12} - \Delta t_{12}^2 \Delta t_{23}) g = \Delta t_{12}\Delta t_{23} (v_1 - v_2) + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12}.$$
+
+
+
 ### Optimization
 
 The factor graph of visual inertial optimization using both visual and inertial measurements is shown as below.
