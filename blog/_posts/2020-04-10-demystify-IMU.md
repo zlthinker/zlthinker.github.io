@@ -228,7 +228,9 @@ sp_3 \Delta t_{12} = sp_2 \Delta t_{12} + v_2 \Delta t_{23} \Delta t_{12} + \fra
 
 After the substraction, we get
 
-$$((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \frac{1}{2}(\Delta t_{23}^2 \Delta t_{12} - \Delta t_{12}^2 \Delta t_{23}) g = \Delta t_{12}\Delta t_{23} (v_1 - v_2) + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12}.$$
+$$\begin{split} &((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \frac{1}{2}(\Delta t_{23}^2 \Delta t_{12} - \Delta t_{12}^2 \Delta t_{23}) g \\ = &\Delta t_{12}\Delta t_{23} (v_1 - v_2) + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12} \\
+=&-\Delta t_{12}\Delta t_{23} R_1 \Delta v_{12} + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12}
+\end{split}$$
 
 
 
