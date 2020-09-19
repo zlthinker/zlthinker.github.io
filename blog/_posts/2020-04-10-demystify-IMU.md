@@ -232,6 +232,7 @@ $$\begin{split} &((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \fra
 =&-\Delta t_{12}\Delta t_{23} R_1 \Delta v_{12} + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12}
 \end{split}$$
 
+In this way, we get a linear system for the neighboring 3 keyframes. We can stack all the linear equations from all consecutive triple-frames to solve $$s$$ and $$g$$.
 
 
 ### Optimization
