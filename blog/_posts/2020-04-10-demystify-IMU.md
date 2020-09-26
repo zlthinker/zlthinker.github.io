@@ -234,6 +234,34 @@ $$\begin{split} &((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \fra
 
 In this way, we get a linear system for the neighboring 3 keyframes. We can stack all the linear equations from all consecutive triple-frames to solve $$s$$ and $$g$$.
 
+Please note that $$\Delta p_{12}$$ and $$\Delta p_{23}$$ computed above do not consider the accelerometer bias which is still unknown, because **gravity and accelerometer bias are hard to distinguish**. Therefore, we first ignore accelerometer bias and estimate the gravity roughly, and then estimate accelerometer bias and refine gravity in the next stage.
+
+##### Accelerometer bias estimation
+
+The gravity vector computed in the last stage is in the world coordinate system. Let's denote it as $$g_W$$. If we consider a coordinate system which defines the gravity as $$G g_I = G [0, 0, -1]^T$$ ($$G$$ is the gravity magnitude), we have $$g_W = G R_{WI} g_I$$, where $$R_{WI}$$ is the rotation from $$g_I$$ to $$g_W$$ and it only has around x and y axes.
+
+Since the gravity direction computed in the last stage is not perfect, we can add a small rotation into $$g_W$$ as
+
+$$\begin{split} g_W &= G R_{WI} Exp(\delta \theta) g_I, \\
+&= G R_{WI} (I + {\delta \theta}_x)  g_I, \\
+&= G R_{WI} g_I - G R_{WI} {g_I}_x \delta \theta.
+\end{split}$$
+
+where $$\delta \theta = [\delta \theta_x, \delta \theta_y, 0]^T$$ contains two rotation angles around x and y axes.
+
+Since now we consider the accelerometer bias in the pre-integration of position, we have
+
+$$\Delta p_{ij} = \Delta p_{ij} - \frac{3}{2} \sum_{k=i}^{j-1} \Delta R_{ik} b^a \Delta t^2.$$
+
+Substituting the equations above into 
+
+$$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb},$$
+
+we get the linear equation about $$[s, \delta \theta, b_a]^T$$ from the three consecutive keyframes in a similar way to the last stage, and refine scale and gravity direction and solve accelerometer bias simultaneously.
+
+
+
+
 
 ### Optimization
 
