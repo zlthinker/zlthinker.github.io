@@ -270,7 +270,6 @@ $$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{
 #### VIO-mono
 
 1. The average parallax of tracked features between current frame and the latest keyframe is beyonf a certain threshold. To avoid rotation-only parallax, _rotation compensation_ via IMU integration is used.
-
 2. The number of tracked features goes below a certain threshold.
 
 #### ORB-SLAM (Surval of the fittest strategy)
