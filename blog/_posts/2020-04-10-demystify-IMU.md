@@ -265,7 +265,20 @@ After scale, gravity, gyroscope and accelerometer bias are all estimated, the ve
 
 $$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb}. $$
 
+### Keyframe selection
 
+#### VIO-mono
+
+1. The average parallax of tracked features between current frame and the latest keyframe is beyonf a certain threshold. To avoid rotation-only parallax, _rotation compensation_ via IMU integration is used.
+
+2. The number of tracked features goes below a certain threshold.
+
+#### ORB-SLAM (Surval of the fittest strategy)
+
+1. Time from last keyframe > 0.5s.
+2. Frames from last keyframe > 30.
+3. The number of tracked features goes below a certain threshold.
+4. Delete redundant keyframes whose 90% of the map points have been seen in at least other three keyframes.
 
 ### Optimization
 
