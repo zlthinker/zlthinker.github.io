@@ -269,7 +269,7 @@ $$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{
 
 #### VIO-mono
 
-1. The average parallax of tracked features between current frame and the latest keyframe is beyonf a certain threshold. To avoid rotation-only parallax, _rotation compensation_ via IMU integration is used.
+1. The average parallax of tracked features between current frame and the latest keyframe is beyond a certain threshold. To avoid rotation-only parallax, _rotation compensation_ via IMU integration is used.
 2. The number of tracked features goes below a certain threshold.
 
 #### ORB-SLAM (Surval of the fittest strategy)
@@ -294,7 +294,7 @@ Since the three types of factors arise from different types of measurements, i.e
 * For the random walk measurements for bias, the information matrix is inversely proportional to the white noise covariance whose magnitude grows as time lasts. (See the explanation below.)
 
 > The output of a gyro (same for accelerometer) will be perturbed by some thermo-mechanical noise which fluctuates at a rate much greater than the sampling rate of the sensor. As a result the samples obtained from the sensor
-are perturbed by a white noise sequence, which is simply a sequence of zero-mean uncorrelated random variables. In this case each random variable is identically distributed and has a finite variance d.
+are perturbed by a white noise sequence, which is simply a sequence of zero-mean uncorrelated random variables. In this case each random variable is identically distributed and has a finite variance.
 
 # Reference
 
