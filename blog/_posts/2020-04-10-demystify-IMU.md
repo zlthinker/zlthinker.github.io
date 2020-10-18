@@ -279,6 +279,21 @@ $$sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{
 3. The number of tracked features goes below a certain threshold.
 4. Delete redundant keyframes whose 90% of the map points have been seen in at least other three keyframes.
 
+### Pose tracking
+
+Since SLAM runs in an incremental fashion, pose tracking is a recursive step to build the pose of the next frame and the associated new tracks and projections repeatedly. 
+
+[4] "Once the camera pose is predicted, the map points in
+the local map are projected and matched with keypoints on
+the frame. We then optimize current frame j by minimizing
+the feature reprojection error of all matched points and an
+IMU error term."
+
+It may also be responsible for deciding if the current frame is a keyframe.
+Once a new keyframe is inserted, local optimization is triggered to optimize the states (poses, velocities and IMU biases) of the last N keyframes.
+
+
+
 ### Optimization
 
 The factor graph of visual inertial optimization using both visual and inertial measurements is shown as below.
@@ -303,3 +318,5 @@ are perturbed by a white noise sequence, which is simply a sequence of zero-mean
 [2] [On-Manifold Preintegration for Real-Time Visual-Inertial Odometry](http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf) (* Note: journal version of [1], recommended.)
 
 [3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
+
+[4] [Visual-Inertial Monocular SLAM with Map Reuse](https://arxiv.org/pdf/1610.05949.pdf)
