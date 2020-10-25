@@ -292,7 +292,13 @@ IMU error term."
 It may also be responsible for deciding if the current frame is a keyframe.
 Once a new keyframe is inserted, local optimization is triggered to optimize the states (poses, velocities and IMU biases) of the last N keyframes.
 
+### Relocalization
 
+1. Loop detection. Use DBoW2 to retrieve top-k image candidates for each keyframe. Then for each candidate, perform geometric verification (e.g. computing fundamental matrix or PnP or computing euclidean/similarity transform) to eliminate false-positive retrievals.
+
+2. Loop closure. Pose-graph optimization (or called essential graph optimization by ORB-SLAM) takes into account loop edges, sequential edges (between neighboring frames) and covibility edges (between frames with more than 100 covisible tracks).
+
+> Note: For VIO Slam, "the visual-inertial setup renders roll and pitch angles fully observable, the accumulated drift only occurs in four degrees of freedom (x, y, z and yaw angle). To this end, we ignore estimating the drift-free roll and pitch states, and only perform 4-DOF pose graph optimization."
 
 ### Optimization
 
