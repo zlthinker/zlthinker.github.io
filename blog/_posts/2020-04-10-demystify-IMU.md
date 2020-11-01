@@ -298,7 +298,7 @@ Once a new keyframe is inserted, local optimization is triggered to optimize the
 
 2. Loop closure. Pose-graph optimization (or called essential graph optimization by ORB-SLAM) takes into account loop edges, sequential edges (between neighboring frames) and covibility edges (between frames with more than 100 covisible tracks).
 
-> Note: For VIO Slam, "the visual-inertial setup renders roll and pitch angles fully observable, the accumulated drift only occurs in four degrees of freedom (x, y, z and yaw angle). To this end, we ignore estimating the drift-free roll and pitch states, and only perform 4-DOF pose graph optimization."
+> Note: For VIO Slam, "the visual-inertial setup renders roll and pitch angles fully observable, the accumulated drift only occurs in four degrees of freedom (x, y, z and yaw angle). To this end, we ignore estimating the drift-free roll and pitch states, and only perform 4-DOF pose graph optimization." Here "roll and pitch angles fully observable" means that we can compute the absolute pitch and roll angles of IMU in the world frame based on the gravity direction in the IMU body frame. See [5] for details.
 
 ### Optimization
 
@@ -326,3 +326,5 @@ are perturbed by a white noise sequence, which is simply a sequence of zero-mean
 [3] [VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator](https://arxiv.org/pdf/1708.03852.pdf)
 
 [4] [Visual-Inertial Monocular SLAM with Map Reuse](https://arxiv.org/pdf/1610.05949.pdf)
+
+[5] [Inertial Measurement Units (Stanford University)](http://stanford.edu/class/ee267/lectures/lecture9.pdf)
