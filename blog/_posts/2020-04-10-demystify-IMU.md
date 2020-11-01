@@ -321,9 +321,11 @@ are perturbed by a white noise sequence, which is simply a sequence of zero-mean
 
 In ORB-SLAM, there are three threads working in parallel:
 
-* tracking thread: process the IMU and visual sensor measurements, localize the current frame, determine if it is a keyframe, relocalize if tracking lost
-* local mapping thread: once a keyframe is added, optimize the active map in a local window
-* loop closure thread: detect loops and run loop closure optimization (pose graph optimization + full bundle)
+* tracking thread: process the IMU and visual sensor measurements (preintegration, feature detection and matching), localize the current frame, determine if it is a keyframe, relocalize if tracking lost,
+* local mapping thread: once a keyframe is added, optimize the active map in a local window,
+* loop closure thread: detect loops and run loop closure optimization (pose graph optimization + full bundle).
+
+The active map is locked when it is to be changed by any threads.
 
 # Reference
 
