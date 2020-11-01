@@ -317,6 +317,14 @@ Since the three types of factors arise from different types of measurements, i.e
 > The output of a gyro (same for accelerometer) will be perturbed by some thermo-mechanical noise which fluctuates at a rate much greater than the sampling rate of the sensor. As a result the samples obtained from the sensor
 are perturbed by a white noise sequence, which is simply a sequence of zero-mean uncorrelated random variables. In this case each random variable is identically distributed and has a finite variance.
 
+### Multi-threading
+
+In ORB-SLAM, there are three threads working in parallel:
+
+* tracking thread: process the IMU and visual sensor measurements, localize the current frame, determine if it is a keyframe, relocalize if tracking lost
+* local mapping thread: once a keyframe is added, optimize the active map in a local window
+* loop closure thread: detect loops and run loop closure optimization (pose graph optimization + full bundle)
+
 # Reference
 
 [1] [IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation](http://www.roboticsproceedings.org/rss11/p06.pdf) (* Note: there are errors with Eqs. 26.）
