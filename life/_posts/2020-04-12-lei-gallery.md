@@ -35,3 +35,13 @@ updated: 2020-04-20 20：50
 <p align="center">
 <img src="/images/painting/music-fire.jpg" alt="music-fire" width="200"/>
 </p>
+
+* _17/10/2020_
+<p align="center">
+<img src="/images/painting/matterhorn.HEIC" alt="matterhorn" width="300"/>
+</p>
+
+* _28/11/2020_
+<p align="center">
+<img src="/images/painting/cow.HEIC" alt="cow" width="300"/>
+</p>
