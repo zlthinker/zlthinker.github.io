@@ -38,10 +38,10 @@ updated: 2020-04-20 20：50
 
 * _17/10/2020_
 <p align="center">
-<img src="/images/painting/matterhorn.HEIC" alt="matterhorn" width="300"/>
+<img src="/images/painting/matterhorn.jpg" alt="matterhorn" width="300"/>
 </p>
 
 * _28/11/2020_
 <p align="center">
-<img src="/images/painting/cow.HEIC" alt="cow" width="300"/>
+<img src="/images/painting/cow.jpg" alt="cow" width="300"/>
 </p>
