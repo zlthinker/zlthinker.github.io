@@ -112,3 +112,142 @@ Type traits are used to in template programming to support type inference and ty
 || `remove_all_extent<>`| int[][][] -> int|
 || `enable_if<>`| used in **SFINAE**|
 
+
+## std::thread
+
+```
+std::thread t(func, args);
+t.join();       // It blocks the main thread, waiting for thread t to finish
+t.detach();     // Thread t is indepdent from the main thread. All resources will be released automatically after t finishes.
+
+std::this_thread::sleep_for(std::chrono::seconds(5));
+std::this_thread::get_id();
+```
+
+### Mutex (Mutual Exclusive)
+
+```
+std::mutex m;
+m.lock();       // If thread 1 acquires this lock, thread 2 that wants to acquire this lock will be blocked.
+...
+m.unlock();
+
+m.try_lock();   // If thread 1 acquires this lock, thread 2 will try to acquire it (fail, return false, no block).
+...
+m.unlock();
+
+std::recursive_mutex m;
+m.lock();
+    {
+        m.lock();       // call lock() recursively
+        ...
+        m.unlock();     // unlock and lock should appear in pairs
+    }
+m.unlock();
+
+m.lock();
+//exception happens, unlock() will never be called.
+m.unlock();
+
+std::mutex m;
+std::lock_guard<std::mutex>(m);     // call lock() in constructor, unlock() in destructor
+
+std::shared_mutex m;
+std::shared_lock<std::shared_mutex> sl(m);  // simultaneous read access of multiple threads
+std::unique_lock<std::shared_mutex> ul(m);  // exclusive write access
+```
+
+### condition_variable
+```
+std::condition_variable cv;
+std::mutex m;
+// thread 1
+{
+    std::unique_lock<std::shared_mutex> ul(m);
+    cv.wait(ul, condition);     // condition = false, lock not acquired, thread waiting
+                                // condition = true, lock acquired, thread running
+}
+// thread 2
+{
+    std::unique_lock<std::shared_mutex> ul(m);
+    condition = true;
+    cv.notify_one();            // notify waiting thread
+}
+```
+
+### Dead lock
+```
+std::mutex m1, m2;
+// thread 1
+{
+    std::lock_guard<std::mutex>(m1);    // thread 1 acquires m1
+    std::lock_guard<std::mutex>(m2);    // thread 1 waits for m2
+}
+// thread 2
+{
+    std::lock_guard<std::mutex>(m2);    // thread 2 acquires m2
+    std::lock_guard<std::mutex>(m1);    // thread 2 waits for m1
+}
+```
+
+### Atomic (lock free)
+```
+#include <atomic>   
+// for integral types
+atomic_bool = std::atomic<bool>
+atomic_char = std::atomic<char>
+atomic_int = std::atomic<int>
+atomic_long = std::atomic<long>
+atomic_size_t = std::atomic<size_t>
+```
+
+## SFINAE
+
+### enable_if
+```
+template <bool, typename T = void>
+struct enable_if
+{};
+
+template <typename T>
+struct enable_if<true, T> {
+  typedef T type;               // type is only defined for bool = true
+};
+
+typename enable_if<true, int>::type t;  // define an int variable t
+```
+
+```
+template <typename T>
+typename std::enable_if<std::is_integral<T>::value>::type foo(T value)
+{
+    // an implementation for integral types (int, char, unsigned, etc.)
+}
+
+template <typename T>
+typename std::enable_if<!std::is_integral<T>::value>::type foo(T value)
+{
+    // an implementation for non integral types
+}
+
+foo(100);   // call the first foo() since 100 is an integer
+foo("abc")  // call the second foo() since "abc" is not integral
+```
+
+### use enable_if in template
+```
+template <class T,
+         typename std::enable_if_t<std::is_integral<T>::value>* = nullptr>
+void foo(T& t) {
+    // an implementation for integral types (int, char, unsigned, etc.)
+}
+
+template <class T,
+          typename std::enable_if_t<!std::is_integral<T>::value>* = nullptr>
+void foo(T& t) {
+    // an implementation for non integral types
+}
+
+foo<int>(100);              // call the first foo() since 100 is an integer
+foo<std::string>("abc")     // call the second foo() since "abc" is not integral
+```

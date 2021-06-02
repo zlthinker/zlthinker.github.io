@@ -82,6 +82,12 @@ command | tee out.txt
 # redirect the stdout to file out.txt
 ```
 
+```
+#Xargs
+find . -name '*.txt' | xargs -t ls -al  # -t means showing command, -p means typing 'y' to continue
+find . -mtime +7 | xargs -I '{}' mv {} {}.backup    # backup files in the past week, {} represents the files
+```
+
 ### 系统环境
 
 ```
