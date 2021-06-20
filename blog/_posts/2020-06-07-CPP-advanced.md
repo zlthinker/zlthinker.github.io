@@ -251,3 +251,182 @@ void foo(T& t) {
 foo<int>(100);              // call the first foo() since 100 is an integer
 foo<std::string>("abc")     // call the second foo() since "abc" is not integral
 ```
+
+## Template metaprogramming
+
+Metaprogramming is the writing of computer programs:
+* That write or manipulate other programs (or themselves) **as their data**, or
+* That do ... work at compile time that would otherwise be done at runtime.
+
+C++ template metaprogramming uses template instantiation to drive compile time evaluation.
+* When we use the name of a template where a {function, type, variable} is expected, the compiler will **instantiate** (create) the expected entity from that template. 
+* Template metaprogrammer exploit this machinery to improve source code flexibility and runtime performance.
+
+Metaprogramming does not deal with mutability (only const expr), virtual functions, RTTI (runtime type identification, e.g. auto), etc.
+
+### Example: compile-time abs()
+
+```
+template<int N>     // template param used as metafunction param
+struct abs {
+    static_assert(N != INT_MIN);    // C++17-style guard
+    static constexpr int value = (N<0) ? -N : N;    // "return"
+};
+
+int const n = ...;  // could instead declare as constexpr
+... abs<n>::value ...;  //instantiation yields a compile-time constant 
+```
+
+### Example: compile-time recursion with specialization as base, greatest common divisor
+```
+template<unsigned M, unsigned N>
+struct gcd {
+    static int const value = gcd<N, M%N>::value;
+};
+
+// Partial specialization recognizes the base case gcd<m, 0>
+template<unsigned M>
+struct gcd<M, 0> {
+    static_assert(M != 0);
+    static int const value = M;
+};
+```
+
+Metafunction can take types as parameters/arguments, e.g., `sizeof`. It can also produce a type as its result, e.g., type_traits.
+
+### Example: obtain the (compile-time) rank of an array type
+```
+// primarily template handles scalar (non-array) types as base case:
+template <class T>
+struct rank { static size_t const value = 0u; };
+// partial specialization recognizes any array type:
+template <class U, size_t N>
+struct rank<U[N]> { 
+    static size_t const value = 1u + rank<U>::value; 
+ };
+```
+
+### Example: "remove" a type's const-qualification
+```
+// primary template handles types that are not const-qualified
+template <class T>
+struct remove_const { using type = T; };
+// partial specialization recognizes const-qualified types
+template <class T>
+struct remove_const<T const> { using type = T; };
+```
+
+### Example: IF (conditional in C++11)
+```
+template <class T>
+struct type_is { using type = T; };
+// primary template assumes the bool value is true
+template<bool, class T, class>
+struct IF : type_is<T> {};
+// partial specialization recognizes a false value
+template<class T, class F>
+struct IF<false, T, F> : type_is<F> {};
+```
+
+`enable_if` is a single-type variation on conditional. If true, use the given type; if false, use no type at all.
+```
+// primary template assumes the bool value is true
+template <bool, class T>     
+struct enable_if : type_is<T> {};
+
+template <class T>
+struct enable_if<false, T> {};
+```
+
+### Example: SFINAE in use, want one algorithm f taking integral types T, and overload it with a second f taking floating-point types T
+```
+template <class T>
+enable_if_t<is_integral<T>::value, int> f(T val) { ... };
+
+template <class T>
+enable_if_t<is_floating_point<T>::value, double> f(T val) { ... };
+```
+
+### Example: is_void
+```
+// primary template for non-void types
+template <class T>
+struct is_void : false_type {};
+// specialization recognizes each void types
+template <> struct is_void<void> : true_type {};
+template <> struct is_void<void const> : true_type {};
+```
+
+### Example: is_same
+```
+// primary template for distinct types
+template<class T, class U>
+struct is_same : false_type {};
+// partial specialization recognizes identical types
+template<T>
+struct is_same<T, T>: true_type {};
+```
+
+### Example: is_one_of
+```
+// primary template
+template<class T, class... P0toN>
+struct is_one_of;       // declare the interface only
+// base #1: specialization recognizes empty list of types
+template<class T>
+struct is_one_of<T> : false_type {};
+// base #2
+template<class T, class... P1toN>
+struct is_one_of<T, T, P1toN> : true_type {};
+// specialization recognizes mismatch at head of list of types
+template<class T, class P0, class... P1toN>
+struct is_one_of<T, P0, P1toN> : is_one_of<T, P1toN> {};
+```
+
+### Example: testing for copy-assignability
+```
+template <class T>
+struct is_copy_assignable {
+private:
+    template<class U, class = decltype(declval<U&>() = declval<U const&>())>
+    static true_type try_assignment(U&&);   // SFINAE may apply!
+    static false_type try_assignment(U&&);  // catch-all overload
+
+public:
+    using type = decltype(try_assignment(declval<T>()));
+};
+```
+
+### void_t
+```
+template <class...>
+using void_t = void;
+```
+
+### Example: detect the presence/absence of a type member named T::type
+```
+// primary template
+template <class, class = void>      // default argument void is essential
+struct has_type_member : false_type {};
+// partial specialization if T::type exists
+template <class T>
+struc has_type_member<T, void_t<typename T::type>> : true_type {};
+```
+
+### Example: revisiting is_copy_assignable
+```
+template <class T>
+using copy_assignable_t = 
+    decltype(declval<T&>() = declval<T const&>());
+// primary template
+template <class T, class = void>
+struct is_copy_assignable : false_type {};
+template <class T>
+struct is_copy_assignable<T, void_t<copy_assignable_t<T>>> : is_same<copy_assignable_t<T>, T&> {};
+```
+
+## Reference
+
+[CppCon 2014: Walter E. Brown "Modern Template Metaprogramming: A Compendium, Part I"](https://www.youtube.com/watch?v=Am2is2QCvxY&ab_channel=CppCon)
+
+[CppCon 2014: Walter E. Brown "Modern Template Metaprogramming: A Compendium, Part II"](https://www.youtube.com/watch?v=a0FliKwcwXE&ab_channel=CppConCppCon)
