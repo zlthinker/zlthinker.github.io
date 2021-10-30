@@ -161,3 +161,13 @@ $$dist(S_1, S_2)= \|P_1-P_2\|,$$
 
 ## Matrix Calculus
 [http://www.atmos.washington.edu/~dennis/MatrixCalculus.pdf](http://www.atmos.washington.edu/~dennis/MatrixCalculus.pdf)
+
+## Matrix Differentiation
+
+[A Note on Matrix Differentiation](https://mpra.ub.uni-muenchen.de/3917/1/MPRA_paper_3917.pdf)
+
+### Derivatives of matrix determinant, trace and inverse
+
+Given a vector $$\theta \in R^k$$,
+
+$$\begin{split}  \frac{\delta det(\mathbf{X})}{\delta \theta} &= det(\mathbf{X}) \cdot tr(\mathbf{X}^{-1} \frac{\delta \mathbf{X}}{\delta \theta}) \\  \frac{\delta tr(\mathbf{X})}{\delta \theta} &= tr(\frac{\delta \mathbf{X}}{\delta \theta}) \\ \frac{\delta \mathbf{X} ^ {-1}}{\delta \theta} &=  -\mathbf{X}^{-1} \frac{\delta \mathbf{X}}{\delta \theta} (\mathbf{I}_k \otimes \mathbf{X}^{-1}) \end{split} $$  
