@@ -170,5 +170,5 @@ $$dist(S_1, S_2)= \|P_1-P_2\|,$$
 
 Given a vector $$\theta \in R^k$$,
 
-$$\begin{split}  \frac{\partial \mathbf{X}}{\partial \theta} &= \[ \frac{\partial \mathbf{X}}{\partial \theta_1}, \frac{\partial \mathbf{X}}{\partial \theta_2}, ..., \frac{\partial \mathbf{X}}{\partial \theta_k} \]  \\ \frac{\partial \mathbf{XY}}{\partial \theta} &= \frac{\partial \mathbf{X}}{\partial \theta} (\mathbf{I}_k \otimes \mathbf{Y}) + \mathbf{X} \frac{\partial \mathbf{Y}}{\partial \theta} \\
+$$\begin{split}  \frac{\partial \mathbf{X}}{\partial \theta} &= [ \frac{\partial \mathbf{X}}{\partial \theta_1}, \frac{\partial \mathbf{X}}{\partial \theta_2}, ..., \frac{\partial \mathbf{X}}{\partial \theta_k} ]  \\ \frac{\partial \mathbf{XY}}{\partial \theta} &= \frac{\partial \mathbf{X}}{\partial \theta} (\mathbf{I}_k \otimes \mathbf{Y}) + \mathbf{X} \frac{\partial \mathbf{Y}}{\partial \theta} \\
 \frac{\partial det(\mathbf{X})}{\partial \theta} &= det(\mathbf{X}) \cdot tr_k (\mathbf{X}^{-1} \frac{\partial \mathbf{X}}{\partial \theta}) \\  \frac{\partial tr(\mathbf{X})}{\partial \theta} &= tr(\frac{\partial \mathbf{X}}{\partial \theta}) \\ \frac{\partial \mathbf{X} ^ {-1}}{\partial \theta} &=  -\mathbf{X}^{-1} \frac{\partial \mathbf{X}}{\partial \theta} (\mathbf{I}_k \otimes \mathbf{X}^{-1}) \end{split} $$  
