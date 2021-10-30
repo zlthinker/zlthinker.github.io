@@ -100,4 +100,3 @@ Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long 
 
 # Contact
 * Email: `zlthinker93[at]gmail[dot]com`
-* Address: `Room 4204, Academic Building, HKUST, Clear Water Bay, Hong Kong.`
