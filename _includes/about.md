@@ -1,14 +1,25 @@
 # About
 
-<h4>A Bachelor</h4> from Zhejiang University (2011~2015)
+**A Bachelor** from Zhejiang University (2011~2015)
 
-<h4>A PhD</h4> from Hong Kong University of Science and Technology (2015~2019)
+**A PhD** from Hong Kong University of Science and Technology (2015~2019)
 
-<h4>An Engineer</h4> in 3D
+**An Engineer** in 3D
 
-<h4>An Investor</h4>
+**An Investor**
 
-<h4>A life-long Learner</h4>
+**A life-long Learner**
+
+
+# Posts
+
+<a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
+
+<img class="center" src="/images/wakesurf.jpeg">
+
+> All things excellent are as difficult as they are rare.
+
+<div class="divider"></div>
 
 
 # Posts
