@@ -7,27 +7,27 @@ title: Category
 </section>
 <section>
 
-<section>
-	{% for post in site.categories[page.category] %}
+	<section>
+		{% for post in site.categories[page.category] %}
 		{% unless post.next %}
-			<h3>{{ post.date | date: '%Y' }} &#172;</h3>
+		<h3>{{ post.date | date: '%Y' }} &#172;</h3>
 		{% else %}
-			{% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-			{% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-			{% if year != nyear %}
-				<h3>{{ post.date | date: '%Y' }} &#172;</h3>
-			{% endif %}
+		{% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+		{% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+		{% if year != nyear %}
+		<h3>{{ post.date | date: '%Y' }} &#172;</h3>
+		{% endif %}
 		{% endunless %}
 
 		<ul>
 			<li>
 				<div class="post-date">
-					<span>{{ post.date | date: "%b %d" }}</span>
+					<span>Nov 23</span>
 				</div>
 				<div class="title">
 					<a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 				</div>
 			</li>
 		</ul>
-	{% endfor %}
-</section>
+		{% endfor %}
+	</section>
