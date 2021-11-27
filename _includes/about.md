@@ -1,14 +1,6 @@
 # About
 
-**A Bachelor** from Zhejiang University (2011~2015)
-
-**A PhD** from Hong Kong University of Science and Technology (2015~2019)
-
-**An Engineer** in 3D
-
-**An Investor**
-
-**A life-long Learner**
+**A PhD** / **An Engineer** / **An Investor** / **A life-long Learner**
 
 
 # Posts
@@ -20,8 +12,8 @@
         <div class="post-date">
             <span>Nov 23</span>
         </div>
-        <div class="title">
-            <a align="left" href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
+        <div class="title" align="left" >
+            <a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
         </div>
     </li>
 </ul>
