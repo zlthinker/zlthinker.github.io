@@ -1,5 +1,16 @@
 # About
-I'm a fifth-year PhD candidate in Deparment of Computer Science and Engineering, HKUST. I am now undertaking research on image localization, structure-from-motion and point cloud registration under esteemed tutelage of [Prof. Long Quan](https://www.cse.ust.hk/~quan/). Previously, I achieved bachelor's degree at College of Information Science & Electronic Engineering, Zhejiang University. My CV can be accessed [here](./files/cv.pdf). (Edited on 2019/12/31)
+
+* A Bachelor from Zhejiang University (2011~2015)
+* A PhD from Hong Kong University of Science and Technology (2015~2019)
+* An Engineer in 3D
+* An Investor
+* A life-long Learner
+
+# Posts
+
+<img align="left" width="100" height="100" src="/images/wakesurf.jpeg">
+
+[投资者与市场波动](https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8)
 
 # Links
 
