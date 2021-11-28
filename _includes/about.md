@@ -5,33 +5,13 @@ A PhD / An Engineer / An Investor / A life-long Learner
 
 # Posts
 
-<section_about>
+<h3>2021 &#172;</h3>
 
-<ul>
-    <li>
-        <div class="post-date">
-            <span>Nov 23</span>
-        </div>
-        <div class="title">
-            <a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
-        </div>
-    </li>
-</ul>
+<a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
 
-</section_about>
+<a href="https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86>玉娇龙与第一性原理</a>
 
-
-# Posts
-
-<!-- <img align="left" width="100" src="/images/wakesurf.jpeg"> -->
-
-[投资者与市场波动(译)](https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8)
-
-[金装律师里的职场](https://zlthinker.github.io/%E9%87%91%E8%A3%85%E5%BE%8B%E5%B8%88%E9%87%8C%E7%9A%84%E8%81%8C%E5%9C%BA)
-
-[玉娇龙与第一性原理](https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86)
-
-[人生的杠杆定律(译)](https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B)
+<a href="https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B">人生的杠杆定律(译)</a>
 
 
 # Links
