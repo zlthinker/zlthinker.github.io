@@ -5,8 +5,6 @@ A PhD / An Engineer / An Investor / A life-long Learner
 
 # Posts
 
-<h3>2021 &#172;</h3>
-
 <a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
 
 <a href="https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86">玉娇龙与第一性原理</a>
