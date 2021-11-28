@@ -1,13 +1,11 @@
 # About
 
-**A PhD** / **An Engineer** / 
-
-**An Investor** / **A life-long Learner**
+A PhD / An Engineer / An Investor / A life-long Learner
 
 
 # Posts
 
-<section>
+<!-- <section> -->
 
 <ul>
     <li>
@@ -20,7 +18,7 @@
     </li>
 </ul>
 
-</section>
+<!-- </section> -->
 
 
 # Posts
