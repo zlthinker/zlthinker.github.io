@@ -14,24 +14,17 @@ layout: default
 	<div class="center">
 		<h1>{{ page.title }}</h1>
 		<time>{{ page.date | date: '%B %-d, %Y' }}</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			{% for tag in page.tags %}
 			<li><a href="{{site.baseurl}}/tag_index.html" title="{{tag}}">{{ tag }}</a></li>
 			{% endfor %}
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
 	{{ content }}
-
-	<div class="center"></div>
-	<!-- LikeBtn.com BEGIN -->
-	<span> I appreciate you feedback! </span> <span class="likebtn-wrapper" data-identifier="item_1"></span>
-	<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
-	<!-- LikeBtn.com END -->
-	</div>
 
 </article>
 
