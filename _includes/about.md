@@ -1,6 +1,6 @@
 # About
 
-A PhD / An Engineer / An Investor / A life-long Learner
+A PhD / An Engineer / An Investor / A dog lover / A life-long Learner
 
 
 # Posts
