@@ -3,7 +3,9 @@
 A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 
-# Posts
+# Life posts
+
+[我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
 
 <a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
 
@@ -11,6 +13,13 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 <a href="https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B">人生的杠杆定律(译)</a>
 
+# Technical posts
+
+[Steps to Setup VPN PPTP Client on CentOS7](https://zlthinker.github.io/Setup-VPN-on-CentOS)
+
+[地理信息系统中的常用坐标系](https://zlthinker.github.io/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB)
+
+[Optimization for Least Square Problems](https://zlthinker.github.io/optimization-for-least-square-problem)
 
 # Links
 
