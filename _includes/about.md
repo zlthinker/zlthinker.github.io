@@ -5,6 +5,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Life posts
 
+[元宇宙是一个buzzword吗?](https://zlthinker.github.io/%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97)
+
 [当我投资苹果，我在投资什么?](https://zlthinker.github.io/%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88)
 
 [我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
