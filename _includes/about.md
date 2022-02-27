@@ -3,21 +3,28 @@
 A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 
-# Life posts
+# 随思随想
+
+[俄罗斯的宿命:西方的铁蹄和南方的海风](https://zlthinker.github.io/%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD)
+
+[我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
+
+[玉娇龙与第一性原理](https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86)
+
+[人生的杠杆定律(译)](https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B)
+
+
+# Finance
 
 [元宇宙是一个buzzword吗? 谈谈Facebook](https://zlthinker.github.io/%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97)
 
 [当我投资苹果，我在投资什么?](https://zlthinker.github.io/%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88)
 
-[我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
+[投资者与市场波动(译)](https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8)
 
-<a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a>
 
-<a href="https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86">玉娇龙与第一性原理</a>
 
-<a href="https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B">人生的杠杆定律(译)</a>
-
-# Technical posts
+# Technical
 
 [Steps to Setup VPN PPTP Client on CentOS7](https://zlthinker.github.io/Setup-VPN-on-CentOS)
 
