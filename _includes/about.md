@@ -5,6 +5,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # 随思随想
 
+[在西藏，见自己见天地见众生](https://zlthinker.github.io/Tibet)
+
 [俄罗斯的宿命:西方的铁蹄和南方的海风](https://zlthinker.github.io/%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD)
 
 [我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
