@@ -5,6 +5,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # 随思随想
 
+[我们应该如何筛选自媒体](https://zlthinker.github.io/read-media)
+
 [在西藏，见自己见天地见众生](https://zlthinker.github.io/Tibet)
 
 [俄罗斯的宿命:西方的铁蹄和南方的海风](https://zlthinker.github.io/%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD)
