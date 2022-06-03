@@ -20,6 +20,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Finance
 
+[AMD-给后进生掌声](https://zlthinker.github.io/AMD)
+
 [Nike的独立宣言](https://zlthinker.github.io/Nike)
 
 [元宇宙是一个buzzword吗? 谈谈Facebook](https://zlthinker.github.io/%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97)
