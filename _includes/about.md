@@ -20,7 +20,7 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Finance
 
-[AMD-给后进生掌声](https://zlthinker.github.io/AMD)
+[AMD，给后进生的掌声](https://zlthinker.github.io/AMD)
 
 [Nike的独立宣言](https://zlthinker.github.io/Nike)
 
