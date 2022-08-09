@@ -5,6 +5,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # 随思随想
 
+[跟凯撒学领导力](https://zlthinker.github.io/%E8%B7%9F%E5%87%AF%E6%92%92%E5%AD%A6%E9%A2%86%E5%AF%BC%E5%8A%9B)
+
 [我们应该如何筛选自媒体](https://zlthinker.github.io/read-media)
 
 [在西藏，见自己见天地见众生](https://zlthinker.github.io/Tibet)
