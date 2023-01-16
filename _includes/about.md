@@ -22,6 +22,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Finance
 
+[Microsoft, 一只再生的水母](https://zlthinker.github.io/MSFT)
+
 [AMD，给后进生的掌声](https://zlthinker.github.io/AMD)
 
 [Nike的独立宣言](https://zlthinker.github.io/Nike)
