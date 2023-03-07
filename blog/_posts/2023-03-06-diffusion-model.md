@@ -42,11 +42,11 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \texttildelow \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T ~ \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
+In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
 
 Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
-$$q(x_{t-1} \| x_t) \texttildelow \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
+$$q(x_{t-1} \| x_t) \sim \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
 
 while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
 
