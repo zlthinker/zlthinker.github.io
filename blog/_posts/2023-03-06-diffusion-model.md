@@ -46,8 +46,12 @@ In the forward diffusion process, the hidden variable $$x_t$$ is conditioned onl
 
 Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
-$$q(x_{t-1} \| x_t) \sim \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
+$$q(x_{t-1} \| x_t) \sim \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t)),$$
 
 while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
 
 In this way, we are able to get all the probabilitic relationships of $$\{x_t \}_{t=0}^T$$ in both forward and backward directions.
+
+## How to Optimize
+
+Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. In this sense, the observations of $$x_0$$ we use for training should as much as possible reflect the real distribution of $$x_0$$, with good density, coverage and diversity.
