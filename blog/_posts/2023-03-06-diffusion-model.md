@@ -16,11 +16,15 @@ category: Linear Algebra
 
 The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathcal{T}: R^d \leftrightarrow R^d$$. The distributions have the same dimensions $$d$$. With a known distribution, we can generate infinite samples from it easily, and map them back to the unknown distribution which is more interesting to us, for example, the human language distribution, the image set distribution, or even the distribution of the universe. 
 
+<p align="center">
+<img src="/images/diffusion_model/diffusion_model_mapping.png" alt="diffusion_model_mapping" width="700"/>
+</p>
+
 In practice, we can choose any known distributions we like to learn the mapping. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to implement. Theoretically, it is also possible to map any distributions to a Gaussian distribution given a sufficiently large number of diffusion steps.
 
-In terms of the data space where the mapping is learned, one option is to keep the original high-dimensional data space, for example, millions of dimensions for a high-resolution image. The other option is to transform the original data space into a low-dimensional latent space and learn the mapping in the latent space, which is exactly [StableDiffusion](https://stablediffusionweb.com/) proposed to do.
+In terms of the data space where the mapping is learned, one option is to keep the original high-dimensional data space, for example, millions of dimensions for a high-resolution image. The other option is to transform the original data space into a low-dimensional latent space and learn the mapping in the latent space, which is exactly what [StableDiffusion](https://stablediffusionweb.com/) proposed to do.
 Generally speaking, the dimension is the higher the better, because higher dimension means larger capacity for capturing a complex data distribution.
-However, many of the data distributions are highly correlated across dimensions and therefore redundant. It is always beneficial to apply a PCA-like transformation to compress the data dimensionality. At the same time, **it has the benefit of only keeping the essential semantic information in the latent space.** Therefore, choosing the dimension of the latent space is non-heuristics. It depends on how much essential information we want to capture in the latent space with the lowest dimensionality. Additionally, reducing the dimension to a latent space makes it easier to train the mapping function and more efficient to run sampling.
+However, many of the data distributions are highly correlated across dimensions and therefore redundant. It is always beneficial to apply a PCA-like transformation to compress the data dimensionality. At the same time, **it has the benefit of only keeping the high-level semantic information in the latent space.** Therefore, choosing the dimension of the latent space is non-heuristics. It depends on how much essential information we want to capture in the latent space with the lowest dimensionality. Additionally, reducing the dimension to a latent space makes it easier to train the mapping function and more efficient to run sampling.
 
 
 ## Probabilistic Modeling
@@ -35,7 +39,7 @@ Once we decompose the mapping into a bunch of small steps, we get the hidden var
 The benefit of these hidden variables is that they make it easier to learning mapping between two very different distributions. On the one hand, it is more effortless to train small substeps than a single huge step, because the regularization of the hidden variable distributions can make the optimization more stable. On the other hand, if one step fails to learn well, the other steps can compensate for that and give an overall good performance. This is how we get the figure below:
 
 <p align="center">
-<img src="/images/diffusion_model/diffusion_model_markov_chain.png" alt="diffusion_model_markov_chain" width="700"/>
+<img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="700"/>
 </p>
 
 In the forward diffusion process, the hidden variable $$x_t$$ is only conditioned on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t ~ \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T ~ \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
