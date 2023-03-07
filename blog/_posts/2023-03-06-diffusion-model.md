@@ -63,3 +63,13 @@ $$p_{\theta}(x_0) p_{x_{1:T} \| x_0} = p_{\theta} (x_{0:T}).$$
 According to the Markov chain rule, the right hand can be expressed as 
 
 $$p_{\theta} (x_{0:T}) = p(x_T) \prod_{t=T}^1  p{\theta} (x_{t-1} \| x_t).$$
+
+
+## Reference
+
+[Deep Unsupervised Learning using
+Nonequilibrium Thermodynamics](http://proceedings.mlr.press/v37/sohl-dickstein15.pdf)
+
+[Denoising Diffusion Probabilistic Models](https://arxiv.org/pdf/2006.11239.pdf)
+
+https://ayandas.me/blog-tut/2021/12/04/diffusion-prob-models.html
