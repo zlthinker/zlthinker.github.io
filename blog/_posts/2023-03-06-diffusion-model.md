@@ -14,7 +14,7 @@ category: Linear Algebra
 
 ## The Essence of Diffusion Model
 
-The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathcal{T}: R^d \leftrightarrow R^d$$. The distributions have the same dimensions $$d$$. With a known distribution, we can generate infinite samples from it easily, and map them back to the unknown distribution which is more interesting to us, for example, the human language distribution, the image set distribution, or even the distribution of the universe. 
+The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathbf{T}: R^d \leftrightarrow R^d$$. The distributions have the same dimensions $$d$$. With a known distribution, we can generate infinite samples from it easily, and map them back to the unknown distribution which is more interesting to us, for example, the human language distribution, the image set distribution, or even the distribution of the universe. 
 
 <p align="center">
 <img src="/images/diffusion_model/diffusion_model_mapping.png" alt="diffusion_model_mapping" width="600"/>
@@ -42,11 +42,11 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
+In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$.
 
 Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
-$$q(x_{t-1} \| x_t) \sim \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t)),$$
+$$q(x_{t-1} \| x_t) \sim \mathbf{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t)),$$
 
 while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
 
