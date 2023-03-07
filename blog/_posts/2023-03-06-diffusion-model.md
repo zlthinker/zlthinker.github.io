@@ -54,4 +54,12 @@ In this way, we are able to get all the probabilitic relationships of $$\{x_t \}
 
 ## How to Optimize
 
-Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. In this sense, the observations of $$x_0$$ we use for training should as much as possible reflect the real distribution of $$x_0$$, with good density, coverage and diversity.
+Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. In this sense, the observations of $$x_0$$ we use for training should as much as possible reflect the real distribution of $$x_0$$, with good density, coverage and diversity. Otherwise, the estimation of $$\theta$$ will be biased towards the non-representative training data samples.
+
+Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
+
+$$p_{\theta}(x_0) p_{x_{1:T} \| x_0} = p_{\theta} (x_{0:T}).$$
+
+According to the Markov chain rule, the right hand can be expressed as 
+
+$$p_{\theta} (x_{0:T}) = p(x_T) \prod_{t=T}^1  p{\theta} (x_{t-1} \| x_t).$$
