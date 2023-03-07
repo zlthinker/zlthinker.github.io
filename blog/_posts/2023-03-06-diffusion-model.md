@@ -14,18 +14,18 @@ category: Linear Algebra
 
 ## The Essence of Diffusion Model
 
-The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathcal{T}: R^d \rightarrow R^d$$. The distributions have the same dimensions. With a known distribution, we can draw a sample from it easily and generate infinite samples as we want, and map it back to the unknown distribution. 
+The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathcal{T}: R^d \leftrightarrow R^d$$. The distributions have the same dimensions $$d$$. With a known distribution, we can generate infinite samples from it easily, and map them back to the unknown distribution which is more interesting to us, for example, the human language distribution, the image set distribution, or even the distribution of the universe. 
 
-Theoretically, we can choose any known distributions we like. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to formulate and implement.
+In practice, we can choose any known distributions we like to learn the mapping. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to implement. Theoretically, it is also possible to map any distributions to a Gaussian distribution given a sufficiently large number of diffusion steps.
 
-Generally speaking, the dimension of the known distribution is the higher the better, because higher dimension means larger capacity for capturing a complex data distribution. But as the dimension grows higher, it is more difficult to train the mapping and less efficient to run sampling. That is why [StableDiffusion](https://stablediffusionweb.com/) uses a latent space with reduced dimension and learn the mapping in the latent space instead of the high-dimensional pixel space. At the same time, **it has the benefit of compressing the low-level information in images and only keep the essential semantic information in the distribution in the latent space.** Besides, the dimension of the latent space depends on the complexity of specific tasks.
-
-
+In terms of the data space where the mapping is learned, one option is to keep the original high-dimensional data space, for example, millions of dimensions for a high-resolution image. The other option is to transform the original data space into a low-dimensional latent space and learn the mapping in the latent space, which is exactly [StableDiffusion](https://stablediffusionweb.com/) proposed to do.
+Generally speaking, the dimension is the higher the better, because higher dimension means larger capacity for capturing a complex data distribution.
+However, many of the data distributions are highly correlated across dimensions and therefore redundant. It is always beneficial to apply a PCA-like transformation to compress the data dimensionality. At the same time, **it has the benefit of only keeping the essential semantic information in the latent space.** Therefore, choosing the dimension of the latent space is non-heuristics. It depends on how much essential information we want to capture in the latent space with the lowest dimensionality. Additionally, reducing the dimension to a latent space makes it easier to train the mapping function and more efficient to run sampling.
 
 
 ## Probabilistic Modeling
 
-Knowing the mapping from a data distribution of interest (e.g., an image set) to a Gaussian distribution is useless by itself, while the reverse is what we want. The reverse mapping from a sample in Gaussian distribution (e.g., $$y \in N(0,\Sigma)$$) to a sample in an image set is not deterministic, but probabilistic. Given a Gaussian sample $$y$$, learning the reverse mapping is to uncover the conditional probability $$p(x\|y)$$, where $$x$$ is a sample in image set. Mathematically, knowing $$p(x\|y)$$ is equivalent to knowing $$p(x, y)$$, since $$p(x, y) = p(y) p(x\|y)$$ and $$p(y)$$ is already known.
+Knowing the mapping from a data distribution of interest, e.g., an image set, to a Gaussian distribution is useless, while the reverse is what we want. The reverse mapping from a sample in Gaussian distribution (e.g., $$y \in N(0,\Sigma)$$) to a sample in an image set is not deterministic, but probabilistic. Given a Gaussian sample $$y$$, learning the reverse mapping is to uncover the conditional probability $$p(x\|y)$$, where $$x$$ is a sample in image set. Mathematically, knowing $$p(x\|y)$$ is equivalent to knowing $$p(x, y)$$, since $$p(x, y) = p(y) p(x\|y)$$ and $$p(y)$$ is already known.
 
 
 The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process in Physics, where noise is added into the data gradually with a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning a single-step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
@@ -38,6 +38,10 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_markov_chain.png" alt="diffusion_model_markov_chain" width="700"/>
 </p>
 
+In the forward diffusion process, the hidden variable $$x_t$$ is only conditioned on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t ~ \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T ~ \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
 
+Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
+$$q(x_{t-1} \| x_t) \tilde \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
 
+while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
