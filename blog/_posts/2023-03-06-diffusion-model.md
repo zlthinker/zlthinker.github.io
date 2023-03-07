@@ -17,7 +17,7 @@ category: Linear Algebra
 The essence of diffusion model learning is to learn a mapping between **an unknown data distribution** and **a known distribution**, i.e., $$\mathcal{T}: R^d \leftrightarrow R^d$$. The distributions have the same dimensions $$d$$. With a known distribution, we can generate infinite samples from it easily, and map them back to the unknown distribution which is more interesting to us, for example, the human language distribution, the image set distribution, or even the distribution of the universe. 
 
 <p align="center">
-<img src="/images/diffusion_model/diffusion_model_mapping.png" alt="diffusion_model_mapping" width="700"/>
+<img src="/images/diffusion_model/diffusion_model_mapping.png" alt="diffusion_model_mapping" width="600"/>
 </p>
 
 In practice, we can choose any known distributions we like to learn the mapping. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to implement. Theoretically, it is also possible to map any distributions to a Gaussian distribution given a sufficiently large number of diffusion steps.
@@ -32,20 +32,22 @@ However, many of the data distributions are highly correlated across dimensions 
 Knowing the mapping from a data distribution of interest, e.g., an image set, to a Gaussian distribution is useless, while the reverse is what we want. The reverse mapping from a sample in Gaussian distribution (e.g., $$y \in N(0,\Sigma)$$) to a sample in an image set is not deterministic, but probabilistic. Given a Gaussian sample $$y$$, learning the reverse mapping is to uncover the conditional probability $$p(x\|y)$$, where $$x$$ is a sample in image set. Mathematically, knowing $$p(x\|y)$$ is equivalent to knowing $$p(x, y)$$, since $$p(x, y) = p(y) p(x\|y)$$ and $$p(y)$$ is already known.
 
 
-The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process in Physics, where noise is added into the data gradually with a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning a single-step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
+The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process as in Physics world, where noise is added into the data gradually and releatedly with a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning a single-step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
 
 Once we decompose the mapping into a bunch of small steps, we get the hidden variables in the same number as the steps. Let's denote the variable of the image set distribution as $$x_0$$, and the variable of the final Gaussian distribution as $$x_T$$. We have a number of $$T-1$$ intemediate hidden variables $$x_1, x_2, ..., x_{T-1}$$ transitioning from $$x_0$$ to $$x_T$$. The number of the steps depend on how far away the original distribution of $$x_0$$ is from a Gaussian distribution. 
 
 The benefit of these hidden variables is that they make it easier to learning mapping between two very different distributions. On the one hand, it is more effortless to train small substeps than a single huge step, because the regularization of the hidden variable distributions can make the optimization more stable. On the other hand, if one step fails to learn well, the other steps can compensate for that and give an overall good performance. This is how we get the figure below:
 
 <p align="center">
-<img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="700"/>
+<img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-In the forward diffusion process, the hidden variable $$x_t$$ is only conditioned on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t ~ \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T ~ \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
+In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \texttildelow \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T ~ \mathcal{N}(\mathbf{0}, \mathbf{I})$$.
 
 Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
-$$q(x_{t-1} \| x_t) \tilde \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
+$$q(x_{t-1} \| x_t) \texttildelow \mathcal{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t))$$,
 
 while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
+
+In this way, we are able to get all the probabilitic relationships of $$\{x_t \}_{t=0}^T$$ in both forward and backward directions.
