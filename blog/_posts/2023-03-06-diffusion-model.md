@@ -1,0 +1,28 @@
+---
+title: Diffusion Model In Essence
+updated: 2023-03-06 15:00
+tags: [matrix, math]
+category: Linear Algebra
+---
+
+
+
+# The Essence of Diffusion Model
+
+The essence of diffusion model learning is to learn a mapping between *an unknown discrete data distribution* and *a known continuous distribution*. The distributions have the same dimensions. Once a distribution is known and continuous, we can draw a sample from it easily and generate infinite samples as we want. 
+
+Theoretically, we can choose any known continuous distributions we like. But in general, we use standard Gaussian distribution to learn the mapping, because it is easy to understand and simple to formulate and implement.
+
+Generally speaking, the dimension of the known continuous distribution is the higher the better, because higher dimension means larger capacity for capturing a complex data distribution. But as the dimension grows higher, it is more difficult to train and less efficient to run. That is why Stable Diffusion uses a latent space with reduced dimension and learn the transform in the latent space. At the same time, *it has the benefit of compressing the low-level information in images and only keep the essential semantic information in the distribution in the latent space.* Besides, the dimension of the latent space depends on the requirements of specific tasks.
+
+
+
+
+# Probabilistic Modeling
+
+Learning the mapping from a data distribution of interest (e.g., an image set) to a Gaussian distribution is useless, while the reverse is what we want. The reverse mapping from a sample in Gaussian distribution (e.g., $$y \in N(0,\Sigma)$$) to a sample in an image set is not deterministic, but probabilistic. Given a Gaussian sample y,. learning the reverse mapping is to uncover the conditional probability $$p(x\|y)$$, where $$x$$ is a sample in image set. Mathetically, knowing $$p(x\|y)$$ is equivalent to knowing $$p(x, y)$$, since $$p(x, y) = p(y) p(x\|y)$$ and $$p(y)$$ is already known.
+
+
+The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process in Physics, where noise is added into the data gradually as a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning the one step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
+
+
