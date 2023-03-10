@@ -66,7 +66,7 @@ But the condition is that the samples in training dataset $$\mathbf{D}$$ are ind
 
 Now let's look at the derivation of $$p_{\theta}(x_0)$$. Since $$x_0$$ can be seen as derived from the reverse diffusion process as shown above, we can include the hidden variables in its expression:
 
-$$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int p_{\theta}(x_{0:T})  \frac{q(x_{1:T} \| x_0)}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) \frac{p_{\theta}(x_{0:T})}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) p(x_T) \frac{p_{\theta}(x_{1:T} \| x_T)}{q(x_{1:T} \| x_0)} d x_{1:T} \\  &= \int  q(x_{1:T} \| x_0) p(x_T)  \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t}{q(x_t \| x_{t-1})} \end{split}$$
+$$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int p_{\theta}(x_{0:T})  \frac{q(x_{1:T} \| x_0)}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) \frac{p_{\theta}(x_{0:T})}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) p(x_T) \frac{p_{\theta}(x_{0:T-1} \| x_T)}{q(x_{1:T} \| x_0)} d x_{1:T} \\  &= \int  q(x_{1:T} \| x_0) p(x_T)  \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} \end{split}$$
 
 <!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
 
