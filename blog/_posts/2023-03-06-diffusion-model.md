@@ -20,9 +20,9 @@ The essence of diffusion model learning is to learn a mapping between **an unkno
 <img src="/images/diffusion_model/diffusion_model_mapping.png" alt="diffusion_model_mapping" width="600"/>
 </p>
 
-In practice, we can choose any known distributions we like to learn the mapping. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to implement. Theoretically, it is also possible to map any distributions to a Gaussian distribution given a sufficiently large number of diffusion steps.
+**Gaussian Is an Option.** In practice, we can choose any known distributions we like to learn the mapping. But in general, standard Gaussian distribution is used, because it is easy to understand and simple to implement. Theoretically, it is also possible to map any distributions to a Gaussian distribution given a sufficiently large number of diffusion steps.
 
-In terms of the data space where the mapping is learned, one option is to keep the original high-dimensional data space, for example, millions of dimensions for a high-resolution image. The other option is to transform the original data space into a low-dimensional latent space and learn the mapping in the latent space, which is exactly what [StableDiffusion](https://stablediffusionweb.com/) proposed to do.
+**Learn the mapping in reduced dimension.** In terms of the data space where the mapping is learned, one option is to keep the original high-dimensional data space, for example, millions of dimensions for a high-resolution image. The other option is to transform the original data space into a low-dimensional latent space and learn the mapping in the latent space, which is exactly what [StableDiffusion](https://stablediffusionweb.com/) proposed to do.
 Generally speaking, the dimension is the higher the better, because higher dimension means larger capacity for capturing a complex data distribution.
 However, many of the data distributions are highly correlated across dimensions and therefore redundant. It is always beneficial to apply a PCA-like transformation to compress the data dimensionality. At the same time, **it has the benefit of only keeping the high-level semantic information in the latent space.** Therefore, choosing the dimension of the latent space is non-heuristics. It depends on how much essential information we want to capture in the latent space with the lowest dimensionality. Additionally, reducing the dimension to a latent space makes it easier to train the mapping function and more efficient to run sampling.
 
@@ -32,7 +32,7 @@ However, many of the data distributions are highly correlated across dimensions 
 Knowing the mapping from a data distribution of interest, e.g., an image set, to a Gaussian distribution is useless, while the reverse is what we want. The reverse mapping from a sample in Gaussian distribution (e.g., $$y \in N(0,\Sigma)$$) to a sample in an image set is not deterministic, but probabilistic. Given a Gaussian sample $$y$$, learning the reverse mapping is to uncover the conditional probability $$p(x\|y)$$, where $$x$$ is a sample in image set. Mathematically, knowing $$p(x\|y)$$ is equivalent to knowing $$p(x, y)$$, since $$p(x, y) = p(y) p(x\|y)$$ and $$p(y)$$ is already known.
 
 
-The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process as in Physics world, where noise is added into the data gradually and releatedly with a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning a single-step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
+**Hard Things in Small Steps.** The transform from any distribution to a Gaussian distribution can be easily modelled as a diffusion process as in Physics world, where noise is added into the data gradually and releatedly with a self-defined Markov chain. Similarly, we can also learn the reverse process gradually in many small steps, as learning a single-step mapping $$p(x\|y)$$ is almost intractable when the distribution of $$x$$ is complicated.
 
 Once we decompose the mapping into a bunch of small steps, we get the hidden variables in the same number as the steps. Let's denote the variable of the image set distribution as $$x_0$$, and the variable of the final Gaussian distribution as $$x_T$$. We have a number of $$T-1$$ intemediate hidden variables $$x_1, x_2, ..., x_{T-1}$$ transitioning from $$x_0$$ to $$x_T$$. The number of the steps depend on how far away the original distribution of $$x_0$$ is from a Gaussian distribution. 
 
@@ -42,9 +42,9 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$.
+**Forward Diffusion** In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$.
 
-Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
+**Reverse Diffusion** Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
 $$q(x_{t-1} \| x_t) \sim \mathbf{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t)),$$
 
@@ -54,15 +54,23 @@ In this way, we are able to get all the probabilitic relationships of $$\{x_t \}
 
 ## How to Optimize
 
-Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. In this sense, the observations of $$x_0$$ we use for training should as much as possible reflect the real distribution of $$x_0$$, with good density, coverage and diversity. Otherwise, the estimation of $$\theta$$ will be biased towards the non-representative training data samples.
+Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. That writes
 
-Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
+$$\mathbf{L} = -\int_{x_0} q(x_0) p_{\theta}(x_0),$$
 
-$$p_{\theta}(x_0) p_{x_{1:T} \| x_0} = p_{\theta} (x_{0:T}).$$
+where $$q(x_0)$$ reflects the probability of sample $$x_0$$ drawn from the underlying distribution. In training where $$x_0$$ is just a data sampling from a large training data collection, we can rewrite the integration over $$x_0$$ as an average, 
+
+$$\mathbf{L} = -\Sum_{x_0 \in \mathbf{D}} p_{\theta}(x_0).$$
+
+But the condition is that the samples in training dataset $$\mathbf{D}$$ are independently and identically distributed. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
+
+<!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
+
+$$p_{\theta}(x_0) p_{\theta} (x_{1:T} \| x_0) = p_{\theta} (x_{0:T}).$$
 
 According to the Markov chain rule, the right hand can be expressed as 
 
-$$p_{\theta} (x_{0:T}) = p(x_T) \prod_{t=T}^1  p{\theta} (x_{t-1} \| x_t).$$
+$$p_{\theta} (x_{0:T}) = p(x_T) \prod_{t=T}^1  p_{\theta} (x_{t-1} \| x_t).$$ -->
 
 
 ## Reference
