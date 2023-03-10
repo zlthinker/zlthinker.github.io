@@ -54,15 +54,19 @@ In this way, we are able to get all the probabilitic relationships of $$\{x_t \}
 
 ## How to Optimize
 
-Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. That writes
+**Maximum Likelihood Estimation** Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. That writes
 
 $$\mathbf{L} = -\int_{x_0} q(x_0) p_{\theta}(x_0),$$
 
 where $$q(x_0)$$ reflects the probability of sample $$x_0$$ drawn from the underlying distribution. In training where $$x_0$$ is just a data sampling from a large training data collection, we can rewrite the integration over $$x_0$$ as an average, 
 
-$$\mathbf{L} = -\Sum_{x_0 \in \mathbf{D}} p_{\theta}(x_0).$$
+$$\mathbf{L} = -\sum_{x_0 \in \mathbf{D}} p_{\theta}(x_0).$$
 
 But the condition is that the samples in training dataset $$\mathbf{D}$$ are independently and identically distributed. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
+
+Now let's look at the derivation of $$p_{\theta}(x_0)$$. Since $$x_0$$ can be seen as derived from the reverse diffusion process as shown above, we can include the hidden variables in its expression:
+
+$$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int p_{\theta}(x_{0:T})  \frac{q(x_{1:T} \| x_0)}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) \frac{p_{\theta}(x_{0:T})}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) p(x_T) \frac{p_{\theta}(x_{1:T} \| x_T)}{q(x_{1:T} \| x_0)} d x_{1:T} \\  &= \int  q(x_{1:T} \| x_0) p(x_T)  \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t}{q(x_t \| x_{t-1})} \end{split}$$
 
 <!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
 
