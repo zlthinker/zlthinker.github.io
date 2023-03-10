@@ -70,7 +70,13 @@ $$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int
 
 Put the expression of $$p_{\theta}(x_0)$$ into the loss function, we have
 
-$$\mathbf{L} = -\sum_{x_0 \in \mathbf{D}} log \left(   \int  q(x_{1:T} \| x_0) p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right) $$
+$$\mathbf{L} = -\sum_{x_0 \in \mathbf{D}} log \left(   \int  q(x_{1:T} \| x_0) p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right). $$
+
+Since $$q(x_{1:T} \| x_0)$$ is convex, according to [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality#Measure-theoretic_form), we have 
+
+$$\mathbf{L} \leq -\sum_{x_0 \in \mathbf{D}} log \left(  q(x_{1:T} \| x_0) \int  p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right),$$
+
+which constitutes an upper bound of the maximum likelihood loss function.
 
 <!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
 
