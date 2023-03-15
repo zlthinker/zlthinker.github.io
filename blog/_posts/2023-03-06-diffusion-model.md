@@ -64,16 +64,6 @@ $$\mathbf{L} = -\int_{x_0} q(x_0) \log p_{\theta}(x_0),$$
 
 where $$q(x_0)$$ reflects the probability of sample $$x_0$$ drawn from the underlying distribution. 
 
-<!-- In training where $$x_0$$ is just a data sampling from a large training data collection, we can rewrite the integration over $$x_0$$ as an average, 
-
-$$\mathbf{L} = -\sum_{x_0 \in \mathbf{D}}  \log p_{\theta}(x_0).$$
-
-But the condition is that the samples in training dataset $$\mathbf{D}$$ are independently and identically distributed. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
-
-Now let's look at the derivation of $$p_{\theta}(x_0)$$. Since $$x_0$$ can be seen as derived from the reverse diffusion process as shown above, we can include the hidden variables in its expression:
-
-$$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int p_{\theta}(x_{0:T})  \frac{q(x_{1:T} \| x_0)}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) \frac{p_{\theta}(x_{0:T})}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) p(x_T) \frac{p_{\theta}(x_{0:T-1} \| x_T)}{q(x_{1:T} \| x_0)} d x_{1:T} \\  &= \int  q(x_{1:T} \| x_0) p(x_T)  \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T}\end{split}$$ -->
-
 Put the expression of $$p_{\theta}(x_0)$$ into the loss function, we have
 
 $$\mathbf{L} = - \int q(x_0)log \left(   \int  q(x_{1:T} \| x_0) p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right) d x_0. $$
@@ -86,21 +76,17 @@ which constitutes an upper bound of the maximum likelihood loss function.
 
 Since we have $$q(x_T \| x_0) = \prod_{t=1}^T q(x_t \| x_{t-1})$$, the upper bound can be simplified into
 
-$$\int q(x_{0:T} ) {   D_{KL}(q(x_T\| x_0)) \| p(x_T)  } + \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  \|  p_{\theta} (x_{t-1} \| x_t))  - log p_{\theta}(x_0 \| x_1)  d x_{0:T}, $$
+$$\int q(x_{0:T} ) \left{   D_{KL}(q(x_T\| x_0) \| p(x_T) ) + \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  \|  p_{\theta} (x_{t-1} \| x_t))  - log p_{\theta}(x_0 \| x_1) \right} d x_{0:T}, $$
 
-where $$D_{KL}$$ denotes KL-divergence, and $$q(x_{0:T}$$ and $$q(x_{t-1} \| x_t, x_0) $$ can be computed in closed form.
+where $$D_{KL}$$ denotes KL-divergence, and $$q(x_{0:T})$$ and $$q(x_{t-1} \| x_t, x_0) $$ can be computed in closed form.
 
-**Training Algorithm** The integration over $$x_{0:T}$$ can be approximated by sampling discrete samples according to the joint distribution $$q(x_{0:T} )$$. Since $$q(x_{0:T} ) = q(x_{1:T} \| x_0)q(x_0) = \prod_{t=1}^T  q(x_t \| x_{t-1}) q(x_0)$$, we can firstly sample $$x_0$$ from the training dataset according to $$q(x_0)$$, and then sample $$x_{1:T}$$ from the Markov chain uniformly. A gradient descent step is computed from the loss function upper bound above and then we re-sample $$x_{0:T}$$ for the next iteration.
+**Training Algorithm** The integration over $$x_{0:T}$$ can be approximated by sampling discrete samples according to the joint distribution $$q(x_{0:T} )$$. Since $$q(x_{0:T} ) = \prod_{t=1}^T  q(x_t \| x_{t-1}) q(x_0)$$, we can firstly sample $$x_0$$ from the training dataset according to $$q(x_0)$$, and then sample $$x_{1:T}$$ from the Markov chain. A gradient descent step is computed from the loss function upper bound above and then we re-sample $$x_{0:T}$$ for the next iteration.
 
-Here as we sample $$x_0$$ randomly from the training dataset, we actually assume that the samples in the training set are independently and identically distributed. Otherwise, the sampling probability will be different from $$q(x_0)$$. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
+As we sample $$x_0$$ randomly from the training dataset, we actually assume that the samples in the training set are independently and identically distributed. Otherwise, the sampling probability will be different from $$q(x_0)$$. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
 
-<!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
-
-$$p_{\theta}(x_0) p_{\theta} (x_{1:T} \| x_0) = p_{\theta} (x_{0:T}).$$
-
-According to the Markov chain rule, the right hand can be expressed as 
-
-$$p_{\theta} (x_{0:T}) = p(x_T) \prod_{t=T}^1  p_{\theta} (x_{t-1} \| x_t).$$ -->
+<p align="center">
+<img src="/images/diffusion_model/diffusion_model_training.png" alt="diffusion_model_training" width="600"/>
+</p>
 
 
 ## Reference
@@ -110,4 +96,4 @@ Nonequilibrium Thermodynamics](http://proceedings.mlr.press/v37/sohl-dickstein15
 
 [Denoising Diffusion Probabilistic Models](https://arxiv.org/pdf/2006.11239.pdf)
 
-https://ayandas.me/blog-tut/2021/12/04/diffusion-prob-models.html
+[https://ayandas.me/blog-tut/2021/12/04/diffusion-prob-models.html](https://ayandas.me/blog-tut/2021/12/04/diffusion-prob-models.html)
