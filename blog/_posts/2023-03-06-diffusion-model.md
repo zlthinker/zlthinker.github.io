@@ -42,13 +42,17 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-**Forward Diffusion** In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$.
+**Forward Diffusion** In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants. After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$. With the forward diffusion process defined, we can express the distribution of the diffused sample at any timestamp $$t$$ in closed form:
+
+$$q(x_t \| x_0) = N(\sqrt(\hat{\alpha_t}) x_0, (1 - \hat{\alpha_t})I),$$
+
+where $$\alpha_t = 1 - \beta_t$$ and $$\hat{\alpha_t} = \prod_{s=1}^t \alpha_s$$.
 
 **Reverse Diffusion** Although the forward conditionals $$p(x_t \| x_{t-1})$$ are clearly predefined, the reverse conditionals $$q(x_{t-1} \| x_t)$$ are not. For the ease of modelling, we also choose to express the $$q(x_{t-1} \| x_t)$$ in Gaussian format:
 
-$$q(x_{t-1} \| x_t) \sim \mathbf{N} (\mu_\theta(x_t, t) \Sigma_\theta(x_t, t)),$$
+$$q(x_{t-1} \| x_t) \sim \mathbf{N} (\mu_\theta(x_t, t), \Sigma_\theta(x_t, t)),$$
 
-while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps.
+while the mean and variance are determined by neural networks with parameters $$\theta$$ and shared across different timesteps. In practice, $$\Sigma_\theta(x_t, t)$$ is set to time dependent constants $$\sigma_t^2 I$$ where $$\sigma_t$$ is related to $$\beta_t$$.
 
 In this way, we are able to get all the probabilitic relationships of $$\{x_t \}_{t=0}^T$$ in both forward and backward directions.
 
@@ -76,9 +80,19 @@ $$\mathbf{L} = - \int q(x_0)log \left(   \int  q(x_{1:T} \| x_0) p(x_T)   \prod_
 
 According to [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality#Measure-theoretic_form), we have 
 
-$$\mathbf{L} \leq - \int q(x_{0:T} ) log \left(   \int  p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right),$$
+$$\mathbf{L} \leq - \int q(x_{0:T} ) log \left(   p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})}\right)  d x_{0:T} ,$$
 
 which constitutes an upper bound of the maximum likelihood loss function.
+
+Since we have $$q(x_T \| x_0) = \prod_{t=1}^T q(x_t \| x_{t-1})$$, the upper bound can be simplified into
+
+$$\int q(x_{0:T} ) {   D_{KL}(q(x_T\| x_0)) \| p(x_T)  } + \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  \|  p_{\theta} (x_{t-1} \| x_t))  - log p_{\theta}(x_0 \| x_1)  d x_{0:T}, $$
+
+where $$D_{KL}$$ denotes KL-divergence, and $$q(x_{0:T}$$ and $$q(x_{t-1} \| x_t, x_0) $$ can be computed in closed form.
+
+**Training Algorithm** The integration over $$x_{0:T}$$ can be approximated by sampling discrete samples according to the joint distribution $$q(x_{0:T} )$$. Since $$q(x_{0:T} ) = q(x_{1:T} \| x_0)q(x_0) = \prod_{t=1}^T  q(x_t \| x_{t-1}) q(x_0)$$, we can firstly sample $$x_0$$ from the training dataset according to $$q(x_0)$$, and then sample $$x_{1:T}$$ from the Markov chain uniformly. A gradient descent step is computed from the loss function upper bound above and then we re-sample $$x_{0:T}$$ for the next iteration.
+
+Here as we sample $$x_0$$ randomly from the training dataset, we actually assume that the samples in the training set are independently and identically distributed. Otherwise, the sampling probability will be different from $$q(x_0)$$. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
 
 <!-- Formally, we can denote the likelihood of $$x_0$$ as $$p_{\theta}(x_0)$$. Based on Bayesian rule, we can write
 
