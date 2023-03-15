@@ -76,7 +76,7 @@ which constitutes an upper bound of the maximum likelihood loss function.
 
 Since we have $$q(x_T \| x_0) = \prod_{t=1}^T q(x_t \| x_{t-1})$$, the upper bound can be simplified into
 
-$$\int q(x_{0:T} ) \left{   D_{KL}(q(x_T\| x_0) \| p(x_T) ) + \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  \|  p_{\theta} (x_{t-1} \| x_t))  - log p_{\theta}(x_0 \| x_1) \right} d x_{0:T}, $$
+$$\int q(x_{0:T} ) \left(  D_{KL}(q(x_T\| x_0) \| p(x_T) ) + \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  \|  p_{\theta} (x_{t-1} \| x_t))  - log p_{\theta}(x_0 \| x_1) \right) d x_{0:T}, $$
 
 where $$D_{KL}$$ denotes KL-divergence, and $$q(x_{0:T})$$ and $$q(x_{t-1} \| x_t, x_0) $$ can be computed in closed form.
 
