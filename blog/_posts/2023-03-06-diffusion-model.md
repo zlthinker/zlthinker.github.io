@@ -64,6 +64,10 @@ $$\mathbf{L} = -\int_{x_0} q(x_0) \log p_{\theta}(x_0),$$
 
 where $$q(x_0)$$ reflects the probability of sample $$x_0$$ drawn from the underlying distribution. 
 
+Now let's look at the derivation of $$p_{\theta}(x_0)$$. Since $$x_0$$ can be seen as derived from the reverse diffusion process as shown above, we can include the hidden variables in its expression:
+
+$$\begin{split} p_{\theta}(x_0) &= \int p_{\theta}(x_{0:T}) d x_{1:T} \\ &= \int p_{\theta}(x_{0:T})  \frac{q(x_{1:T} \| x_0)}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) \frac{p_{\theta}(x_{0:T})}{q(x_{1:T} \| x_0)} d x_{1:T} \\ &= \int  q(x_{1:T} \| x_0) p(x_T) \frac{p_{\theta}(x_{0:T-1} \| x_T)}{q(x_{1:T} \| x_0)} d x_{1:T} \\  &= \int  q(x_{1:T} \| x_0) p(x_T)  \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T}\end{split}$$
+
 Put the expression of $$p_{\theta}(x_0)$$ into the loss function, we have
 
 $$\mathbf{L} = - \int q(x_0)log \left(   \int  q(x_{1:T} \| x_0) p(x_T)   \prod_{t=1}^T \frac{p_{\theta}(x_{t-1} \| x_t)}{q(x_t \| x_{t-1})} d x_{1:T} \right) d x_0. $$
