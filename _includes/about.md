@@ -38,6 +38,8 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Technical
 
+[Diffusion Model In Essence](https://zlthinker.github.io/diffusion-model)
+
 [Steps to Setup VPN PPTP Client on CentOS7](https://zlthinker.github.io/Setup-VPN-on-CentOS)
 
 [地理信息系统中的常用坐标系](https://zlthinker.github.io/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB)

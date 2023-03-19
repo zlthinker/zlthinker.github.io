@@ -42,7 +42,7 @@ The benefit of these hidden variables is that they make it easier to learning ma
 <img src="/images/diffusion_model/diffusion_model_graphical_model.png" alt="diffusion_model_graphical_model" width="600"/>
 </p>
 
-**Forward Diffusion** In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants reflecting the noise quantity. $$\beta_t$$ grows as $$t$$ increases, which means we add more noise in the later diffusion steps than in the early steps. It can be interpreted as filtering out higher frequency signals prior to lower frequency signals. In the reserval process, it is natural that lower frequency data is generated earlier than higher frequency data, because lower frequency data generally represents more prenominant features.
+**Forward Diffusion** In the forward diffusion process, the hidden variable $$x_t$$ is conditioned only on the last hidden variable $$x_{t-1}$$ due to Markov property, i.e., $$p(x_t \| x_{t-1}, ..., x_0) = p(x_t \| x_{t-1})$$. Particuarly, we use Gaussian diffusion process here. So we have $$x_t \sim \mathbf{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})$$, where $$\beta_t$$ is a pre-defined constants reflecting the noise quantity. In practice, we let $$\beta_t$$ grow as $$t$$ increases, which means we add more noise in the later diffusion steps than in the early steps. It can be interpreted as filtering out higher frequency signals prior to lower frequency signals. In the reserval process, it is natural that lower frequency data is generated earlier than higher frequency data, because lower frequency data generally represents more prenominant features.
 
 After a large finite number of $$T$$ steps, we will have $$x_T \sim \mathbf{N}(\mathbf{0}, \mathbf{I})$$. With the forward diffusion process defined, we can express the distribution of the diffused sample at any timestamp $$t$$ in closed form:
 
@@ -58,7 +58,7 @@ while the mean and variance are determined by neural networks with parameters $$
 
 In this way, we are able to get all the probabilitic relationships of $$\{x_t \}_{t=0}^T$$ in both forward and backward directions.
 
-## How to Optimize
+## Loss Functions
 
 **Maximum Likelihood Estimation** Among all the variables $$\{x_t \}_{t=0}^T$$ for which we can derive probabilitic expressions from the probabilitic model above, $$x_0$$ is the only variable of which we have observations, that is, the data samples from the training dataset. Therefore, the objective to optimize parameters $$\theta$$ is built on the likelihood of the data samples of $$x_0$$. Intuitively, our goal is to find the best estimation of $$\theta$$ so that the data samples are most likely to be derived from the probabilistic distribution of $$x_0$$ we modelled. That writes
 
@@ -86,7 +86,11 @@ $$\int q(x_{0:T} ) \left(  D_{KL}(q(x_T\| x_0) , p(x_T) ) + \sum_{t=2}^T D_{KL}(
 
 where $$D_{KL}(,)$$ denotes KL-divergence, and $$q(x_{0:T})$$ and $$q(x_{t-1} \| x_t, x_0) $$ can be computed in closed form.
 
-**Training Algorithm** The integration over $$x_{0:T}$$ can be approximated by sampling discrete samples according to the joint distribution $$q(x_{0:T} )$$. Since $$q(x_{0:T} ) = \prod_{t=1}^T  q(x_t \| x_{t-1}) q(x_0)$$, we can firstly sample $$x_0$$ from the training dataset according to $$q(x_0)$$, and then sample $$x_{1:T}$$ from the Markov chain. A gradient descent step is computed from the loss function upper bound above and then we re-sample $$x_{0:T}$$ for the next iteration.
+**What is actually learned for denoising?** Among the terms in the loss function above, $$\int q(x_{0:T} ) \sum_{t=2}^T D_{KL}(q(x_{t-1} \| x_t, x_0)  , p_{\theta} (x_{t-1} \| x_t))$$ is actually the most important one. $$q(x_{t-1} \| x_t, x_0)$$ is a posterior distribution known from the forward diffusion process, i.e., $$N(x_t, )$$
+
+## Training Algorithm 
+
+The integration over $$x_{0:T}$$ can be approximated by sampling discrete samples according to the joint distribution $$q(x_{0:T} )$$. Since $$q(x_{0:T} ) = \prod_{t=1}^T  q(x_t \| x_{t-1}) q(x_0)$$, we can firstly sample $$x_0$$ from the training dataset according to $$q(x_0)$$, and then sample $$x_{1:T}$$ from the Markov chain. A gradient descent step is computed from the loss function upper bound above and then we re-sample $$x_{0:T}$$ for the next iteration.
 
 As we sample $$x_0$$ randomly from the training dataset, we actually assume that the samples in the training set are independently and identically distributed. Otherwise, the sampling probability will be different from $$q(x_0)$$. Therefore, it is important to collect data samples with good density, coverage and diversity. Otherwise, the maximium likelihood estimation loss will be biased.
 
