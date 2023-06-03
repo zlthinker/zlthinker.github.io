@@ -26,11 +26,11 @@ AI的计算依赖于强大的GPU硬件的支持。而英伟达无疑是GPU行业
 目前，英伟达的收入主要来自两个领域：游戏和数据中心。游戏领域主要面向消费者，而数据中心则服务于对计算需求较大的企业，包括AI计算。从下方的图表可以看出，游戏部分的收入具有很强的周期性。例如，在2021年，由于疫情封锁，游戏显卡需求大幅增长，从而推动了英伟达游戏业务收入的增长。然而，在2022年，需求回落，导致英伟达游戏业务收入大幅下滑。但是一个积极的信号是，数据中心的收入自疫情前开始一直保持稳定增长。2022年第一季度（图表中对应的2023财年第一季度）是一个重要的转折点，数据中心的收入首次超过游戏收入。我相信这一趋势将继续下去，因为游戏市场已经饱和，而AI市场仍在持续增长。
 
 <p align="center">
-<img src="/images/AI/NVDA-gaming-data-center-revenue.png" alt="NVDA-gaming-data-center-revenue" width="600"/>
+<img src="/images/AI/NVDA-gaming-data-center-revenue.png" alt="NVDA-gaming-data-center-revenue" width="800"/>
 </p>
 
 
-## AMD
+## 超微半导体 AMD
 
 ## 台积电 TSM
 
