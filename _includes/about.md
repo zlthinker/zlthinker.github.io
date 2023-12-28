@@ -22,6 +22,10 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 # Finance
 
+[亚洲第一市值 -- 台积电](https://zlthinker.github.io/TSM)
+
+[AI投资指南 -- 英伟达](https://zlthinker.github.io/NVDA)
+
 [Microsoft, 一只再生的水母](https://zlthinker.github.io/MSFT)
 
 [AMD，给后进生的掌声](https://zlthinker.github.io/AMD)
