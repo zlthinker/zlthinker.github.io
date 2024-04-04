@@ -1,3 +1,8 @@
+---
+title: Photography
+updated: 2024-04-04 16:43
+---
+
 <div class="photo-gallery">
 
 <div class="photo">
