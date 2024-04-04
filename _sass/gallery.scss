@@ -1,0 +1,19 @@
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  
+    .photo {
+      flex: 1 0 21%; // Adjust this basis to control how many items you want in a row
+      margin: 5px;
+      text-align: center;
+  
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+  

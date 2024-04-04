@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<div class="photo-gallery">
+  {% for photo in page.photos %}
+    <div class="photo">
+      <img src="{{ photo.image }}" alt="{{ photo.title }}">
+      <p>{{ photo.caption }}</p>
+    </div>
+  {% endfor %}
+</div>
