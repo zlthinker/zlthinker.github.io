@@ -1,5 +1,5 @@
 ---
-title: What Can We Learn from LLM?
+title: What Can We Learn from LLM
 updated: 2024-06-06 15:00
 category: blog
 ---
