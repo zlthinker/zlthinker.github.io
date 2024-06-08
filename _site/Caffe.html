@@ -94,14 +94,14 @@
 	<div class="center">
 		<h1>Caffe 学习</h1>
 		<time>January 2, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="Caffe">Caffe</a></li>
+			<li><a href="/tag_index.html" title="Caffe">Caffe</a></li>
 			
-				<li><a href="/tag_index.html" title="GPU">GPU</a></li>
+			<li><a href="/tag_index.html" title="GPU">GPU</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -116,9 +116,9 @@
 
 <h3 id="mutable_cpu_data-vs-cpu_data">mutable_cpu_data VS. cpu_data</h3>
 
-<p>在Caffe的blob类中定义了<code class="highlighter-rouge">mutable_cpu_data()</code>和<code class="highlighter-rouge">cpu_data()</code>两种member function。从它们的定义来看两者的区别其实非常小。</p>
+<p>在Caffe的blob类中定义了<code class="language-plaintext highlighter-rouge">mutable_cpu_data()</code>和<code class="language-plaintext highlighter-rouge">cpu_data()</code>两种member function。从它们的定义来看两者的区别其实非常小。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const void* SyncedMemory::cpu_data() {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const void* SyncedMemory::cpu_data() {
 	check_device();
 	to_cpu();
 	return (const void*)cpu_ptr_;
@@ -129,9 +129,8 @@ void* SyncedMemory::mutable_cpu_data() {
 	head_ = HEAD_AT_CPU;
 	return (const void*)cpu_ptr_;
 }
-</code></pre>
-</div>
-<p><code class="highlighter-rouge">cpu_data()</code>返回的是常指针，说明该函数只能用来读取数据。<code class="highlighter-rouge">mutable_cpu_data()</code>函数用来修改数据，并且多了一句<code class="highlighter-rouge">head_ = HEAD_AT_CPU;</code>，用来提醒系统CPU memory中的数据已经被修改过了，需要小心。类似地，<code class="highlighter-rouge">mutable_gpu_data()</code>和<code class="highlighter-rouge">gpu_data()</code>的差别也是如此。</p>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">cpu_data()</code>返回的是常指针，说明该函数只能用来读取数据。<code class="language-plaintext highlighter-rouge">mutable_cpu_data()</code>函数用来修改数据，并且多了一句<code class="language-plaintext highlighter-rouge">head_ = HEAD_AT_CPU;</code>，用来提醒系统CPU memory中的数据已经被修改过了，需要小心。类似地，<code class="language-plaintext highlighter-rouge">mutable_gpu_data()</code>和<code class="language-plaintext highlighter-rouge">gpu_data()</code>的差别也是如此。</p>
 
 <h3 id="gpu-cuda-and-caffe">GPU, CUDA and Caffe</h3>
 
@@ -157,9 +156,9 @@ void* SyncedMemory::mutable_cpu_data() {
 <p>程序任务在最小的粒度上由一个个threads组成，一开始CUDA会将threads组成若干个thread blocks（512 threads per block in CUDA 8.0），然后将这些blocks交由SM来运行（8 active blocks per SM in Fermi），同时每个SM上会给这些thread blocks的所有线程分配资源，如shared memory。因为一个SP只可以运行一个thread，而SM上线程多而SP少，所以需要调度来保证公平、避免starvation。因此，在最新的CUDA架构Fermi中，32个threads被分成一个warp（相当于一个排），以warp作为调度和运行的基本单元。在Fermi中一个SM可以同时运行48个active warps，由warp scheduler负责调度（相当于连长调度所有的排轮流执行任务）。因为一个SM的硬件资源在一开始就已经分配给了blocks和threads，每个thread不管是否正在被执行，都在shared_memory上拥有自己的register等等资源，所以上下文切换不会造成任何开销，这也是GPU比CPU更高效的一个因素。
 因为一个SM支持的warp数量以及一个warp包含的线程数量都由具体架构指定，所以在Fermi架构中，一个GPU上的resident thread最多只有SM*48*32=SM*1536个。</p>
 
-<p>要在Caffe layer中使用GPU进行并行计算，可以自定义kernel function来封装要并行的指令。函数的申明前要加<code class="highlighter-rouge">__device__</code>或<code class="highlighter-rouge">__global__</code>关键字。调用该function的方法是
-<code class="highlighter-rouge">kernel_function&lt;Dtype&gt;&lt;&lt;&lt;CAFFE_GET_BLOCKS(count), CAFFE_CUDA_NUM_THREADS&gt;&gt;&gt;</code>，
-它会根据可并行单元的数量和每个block最多包含的线程数<code class="highlighter-rouge">CAFFE_CUDA_NUM_THREADS </code>来分恰当数量的block。</p>
+<p>要在Caffe layer中使用GPU进行并行计算，可以自定义kernel function来封装要并行的指令。函数的申明前要加<code class="language-plaintext highlighter-rouge">__device__</code>或<code class="language-plaintext highlighter-rouge">__global__</code>关键字。调用该function的方法是
+<code class="language-plaintext highlighter-rouge">kernel_function&lt;Dtype&gt;&lt;&lt;&lt;CAFFE_GET_BLOCKS(count), CAFFE_CUDA_NUM_THREADS&gt;&gt;&gt;</code>，
+它会根据可并行单元的数量和每个block最多包含的线程数<code class="language-plaintext highlighter-rouge">CAFFE_CUDA_NUM_THREADS </code>来分恰当数量的block。</p>
 
 <h3 id="cuda--opencl">CUDA &amp; OpenCL</h3>
 
@@ -211,26 +210,46 @@ void* SyncedMemory::mutable_cpu_data() {
 </ol>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Caffe 学习"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/Linux-commands" title="NEXT: Linux 学习">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/graph-match" title="PREV: Get to Know Graph Matching">&gt;&gt;</a>
-  
+	<a class="next" href="/Linux-commands" title="NEXT: Linux 学习">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/graph-match" title="PREV: Get to Know Graph Matching">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -243,7 +262,8 @@ void* SyncedMemory::mutable_cpu_data() {
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

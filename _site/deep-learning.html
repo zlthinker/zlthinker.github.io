@@ -94,12 +94,12 @@
 	<div class="center">
 		<h1>Deep Learning</h1>
 		<time>March 24, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="deep learning">deep learning</a></li>
+			<li><a href="/tag_index.html" title="deep learning">deep learning</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -108,7 +108,7 @@
   <li><a href="#transfer-learning" id="markdown-toc-transfer-learning">Transfer Learning</a></li>
   <li><a href="#lstm" id="markdown-toc-lstm">LSTM</a></li>
   <li><a href="#networks--architectures" id="markdown-toc-networks--architectures">Networks &amp; Architectures</a>    <ul>
-      <li><a href="#cnn-networks" id="markdown-toc-cnn-networks"><a href="/CNN-networks">CNN Networks</a></a></li>
+      <li><a href="#cnn-networks" id="markdown-toc-cnn-networks">CNN Networks</a></li>
       <li><a href="#dilated-convolution-空洞卷积扩张卷积" id="markdown-toc-dilated-convolution-空洞卷积扩张卷积">Dilated convolution (空洞卷积,扩张卷积)</a></li>
       <li><a href="#deconvolution-反卷积" id="markdown-toc-deconvolution-反卷积">Deconvolution (反卷积)</a></li>
       <li><a href="#unpooling" id="markdown-toc-unpooling">Unpooling</a></li>
@@ -146,11 +146,11 @@ In the field of data representation, an assumption is that the training and futu
 
 <h3 id="deconvolution-反卷积">Deconvolution (反卷积)</h3>
 
-<p>考虑一个4x4的feature map, 经过一个padding 0, stride 1, 3x3的卷积核后变成2x2的feature map, 卷积操作的矩阵运算表达形式为 <script type="math/tex">\mathbf{y}_{4\times1}=\mathbf{C}_{4\times16} \mathbf{x}_{16\times1}</script>. 卷积矩阵<script type="math/tex">\mathbf{C}</script>的表达式如下:</p>
+<p>考虑一个4x4的feature map, 经过一个padding 0, stride 1, 3x3的卷积核后变成2x2的feature map, 卷积操作的矩阵运算表达形式为 \(\mathbf{y}_{4\times1}=\mathbf{C}_{4\times16} \mathbf{x}_{16\times1}\). 卷积矩阵\(\mathbf{C}\)的表达式如下:</p>
 
 <p><img src="/images/conv_mat.jpg" alt="conv_mat" /></p>
 
-<p>反卷积数学上其实就是卷积矩阵的转置, 反卷积操作可以写为<script type="math/tex">\mathbf{x}_{16\times1}=\mathbf{C}^T_{16\times4} \mathbf{y}_{4\times1}</script>. 所以,反卷积更好的叫法是转置卷积.</p>
+<p>反卷积数学上其实就是卷积矩阵的转置, 反卷积操作可以写为\(\mathbf{x}_{16\times1}=\mathbf{C}^T_{16\times4} \mathbf{y}_{4\times1}\). 所以,反卷积更好的叫法是转置卷积.</p>
 
 <h3 id="unpooling">Unpooling</h3>
 <p>Pooling vs. unpooling in figure below.</p>
@@ -168,10 +168,9 @@ In the field of data representation, an assumption is that the training and futu
 
 <p>Focal loss is defined as</p>
 
-<script type="math/tex; mode=display">\alpha (1-p)^\gamma loss,</script>
+\[\alpha (1-p)^\gamma loss,\]
 
-<p>where <script type="math/tex">p</script> is the quality of being well classified, <script type="math/tex">\gamma \geq 0</script> is called focusing parameter and <script type="math/tex">\alpha \in [0, 1]</script> is weighting factor. The factoring term <script type="math/tex">(1-p)^\gamma</script> down-weights the loss caused by easy examples (<script type="math/tex">p \approx 1</script>) that have been classified good enough. This in turn increases the importance of correcting misclassified examples (<script type="math/tex">% <![CDATA[
-p << 1 %]]></script>).</p>
+<p>where \(p\) is the quality of being well classified, \(\gamma \geq 0\) is called focusing parameter and \(\alpha \in [0, 1]\) is weighting factor. The factoring term \((1-p)^\gamma\) down-weights the loss caused by easy examples (\(p \approx 1\)) that have been classified good enough. This in turn increases the importance of correcting misclassified examples (\(p &lt;&lt; 1\)).</p>
 
 <h1 id="visualization">Visualization</h1>
 
@@ -194,26 +193,46 @@ p << 1 %]]></script>).</p>
 <p>[2] <a href="https://arxiv.org/pdf/1708.02002.pdf">Focal Loss for Dense Object Detection</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Deep Learning"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" title="NEXT: 读书笔记">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/image-localization" title="PREV: Image Localization">&gt;&gt;</a>
-  
+	<a class="next" href="/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" title="NEXT: 读书笔记">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/image-localization" title="PREV: Image Localization">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -226,7 +245,8 @@ p << 1 %]]></script>).</p>
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

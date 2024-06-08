@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>What Can We Learn from LLM</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="What Can We Learn from LLM" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/what-can-we-learn-from-LLM">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>What Can We Learn from LLM</h1>
+		<time>June 6, 2024</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<h2 id="self-supervised-learning">Self-Supervised Learning</h2>
+
+<p>Self-supervised learning has been the key to the success of LLM. It benefits most from seas of Internet data as it uses data as it is without needing annotations and labels. Particularly when the training data is scaled up, the power of transformers is unleashed, according to <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">scaling law</a>. This is the terrian where only self-supervised learning can do, connecting the two beasts of data and weights. (Supervised transformer sounds like a fallacy to me.)</p>
+
+<p>The major outcome of self-supervised learning is to give powerful and meaningful latent representations for raw tokens, just by learning from the distribution of the massive data. Knowing the distribution of a data set is equivalent to knowing the correlations (joint probability) of any two of the elements in the data set. This is why attention machanism can do a good job in this realm. And when the data collection is large enough, it contains sufficient combinations of tokens for the hungry attention network to learn from it.</p>
+
+<p>There are two self-supervised learning approaches that have proven successful: contrastive learning and generative learning. Contrastive learning needs to construct similar and dissimilar pairs from data samples and is prone to collapse and instablility issues. Therefore, I personally prefer generative learning over constrastive learning. However, constrative learning is commonly used for multimodal alignment such as CLIP, which is straightforward as alignment data are natuarally organized as pairs.</p>
+
+<p>Generative learning is very attractive to me as it is working just like how people think. Predicting a masked word in a sentence as defined by BERT is same as the cloze test I had in high school English courses. And imagining missing parts of a scene is a task our brain is excel at. Therefore, if a network is able to generate meaningful things within or even without context as we do, I would achknowledge it has the intelligence as we have.</p>
+
+<p>The practices of using pre-text tasks has been learned from the NLP domain to tackle vision self-supervised learning. Among them I like the inpainting task most. The pretraining job of completing an image from a masked input has been applied to single-view images (<a href="https://arxiv.org/pdf/2111.06377">MAE</a>), multi-view images (<a href="https://arxiv.org/pdf/2210.10716">CroCo</a>) and videos (<a href="https://proceedings.neurips.cc/paper_files/paper/2022/file/416f9cb3276121c42eebb86352a4354a-Paper-Conference.pdf">VideoMAE</a>), which enables the mono-vision, 3D vision and temporal vision tasks, respectively.</p>
+
+<p>The latent space produced by the learned encoder is fundamental to the next stages, either for decoding, diffusion or for multi-modality alignment. Oftentimes, the latent space can be learned so well that some downstream tasks can be accomplished by simple nearest-neighbor search, for example nearest-neighbor classification using a small number of labelled data as evidenced by <a href="https://arxiv.org/pdf/2104.14294">DINO</a>.</p>
+
+<p>Dual problem:
+Contrastive learning
+Generative learning</p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="What Can We Learn from LLM"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/photography" title="PREV: Photography">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

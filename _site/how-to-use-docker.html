@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>How to use Docker</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="How to use Docker" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/how-to-use-docker">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>How to use Docker</h1>
+		<time>April 9, 2020</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#terminologies-of-docker" id="markdown-toc-terminologies-of-docker">Terminologies of Docker</a>    <ul>
+      <li><a href="#docker-file" id="markdown-toc-docker-file">Docker File</a></li>
+      <li><a href="#docker-image" id="markdown-toc-docker-image">Docker Image</a></li>
+      <li><a href="#docker-container" id="markdown-toc-docker-container">Docker Container</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="terminologies-of-docker">Terminologies of Docker</h1>
+
+<h3 id="docker-file">Docker File</h3>
+
+<ul>
+  <li>
+    <p>Dockerfile is <strong>a script of instructions</strong> to build a customized image layer by layer.</p>
+  </li>
+  <li>To build a docker image from a docker file, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker image build -t &lt;image_name&gt; &lt;path_to_dockerfile&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>If you receive an already built docker image (a tar archive) from others, you can load it into your docker pool by running
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker load --input &lt;path_to_docker_image_tar&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="docker-image">Docker Image</h3>
+
+<ul>
+  <li>
+    <p>A docker image is essentially <strong>a snapshot file of a virtual environment</strong>. It is dead and immutable, and can be shared or transferred.</p>
+  </li>
+  <li>To list all the docker images in your docker pool, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker image ls or docker images
+</code></pre></div>    </div>
+  </li>
+  <li>To remove a docker image, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker image rm &lt;image_name or id&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="docker-container">Docker Container</h3>
+
+<ul>
+  <li>
+    <p>A container amounts to <strong>a running image</strong>. When one creates an runnable container from an image, it will automatically recover the virtual environment written in the image file and bring the applications of the environment into life. Every container <strong>has a own copy of the image layers</strong> defined by a docker image base and additionally add a writable container layer on top of them so that we can edit it by installing any other applications. Therefore, a container is also very large. You can create as many containers from a docker image as you want.</p>
+  </li>
+  <li>To create a container from an image base, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker create -v &lt;path_in_local&gt;:&lt;path_in_container&gt; --name &lt;container_name&gt;  &lt;image_name:image_tag or image_id&gt;
+# option "-v" bind mounts a volume from local machine to a location inside the container.
+</code></pre></div>    </div>
+  </li>
+  <li>To list all the containers in your docker pool, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container ls -a or docker ps -a
+# option "-a" lists the containers even they are not running.
+# "docker container ls" == "docker ps"
+</code></pre></div>    </div>
+  </li>
+  <li>To start a container, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker (container) start &lt;container_id&gt;
+# After a container is started, it will run as a daemon in the background.
+# "container" in the parentheses is optional.
+</code></pre></div>    </div>
+  </li>
+  <li>To run a command in a running container, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it &lt;container_name or id&gt; bash
+# "bash" will create a bash session
+</code></pre></div>    </div>
+  </li>
+  <li>To create and run a container from an image base at the same time, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v &lt;path_in_local&gt;:&lt;path_in_container&gt; --name &lt;container_name&gt;  &lt;image_name:image_tag or image_id&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>To stop a running container, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop &lt;container_name or id&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>To rename a container, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rename &lt;container_name or id&gt; &lt;new_name&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>To remove a container from your docker pool, run
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rm &lt;container_name or id&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="How to use Docker"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/VIO-SLAM" title="NEXT: VIO SLAM">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/how-to-use-conda" title="PREV: How to use Conda">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

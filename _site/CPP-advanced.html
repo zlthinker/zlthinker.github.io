@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>C++ Advanced</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="C++ Advanced" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/CPP-advanced">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>C++ Advanced</h1>
+		<time>June 7, 2020</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+			<li><a href="/tag_index.html" title="Notes">Notes</a></li>
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#lambda-expression" id="markdown-toc-lambda-expression">Lambda expression</a></li>
+  <li><a href="#container-iterators" id="markdown-toc-container-iterators">Container iterators</a>    <ul>
+      <li><a href="#transform" id="markdown-toc-transform">Transform</a></li>
+      <li><a href="#for_each" id="markdown-toc-for_each">for_each</a></li>
+      <li><a href="#for-auto-a--a" id="markdown-toc-for-auto-a--a">for (auto a : A)</a></li>
+    </ul>
+  </li>
+  <li><a href="#smart-pointers" id="markdown-toc-smart-pointers">Smart pointers</a></li>
+  <li><a href="#variadic-templates" id="markdown-toc-variadic-templates">Variadic templates</a></li>
+  <li><a href="#type_traits" id="markdown-toc-type_traits">type_traits</a></li>
+  <li><a href="#stdthread" id="markdown-toc-stdthread">std::thread</a>    <ul>
+      <li><a href="#mutex-mutual-exclusive" id="markdown-toc-mutex-mutual-exclusive">Mutex (Mutual Exclusive)</a></li>
+      <li><a href="#condition_variable" id="markdown-toc-condition_variable">condition_variable</a></li>
+      <li><a href="#dead-lock" id="markdown-toc-dead-lock">Dead lock</a></li>
+      <li><a href="#atomic-lock-free" id="markdown-toc-atomic-lock-free">Atomic (lock free)</a></li>
+    </ul>
+  </li>
+  <li><a href="#sfinae" id="markdown-toc-sfinae">SFINAE</a>    <ul>
+      <li><a href="#enable_if" id="markdown-toc-enable_if">enable_if</a></li>
+      <li><a href="#use-enable_if-in-template" id="markdown-toc-use-enable_if-in-template">use enable_if in template</a></li>
+    </ul>
+  </li>
+  <li><a href="#template-metaprogramming" id="markdown-toc-template-metaprogramming">Template metaprogramming</a>    <ul>
+      <li><a href="#example-compile-time-abs" id="markdown-toc-example-compile-time-abs">Example: compile-time abs()</a></li>
+      <li><a href="#example-compile-time-recursion-with-specialization-as-base-greatest-common-divisor" id="markdown-toc-example-compile-time-recursion-with-specialization-as-base-greatest-common-divisor">Example: compile-time recursion with specialization as base, greatest common divisor</a></li>
+      <li><a href="#example-obtain-the-compile-time-rank-of-an-array-type" id="markdown-toc-example-obtain-the-compile-time-rank-of-an-array-type">Example: obtain the (compile-time) rank of an array type</a></li>
+      <li><a href="#example-remove-a-types-const-qualification" id="markdown-toc-example-remove-a-types-const-qualification">Example: “remove” a type’s const-qualification</a></li>
+      <li><a href="#example-if-conditional-in-c11" id="markdown-toc-example-if-conditional-in-c11">Example: IF (conditional in C++11)</a></li>
+      <li><a href="#example-sfinae-in-use-want-one-algorithm-f-taking-integral-types-t-and-overload-it-with-a-second-f-taking-floating-point-types-t" id="markdown-toc-example-sfinae-in-use-want-one-algorithm-f-taking-integral-types-t-and-overload-it-with-a-second-f-taking-floating-point-types-t">Example: SFINAE in use, want one algorithm f taking integral types T, and overload it with a second f taking floating-point types T</a></li>
+      <li><a href="#example-is_void" id="markdown-toc-example-is_void">Example: is_void</a></li>
+      <li><a href="#example-is_same" id="markdown-toc-example-is_same">Example: is_same</a></li>
+      <li><a href="#example-is_one_of" id="markdown-toc-example-is_one_of">Example: is_one_of</a></li>
+      <li><a href="#example-testing-for-copy-assignability" id="markdown-toc-example-testing-for-copy-assignability">Example: testing for copy-assignability</a></li>
+      <li><a href="#void_t" id="markdown-toc-void_t">void_t</a></li>
+      <li><a href="#example-detect-the-presenceabsence-of-a-type-member-named-ttype" id="markdown-toc-example-detect-the-presenceabsence-of-a-type-member-named-ttype">Example: detect the presence/absence of a type member named T::type</a></li>
+      <li><a href="#example-revisiting-is_copy_assignable" id="markdown-toc-example-revisiting-is_copy_assignable">Example: revisiting is_copy_assignable</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="lambda-expression">Lambda expression</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]() mutable -&gt;return type
+{
+
+}
+</code></pre></div></div>
+
+<ul>
+  <li>The capture clause introduce the variables from the surrounding scope by value <code class="language-plaintext highlighter-rouge">[var]</code> or by reference <code class="language-plaintext highlighter-rouge">[&amp;var]</code>. <code class="language-plaintext highlighter-rouge">[=]</code> capture all the outside variables by value and <code class="language-plaintext highlighter-rouge">[&amp;]</code> capture all the outside variables by reference.</li>
+  <li>If you capture a outside variable by value and you want to change its value, you need to add the <code class="language-plaintext highlighter-rouge">mutable</code> keyword.s</li>
+  <li><code class="language-plaintext highlighter-rouge">-&gt;return type</code> is optional as the return type can be automatically deduced.</li>
+</ul>
+
+<h2 id="container-iterators">Container iterators</h2>
+
+<h4 id="transform">Transform</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Manipulating one container with unary operator
+std::Transform(A.begin(), A.end(), B.begin(), unary_function);  // output to B
+
+// Manipulating two containers with binary operator
+std::Transform(A.begin(), A,end(), B.begin(), C.begin(), binary_function); // output to C
+</code></pre></div></div>
+
+<h4 id="for_each">for_each</h4>
+
+<p><code class="language-plaintext highlighter-rouge">for_each</code> can only manipulate one container.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::for_each(A.begin(), A.end(), unary_function)   // return the the unary function
+</code></pre></div></div>
+
+<h4 id="for-auto-a--a">for (auto a : A)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (auto i : v)
+for (auto&amp;&amp; i : v)  // when you want to modify the elements
+for (const auto&amp; i : v)
+for (int j = 0; int i : {0, 1, 2})
+for (auto [first, second] : map)
+</code></pre></div></div>
+
+<h2 id="smart-pointers">Smart pointers</h2>
+
+<h2 id="variadic-templates">Variadic templates</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template&lt;typename... Args&gt;
+void Foo(Args... args) {
+}
+
+// You can call it by
+Foo(1.0);
+Foo("string", bool, 10);
+</code></pre></div></div>
+
+<p>Variadic templates can be used to implement recursive functions. For example,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template&lt;typename T&gt;
+T Sum(T arg) {
+    return arg;
+}
+
+template&lt;typename... Args&gt;
+T Sum(T t, Args... args) {
+    return t + Sum(args...);
+}
+</code></pre></div></div>
+
+<h2 id="type_traits">type_traits</h2>
+
+<p>Type traits are used to in template programming to support type inference and type transformation <strong>at compile time</strong>. There are three types of <code class="language-plaintext highlighter-rouge">type_traits</code>:</p>
+
+<ol>
+  <li>
+    <p>Unary type traits: describe a property of a type;</p>
+  </li>
+  <li>
+    <p>Binary type traits: describe a relationship between two types;</p>
+  </li>
+  <li>
+    <p>Transformation traits: modify a property of a type.</p>
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Traits types</th>
+      <th style="text-align: left">Examples</th>
+      <th style="text-align: left">Function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Unary traits</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_integral&lt;&gt;</code></td>
+      <td style="text-align: left">if of types like bool, char, short, int, long</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_void&lt;&gt;</code></td>
+      <td style="text-align: left">if of type void</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_floating_point&lt;&gt;</code></td>
+      <td style="text-align: left">if of type floating point</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_const&lt;&gt;</code></td>
+      <td style="text-align: left">if of constant type</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_pointer&lt;&gt;</code></td>
+      <td style="text-align: left">if of pointer type</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_array&lt;&gt;</code></td>
+      <td style="text-align: left">if of array type</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_class&lt;&gt;</code></td>
+      <td style="text-align: left">if it is a class</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_enum&lt;&gt;</code></td>
+      <td style="text-align: left">if it is a enum</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_function&lt;&gt;</code></td>
+      <td style="text-align: left">if it is a function type</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Binary traits</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_same&lt;T,U&gt;</code></td>
+      <td style="text-align: left">if T and U are the same type</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_base_of&lt;T,U&gt;</code></td>
+      <td style="text-align: left">if T is the base type of U</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">is_convertible&lt;T,U&gt;</code></td>
+      <td style="text-align: left">if T can be converted to U</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Transformation traits</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">remove_const&lt;&gt;</code></td>
+      <td style="text-align: left">const int -&gt; int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">add_const&lt;&gt;</code></td>
+      <td style="text-align: left">int -&gt; const int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">add_pointer&lt;&gt;</code></td>
+      <td style="text-align: left">int -&gt; int*</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">remove_pointer&lt;&gt;</code></td>
+      <td style="text-align: left">int* -&gt; int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">remove_all_extent&lt;&gt;</code></td>
+      <td style="text-align: left">int[][][] -&gt; int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">enable_if&lt;&gt;</code></td>
+      <td style="text-align: left">used in <strong>SFINAE</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="stdthread">std::thread</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::thread t(func, args);
+t.join();       // It blocks the main thread, waiting for thread t to finish
+t.detach();     // Thread t is indepdent from the main thread. All resources will be released automatically after t finishes.
+
+std::this_thread::sleep_for(std::chrono::seconds(5));
+std::this_thread::get_id();
+</code></pre></div></div>
+
+<h3 id="mutex-mutual-exclusive">Mutex (Mutual Exclusive)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::mutex m;
+m.lock();       // If thread 1 acquires this lock, thread 2 that wants to acquire this lock will be blocked.
+...
+m.unlock();
+
+m.try_lock();   // If thread 1 acquires this lock, thread 2 will try to acquire it (fail, return false, no block).
+...
+m.unlock();
+
+std::recursive_mutex m;
+m.lock();
+    {
+        m.lock();       // call lock() recursively
+        ...
+        m.unlock();     // unlock and lock should appear in pairs
+    }
+m.unlock();
+
+m.lock();
+//exception happens, unlock() will never be called.
+m.unlock();
+
+std::mutex m;
+std::lock_guard&lt;std::mutex&gt;(m);     // call lock() in constructor, unlock() in destructor
+
+std::shared_mutex m;
+std::shared_lock&lt;std::shared_mutex&gt; sl(m);  // simultaneous read access of multiple threads
+std::unique_lock&lt;std::shared_mutex&gt; ul(m);  // exclusive write access
+</code></pre></div></div>
+
+<h3 id="condition_variable">condition_variable</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::condition_variable cv;
+std::mutex m;
+// thread 1
+{
+    std::unique_lock&lt;std::shared_mutex&gt; ul(m);
+    cv.wait(ul, condition);     // condition = false, lock not acquired, thread waiting
+                                // condition = true, lock acquired, thread running
+}
+// thread 2
+{
+    std::unique_lock&lt;std::shared_mutex&gt; ul(m);
+    condition = true;
+    cv.notify_one();            // notify waiting thread
+}
+</code></pre></div></div>
+
+<h3 id="dead-lock">Dead lock</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::mutex m1, m2;
+// thread 1
+{
+    std::lock_guard&lt;std::mutex&gt;(m1);    // thread 1 acquires m1
+    std::lock_guard&lt;std::mutex&gt;(m2);    // thread 1 waits for m2
+}
+// thread 2
+{
+    std::lock_guard&lt;std::mutex&gt;(m2);    // thread 2 acquires m2
+    std::lock_guard&lt;std::mutex&gt;(m1);    // thread 2 waits for m1
+}
+</code></pre></div></div>
+
+<h3 id="atomic-lock-free">Atomic (lock free)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;atomic&gt;   
+// for integral types
+atomic_bool = std::atomic&lt;bool&gt;
+atomic_char = std::atomic&lt;char&gt;
+atomic_int = std::atomic&lt;int&gt;
+atomic_long = std::atomic&lt;long&gt;
+atomic_size_t = std::atomic&lt;size_t&gt;
+</code></pre></div></div>
+
+<h2 id="sfinae">SFINAE</h2>
+
+<h3 id="enable_if">enable_if</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;bool, typename T = void&gt;
+struct enable_if
+{};
+
+template &lt;typename T&gt;
+struct enable_if&lt;true, T&gt; {
+  typedef T type;               // type is only defined for bool = true
+};
+
+typename enable_if&lt;true, int&gt;::type t;  // define an int variable t
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;typename T&gt;
+typename std::enable_if&lt;std::is_integral&lt;T&gt;::value&gt;::type foo(T value)
+{
+    // an implementation for integral types (int, char, unsigned, etc.)
+}
+
+template &lt;typename T&gt;
+typename std::enable_if&lt;!std::is_integral&lt;T&gt;::value&gt;::type foo(T value)
+{
+    // an implementation for non integral types
+}
+
+foo(100);   // call the first foo() since 100 is an integer
+foo("abc")  // call the second foo() since "abc" is not integral
+</code></pre></div></div>
+
+<h3 id="use-enable_if-in-template">use enable_if in template</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T,
+         typename std::enable_if_t&lt;std::is_integral&lt;T&gt;::value&gt;* = nullptr&gt;
+void foo(T&amp; t) {
+    // an implementation for integral types (int, char, unsigned, etc.)
+}
+
+template &lt;class T,
+          typename std::enable_if_t&lt;!std::is_integral&lt;T&gt;::value&gt;* = nullptr&gt;
+void foo(T&amp; t) {
+    // an implementation for non integral types
+}
+
+foo&lt;int&gt;(100);              // call the first foo() since 100 is an integer
+foo&lt;std::string&gt;("abc")     // call the second foo() since "abc" is not integral
+</code></pre></div></div>
+
+<h2 id="template-metaprogramming">Template metaprogramming</h2>
+
+<p>Metaprogramming is the writing of computer programs:</p>
+<ul>
+  <li>That write or manipulate other programs (or themselves) <strong>as their data</strong>, or</li>
+  <li>That do … work at compile time that would otherwise be done at runtime.</li>
+</ul>
+
+<p>C++ template metaprogramming uses template instantiation to drive compile time evaluation.</p>
+<ul>
+  <li>When we use the name of a template where a {function, type, variable} is expected, the compiler will <strong>instantiate</strong> (create) the expected entity from that template.</li>
+  <li>Template metaprogrammer exploit this machinery to improve source code flexibility and runtime performance.</li>
+</ul>
+
+<p>Metaprogramming does not deal with mutability (only const expr), virtual functions, RTTI (runtime type identification, e.g. auto), etc.</p>
+
+<h3 id="example-compile-time-abs">Example: compile-time abs()</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template&lt;int N&gt;     // template param used as metafunction param
+struct abs {
+    static_assert(N != INT_MIN);    // C++17-style guard
+    static constexpr int value = (N&lt;0) ? -N : N;    // "return"
+};
+
+int const n = ...;  // could instead declare as constexpr
+... abs&lt;n&gt;::value ...;  //instantiation yields a compile-time constant 
+</code></pre></div></div>
+
+<h3 id="example-compile-time-recursion-with-specialization-as-base-greatest-common-divisor">Example: compile-time recursion with specialization as base, greatest common divisor</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template&lt;unsigned M, unsigned N&gt;
+struct gcd {
+    static int const value = gcd&lt;N, M%N&gt;::value;
+};
+
+// Partial specialization recognizes the base case gcd&lt;m, 0&gt;
+template&lt;unsigned M&gt;
+struct gcd&lt;M, 0&gt; {
+    static_assert(M != 0);
+    static int const value = M;
+};
+</code></pre></div></div>
+
+<p>Metafunction can take types as parameters/arguments, e.g., <code class="language-plaintext highlighter-rouge">sizeof</code>. It can also produce a type as its result, e.g., type_traits.</p>
+
+<h3 id="example-obtain-the-compile-time-rank-of-an-array-type">Example: obtain the (compile-time) rank of an array type</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primarily template handles scalar (non-array) types as base case:
+template &lt;class T&gt;
+struct rank { static size_t const value = 0u; };
+// partial specialization recognizes any array type:
+template &lt;class U, size_t N&gt;
+struct rank&lt;U[N]&gt; { 
+    static size_t const value = 1u + rank&lt;U&gt;::value; 
+ };
+</code></pre></div></div>
+
+<h3 id="example-remove-a-types-const-qualification">Example: “remove” a type’s const-qualification</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template handles types that are not const-qualified
+template &lt;class T&gt;
+struct remove_const { using type = T; };
+// partial specialization recognizes const-qualified types
+template &lt;class T&gt;
+struct remove_const&lt;T const&gt; { using type = T; };
+</code></pre></div></div>
+
+<h3 id="example-if-conditional-in-c11">Example: IF (conditional in C++11)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T&gt;
+struct type_is { using type = T; };
+// primary template assumes the bool value is true
+template&lt;bool, class T, class&gt;
+struct IF : type_is&lt;T&gt; {};
+// partial specialization recognizes a false value
+template&lt;class T, class F&gt;
+struct IF&lt;false, T, F&gt; : type_is&lt;F&gt; {};
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">enable_if</code> is a single-type variation on conditional. If true, use the given type; if false, use no type at all.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template assumes the bool value is true
+template &lt;bool, class T&gt;     
+struct enable_if : type_is&lt;T&gt; {};
+
+template &lt;class T&gt;
+struct enable_if&lt;false, T&gt; {};
+</code></pre></div></div>
+
+<h3 id="example-sfinae-in-use-want-one-algorithm-f-taking-integral-types-t-and-overload-it-with-a-second-f-taking-floating-point-types-t">Example: SFINAE in use, want one algorithm f taking integral types T, and overload it with a second f taking floating-point types T</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T&gt;
+enable_if_t&lt;is_integral&lt;T&gt;::value, int&gt; f(T val) { ... };
+
+template &lt;class T&gt;
+enable_if_t&lt;is_floating_point&lt;T&gt;::value, double&gt; f(T val) { ... };
+</code></pre></div></div>
+
+<h3 id="example-is_void">Example: is_void</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template for non-void types
+template &lt;class T&gt;
+struct is_void : false_type {};
+// specialization recognizes each void types
+template &lt;&gt; struct is_void&lt;void&gt; : true_type {};
+template &lt;&gt; struct is_void&lt;void const&gt; : true_type {};
+</code></pre></div></div>
+
+<h3 id="example-is_same">Example: is_same</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template for distinct types
+template&lt;class T, class U&gt;
+struct is_same : false_type {};
+// partial specialization recognizes identical types
+template&lt;T&gt;
+struct is_same&lt;T, T&gt;: true_type {};
+</code></pre></div></div>
+
+<h3 id="example-is_one_of">Example: is_one_of</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template
+template&lt;class T, class... P0toN&gt;
+struct is_one_of;       // declare the interface only
+// base #1: specialization recognizes empty list of types
+template&lt;class T&gt;
+struct is_one_of&lt;T&gt; : false_type {};
+// base #2
+template&lt;class T, class... P1toN&gt;
+struct is_one_of&lt;T, T, P1toN&gt; : true_type {};
+// specialization recognizes mismatch at head of list of types
+template&lt;class T, class P0, class... P1toN&gt;
+struct is_one_of&lt;T, P0, P1toN&gt; : is_one_of&lt;T, P1toN&gt; {};
+</code></pre></div></div>
+
+<h3 id="example-testing-for-copy-assignability">Example: testing for copy-assignability</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T&gt;
+struct is_copy_assignable {
+private:
+    template&lt;class U, class = decltype(declval&lt;U&amp;&gt;() = declval&lt;U const&amp;&gt;())&gt;
+    static true_type try_assignment(U&amp;&amp;);   // SFINAE may apply!
+    static false_type try_assignment(U&amp;&amp;);  // catch-all overload
+
+public:
+    using type = decltype(try_assignment(declval&lt;T&gt;()));
+};
+</code></pre></div></div>
+
+<h3 id="void_t">void_t</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class...&gt;
+using void_t = void;
+</code></pre></div></div>
+
+<h3 id="example-detect-the-presenceabsence-of-a-type-member-named-ttype">Example: detect the presence/absence of a type member named T::type</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// primary template
+template &lt;class, class = void&gt;      // default argument void is essential
+struct has_type_member : false_type {};
+// partial specialization if T::type exists
+template &lt;class T&gt;
+struc has_type_member&lt;T, void_t&lt;typename T::type&gt;&gt; : true_type {};
+</code></pre></div></div>
+
+<h3 id="example-revisiting-is_copy_assignable">Example: revisiting is_copy_assignable</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T&gt;
+using copy_assignable_t = 
+    decltype(declval&lt;T&amp;&gt;() = declval&lt;T const&amp;&gt;());
+// primary template
+template &lt;class T, class = void&gt;
+struct is_copy_assignable : false_type {};
+template &lt;class T&gt;
+struct is_copy_assignable&lt;T, void_t&lt;copy_assignable_t&lt;T&gt;&gt;&gt; : is_same&lt;copy_assignable_t&lt;T&gt;, T&amp;&gt; {};
+</code></pre></div></div>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://www.youtube.com/watch?v=Am2is2QCvxY&amp;ab_channel=CppCon">CppCon 2014: Walter E. Brown “Modern Template Metaprogramming: A Compendium, Part I”</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=a0FliKwcwXE&amp;ab_channel=CppConCppCon">CppCon 2014: Walter E. Brown “Modern Template Metaprogramming: A Compendium, Part II”</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="C++ Advanced"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/motion-average" title="NEXT: Motion Average">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/Geometry" title="PREV: Geometry">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

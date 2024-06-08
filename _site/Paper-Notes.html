@@ -94,12 +94,12 @@
 	<div class="center">
 		<h1>Paper Notes</h1>
 		<time>April 6, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="Notes">Notes</a></li>
+			<li><a href="/tag_index.html" title="Notes">Notes</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -161,7 +161,7 @@ is located inside its pooling region. (Sec 11.2)</p>
 <h3 id="discriminative-learning-of-deep-convolutional-feature-point-descriptors">Discriminative Learning of Deep Convolutional Feature Point Descriptors</h3>
 
 <p><strong>How it post-processes activations after convolution? L2 pooling + Substractive Norm + Tanh</strong>
-We use <script type="math/tex">L_2</script> pooling for the poolingsublayers, which has been shown to outperform the more standard max pooling. <strong>Normalization is also important for deep networks and paramount for descriptors.</strong> We use subtractive normalization, i.e. subtract the weighted average over 5x5 neighbourhood with a Gaussian kernel. Regarding the non-linear layer, we use hyperbolic tangent units (Tanh), as we found it to perform better than ReLU.</p>
+We use \(L_2\) pooling for the poolingsublayers, which has been shown to outperform the more standard max pooling. <strong>Normalization is also important for deep networks and paramount for descriptors.</strong> We use subtractive normalization, i.e. subtract the weighted average over 5x5 neighbourhood with a Gaussian kernel. Regarding the non-linear layer, we use hyperbolic tangent units (Tanh), as we found it to perform better than ReLU.</p>
 
 <p><strong>How is hard samples crucial?</strong> Once the network has reached a reasonable level of performance, most non-corresponding points will already have a distance above the margin, contributing nothing to the loss - and the gradient. This can result in a very small and noisy estimate of the gradient, effectively stalling the learning process.</p>
 
@@ -177,7 +177,7 @@ We use <script type="math/tex">L_2</script> pooling for the poolingsublayers, wh
     <p><strong>ROIPool VS ROIAlign</strong> ROIPool has the drawback of performing coarse spatial quantization for feature extraction. To fix the misalignment, the quantization-free layer, ROIAlign is proposed, that faithfully preserves exact spatial locations.</p>
   </li>
   <li>
-    <p><strong>Loss function</strong> Apply a per-pixel sigmoid and define <script type="math/tex">L</script> as the average binary cross-entropy loss.</p>
+    <p><strong>Loss function</strong> Apply a per-pixel sigmoid and define \(L\) as the average binary cross-entropy loss.</p>
   </li>
 </ol>
 
@@ -185,33 +185,53 @@ We use <script type="math/tex">L_2</script> pooling for the poolingsublayers, wh
 
 <p><img src="/images/batch_normalization.png" alt="Batch normalization" /></p>
 
-<p>Batch normalization is applied to activations that belong to the same channel in a mini-batch. For example, the input activations has dimension <script type="math/tex">(N, C, H, W)</script>, the normalization is applied to <script type="math/tex">N\times H \times W</script> activations. Totally <script type="math/tex">C</script> pairs of parameters <script type="math/tex">(\gamma, \beta)</script> are learned.</p>
+<p>Batch normalization is applied to activations that belong to the same channel in a mini-batch. For example, the input activations has dimension \((N, C, H, W)\), the normalization is applied to \(N\times H \times W\) activations. Totally \(C\) pairs of parameters \((\gamma, \beta)\) are learned.</p>
 
 <h3 id="t-sne-embedding">t-SNE Embedding</h3>
 
 <p>t-Distributed Stochastic Neighbor Embedding (t-SNE) is an excellent technique for dimensionality reduction that is particularly well suited for the visualization of high-dimensional datasets.</p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Paper Notes"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/Differential-Privacy" title="NEXT: Differential Privacy">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/Survey-3D-Point-Cloud-Fusion" title="PREV: Survey - 3D Point Cloud Fusion">&gt;&gt;</a>
-  
+	<a class="next" href="/Differential-Privacy" title="NEXT: Differential Privacy">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/Survey-3D-Point-Cloud-Fusion" title="PREV: Survey - 3D Point Cloud Fusion">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -224,7 +244,8 @@ We use <script type="math/tex">L_2</script> pooling for the poolingsublayers, wh
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

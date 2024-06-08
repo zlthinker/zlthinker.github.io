@@ -94,71 +94,109 @@
 	<div class="center">
 		<h1>Linux 学习</h1>
 		<time>January 2, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="linux">linux</a></li>
+			<li><a href="/tag_index.html" title="linux">linux</a></li>
 			
-				<li><a href="/tag_index.html" title="cmd">cmd</a></li>
+			<li><a href="/tag_index.html" title="cmd">cmd</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
-	<h1 id="commands">Commands</h1>
+	<ul id="markdown-toc">
+  <li><a href="#commands" id="markdown-toc-commands">Commands</a>    <ul>
+      <li><a href="#硬件交互" id="markdown-toc-硬件交互">硬件交互</a></li>
+      <li><a href="#文件系统文本处理" id="markdown-toc-文件系统文本处理">文件系统、文本处理</a></li>
+      <li><a href="#系统环境" id="markdown-toc-系统环境">系统环境</a></li>
+    </ul>
+  </li>
+  <li><a href="#软件应用" id="markdown-toc-软件应用">软件应用</a></li>
+  <li><a href="#硬件设备" id="markdown-toc-硬件设备">硬件设备</a>    <ul>
+      <li><a href="#raid" id="markdown-toc-raid">RAID</a></li>
+    </ul>
+  </li>
+  <li><a href="#x-window" id="markdown-toc-x-window">X Window</a></li>
+</ul>
+
+<h1 id="commands">Commands</h1>
 <h3 id="硬件交互">硬件交互</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>lspci (| grep NVIDIA)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lspci (| grep NVIDIA)
 # 获取PCI连接的设备信息，如显卡、硬盘、显示器、无线网卡等外设
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>lsblk
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk
 # list block devices.
 # 块设备即以block为单位进行数据读写的设备，
 # 与character device相对
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>df -h (-T: show file system type)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df -h (-T: show file system type)
 # 显示mount到文件系统中的硬盘空间和分区的使用情况
-</code></pre>
-</div>
+df -i 
+# 显示硬盘分区的节点使用情况
+</code></pre></div></div>
 
 <h3 id="文件系统文本处理">文件系统、文本处理</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>locate /path/to/locate/*opencv*
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>locate /path/to/locate/*opencv*
 # 在/path/to/locate/文件夹中搜索路径名含有opencv的文件
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>find /path/to/find -name *opencv*
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /path/to/find -name *opencv*
 # 在/path/to/find/文件夹中搜索文件名含有opencv的文件
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>grep -ri 'pattern' /path/to/grep
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep -ri 'pattern' /path/to/grep
 # 在/path/to/grep/文件夹中recursively寻找pattern
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sshpass -p "password" scp ...
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sshpass -p "password" scp ...
 # pass pwd to scp
-</code></pre>
-</div>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s src_file link_to_src_file
+# create soft symbol link for src_file
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -zcvf file.tar.gz file	# compress
+tar -zxvf file.tar.gz (-C dst_dir)	# extract
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>md5sum file
+# calculate MD5 hashes of file to verify file's integrity
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du -sh /folder
+# 统计文件夹大小
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mount -t nfs (-o lookupcache=none) 192.168.0.1:/
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command | tee out.txt
+# redirect the stdout to file out.txt
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Xargs
+find . -name '*.txt' | xargs -t ls -al  # -t means showing command, -p means typing 'y' to continue
+find . -mtime +7 | xargs -I '{}' mv {} {}.backup    # backup files in the past week, {} represents the files
+</code></pre></div></div>
 
 <h3 id="系统环境">系统环境</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>export PATH=$PATH:&lt;path1&gt;:&lt;path2&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH=$PATH:&lt;path1&gt;:&lt;path2&gt;
 # 在环境变量$PATH末尾加多个path
 export LD_LIBRARY_PATH=&lt;path1&gt;:&lt;path2&gt;:$LD_LIBRARY_PATH
 # 在环境变量$LD_LIBRARY_PATH最前加多个path
 # 常见环境变量有$JAVAHOME, $PYTHONPATH
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ldconfig
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldconfig
 # 系统的动态链接库会默认放在系统目录`/usr/lib`和`/lib`下，或者动态库配置文件`/etc/ld.so.conf`指定的非系统目录下，供应用程序共享。一般系统启动时会执行`ldconfig`命令对所有库文件建立索引。但是如果对链接库目录下的文件增删修改时（例如安装了新的包），就需要手动执行`ldconfig`以刷新索引。
 
 ldconfig -v (| grep cuda)
@@ -166,35 +204,49 @@ ldconfig -v (| grep cuda)
 
 ldd
 # Print shared library dependencies
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pkg-config
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkg-config
 # 每当安装一个软件时，系统会将一个描述软件的'.pc'文件放在$PKG_CONFIG_PATH中用来索引。
 
 pkg-config --lib --cflags OpenEXR
 -pthread -I/usr/include/OpenEXR -I/usr/include/libdrm  -pthread -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ps -aux | grep chrome
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -aux | grep chrome
 # Find all processes named chrome
 
 kill -9 PID
 # kill process
-</code></pre>
-</div>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum install sth
+# One of the configured repositories failed (Unknown), and yum doesn't have enough cached data to continue.
+# This issue mat occur due to corruption of the local machine cache, try to clear cache on system:
+yum clean all
+rm -r /var/cache/yum/*
+</code></pre></div></div>
 
 <h1 id="软件应用">软件应用</h1>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># Screen
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Screen
 Ctrl+A then D # Detach from current screen
 Ctrl+R or screen -R screen_id # Reenter screen
 screen -ls # list running screens
-</code></pre>
-</div>
 
-<h1 id="raid">RAID</h1>
+# docker
+docker ps	# list running containers
+docker ps -a # list all containers
+
+docker create --name=&lt;container-name&gt; -it &lt;image-name/ID&gt;
+docker start &lt;container-name/ID&gt;	# start a existing container
+docker stop &lt;container-name/ID&gt;	# stop a running container
+docker exec -it &lt;container-name/ID&gt; bash	# log in the shell of a container
+docker rm &lt;container-name/ID&gt; # remove a container
+</code></pre></div></div>
+
+<h1 id="硬件设备">硬件设备</h1>
+<h3 id="raid">RAID</h3>
 
 <p>RAID (Redundant Array of Independent Disks)，即磁盘阵列，将多个硬盘组合成一个逻辑上单独的硬盘存在于操作系统之中。包括RAID0~6多重标准。</p>
 <ul>
@@ -207,26 +259,46 @@ screen -ls # list running screens
 <p><a href="/What-is-X-Window">What is X Window?</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Linux 学习"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/What-is-X-Window" title="NEXT: What is X Window?">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/Caffe" title="PREV: Caffe 学习">&gt;&gt;</a>
-  
+	<a class="next" href="/What-is-X-Window" title="NEXT: What is X Window?">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/Caffe" title="PREV: Caffe 学习">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -239,7 +311,8 @@ screen -ls # list running screens
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

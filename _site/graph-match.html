@@ -94,14 +94,14 @@
 	<div class="center">
 		<h1>Get to Know Graph Matching</h1>
 		<time>December 27, 2016</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="image matching">image matching</a></li>
+			<li><a href="/tag_index.html" title="image matching">image matching</a></li>
 			
-				<li><a href="/tag_index.html" title="graph">graph</a></li>
+			<li><a href="/tag_index.html" title="graph">graph</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -119,20 +119,20 @@
 <p>A semantic graph is a graph-structured data representation in which vertices represent concepts (e.g., movie, actor) and edges represent relationships between concepts (e.g. appeared-in). Both vertices and edges in a semantic graph are typed and attributed.</p>
 
 <h3 id="graph-isomorphism-同构">Graph isomorphism (同构)</h3>
-<p>A isomorphism of graphs <script type="math/tex">G</script> and <script type="math/tex">H</script> is a structure-preserving bijection between the vertex sets of <script type="math/tex">G</script> and <script type="math/tex">H</script></p>
+<p>A isomorphism of graphs \(G\) and \(H\) is a structure-preserving bijection between the vertex sets of \(G\) and \(H\)</p>
 
-<script type="math/tex; mode=display">f: V(G) \rightarrow V(H)</script>
+\[f: V(G) \rightarrow V(H)\]
 
-<p>such that any two vertices <script type="math/tex">u</script> and <script type="math/tex">v</script> of <script type="math/tex">G</script> are adjacent in <script type="math/tex">G</script> if and only if <script type="math/tex">f(u)</script> and <script type="math/tex">f(v)</script> are adjacent in <script type="math/tex">H</script>.</p>
+<p>such that any two vertices \(u\) and \(v\) of \(G\) are adjacent in \(G\) if and only if \(f(u)\) and \(f(v)\) are adjacent in \(H\).</p>
 
 <h3 id="labeled-graph">Labeled graph</h3>
-<p>A labeled graph is represented as a tuple <script type="math/tex">G=(\mathcal{V}, \mathcal{E}, \mu, \nu)</script>, where</p>
+<p>A labeled graph is represented as a tuple \(G=(\mathcal{V}, \mathcal{E}, \mu, \nu)\), where</p>
 
 <ul>
-  <li><script type="math/tex">\mathcal{V}</script> is the set of vertices,</li>
-  <li><script type="math/tex">\mathcal{E} \subseteq \mathcal{V} \times \mathcal{V}</script> is the set of edges,</li>
-  <li><script type="math/tex">\mu : \mathcal{V} \rightarrow \mathcal{L}_{\mathcal{V}}</script> is the vertex labeling function with <script type="math/tex">\mathcal{L}_{\mathcal{V}}</script> the vertex-label set (e.g. the descriptors of feature nodes), and</li>
-  <li><script type="math/tex">\nu : \mathcal{E} \rightarrow \mathcal{L}_{\mathcal{E}}</script> is the edge labeling function with <script type="math/tex">\mathcal{L}_{\mathcal{E}}</script> the edge-label set (e.g. the angles between edges and feature orientations).</li>
+  <li>\(\mathcal{V}\) is the set of vertices,</li>
+  <li>\(\mathcal{E} \subseteq \mathcal{V} \times \mathcal{V}\) is the set of edges,</li>
+  <li>\(\mu : \mathcal{V} \rightarrow \mathcal{L}_{\mathcal{V}}\) is the vertex labeling function with \(\mathcal{L}_{\mathcal{V}}\) the vertex-label set (e.g. the descriptors of feature nodes), and</li>
+  <li>\(\nu : \mathcal{E} \rightarrow \mathcal{L}_{\mathcal{E}}\) is the edge labeling function with \(\mathcal{L}_{\mathcal{E}}\) the edge-label set (e.g. the angles between edges and feature orientations).</li>
 </ul>
 
 <h2 id="formulation">Formulation</h2>
@@ -146,26 +146,46 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/T1blvohThhw" frameborder="0" allowfullscreen=""></iframe>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Get to Know Graph Matching"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/Caffe" title="NEXT: Caffe 学习">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/CNN-networks" title="PREV: CNN Networks">&gt;&gt;</a>
-  
+	<a class="next" href="/Caffe" title="NEXT: Caffe 学习">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/CNN-networks" title="PREV: CNN Networks">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -178,7 +198,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

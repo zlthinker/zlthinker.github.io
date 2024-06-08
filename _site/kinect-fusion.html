@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>How does KinectFusion work?</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="How does KinectFusion work?" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/kinect-fusion">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>How does KinectFusion work?</h1>
+		<time>October 30, 2018</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#overall-system-workflow" id="markdown-toc-overall-system-workflow">Overall System Workflow</a></li>
+  <li><a href="#measurement" id="markdown-toc-measurement">Measurement</a></li>
+  <li><a href="#pose-estimation" id="markdown-toc-pose-estimation">Pose Estimation</a></li>
+  <li><a href="#update-reconstruction" id="markdown-toc-update-reconstruction">Update Reconstruction</a></li>
+  <li><a href="#surfact-predicition" id="markdown-toc-surfact-predicition">Surfact Predicition</a></li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="overall-system-workflow">Overall System Workflow</h2>
+
+<p><img src="/images/kinectfusion.png" alt="bilateral_filter" />
+<strong><center>Figure1. KinectFusion workflow</center></strong></p>
+
+<p>KinectFusion是一个完全基于深度图的SLAM系统，输入是深度图流，输出是每帧深度图的pose和基于TSDF技术的mapping(as surface reconstruction)。工作流程主要分为四个模块：</p>
+
+<h2 id="measurement">Measurement</h2>
+
+<p>这一步对输入的raw depth measurements进行预处理，计算出每个pixel在相机坐标系下的三维坐标和normal, 即\((\mathbf{V}_k^c, \mathbf{N}_k^c)\)。注意，在计算normal map之前会对raw depth map进行bilateral filtering，以得到更高质量的normal结果。</p>
+
+<h2 id="pose-estimation">Pose Estimation</h2>
+
+<p>因为输入是连续的深度图流，所以估算下一帧的相机pose其实就是做tracking。方法是将当前帧的点云通过ICP算法align到上一帧的点云（或已重建出的全局surface）上。注意，此处用的error metric是point-plane distance，即两点连线在法线方向的投影的长度。在找correspondence时需要保证两点的距离和法线的夹角都要小于阈值。ICP初始化时，用上一帧的pose来初始化当前帧。在ICP优化的迭代过程中，可以合理地假设每步更新的旋转角很小，因此对两帧之间的relative transformation进行如下参数化：</p>
+
+\[\mathbf{T}_{inc} = [\mathbf{R} \| \mathbf{t}] = \begin{bmatrix} 1 &amp; \alpha &amp; -\gamma &amp; t_x\\ -\alpha &amp; 1 &amp; \beta &amp; t_y \\ \gamma &amp; -\beta &amp; 1 &amp; t_z  \end{bmatrix},\]
+
+<p>即优化6维变量\(\mathbf{x}=(\beta, \gamma, \alpha, t_x, t_y, t_z)^T\)。</p>
+
+<p>在第\(n\)步迭代时，全局坐标系下点云坐标的更新表达为：</p>
+
+\[{\mathbf{V}_k^g}^{(n)} = \mathbf{R} {\mathbf{V}_k^g}^{(n-1)} + \mathbf{t} = \mathbf{G} \mathbf{x} + {\mathbf{V}_k^g}^{(n-1)},\]
+
+<p>此处，\(\mathbf{G}=\left[ [{\mathbf{V}_k^g}^{(n-1)}]_{\times} \| \mathbf{I}_{3\times3} \right]\)。这样一来，error fuction就变成关于\(\mathbf{x}\)的线性函数。在每一步迭代更新都变成一个convex least square问题，只需将derivative设为0，求出\(\mathbf{x}\)的最优解即可。</p>
+
+<p>一旦tracking失败，例如相邻两帧motion过大导致不能用上一帧的pose初始化当前帧（判断tracking是否失败的方法详见论文），将不得不做relocalization。KinectFusion用交互的方式手动进行重定位。</p>
+
+<h2 id="update-reconstruction">Update Reconstruction</h2>
+
+<p>当估算出新的一帧的pose之后，就要用当前帧的信息对基于TSDF的volumetric reconstruction进行更新。首先，在全局坐标空间中放置了一组\(512\times512\times512\)（举例）的voxel grids。TSDF的原理就是，对于每一帧由深度图产生的点云，我们对每一个voxel计算一个TSDF的值以及一个weight权重，即\((F_k, W_k)\)。TSDF值表示的是某个三维空间中的点在该相机坐标系中的深度与它的投影的深度值\(depth\)的差（带符号，truncated）。如果该点正好落在surface上，那么两个深度值应该相等，\(TSDF=0\)。权重的计算公式为\(W = \frac{cos\theta}{depth}\)。\(\theta\)表示投影的射线和投影点法线的夹角。若夹角为\(0\)，即surface正对着该点，那权重更大，因为这样计算出的TSDF更可靠。\(depth\)越大，深度的误差也越大，所以权重越小。</p>
+
+<p>一个注意点是，做TSDF fusion用的depth map是原始数据，没有经过bilateral filtering处理，按照原文的解释，“The early filtering removes desired high-frequency structure and noise alike which would reduce the ability to reconstruct finer scale structures”。</p>
+
+<p>每当有新的一帧要集成进来时，就会对新的帧算出的TSDF值和原有的TSDF值做加权平均处理。计算方法为</p>
+
+\[F_{:k} = \frac{W_{:k-1}F_{:k-1} + W_{k}F_{k}}{W_{:k-1} + W_{k}},\]
+
+\[W_{:k} = W_{:k-1} + W_{k}.\]
+
+<h2 id="surfact-predicition">Surfact Predicition</h2>
+
+<p>这一步的任务是从fuse好的存储了TSDF值的voxel grids中估计出surface，即估计出surface上的点的位置和normal。所用的算法是ray casting，即对每一个pixel，沿着射线方向按一定步长marching，一旦相邻两步的TSDF值的符号出现了变化（由正到负为front surface，由负到正为back surface），表明surface点落在其中，通过差值可以计算出更精确的位置。点的normal方向为TSDF的derivative方向，可以理解为在接近surface处，沿着surface方向，TSDF几乎不变（属于zero level set），垂直于surface方向，TSDF变化最大。</p>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ismar2011.pdf">KinectFusion: Real-Time Dense Surface Mapping and Tracking</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="How does KinectFusion work?"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/gaussian-process-regression" title="NEXT: Gaussian Process Regression">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/graph-neural-network" title="PREV: Graph-Based Neural Network">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Branch and Bound</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Branch and Bound" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/branch-and-bound">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Branch and Bound</h1>
+		<time>December 6, 2018</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#related-works" id="markdown-toc-related-works">Related works</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#example" id="markdown-toc-example">Example</a>    <ul>
+      <li><a href="#branch-of-se3" id="markdown-toc-branch-of-se3">Branch of SE(3)</a></li>
+      <li><a href="#bound-of-registration-error" id="markdown-toc-bound-of-registration-error">Bound of registration error</a></li>
+      <li><a href="#algorithm" id="markdown-toc-algorithm">Algorithm</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="related-works">Related works</h2>
+
+<p><a href="https://arxiv.org/pdf/1605.03344.pdf">Go-ICP: A Globally Optimal Solution to 3D ICP Point-Set Registration</a></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<blockquote>
+  <p>Branch and bound is the most commonly used tool for solving NP-hard optimization problems.</p>
+</blockquote>
+
+<p>\(f: \mathcal{R}^m \rightarrow \mathcal{R}\) is the objective function defined over an m-dimensional domain \(\mathcal{Q}_{init}\). We aim to find the global optimal value \(f^* = inf_{x \in \mathcal{Q}_{init}} f(x) = \Phi_{min}(\mathcal{Q}_{init})\).</p>
+
+<p>For any subspace \(\mathcal{Q} \in \mathcal{Q}_{init}\), we use lower and upper bound functions \(\Phi_{lb}\) and \(\Phi_{ub}\) that satisfy</p>
+
+\[\Phi_{lb}(\mathcal{Q}) &lt; \Phi_{min}(\mathcal{Q}) &lt; \Phi_{ub}(\mathcal{Q}).\]
+
+<p>Then, the Branch and Bound algorithm takes steps as follows:</p>
+
+<ol>
+  <li>
+    <p>partition \(\mathcal{Q}_{init}\) into e.g. two subspaces \(\mathcal{Q}_{init} = \mathcal{Q}_1 \cup \mathcal{Q}_2\)</p>
+  </li>
+  <li>
+    <p>compute lower and upper bound for each subspace: \(\Phi_{lb}(\mathcal{Q}_i)\) and \(\Phi_{ub}(\mathcal{Q}_i)\) , \(i=1,2\). The upper bound is actually the value at one feasible point.</p>
+  </li>
+  <li>update the global lower and upper bounds on \(f^*\) and terminate if lower and upper bounds are close enough.
+    <ul>
+      <li>\(L = \min\{\Phi_{lb}(\mathcal{Q}_1), \Phi_{lb}(\mathcal{Q}_2) \}\),</li>
+      <li>\(U = \min\{\Phi_{ub}(\mathcal{Q}_1), \Phi_{ub}(\mathcal{Q}_2) \}\),</li>
+      <li>terminate if \(U - L \leq \epsilon\).</li>
+    </ul>
+  </li>
+  <li>partition \(\mathcal{Q}_1\) and \(\mathcal{Q}_2\), and repeat 2 and 3. (The number of subspaces grows exponentially.)</li>
+</ol>
+
+<h2 id="example">Example</h2>
+
+<p>In this section, we use the Go-ICP algorithm as an example. It is a globally-optimal solution to point set registration based on Branch and Bound algorithm.</p>
+
+<h4 id="branch-of-se3">Branch of SE(3)</h4>
+
+<p>The domain of 3D motions (the SE(3) group) is minimally parameterized by axis-angle \(\mathbf{r} \in [-\pi, \pi]^3\) (the minimum cude that enclosing the \(\pi\)-ball) for rotation and \(\mathbf{t} \in [-\xi, \xi]^3\) for translation. During BnB search, each of the rotation cube and translation cube is subdivided into eight smaller cubes using the octree data structure. Illustration shown below.</p>
+
+<p><img src="/images/BnB_domain.png" alt="" /></p>
+
+<p>Rather than search inside a 6-D space, GO-ICP uses a nested BnB search. The outer BnB searches the rotation space and solves the bounds and corresponding optimal translations by calling an inner translation BnB. In this way, it only needs to maintain two queues with significantly fewer cubes.</p>
+
+<h4 id="bound-of-registration-error">Bound of registration error</h4>
+
+<p>Given a sub-domain of rotation and translation \(C_r \times C_t\), we aim to compute the bound of registration error between two point sets, i.e.,</p>
+
+\[E(R, t) = \sum_{i=1}^N e_i(R, t) =\sum_{i=1}^N \|R x_i + t - y_i  \|,\]
+
+<p>where \((x_i, y_i)\) is a pair of correspondence found by nearest neighbor search. To identify the error bound of each pair, we need to first determine the bound of transformed point \(R x_i + t\).</p>
+
+<p>Given a rotation cube \(C_r\) of half side-length \(\sigma_r\) with angle-axis \(r_0\) as the center, for any angle-axis \(r \in C_r\), the distance from \(R_r x\) to \(R_{r_0} x\) can be proved to be bounded by</p>
+
+\[\| R_r x - R_{r_0} x \| \leq  2sin(\min( \sqrt{3} \sigma_r / 2, \pi/2)) \|x \| = \gamma_r.\]
+
+<p>Similarly, given a translation cube \(C_t\) with half side-length \(\sigma_t\) centered at \(t_0\), for any \(t \in C_t\), the distance is bounded by</p>
+
+\[\|(x-t) - (x-t_0)  \| \leq \sqrt{3} \sigma_t = \gamma_t.\]
+
+<p>Illustration shown below.</p>
+
+<p><img src="/images/BnB_radius.png" alt="" /></p>
+
+<p>The upper bound of L2 error for a pair \((x_i, y_i)\) is above bounded by \(e_i(R_0, t_0)\), since it cannot be less than the minimal error. The lower bound is derived as</p>
+
+\[\begin{split} e_i(R, t) &amp;= \|R x_i + t - y_i  \| \\ &amp;=  \|(R_0 x_i + t_0 - y_i) + (Rx_i - R_0 x_i) + (t - t_0)\| \\ &amp;\geq  \|(R_0 x_i + t_0 - y_i) \|  - (\| Rx_i - R_0 x_i \|  + \|t - t_0  \|)  \\ &amp;\geq \|(R_0 x_i + t_0 - y_i) \|  - (\gamma_r + \gamma_t)\\ &amp;=  e_i(R_0, t_0) - (\gamma_r + \gamma_t) \end{split}\]
+
+<h4 id="algorithm">Algorithm</h4>
+
+<p><img src="/images/BnB_algorithm.png" alt="" /></p>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://web.stanford.edu/class/ee364b/lectures/bb_slides.pdf">Branch and Bound Methods</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Branch and Bound"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/point-cloud-registration" title="NEXT: Point Cloud Registration">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/gaussian-process-regression" title="PREV: Gaussian Process Regression">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

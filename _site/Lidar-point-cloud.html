@@ -94,12 +94,12 @@
 	<div class="center">
 		<h1>LiDAR Point Clouds & Applications</h1>
 		<time>December 6, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="autonomous driving">autonomous driving</a></li>
+			<li><a href="/tag_index.html" title="autonomous driving">autonomous driving</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -123,7 +123,7 @@
 <ul>
   <li><strong>Invariance to order</strong> – The element-wise pooling of points’ feature vectors takes care of variance to order and size of point sets. The feature network takes point set as input and gives a global signature - a K-dimensional descriptor.</li>
   <li><strong>Invariance to density</strong> – Ideally the model should be able to give stable prediction, e.g., the same classification and segmentation scores, in spite of cetrain perturbation of points (contraction or expansion). The paper provides inspring definition of <strong>critical point set</strong> which is a subset of original point set but gives the same prediction as original point set. (Only the points yielding maximum reponse in any dimension contribute to final descriptor. Conversely, adding points that do not result in maximum reponses in K-dim descriptor would not affect prediction results.</li>
-  <li><strong>Invariance to transformation</strong> – The transformation invariance is achieved by aligning inputs to a canonical space. It use a <strong>T-net</strong> to predict a <script type="math/tex">3\times3</script> affine transformation matrix and a <script type="math/tex">64\times64</script> feature transformation matrix.</li>
+  <li><strong>Invariance to transformation</strong> – The transformation invariance is achieved by aligning inputs to a canonical space. It use a <strong>T-net</strong> to predict a \(3\times3\) affine transformation matrix and a \(64\times64\) feature transformation matrix.</li>
 </ul>
 
 <h3 id="2-voxelnet-end-to-end-learning-for-point-cloud-based-3d-object-detection"><a href="from tensorflow.examples.tutorials.mnist import input_data">2. VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection</a></h3>
@@ -134,7 +134,7 @@
 <p>Objection detection, like cars, pedestrians and cyclists, is a critical component of driverless cars’ scene understanding. Although being largely quiet on the self-driving efforts, Apple research releases an archive on LiDAR-only detection of 3D objects on 2017/11/17.</p>
 
 <p><strong>Voxel feature netowrk.</strong> The large body of point clouds is first divided into regular voxels and then each non-empty voxel is described by a compact feature vector by proposed feature network.
-As shown in Figure 2, the feature network is a bit similar to <a href="https://arxiv.org/abs/1612.00593">PointNet</a>. The input of each point is a 6-dimensional vector <script type="math/tex">\mathbf{v} = [x, y, z, x-c_x, y-c_y, z-c_z]</script> where <script type="math/tex">[c_x, c_y, c_z]^T</script> is the centroid of points in this voxel. Then a stack of voxel feature encoding (<strong>VFE</strong>) layers produce point-wise descriptors for points and voxel-wise descriptors for voxels. The voxel-wise descriptor is essentially element-wise maximum of point-wise descriptors residing in the voxel. (We refer the reader to the paper for details.)</p>
+As shown in Figure 2, the feature network is a bit similar to <a href="https://arxiv.org/abs/1612.00593">PointNet</a>. The input of each point is a 6-dimensional vector \(\mathbf{v} = [x, y, z, x-c_x, y-c_y, z-c_z]\) where \([c_x, c_y, c_z]^T\) is the centroid of points in this voxel. Then a stack of voxel feature encoding (<strong>VFE</strong>) layers produce point-wise descriptors for points and voxel-wise descriptors for voxels. The voxel-wise descriptor is essentially element-wise maximum of point-wise descriptors residing in the voxel. (We refer the reader to the paper for details.)</p>
 
 <p><strong>Region Proposal Network.</strong> The voxel grids and generated voxel-wise descriptors form regular feature map for objection detection. <a href="https://arxiv.org/abs/1506.01497">Region proposal network (RPN)</a>, formerly used in 2D cases, is trimmed here to predict 3D bounding boxes and their probability scores.</p>
 
@@ -150,26 +150,46 @@ As shown in Figure 2, the feature network is a bit similar to <a href="https://a
 <p>For the segmentation task, it is necessary to assign a label to each point in original point set rather than the sampled points. To this end, an interpolation strategy is used to restore descriptors for eliminated points as weighted sum of neighboring sampled points in the reverse direction of sampling.</p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="LiDAR Point Clouds & Applications"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/tensorflow-%E5%AD%A6%E4%B9%A0" title="NEXT: Tensorflow 学习">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/vision-sensors" title="PREV: Vision Sensors">&gt;&gt;</a>
-  
+	<a class="next" href="/tensorflow-%E5%AD%A6%E4%B9%A0" title="NEXT: Tensorflow 学习">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/vision-sensors" title="PREV: Vision Sensors">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -182,7 +202,8 @@ As shown in Figure 2, the feature network is a bit similar to <a href="https://a
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

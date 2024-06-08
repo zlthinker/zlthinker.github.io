@@ -93,15 +93,15 @@
 <article>
 	<div class="center">
 		<h1>Matrix Computation</h1>
-		<time>January 29, 2017</time>
-		<ul id="taglist">
+		<time>October 30, 2021</time>
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="matrix">matrix</a></li>
+			<li><a href="/tag_index.html" title="matrix">matrix</a></li>
 			
-				<li><a href="/tag_index.html" title="math">math</a></li>
+			<li><a href="/tag_index.html" title="math">math</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -118,93 +118,93 @@
 
 <h3 id="--可对角化矩阵">- 可对角化矩阵</h3>
 
-<p>n阶方阵<script type="math/tex">A</script>可通过相似变换对角化的充要条件是它具有<script type="math/tex">n</script>个线性无关的特征向量。此时，存在可逆矩阵<script type="math/tex">P</script>使得</p>
+<p>n阶方阵\(A\)可通过相似变换对角化的充要条件是它具有\(n\)个线性无关的特征向量。此时，存在可逆矩阵\(P\)使得</p>
 
-<script type="math/tex; mode=display">P^{-1}AP=\Sigma,</script>
+\[P^{-1}AP=\Sigma,\]
 
-<p>而<script type="math/tex">P</script>是由<script type="math/tex">n</script>个特征向量作为纵列构成的矩阵。</p>
+<p>而\(P\)是由\(n\)个特征向量作为纵列构成的矩阵。</p>
 
 <h3 id="--正规矩阵">- 正规矩阵</h3>
 
-<p><script type="math/tex">A\in \mathbb{C}^{n \times n}</script>是正规矩阵，当且仅当（<script type="math/tex">*</script>表示共轭转置）</p>
+<p>\(A\in \mathbb{C}^{n \times n}\)是正规矩阵，当且仅当（\(*\)表示共轭转置）</p>
 
-<script type="math/tex; mode=display">A^*A=AA^*</script>
+\[A^*A=AA^*\]
 
 <h3 id="--酉矩阵正规矩阵的特例">- 酉矩阵（正规矩阵的特例）</h3>
 
-<script type="math/tex; mode=display">U^* U = UU^* = I</script>
+\[U^* U = UU^* = I\]
 
-<p>当<script type="math/tex">U</script>为实矩阵时，酉矩阵变成正交矩阵。</p>
+<p>当\(U\)为实矩阵时，酉矩阵变成正交矩阵。</p>
 
 <h3 id="--幂零矩阵">- 幂零矩阵</h3>
 
-<p><script type="math/tex">n\times n</script>的方块矩阵<script type="math/tex">M</script>是幂零矩阵，当且仅当存在整数<script type="math/tex">q</script>使得</p>
+<p>\(n\times n\)的方块矩阵\(M\)是幂零矩阵，当且仅当存在整数\(q\)使得</p>
 
-<p><script type="math/tex">M^q=0</script>.</p>
+<p>\(M^q=0\).</p>
 
 <h3 id="--正定矩阵">- 正定矩阵</h3>
 
 <blockquote>
-  <p>One intuitive definition is as follows. Multiply any vector with a positive definite matrix. The angle between the original vector and the resultant vector will always be less than <script type="math/tex">\pi / 2</script>. The positive definite matrix tries to keep the vector within a certain half space containing the vector. This is analogous to what a positive number does to a real variable. Multiply it and it only stretches or contracts the number but never reflects it about the origin.</p>
+  <p>One intuitive definition is as follows. Multiply any vector with a positive definite matrix. The angle between the original vector and the resultant vector will always be less than \(\pi / 2\). The positive definite matrix tries to keep the vector within a certain half space containing the vector. This is analogous to what a positive number does to a real variable. Multiply it and it only stretches or contracts the number but never reflects it about the origin.</p>
 </blockquote>
 
 <h4 id="常见的正定矩阵">常见的正定矩阵</h4>
 <ul>
-  <li>矩阵<script type="math/tex">A</script>等于一个叉积<script type="math/tex">X^TX</script>，其中<script type="math/tex">X</script>是列满秩的。</li>
-  <li><script type="math/tex">A</script>和<script type="math/tex">A^T</script>均为对角占优的且每个<script type="math/tex">a_{ii}</script>都大于零。</li>
+  <li>矩阵\(A\)等于一个叉积\(X^TX\)，其中\(X\)是列满秩的。</li>
+  <li>\(A\)和\(A^T\)均为对角占优的且每个\(a_{ii}\)都大于零。</li>
 </ul>
 
 <h4 id="性质">性质</h4>
 <ul>
   <li>正定矩阵的对角元素都为正，且最大的元素位于对角线上，相对而言，正定矩阵拥有一条比较重的“对角线”。</li>
-  <li>正定矩阵是可逆的，且其逆矩阵也是正定的。如果<script type="math/tex">M\geq N>0</script>，则<script type="math/tex">N^{-1}\geq M^{-1}>0</script>。</li>
-  <li>如果<script type="math/tex">M</script>和<script type="math/tex">N</script>是正定阵，那么<script type="math/tex">M+N</script>、<script type="math/tex">MNM</script>、<script type="math/tex">NMN</script>都是正定的，<script type="math/tex">NM</script>和<script type="math/tex">MN</script>不一定正定（除非满足<script type="math/tex">MN＝NM</script>）。</li>
-  <li>如果<script type="math/tex">M>0</script>为实系数矩阵，那么存在<script type="math/tex">\sigma >0</script>使得<script type="math/tex">M>\sigma I</script></li>
+  <li>正定矩阵是可逆的，且其逆矩阵也是正定的。如果\(M\geq N&gt;0\)，则\(N^{-1}\geq M^{-1}&gt;0\)。</li>
+  <li>如果\(M\)和\(N\)是正定阵，那么\(M+N\)、\(MNM\)、\(NMN\)都是正定的，\(NM\)和\(MN\)不一定正定（除非满足\(MN＝NM\)）。</li>
+  <li>如果\(M&gt;0\)为实系数矩阵，那么存在\(\sigma &gt;0\)使得\(M&gt;\sigma I\)</li>
 </ul>
 
 <h2 id="分解">分解</h2>
 
 <h3 id="--lu-分解">- LU 分解</h3>
 
-<script type="math/tex; mode=display">A=LU,</script>
+\[A=LU,\]
 
-<p>其中，<script type="math/tex">L</script>和<script type="math/tex">U</script>分别是<strong>单位下三角矩阵</strong>（主对角线系数为1）和<strong>上三角矩阵</strong>。LU分解是高斯消去法的代数描述。</p>
+<p>其中，\(L\)和\(U\)分别是<strong>单位下三角矩阵</strong>（主对角线系数为1）和<strong>上三角矩阵</strong>。LU分解是高斯消去法的代数描述。</p>
 
 <blockquote>
   <p>数值分析的一大基本原则是：求解任一问题都应利用它的结构特性。LU分解针对矩阵的特性如对称性、定型性、稀疏性也有专用的特殊分解方法。</p>
 </blockquote>
 
-<h4 id="ldmt和ldlt分解"><script type="math/tex">LDM^T</script>和<script type="math/tex">LDL^T</script>分解</h4>
+<h4 id="ldmt和ldlt分解">\(LDM^T\)和\(LDL^T\)分解</h4>
 
-<script type="math/tex; mode=display">A=LDM^T,</script>
+\[A=LDM^T,\]
 
-<p>其中，<script type="math/tex">D</script>是<strong>对角矩阵</strong>，<script type="math/tex">L</script>和<script type="math/tex">M</script>是<strong>单位下三角矩阵</strong>。如果<script type="math/tex">A</script>是对称且非奇异的，则有<script type="math/tex">L＝M</script>。</p>
+<p>其中，\(D\)是<strong>对角矩阵</strong>，\(L\)和\(M\)是<strong>单位下三角矩阵</strong>。如果\(A\)是对称且非奇异的，则有\(L＝M\)。</p>
 
-<h4 id="正定矩阵的ldmt分解">正定矩阵的<script type="math/tex">LDM^T</script>分解</h4>
+<h4 id="正定矩阵的ldmt分解">正定矩阵的\(LDM^T\)分解</h4>
 
-<p>若<script type="math/tex">A=LDM^T</script>是正定矩阵<script type="math/tex">A</script>的<script type="math/tex">LDM^T</script>分解，则对角矩阵<script type="math/tex">D</script>的对角元均大于零。特别地，当<script type="math/tex">A\in \mathbb{R}^{n\times n}</script>正定且对称时，有<strong>Cholesky分解</strong>：</p>
+<p>若\(A=LDM^T\)是正定矩阵\(A\)的\(LDM^T\)分解，则对角矩阵\(D\)的对角元均大于零。特别地，当\(A\in \mathbb{R}^{n\times n}\)正定且对称时，有<strong>Cholesky分解</strong>：</p>
 
-<p>存在唯一的一个对角元全部大于零的下三角阵<script type="math/tex">G\in \mathbb{R}^{n \times n}</script>, 满足<script type="math/tex">A=GG^T</script>。</p>
+<p>存在唯一的一个对角元全部大于零的下三角阵\(G\in \mathbb{R}^{n \times n}\), 满足\(A=GG^T\)。</p>
 
 <h3 id="--svd-分解">- SVD 分解</h3>
 
-<script type="math/tex; mode=display">A = U\Sigma V^T,</script>
+\[A = U\Sigma V^T,\]
 
-<p>其中，<script type="math/tex">A \in \mathbb{R}^{m \times n}</script>, <script type="math/tex">U \in \mathbb{R}^{m \times m}</script>和<script type="math/tex">V \in \mathbb{R}^{n \times n}</script>是正交矩阵。<script type="math/tex">\Sigma = diag(\sigma_1, ..., \sigma_p) \in \mathbb{R}^{m \times n}, p=min\{m, n\}</script>，其中<script type="math/tex">\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_p > 0</script>。</p>
+<p>其中，\(A \in \mathbb{R}^{m \times n}\), \(U \in \mathbb{R}^{m \times m}\)和\(V \in \mathbb{R}^{n \times n}\)是正交矩阵。\(\Sigma = diag(\sigma_1, ..., \sigma_p) \in \mathbb{R}^{m \times n}, p=min\{m, n\}\)，其中\(\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_p &gt; 0\)。</p>
 
-<p>特别地，当<script type="math/tex">A</script>是<strong>正规矩阵</strong>时，即<script type="math/tex">A^*A=AA^*</script>，可以被正交对角化为</p>
+<p>特别地，当\(A\)是<strong>正规矩阵</strong>时，即\(A^*A=AA^*\)，可以被正交对角化为</p>
 
-<script type="math/tex; mode=display">A=U\Sigma U^*,</script>
+\[A=U\Sigma U^*,\]
 
-<p>此时，<script type="math/tex">U=V</script>。实对称矩阵是一种特殊的正规矩阵。</p>
+<p>此时，\(U=V\)。实对称矩阵是一种特殊的正规矩阵。</p>
 
 <h4 id="性质-1">性质</h4>
 <ul>
-  <li>Frobenius norm: <script type="math/tex">\|A\|_F^2 = \sigma_1^2 + ... + \sigma_p^2</script></li>
-  <li>二范数距离<script type="math/tex">\|A\|_2 = \sigma_1 （最大的奇异值）</script></li>
-  <li>SVD展开：<script type="math/tex">A=\sum\limits_{i=1}^r \sigma_i u_i v_i^T, r = rank(A)</script></li>
-  <li><script type="math/tex">V</script>可以对角化矩阵<script type="math/tex">A^TA</script>, <script type="math/tex">v_i</script>是<script type="math/tex">A^TA</script>的特征向量</li>
-  <li><script type="math/tex">U</script>可以对角化矩阵<script type="math/tex">AA^T</script>, <script type="math/tex">u_i</script>是<script type="math/tex">AA^T</script>的特征向量</li>
+  <li>Frobenius norm: \(\|A\|_F^2 = \sigma_1^2 + ... + \sigma_p^2\)</li>
+  <li>二范数距离\(\|A\|_2 = \sigma_1 （最大的奇异值）\)</li>
+  <li>SVD展开：\(A=\sum\limits_{i=1}^r \sigma_i u_i v_i^T, r = rank(A)\)</li>
+  <li>\(V\)可以对角化矩阵\(A^TA\), \(v_i\)是\(A^TA\)的特征向量</li>
+  <li>\(U\)可以对角化矩阵\(AA^T\), \(u_i\)是\(AA^T\)的特征向量</li>
 </ul>
 
 <h4 id="直觉理解">直觉理解</h4>
@@ -212,24 +212,24 @@
 
 <p><a href="https://www.quora.com/What-is-an-intuitive-explanation-of-singular-value-decomposition-SVD">https://www.quora.com/What-is-an-intuitive-explanation-of-singular-value-decomposition-SVD</a></p>
 
-<p>考虑矩阵<script type="math/tex">A\in \mathbb{R}^{M\times N}(M\geq N)</script>, <script type="math/tex">A</script>的奇异值是<script type="math/tex">A^TA</script>的平方根。因为<script type="math/tex">A^TA</script>描述了数据矩阵<script type="math/tex">A</script>在<script type="math/tex">N</script>维空间下的covariance（假设已归一化），所以奇异值<script type="math/tex">\sigma_i</script>描述了在<script type="math/tex">v_i</script>方向上的covariance强度。在解释实际的例子时，可以说奇异值代表了数据中的某种特征(pattern)的强度，奇异值向量则描述了这种特征。</p>
+<p>考虑矩阵\(A\in \mathbb{R}^{M\times N}(M\geq N)\), \(A\)的奇异值是\(A^TA\)的平方根。因为\(A^TA\)描述了数据矩阵\(A\)在\(N\)维空间下的covariance（假设已归一化），所以奇异值\(\sigma_i\)描述了在\(v_i\)方向上的covariance强度。在解释实际的例子时，可以说奇异值代表了数据中的某种特征(pattern)的强度，奇异值向量则描述了这种特征。</p>
 
 <h3 id="--qr-分解">- QR 分解</h3>
 
-<p>一个<script type="math/tex">m\times n</script>矩阵A的QR分解为</p>
+<p>一个\(m\times n\)矩阵A的QR分解为</p>
 
-<script type="math/tex; mode=display">A = QR,</script>
+\[A = QR,\]
 
-<p>其中<script type="math/tex">Q \in \mathbb{R}^{m \times m}</script> 是正交阵 (i.e. <script type="math/tex">Q^TQ = I</script>), <script type="math/tex">R\in \mathbb{R}^{m \times n}</script>是上三角阵。如果<script type="math/tex">Q</script>是非奇异的(i.e. 满秩的)，那么QR分解是唯一的。QR分解的一大应用是用来解线性方程组，与高斯消除法(Gaussian Elimination)和LU分解相比，虽然计算成本更高，但是具有<strong>数值稳定(numerical stability)</strong>的优势。例如要求解线性方程组<script type="math/tex">y=Ax+b</script>，首先对<script type="math/tex">A</script>进行QR分解：<script type="math/tex">A = QR</script>。然后方程组可以转化为<script type="math/tex">Q^Ty=Rx+Q^Tb</script>。因为矩阵<script type="math/tex">R</script>是上三角矩阵，所以可以非常容易地通过back substitution求出<script type="math/tex">x</script>。</p>
+<p>其中\(Q \in \mathbb{R}^{m \times m}\) 是正交阵 (i.e. \(Q^TQ = I\)), \(R\in \mathbb{R}^{m \times n}\)是上三角阵。如果\(Q\)是非奇异的(i.e. 满秩的)，那么QR分解是唯一的。QR分解的一大应用是用来解线性方程组，与高斯消除法(Gaussian Elimination)和LU分解相比，虽然计算成本更高，但是具有<strong>数值稳定(numerical stability)</strong>的优势。例如要求解线性方程组\(y=Ax+b\)，首先对\(A\)进行QR分解：\(A = QR\)。然后方程组可以转化为\(Q^Ty=Rx+Q^Tb\)。因为矩阵\(R\)是上三角矩阵，所以可以非常容易地通过back substitution求出\(x\)。</p>
 
 <p>QR分解的方法有Householder QR分解和Givens QR分解。</p>
 <h4 id="householder-qr-分解">Householder QR 分解</h4>
 
 <p>Householder反射变换常用于消去一个向量中除去第一个分量外的其他分量。例如:</p>
 
-<script type="math/tex; mode=display">Hx = y,</script>
+\[Hx = y,\]
 
-<p>这里<script type="math/tex">y=[1\ 0\ ...\ 0]^T</script></p>
+<p>这里\(y=[1\ 0\ ...\ 0]^T\)</p>
 
 <h4 id="givens-qr-分解">Givens QR 分解</h4>
 
@@ -237,23 +237,23 @@
 
 <h3 id="--schur-分解">- Schur 分解</h3>
 
-<p>如果<script type="math/tex">A \in \mathbb{C}^{n \times n}</script>, 那么存在一个酉矩阵<script type="math/tex">Q\in \mathbb{C}^{n\times n}</script>, 使得</p>
+<p>如果\(A \in \mathbb{C}^{n \times n}\), 那么存在一个酉矩阵\(Q\in \mathbb{C}^{n\times n}\), 使得</p>
 
-<script type="math/tex; mode=display">Q^HAQ=T=D+N,</script>
+\[Q^HAQ=T=D+N,\]
 
-<p>这里<script type="math/tex">D=diag(\lambda_1, ..., \lambda_n)</script>, <script type="math/tex">N\in \mathbb{C}^{n \times n}</script>是严格上三角阵。并且，可以选取<script type="math/tex">Q</script>使得特征值<script type="math/tex">\lambda_i</script>沿对角线按任意给定的次序出现。</p>
+<p>这里\(D=diag(\lambda_1, ..., \lambda_n)\), \(N\in \mathbb{C}^{n \times n}\)是严格上三角阵。并且，可以选取\(Q\)使得特征值\(\lambda_i\)沿对角线按任意给定的次序出现。</p>
 
-<p>特别地，<script type="math/tex">A</script>是正规阵，当且仅当存在一个酉矩阵<script type="math/tex">Q\in \mathbb{C}^{n\times n}</script>, 使得</p>
+<p>特别地，\(A\)是正规阵，当且仅当存在一个酉矩阵\(Q\in \mathbb{C}^{n\times n}\), 使得</p>
 
-<script type="math/tex; mode=display">Q^HAQ=T=D＝diag(\lambda_1, ..., \lambda_n),</script>
+\[Q^HAQ=T=D＝diag(\lambda_1, ..., \lambda_n),\]
 
-<p>即，<script type="math/tex">N=0</script>。 <script type="math/tex">A</script>是正规阵 <script type="math/tex">\Longleftrightarrow A</script>酉相似于一个对角阵。</p>
+<p>即，\(N=0\)。 \(A\)是正规阵 \(\Longleftrightarrow A\)酉相似于一个对角阵。</p>
 
-<p>对于一般的<script type="math/tex">n \times n</script>矩阵<script type="math/tex">A</script>，<script type="math/tex">\|N\|_F</script>与<script type="math/tex">Q</script>的选择无关：</p>
+<p>对于一般的\(n \times n\)矩阵\(A\)，\(\|N\|_F\)与\(Q\)的选择无关：</p>
 
-<script type="math/tex; mode=display">\|N\|_F^2 = \|A\|_F^2 - \sum\limits_{i=1}^n |\lambda_i|^2 \equiv \triangle^2(A),</script>
+\[\|N\|_F^2 = \|A\|_F^2 - \sum\limits_{i=1}^n |\lambda_i|^2 \equiv \triangle^2(A),\]
 
-<p>这个量称为<script type="math/tex">A</script>的正规偏离度。正规矩阵的正规偏离度为0。</p>
+<p>这个量称为\(A\)的正规偏离度。正规矩阵的正规偏离度为0。</p>
 
 <h2 id="距离的衡量">距离的衡量</h2>
 
@@ -261,36 +261,70 @@
 <p>用向量范数、矩阵范数来度量</p>
 
 <h3 id="--向量子空间的距离">- 向量子空间的距离</h3>
-<p>设<script type="math/tex">S_1</script>和<script type="math/tex">S_2</script>是<script type="math/tex">\mathbb{R}^n</script>中满足<script type="math/tex">dim(S_1)=dim(S_2)</script>的两个子空间，定义这两个子空间的距离为</p>
+<p>设\(S_1\)和\(S_2\)是\(\mathbb{R}^n\)中满足\(dim(S_1)=dim(S_2)\)的两个子空间，定义这两个子空间的距离为</p>
 
-<script type="math/tex; mode=display">dist(S_1, S_2)= \|P_1-P_2\|,</script>
+\[dist(S_1, S_2)= \|P_1-P_2\|,\]
 
-<p>其中<script type="math/tex">P_i</script>是向<script type="math/tex">S_i</script>上的正交投影。如果<script type="math/tex">V=[v_1, ..., v_k]</script>的列是子空间<script type="math/tex">S</script>的一组正交基，则<script type="math/tex">P=VV^T</script>是向<script type="math/tex">S</script>上的唯一正交投影。</p>
+<p>其中\(P_i\)是向\(S_i\)上的正交投影。如果\(V=[v_1, ..., v_k]\)的列是子空间\(S\)的一组正交基，则\(P=VV^T\)是向\(S\)上的唯一正交投影。</p>
 
 <h2 id="matrix-calculus">Matrix Calculus</h2>
 <p><a href="http://www.atmos.washington.edu/~dennis/MatrixCalculus.pdf">http://www.atmos.washington.edu/~dennis/MatrixCalculus.pdf</a></p>
 
+<h2 id="matrix-differentiation">Matrix Differentiation</h2>
+
+<p><a href="https://mpra.ub.uni-muenchen.de/3917/1/MPRA_paper_3917.pdf">A Note on Matrix Differentiation</a></p>
+
+<p><a href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">The Matrix Cookbook</a></p>
+
+<h3 id="derivatives-of-matrix-determinant-trace-and-inverse">Derivatives of matrix determinant, trace and inverse</h3>
+
+<p>Given a vector \(\theta \in R^k\),</p>
+
+\[\begin{split}  \frac{\partial \mathbf{X}}{\partial \theta} &amp;= [ \frac{\partial \mathbf{X}}{\partial \theta_1}, \frac{\partial \mathbf{X}}{\partial \theta_2}, ..., \frac{\partial \mathbf{X}}{\partial \theta_k} ]  \\ \frac{\partial \mathbf{XY}}{\partial \theta} &amp;= \frac{\partial \mathbf{X}}{\partial \theta} (\mathbf{I}_k \otimes \mathbf{Y}) + \mathbf{X} \frac{\partial \mathbf{Y}}{\partial \theta} \\
+\frac{\partial det(\mathbf{X})}{\partial \theta} &amp;= det(\mathbf{X}) \cdot tr_k (\mathbf{X}^{-1} \frac{\partial \mathbf{X}}{\partial \theta}) \\  \frac{\partial tr(\mathbf{X})}{\partial \theta} &amp;= tr(\frac{\partial \mathbf{X}}{\partial \theta}) \\ \frac{\partial \mathbf{X} ^ {-1}}{\partial \theta} &amp;=  -\mathbf{X}^{-1} \frac{\partial \mathbf{X}}{\partial \theta} (\mathbf{I}_k \otimes \mathbf{X}^{-1}) \end{split}\]
+
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Matrix Computation"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
 
 </article>
 
+
+
+
+
 <div class="page-navigation">
 	
-    <a class="next" href="/Convex-Optimization" title="NEXT: Convex Optimization">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/scale-match-files" title="PREV: Scale Match Files">&gt;&gt;</a>
-  
+	<a class="next" href="/%E9%87%91%E8%A3%85%E5%BE%8B%E5%B8%88%E9%87%8C%E7%9A%84%E8%81%8C%E5%9C%BA" title="NEXT: 金装律师里的职场">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/%E5%90%AC%E5%90%9B%E4%B8%80%E5%B8%AD%E8%AF%9D" title="PREV: 听君一席话">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -303,7 +337,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

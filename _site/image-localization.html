@@ -94,20 +94,24 @@
 	<div class="center">
 		<h1>Image Localization</h1>
 		<time>March 16, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
 	<ul id="markdown-toc">
-  <li><a href="#related-works" id="markdown-toc-related-works">Related works</a></li>
+  <li><a href="#related-works" id="markdown-toc-related-works">Related works</a>    <ul>
+      <li><a href="#iccv2019" id="markdown-toc-iccv2019">ICCV2019</a></li>
+      <li><a href="#works-before-iccv2019" id="markdown-toc-works-before-iccv2019">Works before ICCV2019</a></li>
+    </ul>
+  </li>
   <li><a href="#pnp-algorithm" id="markdown-toc-pnp-algorithm">PnP algorithm</a>    <ul>
       <li><a href="#p3p" id="markdown-toc-p3p">P3P</a></li>
       <li><a href="#p4p-p5p-pnp" id="markdown-toc-p4p-p5p-pnp">P4P, P5P, PnP</a></li>
-      <li><a href="#epnp" id="markdown-toc-epnp"><a href="http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf">EPnP</a></a></li>
+      <li><a href="#epnp" id="markdown-toc-epnp">EPnP</a></li>
       <li><a href="#other-pnps-and-insights" id="markdown-toc-other-pnps-and-insights">Other PnPs and insights</a></li>
     </ul>
   </li>
@@ -120,7 +124,49 @@
 
 <h1 id="related-works">Related works</h1>
 
+<h2 id="iccv2019">ICCV2019</h2>
 <ul>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1908.06387.pdf">Fine-Grained Segmentation Networks: Self-Supervised Segmentation for Improved Long-Term Visual Localization</a> segmentation to handler season changes</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1908.06141.pdf">Cascaded Parallel Filtering for Memory-Efficient Image-Based Localization</a> filtering for matching against SfM</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1808.08779.pdf">Stochastic Attraction-Repulsion Embedding for Large Scale Image Localization</a> image retrieval</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1908.04598.pdf">Is This The Right Place? Geometric-Semantic Pose Verification for Indoor Visual Localization</a> pose verification (e.g. used in ransac), needs semantic info</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1908.04391.pdf">Local Supports Global: Deep Camera Relocalization with Sequence Enhancement</a></p>
+  </li>
+  <li>
+    <p><a href="http://vladlen.info/papers/does-vision-matter.pdf">Does Computer Vision Matter for Action?</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1908.02484.pdf">Expert Sample Consensus Applied to Camera Re-Localization</a></p>
+  </li>
+  <li>
+    <p><a href="">	CamNet: Coarse-to-Fine Retrieval for Camera Re-Localization</a></p>
+  </li>
+  <li>
+    <p><a href="">Prior Guided Dropout for Robust Visual Localization in Dynamic Environments</a></p>
+  </li>
+</ul>
+
+<h2 id="works-before-iccv2019">Works before ICCV2019</h2>
+
+<ul>
+  <li><a href="https://arxiv.org/pdf/1905.04132.pdf">Neural-Guided RANSAC: Learning Where to Sample Model Hypotheses</a></li>
+  <li>
+    <p><a href="https://arxiv.org/pdf/1804.08366.pdf">VLocNet++</a></p>
+  </li>
+  <li>Feature-Based
+    <ul>
+      <li><a href="https://arxiv.org/pdf/1812.03506.pdf">From Coarse to Fine: Robust Hierarchical Localization at Large Scale</a></li>
+    </ul>
+  </li>
   <li>Tutorial
     <ul>
       <li><a href="https://alexgkendall.com/media/presentations/lsvpr_2017_cvpr_tutorial_alex_kendall.pdf">Learning-based Visual Localization</a></li>
@@ -144,15 +190,31 @@
       <li><a href="https://arxiv.org/pdf/1509.05909.pdf">Modelling Uncertainty in Deep Learning for Camera Relocalization</a></li>
       <li><a href="https://arxiv.org/pdf/1611.07890.pdf">Image-based localization using LSTMs for structured feature correlation</a></li>
       <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Kendall_Geometric_Loss_Functions_CVPR_2017_paper.pdf">Geometric loss functions for camera pose regression with deep learning</a></li>
-      <li><a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf">RelocNet: Continuous Metric Learning Relocalisation using Neural Nets</a>: Retrieval + relative pose regression</li>
+      <li>
+        <p><a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf">RelocNet: Continuous Metric Learning Relocalisation using Neural Nets</a>: Retrieval + relative pose regression</p>
+      </li>
+      <li><a href="http://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w17/Laskar_Camera_Relocalization_by_ICCV_2017_paper.pdf">Camera Relocalization by Computing Pairwise Relative Poses Using Convolutional Neural Network</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Brahmbhatt_Geometry-Aware_Learning_of_CVPR_2018_paper.pdf">MapNet: Geometry-Aware Learning of Maps for Camera Localization</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Vassileios_Balntas_RelocNet_Continous_Metric_ECCV_2018_paper.pdf">RelocNet: Continuous Metric Learning Relocalisation using Neural Nets</a></li>
     </ul>
   </li>
   <li>Temporal/RNN
     <ul>
-      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf">VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization</a></li>
-      <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf">Deep Feature Flow for Video Recognition</a></li>
-      <li><a href="https://arxiv.org/pdf/1606.00487.pdf">Recurrent Fully Convolutional Networks for Video Segmentation</a></li>
-      <li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">LSTM</a></li>
+      <li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8462979">Deep Auxiliary Learning for Visual Localization and Odometry</a>
+        <ul>
+          <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Clark_VidLoc_A_Deep_CVPR_2017_paper.pdf">VidLoc: A deep spatio-temporal model for 6-DoF video-clip relocalization</a></li>
+          <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhu_Deep_Feature_Flow_CVPR_2017_paper.pdf">Deep Feature Flow for Video Recognition</a></li>
+          <li><a href="https://arxiv.org/pdf/1606.00487.pdf">Recurrent Fully Convolutional Networks for Video Segmentation</a></li>
+          <li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">LSTM</a></li>
+          <li><a href="https://arxiv.org/pdf/1711.01124.pdf">End-to-end Flow Correlation Tracking with Spatial-temporal Attention</a> Aggregate temporal feature maps through FlowNet &amp; similarity-weighting.</li>
+          <li><a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Wei-Sheng_Lai_Real-Time_Blind_Video_ECCV_2018_paper.pdf">Learning Blind Video Temporal Consistency</a> Fuse last prediction and current prediction by directly regressing the residual</li>
+          <li><a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Tae_Hyun_Kim_Spatio-temporal_Transformer_Network_ECCV_2018_paper.pdf">Spatio-Temporal Transformer Network for Video Restoration</a> Spatio-temporal transformer samples an image from multiple frames (\(T\times H \times W \rightarrow 1\times H \times W\))</li>
+          <li><a href="https://arxiv.org/pdf/1804.08758.pdf">Switchable Temporal Propagation Networ</a></li>
+        </ul>
+      </li>
+      <li><a href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Lu__Online_Video_ICCV_2017_paper.pdf">Online Video Object Detection using Association LSTM</a></li>
+      <li><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Donahue_Long-Term_Recurrent_Convolutional_2015_CVPR_paper.pdf">Long-term Recurrent Convolutional Networks for Visual Recognition and Description</a></li>
+      <li><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Nilsson_Semantic_Video_Segmentation_CVPR_2018_paper.pdf">Semantic Video Segmentation by Gated Recurrent Flow Propagation</a></li>
     </ul>
   </li>
   <li>Traditional
@@ -212,6 +274,10 @@
       <li><a href="https://arxiv.org/pdf/1709.06750.pdf">SegFlow: optical flow + object segmentation</a> <a href="https://github.com/JingchunCheng/SegFlow">[github]</a></li>
       <li><a href="http://www.cvlibs.net/publications/Behl2017ICCV.pdf">stereo + segmentation + optical flow</a></li>
       <li><a href="https://arxiv.org/pdf/1609.03677.pdf">Unsupervised, depth + stereo</a> (CVPR 2017)</li>
+      <li><a href="https://www.robots.ox.ac.uk/~vgg/publications/2015/Pfister15a/pfister15a.pdf">Flowing ConvNets for Human Pose Estimation in Videos</a> Optical flow + human pose</li>
+      <li><a href="https://arxiv.org/pdf/1703.10898.pdf">Thin-Slicing Network: A Deep Structured Model for Pose Estimation in Videos</a> Optical flow + human pose</li>
+      <li><a href="http://vladlen.info/papers/DCFlow.pdf">DCFlow: Accurate Optical Flow via Direct Cost Volume Processing</a></li>
+      <li><a href="https://arxiv.org/pdf/1709.02371.pdf">PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume</a> <a href="https://github.com/NVlabs/PWC-Net">[github]</a></li>
     </ul>
   </li>
   <li>CRF
@@ -231,66 +297,64 @@
 
 <h3 id="p3p">P3P</h3>
 
-<p>P3P is the PnP problem in its minimal form. Let P be the camera center, and <script type="math/tex">A</script>, <script type="math/tex">B</script>, <script type="math/tex">C</script> be the 3D points in world frame. Let <script type="math/tex">\|PA\|=X</script>, <script type="math/tex">\|PB\|=Y</script>, <script type="math/tex">\|PC\|=Z</script>, <script type="math/tex">\alpha=\angle BPC</script>, <script type="math/tex">\beta=\angle APC</script>, <script type="math/tex">\gamma=\angle APB</script>, <script type="math/tex">p=2cos\alpha</script>, <script type="math/tex">q=2cos\beta</script>, <script type="math/tex">r=2cos\gamma</script>, <script type="math/tex">\|AB\| = c'</script>, <script type="math/tex">\|BC\| = a'</script>, <script type="math/tex">\|AC\| = b'</script>, as illustrated in Figure 1.</p>
+<p>P3P is the PnP problem in its minimal form. Let P be the camera center, and \(A\), \(B\), \(C\) be the 3D points in world frame. Let \(\|PA\|=X\), \(\|PB\|=Y\), \(\|PC\|=Z\), \(\alpha=\angle BPC\), \(\beta=\angle APC\), \(\gamma=\angle APB\), \(p=2cos\alpha\), \(q=2cos\beta\), \(r=2cos\gamma\), \(\|AB\| = c'\), \(\|BC\| = a'\), \(\|AC\| = b'\), as illustrated in Figure 1.</p>
 
 <p><img src="/images/p3p.png" alt="P3P" />
 <strong><center>Figure1. The P3P problem </center></strong></p>
 
 <p>Then the P3P equation system is derived based on the law of cosines (余弦定理):</p>
 
-<script type="math/tex; mode=display">\begin{cases} Y^2 + Z^2 - YZp - a'^2 = 0 \\ Z^2 + X^2 - XZq - b'^2 = 0  \\ X^2 + Y^2 - YXr - c'^2 = 0, \end{cases}</script>
+\[\begin{cases} Y^2 + Z^2 - YZp - a'^2 = 0 \\ Z^2 + X^2 - XZq - b'^2 = 0  \\ X^2 + Y^2 - YXr - c'^2 = 0, \end{cases}\]
 
-<p>where <script type="math/tex">X</script>, <script type="math/tex">Y</script>, <script type="math/tex">Z</script> are variables to be determined.</p>
+<p>where \(X\), \(Y\), \(Z\) are variables to be determined.</p>
 
-<p>To simply the equation system, we let <script type="math/tex">X= xZ</script>, <script type="math/tex">Y = yZ</script>, <script type="math/tex">c'= \sqrt{v}Z</script>, <script type="math/tex">a'=\sqrt{av}Z</script>, <script type="math/tex">b'=\sqrt{bv}Z</script>, then the equation system is turned into</p>
+<p>To simply the equation system, we let \(X= xZ\), \(Y = yZ\), \(c'= \sqrt{v}Z\), \(a'=\sqrt{av}Z\), \(b'=\sqrt{bv}Z\), then the equation system is turned into</p>
 
-<script type="math/tex; mode=display">\begin{cases} y^2 + 1 - py - av = 0 \\ x^2 + 1 - qx -bv = 0 \\ x^2 + y^2 - xyr - v = 0, \end{cases}</script>
+\[\begin{cases} y^2 + 1 - py - av = 0 \\ x^2 + 1 - qx -bv = 0 \\ x^2 + y^2 - xyr - v = 0, \end{cases}\]
 
-<p>where <script type="math/tex">x</script>, <script type="math/tex">y</script>, <script type="math/tex">v</script> are variables to be determined.</p>
+<p>where \(x\), \(y\), \(v\) are variables to be determined.</p>
 
-<p>Eliminating <script type="math/tex">v = x^2 + y^2 - xyr</script>, we have</p>
+<p>Eliminating \(v = x^2 + y^2 - xyr\), we have</p>
 
-<script type="math/tex; mode=display">\begin{cases} ax^2 + (a-1)y^2 - ar xy + py =1 \\ (b-1)x^2 + b y^2 - brxy + qx = 1.  \end{cases}</script>
+\[\begin{cases} ax^2 + (a-1)y^2 - ar xy + py =1 \\ (b-1)x^2 + b y^2 - brxy + qx = 1.  \end{cases}\]
 
 <p>Essentially, the two quatratic equations define two conics, which may have infinite or at most four intersections. Therefore, <em>the P3P problem has either an infinite number of solutions or at most four physical solutions</em>.</p>
 
 <h3 id="p4p-p5p-pnp">P4P, P5P, PnP</h3>
 
-<p>Using more than 3 points provides redundant data for the solution of pose estimation. The linear algorithm is generally used [1]. The <script type="math/tex">n</script> points can form <script type="math/tex">\frac{n(n-1)}{2}</script> triangles and thus derive <script type="math/tex">\frac{n(n-1)}{2}</script> second degree polynomial equations based on 余弦定理. By eliminating the set of variables into a single one, we still have <script type="math/tex">\frac{n(n-1)}{2} - (n-1) = \frac{(n-1)(n-2)}{2}</script> fourth degree polynomial equations. When n = 5, we have the homogeneous equation system:</p>
+<p>Using more than 3 points provides redundant data for the solution of pose estimation. The linear algorithm is generally used [1]. The \(n\) points can form \(\frac{n(n-1)}{2}\) triangles and thus derive \(\frac{n(n-1)}{2}\) second degree polynomial equations based on 余弦定理. By eliminating the set of variables into a single one, we still have \(\frac{n(n-1)}{2} - (n-1) = \frac{(n-1)(n-2)}{2}\) fourth degree polynomial equations. When n = 5, we have the homogeneous equation system:</p>
 
 <p><img src="/images/p5p.png" alt="P5P" /></p>
 
-<p>The overdermined equation system can be easily solved by SVD decomposition, where <script type="math/tex">t_5</script> equals to the right singular vector corresponding to the smallest singular value. The solution can be generalized to cases when <script type="math/tex">n>5</script>.</p>
+<p>The overdermined equation system can be easily solved by SVD decomposition, where \(t_5\) equals to the right singular vector corresponding to the smallest singular value. The solution can be generalized to cases when \(n&gt;5\).</p>
 
-<p>When <script type="math/tex">n=4</script>, things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.</p>
+<p>When \(n=4\), things are a little bit more complicated since the equation system above is underdetermined. We refer the readers to [1] for details.</p>
 
 <h3 id="epnp"><a href="http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf">EPnP</a></h3>
 
 <p>EPnP algorithm is one of the most efficient PnP algorithm which has O(n) complexity. It is composed of three steps:</p>
 
-<p>Step 1. In world coordinate system, find four control points: <script type="math/tex">c_j^w (j = 1,...,4)</script>. One of them is the centroid of the 3D points and the other three are vectors aligned with principle directions of the 3D point set. Then all the 3D points are represented by the <strong><a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system">barycentric coordinates</a></strong> as a linear combination of the four control points: <script type="math/tex">p_i^w = \sum_{j=1}^4 \alpha_{ij} c_j^w (i=1,...,n)</script>.</p>
+<p>Step 1. In world coordinate system, find four control points: \(c_j^w (j = 1,...,4)\). One of them is the centroid of the 3D points and the other three are vectors aligned with principle directions of the 3D point set. Then all the 3D points are represented by the <strong><a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system">barycentric coordinates</a></strong> as a linear combination of the four control points: \(p_i^w = \sum_{j=1}^4 \alpha_{ij} c_j^w (i=1,...,n)\).</p>
 
-<p>Step 2. In camera coordinate system, the equations between 3D points and control points still preserve:  <script type="math/tex">p_i^c = \sum_{j=1}^4 \alpha_{ij} c_j^c</script>. Given the 2D projections of the 3D points <script type="math/tex">\{p_i\}i=1,...,n</script>, we have <script type="math/tex">\omega_i \begin{bmatrix} u_i \\v_i \\ 1 \end{bmatrix} = K p_i^c = K \sum_{j=1}^4 \alpha_{ij} c_j^c</script>. Here, <script type="math/tex">\omega_i</script> and <script type="math/tex">\{c_j^c\}j=1,...,4</script> are unknowns. By filling in the camera intrinsic matrix, the equation can be expressed as follow:</p>
+<p>Step 2. In camera coordinate system, the equations between 3D points and control points still preserve:  \(p_i^c = \sum_{j=1}^4 \alpha_{ij} c_j^c\). Given the 2D projections of the 3D points \(\{p_i\}i=1,...,n\), we have \(\omega_i \begin{bmatrix} u_i \\v_i \\ 1 \end{bmatrix} = K p_i^c = K \sum_{j=1}^4 \alpha_{ij} c_j^c\). Here, \(\omega_i\) and \(\{c_j^c\}j=1,...,4\) are unknowns. By filling in the camera intrinsic matrix, the equation can be expressed as follow:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\omega_i \begin{bmatrix} u_i \\ v_i \\ 1 \end{bmatrix} = \begin{bmatrix} f_u & 0 & u_c \\ 0 & f_v & v_c \\ 0 & 0 & 1 \end{bmatrix}  \begin{bmatrix} \sum_{j=1}^4 \alpha_{ij} x_j^c \\ \sum_{j=1}^4 \alpha_{ij} y_j^c \\ \sum_{j=1}^4 \alpha_{ij} z_j^c \end{bmatrix}. %]]></script>
+\[\omega_i \begin{bmatrix} u_i \\ v_i \\ 1 \end{bmatrix} = \begin{bmatrix} f_u &amp; 0 &amp; u_c \\ 0 &amp; f_v &amp; v_c \\ 0 &amp; 0 &amp; 1 \end{bmatrix}  \begin{bmatrix} \sum_{j=1}^4 \alpha_{ij} x_j^c \\ \sum_{j=1}^4 \alpha_{ij} y_j^c \\ \sum_{j=1}^4 \alpha_{ij} z_j^c \end{bmatrix}.\]
 
-<p>By eliminating <script type="math/tex">\omega_i = \sum_{j=1}^4 \alpha_{ij}z_j^c</script>, we get two linear equations:</p>
+<p>By eliminating \(\omega_i = \sum_{j=1}^4 \alpha_{ij}z_j^c\), we get two linear equations:</p>
 
-<script type="math/tex; mode=display">\begin{cases} \sum_{j=1}^4 \big( \alpha_{ij}f_u x_j^c + \alpha_{ij} (u_c - u_i) z_j^c \big) = 0 \\ \sum_{j=1}^4 \big( \alpha_{ij}f_v y_j^c + \alpha_{ij} (v_c - v_i) z_j^c \big) = 0 \end{cases}.</script>
+\[\begin{cases} \sum_{j=1}^4 \big( \alpha_{ij}f_u x_j^c + \alpha_{ij} (u_c - u_i) z_j^c \big) = 0 \\ \sum_{j=1}^4 \big( \alpha_{ij}f_v y_j^c + \alpha_{ij} (v_c - v_i) z_j^c \big) = 0 \end{cases}.\]
 
-<p>Therefore, each 3D-2D correspondence yields two linear equations with respect to a 12-vector <script type="math/tex">x=[x_1^c, y_1^c, z_1^c, ..., x_4^c, y_4^c, z_4^c]^T</script>. If consider all the correspondences, we generate a linear system of the form</p>
+<p>Therefore, each 3D-2D correspondence yields two linear equations with respect to a 12-vector \(x=[x_1^c, y_1^c, z_1^c, ..., x_4^c, y_4^c, z_4^c]^T\). If consider all the correspondences, we generate a linear system of the form</p>
 
-<script type="math/tex; mode=display">Mx = 0.</script>
+\[Mx = 0.\]
 
-<p>If we have normalized the coordinates of image pixels to <script type="math/tex">[u_i, v_i]^T</script>, the equation system becomes</p>
+<p>If we have normalized the coordinates of image pixels to \([u_i, v_i]^T\), the equation system becomes</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix} \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & 0 & 0 & 0 & 0 & -u_i \alpha_{i1} & -u_i \alpha_{i2} & -u_i \alpha_{i3} & -u_i \alpha_{i4} \\ 0 & 0 & 0 & 0 & \alpha_{i1} & \alpha_{i2} & \alpha_{i3} & \alpha_{i4} & -v_i \alpha_{i1} & -v_i \alpha_{i2} & -v_i \alpha_{i3} & -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} \\ =   \left(\begin{bmatrix} 1 & 0 & -u_i \\ 0 & 1 & -v_i \end{bmatrix}  \otimes \mathbf{\alpha}_i^T \right)  \mathbf{x} =  \mathbf{0}, %]]></script>
+\[\begin{bmatrix} \alpha_{i1} &amp; \alpha_{i2} &amp; \alpha_{i3} &amp; \alpha_{i4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -u_i \alpha_{i1} &amp; -u_i \alpha_{i2} &amp; -u_i \alpha_{i3} &amp; -u_i \alpha_{i4} \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \alpha_{i1} &amp; \alpha_{i2} &amp; \alpha_{i3} &amp; \alpha_{i4} &amp; -v_i \alpha_{i1} &amp; -v_i \alpha_{i2} &amp; -v_i \alpha_{i3} &amp; -v_i \alpha_{i4} \end{bmatrix} \begin{bmatrix} x_1^c \\ x_2^c \\ x_3^c \\ x_4^c \\ y_1^c \\ y_2^c \\ y_3^c \\ y_4^c \\ z_1^c \\ z_2^c \\ z_3^c \\ z_4^c \end{bmatrix} \\ =   \left(\begin{bmatrix} 1 &amp; 0 &amp; -u_i \\ 0 &amp; 1 &amp; -v_i \end{bmatrix}  \otimes \mathbf{\alpha}_i^T \right)  \mathbf{x} =  \mathbf{0},\]
 
-<p>where <script type="math/tex">\otimes</script> denotes Kronecker product.</p>
+<p>where \(\otimes\) denotes Kronecker product.</p>
 
-<p>Step 3. The solution of the linear equation system lies in the <strong>null space</strong> or <strong>kernel</strong> of <script type="math/tex">M^TM</script> and can be expressed as <script type="math/tex">x = \sum_{i=1}^N \beta_i v_i</script>, where <script type="math/tex">v_i</script> are the right-singular vectors of <script type="math/tex">M</script> corresponding to the zero singular values. Now the unknowns become <script type="math/tex">\{\beta_i\}i=1,...,N</script>. Based on the analysis in [2], the dimension <script type="math/tex">N</script> of null-space of <script type="math/tex">M^TM</script> varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of <script type="math/tex">\{\beta_i\}i=1,...,N</script> with the miminum reprojection error.</p>
+<p>Step 3. The solution of the linear equation system lies in the <strong>null space</strong> or <strong>kernel</strong> of \(M^TM\) and can be expressed as \(x = \sum_{i=1}^N \beta_i v_i\), where \(v_i\) are the right-singular vectors of \(M\) corresponding to the zero singular values. Now the unknowns become \(\{\beta_i\}i=1,...,N\). Based on the analysis in [2], the dimension \(N\) of null-space of \(M^TM\) varies from 1 to 4. The algorithm then considers all the four cases and choose the best set of \(\{\beta_i\}i=1,...,N\) with the miminum reprojection error.</p>
 
 <h3 id="other-pnps-and-insights">Other PnPs and insights</h3>
 
@@ -342,27 +406,46 @@
 <p>[2] <a href="http://icwww.epfl.ch/~lepetit/papers/lepetit_ijcv08.pdf">EPnP: An Accurate O(n)Solution to the PnP Problem</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Image Localization"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
 
 </article>
 
+
+
+
+
 <div class="page-navigation">
 	
-    <a class="next" href="/deep-learning" title="NEXT: Deep Learning">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/random-forest" title="PREV: Random Forest">&gt;&gt;</a>
-  
+	<a class="next" href="/deep-learning" title="NEXT: Deep Learning">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/random-forest" title="PREV: Random Forest">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -375,7 +458,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

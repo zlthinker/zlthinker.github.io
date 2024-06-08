@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>Monte Carlo Methods</h1>
 		<time>April 22, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -132,10 +132,10 @@
 
 <ul>
   <li>
-    <p>Stationary. A markov chain is stationary if <script type="math/tex">P(x_{t+1} \| x_t)</script> does not depend on <script type="math/tex">t</script>.</p>
+    <p>Stationary. A markov chain is stationary if \(P(x_{t+1} \| x_t)\) does not depend on \(t\).</p>
   </li>
   <li>
-    <p>Ergodic. A markov chain is ergodic if <script type="math/tex">x_t</script> converges to a distribution not matter what the starting value is.</p>
+    <p>Ergodic. A markov chain is ergodic if \(x_t\) converges to a distribution not matter what the starting value is.</p>
   </li>
   <li>
     <p>Irreducible. A markov chain is irreducible if the samples of the chain can move all over the state space, i.e., can eventually reach any region of the state space, no matter its initial value.</p>
@@ -149,41 +149,41 @@
 
 <ol>
   <li>
-    <p>Given <script type="math/tex">X_t=x_t</script>, generate <script type="math/tex">Y_t \sim q(y \| x_t)</script>, where the conditional density <script type="math/tex">q(y \| x)</script> is called <strong>proposal</strong>, which is used to generate next sample.</p>
+    <p>Given \(X_t=x_t\), generate \(Y_t \sim q(y \| x_t)\), where the conditional density \(q(y \| x)\) is called <strong>proposal</strong>, which is used to generate next sample.</p>
   </li>
   <li>
-    <p>Take <script type="math/tex">X^{t+1} = Y^t</script> with probability <script type="math/tex">\rho(x^t, Y^t)</script>  or <script type="math/tex">X^{t+1} = x^t</script> with probability <script type="math/tex">1 - \rho(x^t, Y^t)</script>, where <script type="math/tex">\rho(x, y) = \min\{ \frac{\pi(y)}{\pi(x)} \frac{q(x\|y)}{q(y\|x)}, 1 \}</script>. Here we do not need to obtain the exact value of <script type="math/tex">\pi(y)</script> and <script type="math/tex">\pi(x)</script>, but more easily, their ratio.</p>
+    <p>Take \(X^{t+1} = Y^t\) with probability \(\rho(x^t, Y^t)\)  or \(X^{t+1} = x^t\) with probability \(1 - \rho(x^t, Y^t)\), where \(\rho(x, y) = \min\{ \frac{\pi(y)}{\pi(x)} \frac{q(x\|y)}{q(y\|x)}, 1 \}\). Here we do not need to obtain the exact value of \(\pi(y)\) and \(\pi(x)\), but more easily, their ratio.</p>
   </li>
 </ol>
 
-<p>(The proposal <script type="math/tex">q(y \| x)</script> must be carefully chosen to ensure that the samples of MCMC converge to the target distribution <script type="math/tex">\pi(x)</script>.)</p>
+<p>(The proposal \(q(y \| x)\) must be carefully chosen to ensure that the samples of MCMC converge to the target distribution \(\pi(x)\).)</p>
 
 <h3 id="gibbs-sampling">Gibbs sampling</h3>
 
-<p>Gibbs sampling is a multivariate version of Metropolis–Hastings algorithm. Here we consider the multivariate distribution of <script type="math/tex">\mathbf{X} = (x_1, ..., x_n)</script>.</p>
+<p>Gibbs sampling is a multivariate version of Metropolis–Hastings algorithm. Here we consider the multivariate distribution of \(\mathbf{X} = (x_1, ..., x_n)\).</p>
 
-<p>In the transition step （step 2 above）, we generate next proposal <script type="math/tex">\mathbf{X}^{t+1}</script> from <script type="math/tex">\mathbf{X}^t</script> based on the conditional density <script type="math/tex">q(x_j^{t+1} \| x_1^{t+1}, ..., x_{j-1}^{t+1}, x_{j+1}^{t}, ..., x_n^{t})</script>, since the variables are correlated. It means the <script type="math/tex">j</script>th component <script type="math/tex">x_j^{t+1}</script> is conditioned on all the other components at hand.</p>
+<p>In the transition step （step 2 above）, we generate next proposal \(\mathbf{X}^{t+1}\) from \(\mathbf{X}^t\) based on the conditional density \(q(x_j^{t+1} \| x_1^{t+1}, ..., x_{j-1}^{t+1}, x_{j+1}^{t}, ..., x_n^{t})\), since the variables are correlated. It means the \(j\)th component \(x_j^{t+1}\) is conditioned on all the other components at hand.</p>
 
 <h3 id="metropolis-within-gibbs-hybrid-gibbs">Metropolis within Gibbs (Hybrid Gibbs)</h3>
 
-<p>Metropolis within Gibbs uses the Metropolis Hasting proposal for each component of <script type="math/tex">\mathbf{X}^{t+1}</script>.</p>
+<p>Metropolis within Gibbs uses the Metropolis Hasting proposal for each component of \(\mathbf{X}^{t+1}\).</p>
 
 <p><a href="http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html">http://www.chadfulton.com/fulton_statsmodels_2017/sections/5-posterior_simulation.html</a></p>
 
 <h3 id="hamiltonian-monte-carlo-hybrid-monte-carlo">Hamiltonian Monte Carlo (Hybrid Monte Carlo)</h3>
 
-<p>Hamiltonian dynamics是一种物理学上的动态过程,描述了一个有质量的物体的势能和动能的相互转化.想像一个固定在弹簧末端的小球,在小球左右来回摆动时,小球的动能和弹簧的弹性势能相互转化.其中弹性势能的计算取决于小球的位置<script type="math/tex">x</script>,动能的计算取决于小球的动量<script type="math/tex">p=mv</script>,这两个值<script type="math/tex">(x,p)</script>定义了Hamiltonian dynamics动态过程的一个坐标.随着时间的变化,每一个时间点的坐标可以通过积分的方法计算得到.例如,Leap Frog Method就是一个将连续时间离散为很小的时间段计算每个离散时间点<script type="math/tex">(x,p)</script>的方法.
-对于一个分布来讲,不同的位置<script type="math/tex">(x,p)</script>的总能量(势能+动能)是不同的,能量的大小反映了概率分布.对于MAP问题,就是要找能量最低的那个点.</p>
+<p>Hamiltonian dynamics是一种物理学上的动态过程,描述了一个有质量的物体的势能和动能的相互转化.想像一个固定在弹簧末端的小球,在小球左右来回摆动时,小球的动能和弹簧的弹性势能相互转化.其中弹性势能的计算取决于小球的位置\(x\),动能的计算取决于小球的动量\(p=mv\),这两个值\((x,p)\)定义了Hamiltonian dynamics动态过程的一个坐标.随着时间的变化,每一个时间点的坐标可以通过积分的方法计算得到.例如,Leap Frog Method就是一个将连续时间离散为很小的时间段计算每个离散时间点\((x,p)\)的方法.
+对于一个分布来讲,不同的位置\((x,p)\)的总能量(势能+动能)是不同的,能量的大小反映了概率分布.对于MAP问题,就是要找能量最低的那个点.</p>
 
-<p>在Hamiltonian Monte Carlo(HMC)采样中,Hamiltonian dynamics被用来生成下一个proposal - <script type="math/tex">x</script>.此时的energy funciton定义为势能和动能之和,即<script type="math/tex">H(x,p)=U(x)+K(p)</script>.采样点<script type="math/tex">(x,p)</script>的概率为<script type="math/tex">P(x,p)=\frac{1}{Z}e^{-U(x)-K(p)}</script>.整个proposal的过程如下:</p>
+<p>在Hamiltonian Monte Carlo(HMC)采样中,Hamiltonian dynamics被用来生成下一个proposal - \(x\).此时的energy funciton定义为势能和动能之和,即\(H(x,p)=U(x)+K(p)\).采样点\((x,p)\)的概率为\(P(x,p)=\frac{1}{Z}e^{-U(x)-K(p)}\).整个proposal的过程如下:</p>
 
 <ol>
-  <li>在第<script type="math/tex">t</script>步,给定一个采样<script type="math/tex">x_t</script>,从变量<script type="math/tex">p</script>的标准分布<script type="math/tex">P(p)</script>(canonical distribution,人为定义)中随机采样一个值<script type="math/tex">p_t</script>构成坐标<script type="math/tex">(x_t, p_t)</script>.</li>
-  <li>跑<script type="math/tex">L</script>步的Leap Frog Method来模拟Hamiltonian dynamics动态过程,到达结束位置<script type="math/tex">(x*, p*)</script></li>
-  <li>比较<script type="math/tex">H(x_t,p_t)</script>和<script type="math/tex">H(x*,p*)</script>的相对大小,按照Metropolis–Hastings algorithm的方法accept或者reject,从而得到<script type="math/tex">(x_{t+1}, p_{t+1})</script>.</li>
+  <li>在第\(t\)步,给定一个采样\(x_t\),从变量\(p\)的标准分布\(P(p)\)(canonical distribution,人为定义)中随机采样一个值\(p_t\)构成坐标\((x_t, p_t)\).</li>
+  <li>跑\(L\)步的Leap Frog Method来模拟Hamiltonian dynamics动态过程,到达结束位置\((x*, p*)\)</li>
+  <li>比较\(H(x_t,p_t)\)和\(H(x*,p*)\)的相对大小,按照Metropolis–Hastings algorithm的方法accept或者reject,从而得到\((x_{t+1}, p_{t+1})\).</li>
 </ol>
 
-<p>在每一步生成proposal时,因为引入了随机动量<script type="math/tex">p_t</script>,所以HMC可以有效地探索整个分布空间.
+<p>在每一步生成proposal时,因为引入了随机动量\(p_t\),所以HMC可以有效地探索整个分布空间.
 因为HMC相邻两个采样的距离比Metropolis–Hastings algorithm更大,且相关性(autocorrelation)更小,所以有更快的收敛效果.</p>
 
 <p>详细讲解和示例见:<a href="https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/">https://theclevermachine.wordpress.com/2012/11/18/mcmc-hamiltonian-monte-carlo-a-k-a-hybrid-monte-carlo/</a></p>
@@ -216,26 +216,46 @@
 
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Monte Carlo Methods"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/optimization-for-least-square-problem" title="NEXT: Optimization for Least Square Problems">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/Geometry" title="PREV: Geometry">&gt;&gt;</a>
-  
+	<a class="next" href="/optimization-for-least-square-problem" title="NEXT: Optimization for Least Square Problems">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" title="PREV: 读书笔记">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -248,7 +268,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

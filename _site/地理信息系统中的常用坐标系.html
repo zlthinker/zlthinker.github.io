@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>地理信息系统中的常用坐标系</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="地理信息系统中的常用坐标系" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>地理信息系统中的常用坐标系</h1>
+		<time>April 3, 2019</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#地理坐标系-geographic-coordinate-system-gcs" id="markdown-toc-地理坐标系-geographic-coordinate-system-gcs">地理坐标系 (Geographic Coordinate System, GCS)</a>    <ul>
+      <li><a href="#介绍" id="markdown-toc-介绍">介绍</a></li>
+      <li><a href="#基准面" id="markdown-toc-基准面">基准面</a></li>
+    </ul>
+  </li>
+  <li><a href="#投影坐标系-projected-coordinate-system-pcs" id="markdown-toc-投影坐标系-projected-coordinate-system-pcs">投影坐标系 (Projected Coordinate System, PCS)</a>    <ul>
+      <li><a href="#介绍-1" id="markdown-toc-介绍-1">介绍</a></li>
+      <li><a href="#圆锥投影" id="markdown-toc-圆锥投影">圆锥投影</a></li>
+      <li><a href="#圆柱投影" id="markdown-toc-圆柱投影">圆柱投影</a></li>
+      <li><a href="#平面投影" id="markdown-toc-平面投影">平面投影</a></li>
+      <li><a href="#投影参数" id="markdown-toc-投影参数">投影参数</a></li>
+    </ul>
+  </li>
+  <li><a href="#垂直坐标系" id="markdown-toc-垂直坐标系">垂直坐标系</a></li>
+  <li><a href="#三维笛卡尔坐标系" id="markdown-toc-三维笛卡尔坐标系">三维笛卡尔坐标系</a>    <ul>
+      <li><a href="#地心地固坐标系-ecef" id="markdown-toc-地心地固坐标系-ecef">地心地固坐标系 (ECEF)</a></li>
+      <li><a href="#站心地平直角坐标系-enu" id="markdown-toc-站心地平直角坐标系-enu">站心地平直角坐标系 (ENU)</a></li>
+    </ul>
+  </li>
+  <li><a href="#坐标系转换" id="markdown-toc-坐标系转换">坐标系转换</a>    <ul>
+      <li><a href="#地理坐标系到地心地固坐标系-gcs-to-ecef" id="markdown-toc-地理坐标系到地心地固坐标系-gcs-to-ecef">地理坐标系到地心地固坐标系 (GCS to ECEF)</a></li>
+      <li><a href="#地心地固坐标系到地理坐标系-ecef-to-gcs" id="markdown-toc-地心地固坐标系到地理坐标系-ecef-to-gcs">地心地固坐标系到地理坐标系 (ECEF to GCS)</a></li>
+      <li><a href="#ecef-to-enu" id="markdown-toc-ecef-to-enu">ECEF to ENU</a></li>
+      <li><a href="#enu-to-ecef" id="markdown-toc-enu-to-ecef">ENU to ECEF</a></li>
+      <li><a href="#gcs-to-enu" id="markdown-toc-gcs-to-enu">GCS to ENU</a></li>
+      <li><a href="#涉及投影坐标系的转换" id="markdown-toc-涉及投影坐标系的转换">涉及投影坐标系的转换</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h1 id="地理坐标系-geographic-coordinate-system-gcs">地理坐标系 (Geographic Coordinate System, GCS)</h1>
+
+<h3 id="介绍">介绍</h3>
+
+<p>地理坐标系是在三维球面上用经度和纬度值定义的坐标系，它描述了地球球面上某点的测量角。坐标系以赤道和本初子午线的交点为原点，以指向北极点的极轴为Z轴，以指向赤道和本初子午线的交点为X轴，以指向赤道和东经90度经线的交点为Y轴。纬度的范围是-90~90度，经度的范围是-180~180度。注意，地表某点的纬度等于该点的法线和Z轴的夹角，如图1所示。</p>
+
+<p><img src="/images/ECEF.png" alt="" />
+<strong><center>图1. 地理坐标系 </center></strong></p>
+
+<h3 id="基准面">基准面</h3>
+
+<p>由于地球表面复杂的地理结构，地球并不是一个严格的球体，也不是严格的椭球体。因此在定义地理坐标系时需要用一个标准的椭球体去拟合地球表面的几何形状，由此产生很多不同的基准面的定义。</p>
+
+<ol>
+  <li>地心基准面。地心基准面以地球的质心为球心。例如使用最广泛的 WGS 1984，是在世界范围内进行定位测量的框架。</li>
+  <li>区域基准面。为了用椭球体拟合测绘的特定区域，区域基准面应运而生，例如 NAD 1927 旨在尽可能与北美洲吻合，而 ED 1950 是为欧洲而构建。如图1所示，区域基准面的旋转椭球体的球心一般与地心存在一定偏移。</li>
+  <li>基于不同的基准面定义的不同的地理坐标系详见<a href="http://desktop.arcgis.com/zh-cn/arcmap/10.3/guide-books/map-projections/pdf/geographic_coordinate_systems.pdf">link</a>。</li>
+</ol>
+
+<p><img src="/images/基准面.gif" alt="" />
+<strong><center>图2. 地心基准面和区域基准面 </center></strong></p>
+
+<h1 id="投影坐标系-projected-coordinate-system-pcs">投影坐标系 (Projected Coordinate System, PCS)</h1>
+
+<h3 id="介绍-1">介绍</h3>
+
+<p>众所周知，我们地球的表面是一个球面或椭球面，因为球面或椭球面无法无缝展开成平面，所以就需要通过投影的方式，将地球表面投射到可展开曲面（称为投影曲面）上生成二维平面地图。常用的投影曲面包括圆锥、圆柱或一个单纯的平面。投影时，可假设有一个光源（例如放置在地心），光线穿过地球表面某一点A，落在投影曲面上的位置即为点A的坐标。</p>
+
+<p>根据投影曲面和“光源”位置的不同，我们将地图投影主要分为圆锥投影、圆柱投影、平面投影。不同的投影方式定义了不同的投影坐标系。</p>
+
+<h3 id="圆锥投影">圆锥投影</h3>
+
+<p><img src="/images/切线投影.gif" alt="" />
+<strong><center>图3. 切线圆锥投影 </center></strong>
+<img src="/images/割线投影.gif" alt="" />
+<strong><center>图4. 割线圆锥投影 </center></strong></p>
+
+<p>顾名思义，圆锥投影就是投影曲面为圆锥的投影。常见地，如果圆锥的轴与极轴重合，圆锥曲面恰好与地球表面相切于一条纬线，则这条纬线称为标准纬线，因为它的长度在投影后未经过任何拉伸或变形。随着距离标准纬线越远，变形就越明显。如果圆锥曲面与地球表面相割，则两条割线都是标准纬线。通常，割线投影的整体变形程度小于切线投影。</p>
+
+<h3 id="圆柱投影">圆柱投影</h3>
+
+<p><img src="/images/圆柱投影.gif" alt="" />
+<strong><center>图5. 圆柱投影 </center></strong></p>
+
+<p>圆柱投影使用圆柱作为投影平面。和圆锥投影类似，圆柱投影分为相切和相割两种情况。墨卡托投影是最常用的圆柱投影之一，并且通常以赤道为切线。这种投影方式产生成90度的经纬网格。经线等间距排列，而纬线间的间距越靠近极点越大。如下图所示，是通用横轴墨卡托投影（UTM）的示意图：</p>
+
+<p><img src="/images/utm.jpg" alt="" />
+<strong><center>图6. UTM </center></strong></p>
+
+<h3 id="平面投影">平面投影</h3>
+
+<p><img src="/images/平面投影.gif" alt="" />
+<strong><center>图7. 平面投影（或称方位投影） </center></strong></p>
+
+<p><img src="/images/极方位投影.gif" alt="" />
+<strong><center>图8. 极方位投影 </center></strong></p>
+
+<p>平面投影也称为方位投影或天顶投影。它将地图数据投影到与地球相切（亦有可能相割）的平面上。切点可能位于极点、赤道上或任意一点。其中最常见地，当切点位于极点时，就是极方位投影，最常用于绘制两极地区的地图。根据透视点（即“光源”）的位置来分类，分为球心投影（透视点在地心）、立体投影（透视点在两极之间）、正射投影（光源在无穷远处）。</p>
+
+<h3 id="投影参数">投影参数</h3>
+
+<p>以上的投影方式交代了生成二维地图投影的过程。不同的投影方式会产生不同的坐标系统。另外，因为投影变换过程中会产生形变，不同地区为减小该地区的形变会调整投影曲面的位置，由此产生更加繁多的投影坐标系统（详见<a href="http://desktop.arcgis.com/zh-cn/arcmap/10.3/guide-books/map-projections/pdf/projected_coordinate_systems.pdf">link</a>）。
+在实际使用中，还需要在投影地图中定义坐标轴，包括原点位置，X轴Y轴的方向，比例尺等。此外，因为投影坐标系只提供X-Y的坐标，如需要测量高度，还需要另外的高程测量以提供Z值。</p>
+
+<h1 id="垂直坐标系">垂直坐标系</h1>
+
+<p>上面讲到的地理坐标系和投影坐标系只定义了目标点在二维表面的位置，缺少了高度的测量。垂直坐标系通过定义高程基准提供对空间中任意一点的高度测量。常用的高程基准有两种。</p>
+
+<p>一种是数学基准，使用地理坐标系中的椭球体基准面作为高度为0的曲面。因为它是一种理想的数学定义，该基准所测量的高度并不能反映地球表面高低起伏的地理结构，甚至造成“水往高处流”的情形。</p>
+
+<p>另一种是分析基准，使用大地水准面作为高程基准（如1985年国家高程基准）。大地水准面是假设海洋受重力影响在地球表面生成的静态曲面。由于地球上各个地方的重力的不同，该曲面的形状极不规则，但其高度负方向与重力方向一致，不会出现“水往高处流”的情形。简单来说，如果A点的水能往B处流，那A比B高。示意图如下所示。</p>
+
+<p>各种垂直坐标系详见<a href="http://desktop.arcgis.com/zh-cn/arcmap/10.3/guide-books/map-projections/pdf/geographic_coordinate_systems.pdf">link</a></p>
+
+<p><img src="/images/高程基准面.png" alt="" />
+<strong><center>图9. 高程基准面 </center></strong></p>
+
+<h1 id="三维笛卡尔坐标系">三维笛卡尔坐标系</h1>
+
+<p>三维笛卡尔坐标系是用三维笛卡尔坐标描述某点的坐标系。常用的包括地心地固坐标系（ECEF）和站心地平直角坐标系（ENU）。</p>
+
+<h3 id="地心地固坐标系-ecef">地心地固坐标系 (ECEF)</h3>
+
+<p>地心地固坐标系（Earth Center Earth Fixed, ECEF）和图1地理坐标系共用相同的坐标原点和坐标轴，但是使用笛卡尔坐标而非角度来描述点的位置。</p>
+
+<h3 id="站心地平直角坐标系-enu">站心地平直角坐标系 (ENU)</h3>
+
+<p>站心地平直角坐标系（East North Up, ENU）是定义在地表正切平面的局部坐标系。如下图所示，它以站心点的纬线方向（指东）为X轴，以站心点的经线方向（指北）为Y轴，以站心点的法线（指上）为Z轴。</p>
+
+<p><img src="/images/ENU.png" alt="" />
+<strong><center>图10. 极方位投影 </center></strong></p>
+
+<h1 id="坐标系转换">坐标系转换</h1>
+
+<h3 id="地理坐标系到地心地固坐标系-gcs-to-ecef">地理坐标系到地心地固坐标系 (GCS to ECEF)</h3>
+
+<p><img src="/images/geodetic_2_ECEF.png" alt="" />
+<strong><center>图11. GCS to ECEF </center></strong></p>
+
+<p>地理坐标系和地心地固坐标系共用了同一套坐标轴。上图中，椭圆表示了地球的横截面，纵轴为Z轴，横轴为X-Y平面。假设地球的赤道半径为\(a\)，极轴半径为\(b\)。地表上空\(R\)点的地理坐标为：纬度\(\phi\)，经度\(\lambda\)，海拔\(h\)。\(P\)点为发现\(RQ\)与椭球面的交点。首先，可计算得</p>
+
+\[\begin{split} PQ &amp;= N(\phi)=\frac{a^2}{\sqrt{a^2 cos\phi^2 + b^2 sin \phi^2}} = \frac{a}{\sqrt{1- e^2 sin \phi^2}}, \\ IQ &amp;= e^2 N(\phi), \\ PI &amp;= \frac{b^2}{a^2} N(\phi).\end{split}\]
+
+<p>此处, \(e^2 = 1 - \frac{b^2}{a^2}\)。那么\(R\)点的ECEF坐标可以计算为</p>
+
+\[\begin{split} X &amp;= (N(\phi) + h)cos\phi cos\lambda ,\\ Y &amp;= (N(\phi) + h)cos\phi sin\lambda,\\ Z &amp;=  (\frac{b^2}{a^2} N(\phi) + h) sin \phi.  \end{split}\]
+
+<h3 id="地心地固坐标系到地理坐标系-ecef-to-gcs">地心地固坐标系到地理坐标系 (ECEF to GCS)</h3>
+
+<p>在这一步的坐标系转换中，经度的计算比较简单，即\(tan \lambda = \frac{Y}{X}\)。纬度的计算较为复杂，如下图所示（摘自<a href="https://en.wikipedia.org/wiki/Geographic_coordinate_conversion">wikipedia</a>）。</p>
+
+<p><img src="/images/ECEF_2_geodetic.png" alt="" />
+<strong><center>图12. ECEF to GCS </center></strong></p>
+
+<h3 id="ecef-to-enu">ECEF to ENU</h3>
+
+<p>由于ENU坐标系定义在局部坐标系下，所以转换前需要知道ENU局部坐标系的原点的ECEF坐标\((X_r, Y_r, Z_r)\)，以及原点的经度\(\phi\)和纬度\(\lambda\)。计算式为：</p>
+
+<p><img src="/images/ECEF_2_ENU.png" alt="" />
+<strong><center>图13. ECEF to ENU </center></strong></p>
+
+<h3 id="enu-to-ecef">ENU to ECEF</h3>
+
+<p>计算式如下。此矩阵与上面的矩阵互为逆矩阵。</p>
+
+<p><img src="/images/ENU_2_ECEF.png" alt="" />
+<strong><center>图14. ENU to ECEF </center></strong></p>
+
+<h3 id="gcs-to-enu">GCS to ENU</h3>
+
+<p>GCS和ENU之间的坐标系转换通过先转换为ECEF实现。</p>
+
+<h3 id="涉及投影坐标系的转换">涉及投影坐标系的转换</h3>
+
+<p>投影坐标系之间的转换一般通过一个中间坐标系来实现，例如ECEF。</p>
+
+<h1 id="reference">Reference</h1>
+
+<p><a href="http://desktop.arcgis.com/zh-cn/arcmap/10.3/guide-books/map-projections/what-are-map-projections.htm">http://desktop.arcgis.com/zh-cn/arcmap/10.3/guide-books/map-projections/what-are-map-projections.htm</a></p>
+
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="地理信息系统中的常用坐标系"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/stochastic-gradient-methods" title="NEXT: Stochastic Gradient Methods">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/simulated-annealing" title="PREV: Simulated Annealing">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

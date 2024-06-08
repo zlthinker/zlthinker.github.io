@@ -94,36 +94,36 @@
 	<div class="center">
 		<h1>Conditional Random Field</h1>
 		<time>July 18, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
 	<h3 id="introduction">Introduction</h3>
 
-<p>Conditional random fields (CRFs) are a probabilistic framework for labeling and segmenting sequential data by maximizing the conditional probability <script type="math/tex">p(Y \| x)</script> over label sequences <script type="math/tex">Y</script> given a particular observation sequence <script type="math/tex">x</script>.
-Formally, we define <script type="math/tex">G=(V,E)</script> to be an undirected graph such that there is a node <script type="math/tex">v \in V</script> corresponding to each of the random variables representing an elements <script type="math/tex">Y_v</script> of <script type="math/tex">Y</script>. If each random variable <script type="math/tex">Y_v</script> obeys the Markov property with respect to <script type="math/tex">G</script>, then <script type="math/tex">(Y, X)</script> is a conditional random field.</p>
+<p>Conditional random fields (CRFs) are a probabilistic framework for labeling and segmenting sequential data by maximizing the conditional probability \(p(Y \| x)\) over label sequences \(Y\) given a particular observation sequence \(x\).
+Formally, we define \(G=(V,E)\) to be an undirected graph such that there is a node \(v \in V\) corresponding to each of the random variables representing an elements \(Y_v\) of \(Y\). If each random variable \(Y_v\) obeys the Markov property with respect to \(G\), then \((Y, X)\) is a conditional random field.</p>
 
 <h3 id="preliminary">Preliminary</h3>
 
 <h4 id="graphical-modeling">Graphical Modeling</h4>
 
-<p>Graphical modeling is an insightful method of describing the distribution over many variables. It helps to factorize the monolithic distribution into the product of <strong>local functions</strong> that each depend on a much smaller subset of variables. For example, given an undirected graphical model over a full variable set <script type="math/tex">Y</script>, the distribution can be written as</p>
+<p>Graphical modeling is an insightful method of describing the distribution over many variables. It helps to factorize the monolithic distribution into the product of <strong>local functions</strong> that each depend on a much smaller subset of variables. For example, given an undirected graphical model over a full variable set \(Y\), the distribution can be written as</p>
 
-<script type="math/tex; mode=display">p(Y= \mathbf{y}) = \frac{1}{Z} \prod_{a=1}^A \Phi_a(\mathbf{y}_a).</script>
+\[p(Y= \mathbf{y}) = \frac{1}{Z} \prod_{a=1}^A \Phi_a(\mathbf{y}_a).\]
 
-<p>Here <script type="math/tex">Y_a = y_a</script> are a subset of variables in <script type="math/tex">Y</script> given by fractorization. Different fractorization leads to different modeling of distribution. <script type="math/tex">Z</script> is the normalization factor that ensures the sum of probabilities equal to 1.</p>
+<p>Here \(Y_a = y_a\) are a subset of variables in \(Y\) given by fractorization. Different fractorization leads to different modeling of distribution. \(Z\) is the normalization factor that ensures the sum of probabilities equal to 1.</p>
 
-<p>To better formalize the fractorization, a fractor graph is defined as a bipartite graph <script type="math/tex">G=(V, F, E)</script> in which nodes <script type="math/tex">V</script> denote the set of variables in the model, and nodes <script type="math/tex">F</script> denote the factors. The semantics of the factor graph is that if a variable node <script type="math/tex">Y_s</script> for <script type="math/tex">s \in V</script> is connected to a fractor node <script type="math/tex">\Phi_a</script> for <script type="math/tex">a \in F</script>, then <script type="math/tex">Y_s</script> is one of the arguments of <script type="math/tex">\Phi_a</script>.</p>
+<p>To better formalize the fractorization, a fractor graph is defined as a bipartite graph \(G=(V, F, E)\) in which nodes \(V\) denote the set of variables in the model, and nodes \(F\) denote the factors. The semantics of the factor graph is that if a variable node \(Y_s\) for \(s \in V\) is connected to a fractor node \(\Phi_a\) for \(a \in F\), then \(Y_s\) is one of the arguments of \(\Phi_a\).</p>
 
 <h3 id="conditional-random-field">Conditional Random Field</h3>
 
-<p>Let <script type="math/tex">G</script> be a factor graph over <script type="math/tex">X</script> and <script type="math/tex">Y</script>. Then <script type="math/tex">(X, Y)</script> is a conditional random field if for any value <script type="math/tex">\mathbf{x}</script> of <script type="math/tex">X</script>, the distribution <script type="math/tex">p(\mathbf{y} \| \mathbf{x})</script> fractorizes according to <script type="math/tex">G</script>. If <script type="math/tex">F=\{ \Phi_a \}</script> is the set of fractors in <script type="math/tex">G</script>, then the conditional distribution for a CRF is</p>
+<p>Let \(G\) be a factor graph over \(X\) and \(Y\). Then \((X, Y)\) is a conditional random field if for any value \(\mathbf{x}\) of \(X\), the distribution \(p(\mathbf{y} \| \mathbf{x})\) fractorizes according to \(G\). If \(F=\{ \Phi_a \}\) is the set of fractors in \(G\), then the conditional distribution for a CRF is</p>
 
-<script type="math/tex; mode=display">p(\mathbf{y} \| \mathbf{x}) = \frac{1}{Z(\mathbf{x})} \prod_{a=1}^A \Phi_a(\mathbf{y}_a, \mathbf{x}_a).</script>
+\[p(\mathbf{y} \| \mathbf{x}) = \frac{1}{Z(\mathbf{x})} \prod_{a=1}^A \Phi_a(\mathbf{y}_a, \mathbf{x}_a).\]
 
 <h3 id="crf-vs-mrf">CRF VS. MRF</h3>
 
@@ -135,26 +135,46 @@ Formally, we define <script type="math/tex">G=(V,E)</script> to be an undirected
 <p><a href="http://dirichlet.net/pdf/wallach04conditional.pdf">Conditional Random Fields: An Introduction</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Conditional Random Field"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/vision-sensors" title="NEXT: Vision Sensors">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/belief-propagation" title="PREV: Belief Propagation">&gt;&gt;</a>
-  
+	<a class="next" href="/vision-sensors" title="NEXT: Vision Sensors">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/belief-propagation" title="PREV: Belief Propagation">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -167,7 +187,8 @@ Formally, we define <script type="math/tex">G=(V,E)</script> to be an undirected
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

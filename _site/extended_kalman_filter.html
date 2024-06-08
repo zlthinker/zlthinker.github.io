@@ -94,21 +94,19 @@
 	<div class="center">
 		<h1>Extended Kalman Filter (EKF)</h1>
 		<time>August 1, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
 	<ul id="markdown-toc">
-  <li><a href="#related-works" id="markdown-toc-related-works">Related Works</a>    <ul>
-      <li><a href="#derivation" id="markdown-toc-derivation">Derivation</a></li>
-      <li><a href="#prediction" id="markdown-toc-prediction">Prediction</a></li>
-    </ul>
-  </li>
+  <li><a href="#related-works" id="markdown-toc-related-works">Related Works</a></li>
+  <li><a href="#derivation" id="markdown-toc-derivation">Derivation</a></li>
   <li><a href="#a-toy-model" id="markdown-toc-a-toy-model">A toy model</a></li>
+  <li><a href="#filter-consistency" id="markdown-toc-filter-consistency">Filter Consistency</a></li>
   <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
 </ul>
 
@@ -116,11 +114,10 @@
 
 <p><a href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Coskun_Long_Short-Term_Memory_ICCV_2017_paper.pdf">Long Short-Term Memory Kalman Filters: Recurrent Neural Estimators for Pose Regularization</a></p>
 
-<h4 id="derivation">Derivation</h4>
+<h2 id="derivation">Derivation</h2>
 <p>The calculus of the main component of EKF can be expressed as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{x}_k &= \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1) \\ \mathbf{z}_k &= \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2) \end{split} %]]></script>
+\[\begin{split} \mathbf{x}_k &amp;= \mathbf{f}( \mathbf{x}_{k-1}) + \mathbf{w}_{k-1} , \,\,\,\,(1) \\ \mathbf{z}_k &amp;= \mathbf{h}( \mathbf{x}_{k}) + \mathbf{v}_{k}, \,\,\,\,(2) \end{split}\]
 
 <p>where</p>
 
@@ -134,159 +131,207 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{x}_k</script></td>
-      <td style="text-align: center"><script type="math/tex">n \times 1</script></td>
-      <td style="text-align: center">State vector at time <script type="math/tex">k</script></td>
+      <td style="text-align: center">\(\mathbf{x}_k\)</td>
+      <td style="text-align: center">\(n \times 1\)</td>
+      <td style="text-align: center">State vector at time \(k\)</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{w}_k</script></td>
-      <td style="text-align: center"><script type="math/tex">n \times 1</script></td>
+      <td style="text-align: center">\(\mathbf{w}_k\)</td>
+      <td style="text-align: center">\(n \times 1\)</td>
       <td style="text-align: center">Zero-mean Gaussian process noise vector</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{z}_k</script></td>
-      <td style="text-align: center"><script type="math/tex">m \times 1</script></td>
+      <td style="text-align: center">\(\mathbf{z}_k\)</td>
+      <td style="text-align: center">\(m \times 1\)</td>
       <td style="text-align: center">Observation vector</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{v}_k</script></td>
-      <td style="text-align: center"><script type="math/tex">m \times 1</script></td>
+      <td style="text-align: center">\(\mathbf{v}_k\)</td>
+      <td style="text-align: center">\(m \times 1\)</td>
       <td style="text-align: center">Zero-mean Gaussian measurement noise vector</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{f}(.)</script></td>
-      <td style="text-align: center"><script type="math/tex">n \times 1</script></td>
+      <td style="text-align: center">\(\mathbf{f}(.)\)</td>
+      <td style="text-align: center">\(n \times 1\)</td>
       <td style="text-align: center">Process function</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{h}(.)</script></td>
-      <td style="text-align: center"><script type="math/tex">m \times 1</script></td>
+      <td style="text-align: center">\(\mathbf{h}(.)\)</td>
+      <td style="text-align: center">\(m \times 1\)</td>
       <td style="text-align: center">Observation function</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{Q}_k=E(\mathbf{w}_k \mathbf{w}_k^T)</script></td>
-      <td style="text-align: center"><script type="math/tex">n \times n</script></td>
+      <td style="text-align: center">\(\mathbf{Q}_k=E(\mathbf{w}_k \mathbf{w}_k^T)\)</td>
+      <td style="text-align: center">\(n \times n\)</td>
       <td style="text-align: center">Process noise covariance matrix</td>
     </tr>
     <tr>
-      <td style="text-align: center"><script type="math/tex">\mathbf{R}_k=E(\mathbf{v}_k \mathbf{v}_k^T)</script></td>
-      <td style="text-align: center"><script type="math/tex">m \times m</script></td>
+      <td style="text-align: center">\(\mathbf{R}_k=E(\mathbf{v}_k \mathbf{v}_k^T)\)</td>
+      <td style="text-align: center">\(m \times m\)</td>
       <td style="text-align: center">Measurement noise covariance matrix</td>
     </tr>
   </tbody>
 </table>
 
-<p>In a dynamic process, the initial state <script type="math/tex">\mathbf{x}_0</script> is known with a mean <script type="math/tex">\mathbf{\mu}_0^a</script> and a covariance <script type="math/tex">\mathbf{P}_0^a</script>. If the process function <script type="math/tex">\mathbf{f}(.)</script> and the observation function <script type="math/tex">\mathbf{h}(.)</script> are linear, the Extended Kalman Filter will be equivalent to Kalman Filter and all the subsequent states are gaussian distributed. Most often, the two functions are nonlinear, so that the Extended Kalman Filter approximates them linearly by Taylor Expansion.</p>
+<p>In a dynamic process, the initial state \(\mathbf{x}_0\) is known with a mean \(\mathbf{\mu}_0^a\) and a covariance \(\mathbf{P}_0^a\). If the process function \(\mathbf{f}(.)\) and the observation function \(\mathbf{h}(.)\) are linear, the Extended Kalman Filter will be equivalent to Kalman Filter and all the subsequent states are gaussian distributed. Most often, the two functions are nonlinear, so that the Extended Kalman Filter approximates them linearly by Taylor Expansion.</p>
 
-<h4 id="prediction">Prediction</h4>
+<p>In the new time step \(k\), two pieces of information are available.</p>
 
-<p>In the new time step <script type="math/tex">k</script>, two pieces of information are available.</p>
+<p>(a) The first one can be obtained by Eq. (1) where current state \(\mathbf{x}_k^f\) with mean \(\mu_k^f\) and covariance \(\mathbf{P}_k^f\) is inferred from last state \(\mathbf{x}_{k-1}\) with mean \(\mu_{k-1}^a\) and covariance \(\mathbf{P}_{k-1}^a\). The taylor expansion of \(\mathbf{f}(\mathbf{x})\) around \(\mu_{k-1}^a\) gives</p>
 
-<p>(a) The first one can be obtained by Eq. (1) where current state <script type="math/tex">\mathbf{x}_k^f</script> with mean <script type="math/tex">\mu_k^f</script> and covariance <script type="math/tex">\mathbf{P}_k^f</script> is inferred from last state <script type="math/tex">\mathbf{x}_{k-1}</script> with mean <script type="math/tex">\mu_{k-1}^a</script> and covariance <script type="math/tex">\mathbf{P}_{k-1}^a</script>. The taylor expansion of <script type="math/tex">\mathbf{f}(\mathbf{x})</script> around <script type="math/tex">\mu_{k-1}^a</script> gives</p>
+\[\begin{split} \mathbf{f}(\mathbf{x}_{k-1}) &amp; \approx \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) (\mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a) \\ &amp;= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a, \end{split}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{f}(\mathbf{x}_{k-1}) & \approx \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) (\mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a, \end{split} %]]></script>
+<p>where \(\mathbf{J}_{\mathbf{f}}(.)\) is the Jacobian function and \(\mathbf{e}_{k-1}^a = \mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a\).</p>
 
-<p>where <script type="math/tex">\mathbf{J}_{\mathbf{f}}(.)</script> is the Jacobian function and <script type="math/tex">\mathbf{e}_{k-1}^a = \mathbf{x}_{k-1} - \mathbf{\mu}_{k-1}^a</script>.</p>
+\[\begin{split} \mu_k^f &amp;= E(\mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1}) \\ &amp;=  E(\mathbf{f}(\mathbf{x}_{k-1})) \\ &amp;= E(\mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}) \\ &amp;= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) E(\mathbf{e}_{k-1}) \\ &amp;= \mathbf{f}(\mathbf{\mu}_{k-1}^a). \end{split}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mu_k^f &= E(\mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1}) \\ &=  E(\mathbf{f}(\mathbf{x}_{k-1})) \\ &= E(\mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a) + \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) E(\mathbf{e}_{k-1}) \\ &= \mathbf{f}(\mathbf{\mu}_{k-1}^a). \end{split} %]]></script>
+<p>The error of estimate \(\mathbf{x}_{k}\) by \(\mu_k^f\) is:</p>
 
-<p>The error of estimate <script type="math/tex">\mathbf{x}_{k}</script> by <script type="math/tex">\mu_k^f</script> is:</p>
+\[\begin{split} \mathbf{e}_k^f &amp; = \mathbf{x}_{k} - \mathbf{\mu}_k^f \\ &amp;= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mathbf{f}(\mathbf{\mu}_{k-1}^a) \\ &amp; \approx \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} \end{split}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{e}_k^f & = \mathbf{x}_{k} - \mathbf{\mu}_k^f \\ &= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mathbf{f}(\mathbf{\mu}_{k-1}^a) \\ & \approx \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} \end{split} %]]></script>
+\[\begin{split} \mathbf{P}_k^f &amp;= E(\mathbf{e}_k^f {\mathbf{e}_k^f}^T) \\ &amp;= \mathbf{J}_{\mathbf{f}} E(\mathbf{e}_{k-1}^a {\mathbf{e}_{k-1}^a}^T) \mathbf{J}_{\mathbf{f}}^T + E(\mathbf{w}_{k-1} \mathbf{w}_{k-1}^T) \\ &amp;= \mathbf{J}_{\mathbf{f}} \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}^T + \mathbf{Q}_{k-1}. \end{split}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{P}_k^f &= E(\mathbf{e}_k^f {\mathbf{e}_k^f}^T) \\ &= \mathbf{J}_{\mathbf{f}} E(\mathbf{e}_{k-1}^a {\mathbf{e}_{k-1}^a}^T) \mathbf{J}_{\mathbf{f}}^T + E(\mathbf{w}_{k-1} \mathbf{w}_{k-1}^T) \\ &= \mathbf{J}_{\mathbf{f}} \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}^T + \mathbf{Q}_{k-1}. \end{split} %]]></script>
+<p>Overall, the last state yield the gaussian estimation of current state: \(mean = \mu_k^f = \mathbf{f}(\mu_{k-1}^a)\), \(covariance = \mathbf{P}_k^f\). The covariance of the estimation is the sum of the covariance derived from last estimate and the covariance of process noise.</p>
 
-<p>Overall, the last state yield the gaussian estimation of current state: <script type="math/tex">mean = \mu_k^f = \mathbf{f}(\mu_{k-1}^a)</script>, <script type="math/tex">covariance = \mathbf{P}_k^f</script>. The covariance of the estimation is the sum of the covariance derived from last estimate and the covariance of process noise.</p>
+<p>(b) The second one is obtained by Eq. (2) based on measurements from current observation \(\mathbf{z}_k\) with covariance \(\mathbf{R}_k\).</p>
 
-<p>(b) The second one is obtained by Eq. (2) based on measurements from current observation <script type="math/tex">\mathbf{z}_k</script> with covariance <script type="math/tex">\mathbf{R}_k</script>.</p>
+<p>One way to combine the two pieces of information is to assume the estimation as a linear combination of both \(\mathbf{x}_k^f\) and \(\mathbf{z}_k\). Let</p>
 
-<p>One way to combine the two pieces of information is to assume the estimation as a linear combination of both <script type="math/tex">\mathbf{x}_k^f</script> and <script type="math/tex">\mathbf{z}_k</script>. Let</p>
-
-<script type="math/tex; mode=display">\mu_k^a = \mathbf{a} + \mathbf{K}_k \mathbf{z}_k.</script>
+\[\mu_k^a = \mathbf{a} + \mathbf{K}_k \mathbf{z}_k.\]
 
 <p>From the unbiasedness condition,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} E(x_k - \mu_k^a) &= E( \mu_k^f + e_k^f - (\mathbf{a} + \mathbf{K}_k \mathbf{h}(\mathbf{x}_k) + \mathbf{K}_k \mathbf{v}_k)) \\ & = \mu_k^f - \mathbf{a} - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)) \\ & = 0. \end{split} %]]></script>
+\[\begin{split} E(x_k - \mu_k^a) &amp;= E( \mu_k^f + e_k^f - (\mathbf{a} + \mathbf{K}_k \mathbf{h}(\mathbf{x}_k) + \mathbf{K}_k \mathbf{v}_k)) \\ &amp; = \mu_k^f - \mathbf{a} - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)) \\ &amp; = 0. \end{split}\]
 
-<script type="math/tex; mode=display">\mathbf{a} = \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)).</script>
+\[\mathbf{a} = \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)).\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mu_k^a &= \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)) + \mathbf{K}_k \mathbf{z}_k \\ &= \mu_k^f + \mathbf{K}_k (\mathbf{z}_k - E(\mathbf{h}(\mathbf{x}_k))). \end{split} %]]></script>
+\[\begin{split} \mu_k^a &amp;= \mu_k^f - \mathbf{K}_k E(\mathbf{h}(\mathbf{x}_k)) + \mathbf{K}_k \mathbf{z}_k \\ &amp;= \mu_k^f + \mathbf{K}_k (\mathbf{z}_k - E(\mathbf{h}(\mathbf{x}_k))). \end{split}\]
 
-<p>Similarly, expand <script type="math/tex">\mathbf{h}(\mathbf{x}_k)</script> in Taylor series around <script type="math/tex">\mu_k^f</script>,</p>
+<p>Similarly, expand \(\mathbf{h}(\mathbf{x}_k)\) in Taylor series around \(\mu_k^f\),</p>
 
-<script type="math/tex; mode=display">\mathbf{h}(\mathbf{x}_k) \approx \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) (\mathbf{x}_k - \mu_k^f) = \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) \mathbf{e}_k^f.</script>
+\[\mathbf{h}(\mathbf{x}_k) \approx \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) (\mathbf{x}_k - \mu_k^f) = \mathbf{h}(\mu_k^f) + \mathbf{J}_h(\mu_k^f) \mathbf{e}_k^f.\]
 
-<script type="math/tex; mode=display">E(\mathbf{h}(\mathbf{x}_k)) = \mathbf{h}(\mu_k^f) + \mathbf{J}_h E(e_k^f)  = \mathbf{h}(\mu_k^f).</script>
+\[E(\mathbf{h}(\mathbf{x}_k)) = \mathbf{h}(\mu_k^f) + \mathbf{J}_h E(e_k^f)  = \mathbf{h}(\mu_k^f).\]
 
-<script type="math/tex; mode=display">\mu_k^a =  \mu_k^f + \mathbf{K}_k (\mathbf{z}_k - \mathbf{h}(\mu_k^f) )</script>
+\[\mu_k^a =  \mu_k^f + \mathbf{K}_k (\mathbf{z}_k - \mathbf{h}(\mu_k^f) )\]
 
-<p>The error of estimate <script type="math/tex">\mathbf{x}_{k}</script> by <script type="math/tex">\mu_k^a</script> is:</p>
+<p>The error of estimate \(\mathbf{x}_{k}\) by \(\mu_k^a\) is:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{e}_k^a &= \mathbf{x}_{k} - \mu_k^a \\ &= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mu_k^f - \mathbf{K}_k (\mathbf{z}_k - \mathbf{h}(\mu_k^f) )  \\ &= \mathbf{f}(\mathbf{x}_{k-1}) - \mathbf{f}(\mu_{k-1}^a) + \mathbf{w}_{k-1} - \mathbf{K}_k ( \mathbf{h}( \mathbf{x}_{k}) - \mathbf{h}(\mu_k^f) + \mathbf{v}_{k} ) \\ &= \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k ( \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) \mathbf{e}_k^f +  \mathbf{v}_{k}) \\ &=  \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) \mathbf{e}_k^f - \mathbf{K}_k \mathbf{v}_{k} \\ &=  \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) (\mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1}) - \mathbf{K}_k \mathbf{v}_{k} \\ &= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{v}_{k} \end{split}. %]]></script>
+\[\begin{split} \mathbf{e}_k^a &amp;= \mathbf{x}_{k} - \mu_k^a \\ &amp;= \mathbf{f}(\mathbf{x}_{k-1}) + \mathbf{w}_{k-1} - \mu_k^f - \mathbf{K}_k (\mathbf{z}_k - \mathbf{h}(\mu_k^f) )  \\ &amp;= \mathbf{f}(\mathbf{x}_{k-1}) - \mathbf{f}(\mu_{k-1}^a) + \mathbf{w}_{k-1} - \mathbf{K}_k ( \mathbf{h}( \mathbf{x}_{k}) - \mathbf{h}(\mu_k^f) + \mathbf{v}_{k} ) \\ &amp;= \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k ( \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) \mathbf{e}_k^f +  \mathbf{v}_{k}) \\ &amp;=  \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) \mathbf{e}_k^f - \mathbf{K}_k \mathbf{v}_{k} \\ &amp;=  \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f) (\mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + \mathbf{w}_{k-1}) - \mathbf{K}_k \mathbf{v}_{k} \\ &amp;= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{e}_{k-1}^a + (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{w}_{k-1} - \mathbf{K}_k \mathbf{v}_{k} \end{split}.\]
 
 <p>The covariance of the estimate is</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mathbf{P}_k^a &= E(\mathbf{e}^k {\mathbf{e}^k}^T) \\ &= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a)^T (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T \\& + (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{Q}_{k-1} (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T + \mathbf{K}_k \mathbf{R}_k \mathbf{K}_k^T\\ &= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{P}_k^f  (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T  + \mathbf{K}_k \mathbf{R}_k \mathbf{K}_k^T.\end{split} %]]></script>
+\[\begin{split} \mathbf{P}_k^a &amp;= E(\mathbf{e}^k {\mathbf{e}^k}^T) \\ &amp;= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a) \mathbf{P}_{k-1}^a \mathbf{J}_{\mathbf{f}}(\mathbf{\mu}_{k-1}^a)^T (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T \\&amp; + (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{Q}_{k-1} (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T + \mathbf{K}_k \mathbf{R}_k \mathbf{K}_k^T\\ &amp;= (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f)) \mathbf{P}_k^f  (\mathbf{I} - \mathbf{K}_k \mathbf{J}_{\mathbf{h}}(\mathbf{\mu}_{k}^f))^T  + \mathbf{K}_k \mathbf{R}_k \mathbf{K}_k^T.\end{split}\]
 
-<p>In conclusion, the covariance of final estimate is the linear combination of covariances induced by the estimation based on transition from last state and the estimation from current measurements. The weights of covariances are controlled by the factor <script type="math/tex">\mathbf{K}_k</script>.</p>
+<p>In conclusion, the covariance of final estimate is the linear combination of covariances induced by the estimation based on transition from last state and the estimation from current measurements. The weights of covariances are controlled by the factor \(\mathbf{K}_k\).</p>
 
-<p>The optimal factor <script type="math/tex">\mathbf{K}_k</script> should minimize the covariance of estimation <script type="math/tex">\mathbf{P}_k</script>. Since <script type="math/tex">\mathbf{P}_k</script> is in square of <script type="math/tex">\mathbf{K}_k</script>, the minimum is achieved when</p>
+<p>The optimal factor \(\mathbf{K}_k\) should minimize the covariance of estimation \(\mathbf{P}_k\). Since \(\mathbf{P}_k\) is in square of \(\mathbf{K}_k\), the minimum is achieved when</p>
 
-<script type="math/tex; mode=display">\frac{\partial tr(\mathbf{P}_k)}{\partial \mathbf{K}_k} = 0</script>
+\[\frac{\partial tr(\mathbf{P}_k)}{\partial \mathbf{K}_k} = 0\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split}  \mathbf{K}_k &= \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) \left( \mathbf{J}_h(\mu_k^f)  \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) + \mathbf{R}_k \right)^{-1}  \\ \mathbf{P}_k &= \left( \mathbf{I} - \mathbf{K}_k (\mathbf{J}_h(\mu_k^f) \right) \mathbf{P}_k^f \end{split} %]]></script>
+\[\begin{split}  \mathbf{K}_k &amp;= \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) \left( \mathbf{J}_h(\mu_k^f)  \mathbf{P}_k^f \mathbf{J}_h^T(\mu_k^f) + \mathbf{R}_k \right)^{-1}  \\ \mathbf{P}_k &amp;= \left( \mathbf{I} - \mathbf{K}_k (\mathbf{J}_h(\mu_k^f) \right) \mathbf{P}_k^f \end{split}\]
 
 <h2 id="a-toy-model">A toy model</h2>
 
-<p>Now we show a toy example with determined model where <script type="math/tex">\mathbf{f}(.)</script> and <script type="math/tex">\mathbf{h}(.)</script> are both linear functions:</p>
+<p>Now we show a toy example with determined model where \(\mathbf{f}(.)\) and \(\mathbf{h}(.)\) are both linear functions:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} x_{k} &= x_{k-1} + cos(k/5) + w_{k-1} \\ z_{k} &= x_{k} + v_{k} \end{split} %]]></script>
+\[\begin{split} x_{k} &amp;= x_{k-1} + cos(k/5) + w_{k-1} \\ z_{k} &amp;= x_{k} + v_{k} \end{split}\]
 
 <p>Following the derivation above, we have the updates:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} \mu_{k}^f &= \mu_{k-1}^a + cos(k/5) \\ P_{k}^f &= P_{k-1}^a + Q_{k-1} \\ K_{k} &= \frac{P_k^f}{P_k^f + R_k}   \\ \mu_k^a &= \mu_{k}^f + K_{k} (z_k - \mu_{k}^f) = (1-K_k) \mu_k^f + K_k z_k \\ P_k^a &= (1 - K_k) P_k^f = \frac{R_k P_k^f}{ P_k^f + R_k} \end{split} %]]></script>
+\[\begin{split} \mu_{k}^f &amp;= \mu_{k-1}^a + cos(k/5) \\ P_{k}^f &amp;= P_{k-1}^a + Q_{k-1} \\ K_{k} &amp;= \frac{P_k^f}{P_k^f + R_k}   \\ \mu_k^a &amp;= \mu_{k}^f + K_{k} (z_k - \mu_{k}^f) = (1-K_k) \mu_k^f + K_k z_k \\ P_k^a &amp;= (1 - K_k) P_k^f = \frac{R_k P_k^f}{ P_k^f + R_k} \end{split}\]
 
-<p>The estimated mean value of the new state <script type="math/tex">\mu_k^a</script> is actually the weighted average of the estimations from last state and from current measurements. The combination of two sources helps to decrease the uncertainty of estimation compared with using only one source, as <script type="math/tex">% <![CDATA[
-P_k^a < P_k^f %]]></script> and <script type="math/tex">% <![CDATA[
-P_k^a < R_k %]]></script>.</p>
+<p>The estimated mean value of the new state \(\mu_k^a\) is actually the weighted average of the estimations from last state and from current measurements. The combination of two sources helps to decrease the uncertainty of estimation compared with using only one source, as \(P_k^a &lt; P_k^f\) and \(P_k^a &lt; R_k\).</p>
+
+<h2 id="filter-consistency">Filter Consistency</h2>
+
+<p>The goal of filter consistency checks is to identify when
+the filter has an incorrect estimate. The validity of an
+estimate can be evaluated based on whether the measurements
+predicted by the estimate agree with the observed measurements.
+This is typically done by monitoring the innovations
+or the error residual of the filter. The consistency check assesses
+whether the measured innovations follow their expected
+statistical properties.</p>
+
+<p>One of the most widely-used consistency measures is the Normalized
+Innovations Squared (NIS) test. Specifically, a flag is thrown if
+the windowed average of the NIS metric exceeds a threshold.
+This test is chosen due to its robustness and ease of implementation.
+We refer the readers to <a href="https://pdfs.semanticscholar.org/cd84/4024e586881c666473984a2b5df89e9db457.pdf">here</a> to details.</p>
+
+<p>[6] “The reasons for such a discrepancy could be either in the
+prediction, the stochastic model used in the KF or in the observations.”</p>
+
+<p>[5] “The basic idea used to implement the filter as a detector is the fact that the innovation process is white. When the system changes due to damage the innovations are no longer white and correlation can be used to detect it.”</p>
+
+<p>[5] “The covariance of innovations process has significant importance for validation of the optimality of the Kalman gain, K. The consistency between theoretical covariance of innovations process and its experimental estimate demonstrates that the filter gain is optimal.”</p>
+
+<p>[7] “If all noise is Gaussian, the Kalman filter minimises the mean square error of the estimated parameters.”</p>
+
+<p>[7] “Given only the mean and standard deviation of noise, the Kalman filter is the best linear estimator. Non-linear estimators may be better.”</p>
+
+<p>[8] “If the measurement noise covariance parameter in a Kalman filter is too small relative to the actual noise, the filter gives too much weight to measurements relative to the process model, and estimated state trajectories are overly erratic. On the other hand, if the parameter is too large, the filter gives too little weight to measurements, and its response is sluggish.”</p>
 
 <h2 id="reference">Reference</h2>
 
 <p>[1] <a href="https://www.cse.sc.edu/~terejanu/files/tutorialEKF.pdf">Extended Kalman Filter Tutorial</a></p>
 
+<p>[2] <a href="http://www.mathstat.ualberta.ca/~wiens/stat679/meinhold&amp;singpurwalla.pdf">Understanding the Kalman Filter</a> An expository material laying out the derivation of kalman filter under the Bayesian formulation.</p>
 
+<p>[3] <a href="https://cs.adelaide.edu.au/~ianr/Teaching/Estimation/LectureNotes2.pdf">Checking consistency for Kalman filter</a></p>
+
+<p>[4] <a href="https://people.mech.kuleuven.be/~tdelaet/journalA99.pdf">Kalman Filters: A Tutorial</a></p>
+
+<p>[5] <a href="http://people.duke.edu/~hpgavin/SystemID/References/Balut-KalmanFilter-PhD-NEU-2011.pdf">Applied Kalman filter theory (book)</a></p>
+
+<p>[6] <a href="https://www.mdpi.com/1424-8220/14/10/18053/pdf-vor">Statistical Process Control of a Kalman Filter Model</a></p>
+
+<p>[7] <a href="http://biorobotics.ri.cmu.edu/papers/sbp_papers/integrated3/kleeman_kalman_basics.pdf">Understanding and Applying Kalman Filtering</a></p>
+
+<p>[8] <a href="https://tutcris.tut.fi/portal/files/3250626/KFconsistency2015.pdf">Online tests of Kalman filter consistency</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Extended Kalman Filter (EKF)"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
 
 </article>
 
+
+
+
+
 <div class="page-navigation">
 	
-    <a class="next" href="/semi-global-matching" title="NEXT: Semi-global Matching for Stereo Processing">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/mean-field-approximation" title="PREV: Mean Field Approximation">&gt;&gt;</a>
-  
+	<a class="next" href="/semi-global-matching" title="NEXT: Semi-global Matching for Stereo Processing">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/mean-field-approximation" title="PREV: Mean Field Approximation">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -299,7 +344,8 @@ P_k^a < R_k %]]></script>.</p>
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

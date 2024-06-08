@@ -94,12 +94,12 @@
 	<div class="center">
 		<h1>Blog Guide</h1>
 		<time>October 18, 2016</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="blog guide">blog guide</a></li>
+			<li><a href="/tag_index.html" title="blog guide">blog guide</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -110,7 +110,7 @@
 
 <h2 id="typography-elements-in-one">Typography Elements in One</h2>
 
-<p>Let’s start with a informative paragraph. <strong>This text is bolded.</strong> But not this one! <em>How about italic text?</em> Cool right? Ok, let’s <strong><em>combine</em></strong> them together. Yeah, that’s right! I have code to highlight, so <code class="highlighter-rouge">ThisIsMyCode()</code>. What a nice! Good people will hyperlink away, so <a href="#">here we go</a> or <a href="http://www.example.com">http://www.example.com</a>.</p>
+<p>Let’s start with a informative paragraph. <strong>This text is bolded.</strong> But not this one! <em>How about italic text?</em> Cool right? Ok, let’s <strong><em>combine</em></strong> them together. Yeah, that’s right! I have code to highlight, so <code class="language-plaintext highlighter-rouge">ThisIsMyCode()</code>. What a nice! Good people will hyperlink away, so <a href="#">here we go</a> or <a href="http://www.example.com">http://www.example.com</a>.</p>
 
 <div class="divider"></div>
 
@@ -132,7 +132,7 @@
 
 <h2 id="footnote">Footnote</h2>
 
-<p>Let’s say you have text that you want to refer with a footnote, you can do that too! This is an example for the footnote number one <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>. You can even add more footnotes, with link! <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></p>
+<p>Let’s say you have text that you want to refer with a footnote, you can do that too! This is an example for the footnote number one <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. You can even add more footnotes, with link! <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
 
 <div class="divider"></div>
 
@@ -163,34 +163,30 @@
 
 <h2 id="code-blocks">Code Blocks</h2>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">"JavaScript syntax highlighting"</span><span class="p">;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
+<span class="nf">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="s">"Python syntax highlighting"</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Python syntax highlighting</span><span class="sh">"</span>
 <span class="k">print</span> <span class="n">s</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>No language indicated, so no syntax highlighting.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No language indicated, so no syntax highlighting.
 But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <div class="divider"></div>
 
 <h2 id="mathematics">Mathematics</h2>
 
-<p>The theme comes ready with <a href="https://www.mathjax.org/">mathjax</a> support built in, allowing for both simple inline equations like <script type="math/tex">ax^2 + bx + c = 0</script> and much more complex mathematical expressions such as equation <script type="math/tex">\eqref{eq:sample}</script> below.</p>
+<p>The theme comes ready with <a href="https://www.mathjax.org/">mathjax</a> support built in, allowing for both simple inline equations like \(ax^2 + bx + c = 0\) and much more complex mathematical expressions such as equation \(\eqref{eq:sample}\) below.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align}
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t}  &= \frac{4\pi}{c}\vec{\mathbf{j}} \\   
-\nabla \cdot \vec{\mathbf{E}} &= 4 \pi \rho \tag{2} \label{eq:sample}\\
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  &= \vec{\mathbf{0}} \\
-\nabla \cdot \vec{\mathbf{B}}  &= 0\\
-\end{align} %]]></script>
+\[\begin{align}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t}  &amp;= \frac{4\pi}{c}\vec{\mathbf{j}} \\   
+\nabla \cdot \vec{\mathbf{E}} &amp;= 4 \pi \rho \tag{2} \label{eq:sample}\\
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  &amp;= \vec{\mathbf{0}} \\
+\nabla \cdot \vec{\mathbf{B}}  &amp;= 0\\
+\end{align}\]
 
 <div class="divider"></div>
 
@@ -238,7 +234,7 @@ But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
   <tbody>
     <tr>
       <td><em>Still</em></td>
-      <td><code class="highlighter-rouge">renders</code></td>
+      <td><code class="language-plaintext highlighter-rouge">renders</code></td>
       <td><strong>nicely</strong></td>
     </tr>
     <tr>
@@ -253,12 +249,12 @@ But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
 
 <h2 id="horizontal-line">Horizontal Line</h2>
 
-<p>The HTML <code class="highlighter-rouge">&lt;hr&gt;</code> element is for creating a “thematic break” between paragraph-level elements. In markdown, you can create a <code class="highlighter-rouge">&lt;hr&gt;</code> with any of the following:</p>
+<p>The HTML <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> element is for creating a “thematic break” between paragraph-level elements. In markdown, you can create a <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> with any of the following:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">___</code>: three consecutive underscores</li>
-  <li><code class="highlighter-rouge">---</code>: three consecutive dashes</li>
-  <li><code class="highlighter-rouge">***</code>: three consecutive asterisks</li>
+  <li><code class="language-plaintext highlighter-rouge">___</code>: three consecutive underscores</li>
+  <li><code class="language-plaintext highlighter-rouge">---</code>: three consecutive dashes</li>
+  <li><code class="language-plaintext highlighter-rouge">***</code>: three consecutive asterisks</li>
 </ul>
 
 <p>renders to:</p>
@@ -281,38 +277,55 @@ But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
 
 <p><img src="http://octodex.github.com/images/minion.png" alt="Minion" /></p>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:1">
-      <p>Footnote number one yeah baby!&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;&#xfe0e;</a></p>
+    <li id="fn:1" role="doc-endnote">
+      <p>Footnote number one yeah baby! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;&#xfe0e;</a></p>
     </li>
-    <li id="fn:2">
-      <p>A footnote you can link to - <a href="#">click here!</a>&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;&#xfe0e;</a></p>
+    <li id="fn:2" role="doc-endnote">
+      <p>A footnote you can link to - <a href="#">click here!</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;&#xfe0e;</a></p>
     </li>
   </ol>
 </div>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Blog Guide"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/notes-on-writing" title="NEXT: Notes on writing">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/%E6%A9%A1%E6%A0%91" title="PREV: 费马大定理、7000棵橡树和行为艺术">&gt;&gt;</a>
-  
+	<a class="next" href="/notes-on-writing" title="NEXT: Notes on writing">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -328,7 +341,8 @@ But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

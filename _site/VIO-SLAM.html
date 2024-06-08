@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>VIO SLAM</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="VIO SLAM" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/VIO-SLAM">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>VIO SLAM</h1>
+		<time>April 10, 2020</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#imu" id="markdown-toc-imu">IMU</a>    <ul>
+      <li><a href="#components" id="markdown-toc-components">Components</a></li>
+      <li><a href="#properties" id="markdown-toc-properties">Properties</a></li>
+      <li><a href="#model" id="markdown-toc-model">Model</a></li>
+      <li><a href="#inertial-odometry" id="markdown-toc-inertial-odometry">Inertial odometry</a>        <ul>
+          <li><a href="#pre-integration-see-2-for-reference" id="markdown-toc-pre-integration-see-2-for-reference">Pre-integration (see [2] for reference)</a></li>
+          <li><a href="#noise-propagation" id="markdown-toc-noise-propagation">Noise propagation</a>            <ul>
+              <li><a href="#rotation-noise" id="markdown-toc-rotation-noise">Rotation noise</a></li>
+              <li><a href="#velocity-noise" id="markdown-toc-velocity-noise">Velocity noise</a></li>
+              <li><a href="#position-noise" id="markdown-toc-position-noise">Position noise</a></li>
+            </ul>
+          </li>
+          <li><a href="#update" id="markdown-toc-update">Update</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#visual-inertial-odometry" id="markdown-toc-visual-inertial-odometry">Visual inertial odometry</a>    <ul>
+      <li><a href="#initialization" id="markdown-toc-initialization">Initialization</a>        <ul>
+          <li><a href="#gyroscope-bias-estimation" id="markdown-toc-gyroscope-bias-estimation">Gyroscope bias estimation</a></li>
+          <li><a href="#scale-and-gravity-estimation" id="markdown-toc-scale-and-gravity-estimation">Scale and gravity estimation</a></li>
+          <li><a href="#accelerometer-bias-estimation" id="markdown-toc-accelerometer-bias-estimation">Accelerometer bias estimation</a></li>
+          <li><a href="#velocity-estimation" id="markdown-toc-velocity-estimation">Velocity estimation</a></li>
+        </ul>
+      </li>
+      <li><a href="#keyframe-selection" id="markdown-toc-keyframe-selection">Keyframe selection</a>        <ul>
+          <li><a href="#vio-mono" id="markdown-toc-vio-mono">VIO-mono</a></li>
+          <li><a href="#orb-slam-surval-of-the-fittest-strategy" id="markdown-toc-orb-slam-surval-of-the-fittest-strategy">ORB-SLAM (Surval of the fittest strategy)</a></li>
+          <li><a href="#measurementkeyframe-culling" id="markdown-toc-measurementkeyframe-culling">Measurement/keyframe culling</a></li>
+        </ul>
+      </li>
+      <li><a href="#pose-tracking" id="markdown-toc-pose-tracking">Pose tracking</a></li>
+      <li><a href="#relocalization" id="markdown-toc-relocalization">Relocalization</a></li>
+      <li><a href="#optimization" id="markdown-toc-optimization">Optimization</a></li>
+      <li><a href="#multi-threading" id="markdown-toc-multi-threading">Multi-threading</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h1 id="imu">IMU</h1>
+
+<h2 id="components">Components</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Components</th>
+      <th style="text-align: center">Measurements</th>
+      <th style="text-align: center">DoF</th>
+      <th style="text-align: center">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">accelerometer</td>
+      <td style="text-align: center">\(a_b = [a_{bx}, a_{by}, a_{bz}]^T\)</td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">acceleration (together with gravity) in the sensor body frame</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">gyroscope</td>
+      <td style="text-align: center">\(\omega_b = [\omega_{bx}, \omega_{by}, \omega_{bz}]^T\)</td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">angular velocity in the sensor body frame</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="properties">Properties</h2>
+
+<ul>
+  <li>High sampling rate (on the order of hundreds of samples per second)</li>
+  <li>Accurate in a short time</li>
+  <li>Suffering from drift in a long time range</li>
+  <li>Accelerometer and gyroscope can be biased, which means that their measurement errors are not zero-mean (零偏). The bias can vary as time goes. We denote the biases of the accelerometer and gyroscope measurements as \(b^a\) and \(b^g\) respectively.</li>
+</ul>
+
+<h2 id="model">Model</h2>
+
+<p>At time \(t\),</p>
+
+\[\begin{split} \omega_b(t) &amp;= \bar{\omega}_b(t) + b^g(t) + n^g(t), \\ a_b(t) &amp;= R_{wb}(t)^T (\bar{a}_w(t) - g_w) + b^a(t) + n^a(t). \end{split}\]
+
+<ul>
+  <li>\(\bar{\omega}\) and \(\bar{a}\) are the true rotational velocity and acceleration in contrast to the noisy measurements \(\omega\) and \(a\).</li>
+  <li>\(n^g(t)\) and \(n^a(t)\) are Gaussian noise of the gyroscope and acceleration measurements. <strong>Please note that the bias terms and the noise terms are all expressed in the body frame of frame t.</strong></li>
+  <li>\(R_{wb}(t)\) is the rotation which rotates a point <strong>from the body frame into the world frame</strong> at time \(t\).</li>
+  <li>\(g_w\) is the gravity acceleration vector in the world frame.</li>
+</ul>
+
+<h2 id="inertial-odometry">Inertial odometry</h2>
+
+<p>Inertial odometry aims at estimating the state of IMU, which is denoted as \(x(t) = [R_{wb}(t), p_w(t), v_w(t)]^T\). \(p_w(t)\) and \(v_w(t)\) are the position and velocity of IMU in the world frame respectively.</p>
+
+\[\begin{split} \frac{d R_{wb}(t)}{dt} &amp;= R_{wb}(t) \frac{d \Delta R_b(t)}{dt} = R_{wb}(t) \bar{\omega}_b(t), \\
+\frac{d v_w(t)}{dt} &amp;= \bar{a}_w(t), \\
+\frac{d p_w(t)}{dt} &amp;= v_w(t). \end{split}\]
+
+<ul>
+  <li>\(\Delta R_b(t)\) is the infinitestimal rotation from time \(t + \Delta t\) to time \(t\) in the body frame.</li>
+</ul>
+
+<p>The update step of the IMU state can be expressed as</p>
+
+\[\begin{split} R_{wb}(t + \Delta t) &amp;= R_{wb}(t) exp( \bar{\omega}_b(t) \Delta t ) \\ &amp;= R_{wb}(t) exp( (\omega_b(t) - b^g(t) - n^g(t)) \Delta t ), \\
+v_w(t + \Delta t) &amp;= v_w(t) + \bar{a}_w(t) \Delta t \\ &amp;= v_w(t) + g_w \Delta t + R_{wb}(t) (a_b(t) - b^a(t) - n^a(t)) \Delta t, \\
+p_w(t + \Delta t) &amp;= p_w(t) + v_w(t) \Delta t + \frac{1}{2} \bar{a}_w(t) \Delta t^2 \\ &amp;= p_w(t) + v_w(t) \Delta t + \frac{1}{2} g_w \Delta t^2 + \frac{1}{2} R_{wb}(t) (a_b(t) - b^a(t) - n^a(t)) \Delta t^2. \end{split}\]
+
+<ul>
+  <li>Here we use lie algebra for the representation of rotation velocity.</li>
+  <li>Note that we assume a constant rotation \(R_{wb}(t)\) during the short sampling period \(\Delta t\).</li>
+  <li>Computing \(R_{wb}(t + \Delta t)\) is straightforward just by intergating the rotational velocity, while computing \(p_w(t + \Delta t)\) is cumbersome because not only does it rely on the double integration of the acceleration measurements but also the estimation of orientation \(R_{wb}(t)\).</li>
+</ul>
+
+<p>Equivalently, we can express the equations above in discrete time steps of length \(\Delta t\). Subscripts are omitted for each of notation.</p>
+
+\[\begin{split} R_{i+1} &amp;= R_i exp( \bar{\omega}_i \Delta t) \\ &amp;= R_i exp( (\omega_i - b^g_i - n^g_i) \Delta t), \\
+v_{i+1} &amp;= v_i + \bar{a}_i \Delta t \\ &amp;= v_i + g \Delta t + R_i (a_i - b^a_i - n^a_i) \Delta t, \\
+p_{i+1} &amp;= p_i + v_i \Delta t + \frac{1}{2} \bar{a}_i \Delta t^2 \\ &amp;= p_i + v_i \Delta t + \frac{1}{2} g \Delta t^2 + \frac{1}{2} R_i (a_i - b^a_i - n^a_i) \Delta t^2. \end{split}\]
+
+<p>Rather than looking at a discrete step \((i, i+1)\), we can pre-integrate the state dynamics in longer intervals, e.g., \((i, j)\).</p>
+
+\[\begin{split} R_j &amp;= R_i exp( \sum_{k=i}^{j-1} \bar{\omega}_k \Delta t) \\ &amp;= R_i exp( \sum_{k=i}^{j-1} (\omega_k - b^g_k - n^g_k) \Delta t) \\ &amp;= R_i \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k - n^g_k) \Delta t) \\
+v_j &amp;= v_i + \sum_{k=i}^{j-1} \bar{a}_k \Delta t \\ &amp;= v_i + (j-i) g \Delta t + \sum_{k=i}^{j-1} R_k (a_k - b^a_k - n^a_k) \Delta t, \\
+p_j &amp;= p_i + \sum_{k=i}^{j-1} v_k \Delta t + \frac{1}{2} \sum_{k=i}^{j-1} \bar{a}_k \Delta t^2 \\ &amp;= p_i + \sum_{k=i}^{j-1} v_k \Delta t + (j-i) \frac{1}{2} g \Delta t^2 + \sum_{k=i}^{j-1} \frac{1}{2} R_k (a_k - b^a_k - n^a_k) \Delta t^2. \end{split}\]
+
+<h3 id="pre-integration-see-2-for-reference">Pre-integration (see [2] for reference)</h3>
+
+<p>The problem of the equations above is that they require the knowledge of the initial state at time \(i\), i.e., \(x_i = [R_i, p_i, v_i]^T\). However, in some cases, we have no idea of the initial state. Therefore, pre-integration is usually adopted to integrate the measurements in the body frame of the last state. Then, once the initial state is available, the subsequent states can be brought into the world frame by simple addition or multiplication with the pre-integration values.</p>
+
+<p>Below, we ignore the addition terms concerning \(g\) for simplicity, since they are constant for a fixed length of interval. The pre-integration is written as below.</p>
+
+\[\begin{split} \Delta R_{ij} &amp;=   R_i^T R_j = \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k - n^g_k) \Delta t) \\
+\Delta v_{ij} &amp;= R_i^T(v_j - v_i) = \sum_{k=i}^{j-1} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t, \\
+\Delta p_{ij} &amp;= R_i^T (p_j - p_i - (j-i) v_i )=  \sum_{k=i}^{j-1} \Delta v_{ik} \Delta t +  \sum_{k=i}^{j-1} \frac{1}{2} \Delta R_{ik} (a_k - b^a_k - n^a_k) \Delta t^2. \end{split}\]
+
+<ul>
+  <li>Here \(\Delta R_{ij}\), \(\Delta v_{ij}\) and \(\Delta p_{ij}\) represent the pre-integrated measurements derived from the raw IMU measurements \(a\) and \(\omega\), which relate the states of keyframes i and j.</li>
+  <li>\(\Delta R_{ij}\) denotes the <strong>physical</strong> relative rotation that brings a point in the j-th body frame into the i-th body frame.</li>
+  <li>But \(\Delta v_{ij}\) and \(\Delta p_{ij}\) do not correspond to the true <strong>physical</strong> change in the velocity and position.</li>
+  <li>Currently, the right hand side of the above equations are independent of the initial state \(x_i = [R_i, p_i, v_i]^T\), and can be obtained solely from the measurements.</li>
+  <li>Once \([R_i, p_i, v_i]^T\) and \([\Delta R_{ij}, \Delta p_{ij}, \Delta v_{ij}]^T\) are known, the state \([R_j, p_j, v_j]^T\) can be easily computed.</li>
+</ul>
+
+<h3 id="noise-propagation">Noise propagation</h3>
+
+<p>The pre-integrated measurements above involve the raw measurement noise. It is better to isolate the noise terms from the pre-integated quantities, so that likelihood models can be easily applied. Therefore, below the noise modeling of the pre-integrated measurements are derived in a way of simple addition or multication with the noise-free terms.</p>
+
+<h4 id="rotation-noise">Rotation noise</h4>
+
+\[\begin{split} \Delta R_{ij} &amp;= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t - n^g_k \Delta t) \\
+&amp;=  \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) exp( - J_k n^g_k \Delta t) \\
+&amp;= \Delta\tilde{R}_{ij} \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t)  \\
+&amp;= \Delta\tilde{R}_{ij} exp(-\delta \Phi_{ij})
+ \end{split}\]
+
+<ul>
+  <li>\(\Delta\tilde{R}_{ij}\) is the noise-free rotation from frame j to frame i.</li>
+  <li>The rotation noise \(\delta \Phi_{ij} = -log( \prod_{k=i}^{j-1} exp (-\Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t) )\) depends on the raw measurement noise \(n_k^g\). Since \(n_k^g\) is small noise, we can approximately get \(\delta \Phi_{ij} \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t\). In this way, \(\delta \Phi_{ij}\) is the linear combination of \(n_k^g\) and is thus zero-mean and Gaussian.</li>
+  <li>\(J_k\) is the <strong>right Jacobian of SO(3)</strong> and \(exp(\Phi + \delta \Phi) \approx exp(\Phi) exp(J(\Phi) \delta\Phi)\) is the first-order approximation.</li>
+  <li>The third line above is derived based on the formula \(exp(\Phi)R = R exp(R^T \phi)\), so that \(R_1 exp(\Phi_1) R_2 exp(\Phi_2) = R_1 R_2 exp(R_2^T \Phi_1) exp(\Phi_2)\). By a series of such operations, we can move the noise terms to the end.</li>
+</ul>
+
+<h4 id="velocity-noise">Velocity noise</h4>
+
+\[\begin{split}
+ \Delta v_{ij} 
+ &amp; \approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k - n^a_k) \Delta t \\
+ &amp;= \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t - \Delta \tilde{R}_{ik}  \delta \Phi_{ik}^\wedge (a_k - b^a_k) \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t \\
+ &amp;= \Delta \tilde{v}_{ij} + \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) \\
+ &amp;= \Delta \tilde{v}_{ij} - \delta v_{ij}
+ \end{split}\]
+
+<ul>
+  <li>\((a_k - b^a_k) \Delta t\) is the noise-free velocity change in frame k, and \(\Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t\) transforms the change into frame i. Therefore, \(\Delta \tilde{v}_{ij} = \sum_{k=i}^{j-1} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t\) accumutates the velocity changes in later steps in the local frame i.</li>
+  <li>The velocity noise \(\delta v_{ij} = - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t)\) is linear with both integrated rotational noise \(\delta \Phi_{ik}\) and the acceleration noise \(n^a_k\), and is thus zero-mean and Gaussian.</li>
+  <li>The higher-order noise terms such as \(\Phi_{ik} * n^a_k\) are neglected.</li>
+</ul>
+
+<h4 id="position-noise">Position noise</h4>
+
+\[\begin{split}
+\Delta p_{ij} &amp;= 
+\sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} - \delta v_{ik} )\Delta t +  \frac{1}{2} \Delta \tilde{R}_{ik} (I - \delta \Phi_{ik}^\wedge) (a_k - b^a_k) \Delta t^2  - \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2 \\
+&amp;= \sum_{k=i}^{j-1} (\Delta \tilde{v}_{ik} \Delta t + \frac{1}{2} \Delta \tilde{R}_{ik} (a_k - b^a_k) \Delta t^2 ) \\
+&amp;- \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&amp;= \Delta \tilde{p}_{ij} + \delta p_{ij}
+\end{split}\]
+
+<ul>
+  <li>\(\Delta \tilde{p}_{ij}\) is the noise-free accumulated translation in the local frame i.</li>
+  <li>\(\delta p_{ij}\) is linear with the pre-integrated rotation noise \(\delta \Phi_{ik}\), the pre-integrated velocity noise \(\delta v_{ik}\) and the acceleration noise \(n_k^a\), and is thus zero-mean and Gaussian.</li>
+</ul>
+
+<h3 id="update">Update</h3>
+
+<p>If we consider the inertial dynamics as a recurrent process, one of the important steps is to update the inherent states as new measurements are collected over time. Here, the states include the pre-integrated noise-free rotation \(\Delta\tilde{R}_{ij}\), velocity \(\Delta \tilde{v}_{ij}\), position \(\Delta \tilde{p}_{ij}\), covariances of rotation noise \(\delta \Phi_{ij}\), velocity noise \(\delta v_{ij}\) and position noise \(\delta p_{ij}\).</p>
+
+<p>The transition of the aforementioned states can be computed as follows.</p>
+
+\[\begin{split}
+\Delta\tilde{R}_{ij} &amp;= \Delta\tilde{R}_{i,j-1} exp( (\omega_j - b^g_j) \Delta t), \\
+\Delta \tilde{v}_{ij} &amp;= \Delta \tilde{v}_{i,j-1} + \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t, \\
+\Delta \tilde{p}_{ij} &amp;= \Delta \tilde{p}_{i,j-1} + \Delta \tilde{v}_{i,j-1} \Delta t + \frac{1}{2} \Delta\tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1}) \Delta t^2.
+\end{split}\]
+
+<p>The transition of the covariances of rotation noise \(\delta \Phi_{ij}\), velocity noise \(\delta v_{ij}\) and position noise \(\delta p_{ij}\) is a bit more complicated because the velocity noise \(\delta v_{ij}\) depends on the rotation noise \(\delta \Phi_{ij}\), and the position noise \(\delta p_{ij}\) depends on both the rotation noise \(\delta \Phi_{ij}\) and the velocity noise \(\delta v_{ij}\).</p>
+
+\[\begin{split}\delta \Phi_{ij} &amp;\approx \sum_{k=i}^{j-1} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t \\ 
+&amp;= \sum_{k=i}^{j-2} \Delta \tilde{R}_{k+1,j}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&amp;= \sum_{k=i}^{j-2} (\Delta\tilde{R}_{k+1,j-1} \Delta\tilde{R}_{j-1,j} )^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&amp;= \Delta\tilde{R}_{j-1,j}^T \sum_{k=i}^{j-2} \Delta\tilde{R}_{k+1,j-1}^T J_k n_k^g \Delta t + J_{j-1} n_{j-1}^g \Delta t \\
+&amp;= \Delta\tilde{R}_{j-1,j}^T \delta \Phi_{i,j-1} + J_{j-1} n_{j-1}^g \Delta t. \\
+\delta v_{ij} &amp;= - \sum_{k=i}^{j-1} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) \\
+&amp;= - \sum_{k=i}^{j-2} (\Delta \tilde{R}_{ik} (a_k - b^a_k)^\wedge  \delta \Phi_{ik} \Delta t - \Delta\tilde{R}_{ik} n^a_k \Delta t) - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \tilde{R}_{i,j-1} n^a_{j-1} \Delta t \\
+&amp;= \delta v_{i,j-1} - \Delta \tilde{R}_{i,j-1} (a_{j-1} - b^a_{j-1})^\wedge  \delta \Phi_{i,j-1} \Delta t + \Delta\tilde{R}_{i,j-1} n^a_{j-1} \Delta t. \\
+\delta p_{ij} &amp;= - \sum_{k=i}^{j-1} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&amp;= - \sum_{k=i}^{j-2} (\delta v_{ik} \Delta t - \frac{1}{2} \Delta\tilde{R}_{ik}  (a_k - b^a_k)^\wedge \delta \Phi_{ik}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{ik} n_k^a \Delta t^2) \\
+&amp;- (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2) \\
+&amp;= \delta p_{i,j-1} - (\delta v_{i,j-1} \Delta t - \frac{1}{2} \Delta\tilde{R}_{i,j-1}  (a_{j-1} - b^a_{j-1})^\wedge \delta \Phi_{i,j-1}  \Delta t^2 + \frac{1}{2} \Delta \tilde{R}_{i,j-1} n_{j-1}^a \Delta t^2).
+\end{split}\]
+
+<p>Let \(N_{ij} = [\delta \Phi_{ij}^T, \delta v_{ij}^T, \delta p_{ij}^T]^T\), then relationship between \(N_{ij}\) and \(N_{i,j-1}\) can be expressed as</p>
+
+\[N_{ij} = \mathbf{A}_{j-1} N_{i,j-1} + \mathbf{B}_{j-1} n_{j-1}^g + \mathbf{C}_{j-1} n_{j-1}^a.\]
+
+<p>In this way, the covariance of noise \(N_{ij}\) can be updated as below:</p>
+
+\[\Sigma_{ij} =  \mathbf{A}_{j-1} \Sigma_{i,j-1} \mathbf{A}_{j-1}^T + \mathbf{B}_{j-1} \Sigma_{i,j-1}^g \mathbf{B}_{j-1}^T + \mathbf{C}_{j-1} \Sigma_{i,j-1}^a \mathbf{C}_{j-1}^T,\]
+
+<p>where \(\Sigma_{i,j-1}^g\) is the measurement noise covariance of gyroscope and \(\Sigma_{i,j-1}^a\) is the measurement noise covariance of accelerometer.</p>
+
+<h1 id="visual-inertial-odometry">Visual inertial odometry</h1>
+
+<h2 id="initialization">Initialization</h2>
+
+<p>The initialization is to estimate or calibrate the variables:</p>
+
+<ul>
+  <li>scale (of visual coordinate system),</li>
+  <li>gravity direction,</li>
+  <li>gyroscope bias and accelerometer bias,</li>
+  <li>velocity.</li>
+</ul>
+
+<p>The variables are hard to be solved by one pass. Therefore, they are generally computed sequentially followed by a global optimization.</p>
+
+<h3 id="gyroscope-bias-estimation">Gyroscope bias estimation</h3>
+
+<p>If we ignore the noise terms in the preintegration formula for rotation, we get</p>
+
+\[\begin{split} \Delta R_{ij} &amp;= \prod_{k=i}^{j-1} exp( (\omega_k - b^g_k) \Delta t) \\
+&amp;=  \prod_{k=i}^{j-1} exp( \omega_k \Delta t) exp( - J_k b^g_k \Delta t) \\
+&amp;= \Delta\hat{R}_{ij} \prod_{k=i}^{j-1} exp (-\Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t)  \\
+&amp;= \Delta\hat{R}_{ij} exp(-\delta \Psi_{ij}),
+ \end{split}\]
+
+<p>where \(\delta \Psi_{ij} \approx \sum_{k=i}^{j-1} \Delta \hat{R}_{k+1,j}^T J_k b_k^g \Delta t\) and it can be updated recursively by \(\delta \Psi_{i,j+1} = \Delta\hat{R}_{j+1,j} \delta \Psi_{ij} + J_j b_j^g \Delta t\).
+\(\Delta\hat{R}_{ij} = \prod_{k=i}^{j-1} exp( \omega_k \Delta t).\)</p>
+
+<p>If we run visual SLAM, we can also get the relative rotation between keyframe i and j as \(\Delta R_{ij} = R_i R_j^T\). In this way, the Gyroscope bias can be estimated by minimizing the loss \(\sum \| (R_i R_j^T)^T  \Delta\hat{R}_{ij} exp(-\delta \Psi_{ij}) \|^2\).</p>
+
+<h3 id="scale-and-gravity-estimation">Scale and gravity estimation</h3>
+
+<p>Let \(p_{cb}\) denote the position of IMU sensor in the camera coordinate frame. The IMU coordinates can be transformed into the camera frame up to an unknown scale \(s\):</p>
+
+\[p_i = s p_i^c + R_c p_{cb},\]
+
+<p>where \(p_i^c\) is the coordinates of the camera center of keyframe i.</p>
+
+<p>From above, we have that</p>
+
+\[\begin{split} p_j &amp;= p_i + \sum_{k=i}^{j-1} v_k \Delta t + (j-i) \frac{1}{2} g \Delta t^2 + \sum_{k=i}^{j-1} \frac{1}{2} R_k (a_k - b^a_k - n^a_k) \Delta t^2 \\ &amp;= p_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij}.\end{split}\]
+
+<p>Substitute \(p_i = s p_i^c + R_c p_{cb}\) into the equation above, we get</p>
+
+\[sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb}.\]
+
+<p>In order to eliminate the variable \(v_i\) to reduce the complexity, we write two consecutive equations for keyframe 1, 2 and 3:</p>
+
+\[\begin{split}
+sp_2 = sp_1 + v_1 \Delta t_{12} + \frac{1}{2}g\Delta t_{12}^2 + R_1 \Delta p_{12} + (R_1 - R_2)p_{cb}, \\
+sp_3 = sp_2 + v_2 \Delta t_{23} + \frac{1}{2}g\Delta t_{23}^2 + R_2 \Delta p_{23} + (R_2 - R_3)p_{cb}.
+\end{split}\]
+
+<p>Multiply \(\Delta t_{23}\) and \(\Delta t_{12}\) with above equation respectively,</p>
+
+\[\begin{split}
+sp_2 \Delta t_{23} = sp_1 \Delta t_{23} + v_1 \Delta t_{12} \Delta t_{23} + \frac{1}{2}g\Delta t_{12}^2 \Delta t_{23} + R_1 \Delta p_{12} \Delta t_{23} + (R_1 - R_2)p_{cb} \Delta t_{23}, \\
+sp_3 \Delta t_{12} = sp_2 \Delta t_{12} + v_2 \Delta t_{23} \Delta t_{12} + \frac{1}{2}g\Delta t_{23}^2 \Delta t_{12} + R_2 \Delta p_{23} \Delta t_{12} + (R_2 - R_3)p_{cb} \Delta t_{12}.
+\end{split}\]
+
+<p>After the substraction, we get</p>
+
+\[\begin{split} &amp;((p_2 - p_1) \Delta t_{23} - (p_3 - p_2) \Delta t_{12})s + \frac{1}{2}(\Delta t_{23}^2 \Delta t_{12} - \Delta t_{12}^2 \Delta t_{23}) g \\ = &amp;\Delta t_{12}\Delta t_{23} (v_1 - v_2) + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12} \\
+=&amp;-\Delta t_{12}\Delta t_{23} R_1 \Delta v_{12} + R_1 \Delta p_{12} \Delta t_{23} - R_2 \Delta p_{23} \Delta t_{12} + (R_1 - R_2) p_{cb} \Delta t_{23} - (R_2 - R_3) p_{cb} \Delta t_{12}
+\end{split}\]
+
+<p>In this way, we get a linear system for the neighboring 3 keyframes. We can stack all the linear equations from all consecutive triple-frames to solve \(s\) and \(g\).</p>
+
+<p>Please note that \(\Delta p_{12}\) and \(\Delta p_{23}\) computed above do not consider the accelerometer bias which is still unknown, because <strong>gravity and accelerometer bias are hard to distinguish</strong>. Therefore, we first ignore accelerometer bias and estimate the gravity roughly, and then estimate accelerometer bias and refine gravity in the next stage.</p>
+
+<h3 id="accelerometer-bias-estimation">Accelerometer bias estimation</h3>
+
+<p>The gravity vector computed in the last stage is in the world coordinate system. Let’s denote it as \(g_W\). If we consider a coordinate system which defines the gravity as \(G g_I = G [0, 0, -1]^T\) (\(G\) is the gravity magnitude), we have \(g_W = G R_{WI} g_I\), where \(R_{WI}\) is the rotation from \(g_I\) to \(g_W\) and it only has rotations around x and y axes.</p>
+
+<p>Since the gravity direction computed in the last stage is not perfect, we can add a small rotation into \(g_W\) as</p>
+
+\[\begin{split} g_W &amp;= G R_{WI} Exp(\delta \theta) g_I, \\
+&amp;\approx G R_{WI} (I + {\delta \theta}_x)  g_I, \\
+&amp;\approx G R_{WI} g_I - G R_{WI} {g_I}_x \delta \theta.
+\end{split}\]
+
+<p>where \(\delta \theta = [\delta \theta_x, \delta \theta_y, 0]^T\) only contains rotations around x and y axes.</p>
+
+<p>Since now we consider the accelerometer bias in the pre-integration of position, we have</p>
+
+\[\Delta p_{ij} = \Delta \hat{p}_{ij} - \frac{3}{2} \sum_{k=i}^{j-1} \Delta R_{ik} b^a \Delta t^2.\]
+
+<p>Substituting the equations above into</p>
+
+\[sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb},\]
+
+<p>we get the linear equation about \([s, \delta \theta, b_a]^T\) from the three consecutive keyframes in a similar way to the last stage, and refine scale and gravity direction and solve accelerometer bias simultaneously.</p>
+
+<h3 id="velocity-estimation">Velocity estimation</h3>
+
+<p>After scale, gravity, gyroscope and accelerometer bias are all estimated, the velocity of keyframes can be estimated from the equation below.</p>
+
+\[sp_j = sp_i + v_i \Delta t_{ij} + \frac{1}{2}(j-i)g\Delta t^2 + R_i \Delta p_{ij} + (R_i - R_j)p_{cb}.\]
+
+<h2 id="keyframe-selection">Keyframe selection</h2>
+
+<h3 id="vio-mono">VIO-mono</h3>
+
+<ol>
+  <li>The average parallax of tracked features between current frame and the latest keyframe is beyond a certain threshold. To avoid rotation-only parallax, <em>rotation compensation</em> via IMU integration is used.</li>
+  <li>The number of tracked features goes below a certain threshold.</li>
+</ol>
+
+<h3 id="orb-slam-surval-of-the-fittest-strategy">ORB-SLAM (Surval of the fittest strategy)</h3>
+
+<ol>
+  <li>Time from last keyframe &gt; 0.5s.</li>
+  <li>Frames from last keyframe &gt; 30.</li>
+  <li>The number of tracked features goes below a certain threshold.</li>
+  <li>Delete redundant keyframes whose 90% of the map points have been seen in at least other three keyframes.</li>
+</ol>
+
+<h3 id="measurementkeyframe-culling">Measurement/keyframe culling</h3>
+
+<p>In order to reduce the computational cost for real-time performance, [6] proposed a measurement and keyframe culling approach to reduce the redundancy of a pose graph based on the information matrix (or the Hessian matrix).</p>
+
+<p>For a track with projections indexed by \(j\), bundle adjustment builds the information matrix \(V\) as</p>
+
+\[V = \sum_j V_j = \sum_j J_j^T \Sigma_j^{-1} J_j,\]
+
+<p>where \(J_j \in R_{2x3}\) is the Jacobian matrix and \(\Sigma_j^{-1}\) is the measurement noise. The determinant of \(V\) is a metric corresponding to the amount of information constraining the position of the point given camera poses.
+For each projection, we consider the metric \(m_j = det(V) - det(V-V_j)\) as the information loss after the measurement is removed. A low value indicates the measurement is redundant and can be removed (e.g., the measurement is from a redundant viewpoint, the measurement noise is large, or it may be an outlier).</p>
+
+<p>The measurements will also give votes to the keyframes based on the metric \(m_j\). The keyframe with the lowest score can be removed because its measurements are the most redundant.</p>
+
+<h2 id="pose-tracking">Pose tracking</h2>
+
+<p>Since SLAM runs in an incremental fashion, pose tracking is a recursive step to build the pose of the next frame and the associated new tracks and projections repeatedly.</p>
+
+<p>[4] “Once the camera pose is predicted, the map points in
+the local map are projected and matched with keypoints on
+the frame. We then optimize current frame j by minimizing
+the feature reprojection error of all matched points and an
+IMU error term.”</p>
+
+<p>It may also be responsible for deciding if the current frame is a keyframe.
+Once a new keyframe is inserted, local optimization is triggered to optimize the states (poses, velocities and IMU biases) of the last N keyframes.</p>
+
+<h2 id="relocalization">Relocalization</h2>
+
+<ol>
+  <li>
+    <p>Loop detection. Use DBoW2 to retrieve top-k image candidates for each keyframe. Then for each candidate, perform geometric verification (e.g. computing fundamental matrix or PnP or computing euclidean/similarity transform) to eliminate false-positive retrievals.</p>
+  </li>
+  <li>
+    <p>Loop closure. Pose-graph optimization (or called essential graph optimization by ORB-SLAM) takes into account loop edges, sequential edges (between neighboring frames) and covibility edges (between frames with more than 100 covisible tracks).</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>Note: For VIO Slam, “the visual-inertial setup renders roll and pitch angles fully observable, the accumulated drift only occurs in four degrees of freedom (x, y, z and yaw angle). To this end, we ignore estimating the drift-free roll and pitch states, and only perform 4-DOF pose graph optimization.” Here “roll and pitch angles fully observable” means that we can compute the absolute pitch and roll angles of IMU in the world frame based on the gravity direction in the IMU body frame. See [5] for details.</p>
+</blockquote>
+
+<h2 id="optimization">Optimization</h2>
+
+<p>The factor graph of visual inertial optimization using both visual and inertial measurements is shown as below.</p>
+
+<p><img src="/images/vio_factor_graph.png" alt="vio_factor_graph" /></p>
+
+<p>Since the three types of factors arise from different types of measurements, i.e., the visual measurements, the pre-integrated IMU measurements and random walk measurements for bias. In order to sum up the errors from the factors, an information matrix must be multiplied with each error term as a way of weighting (e.g., \(e^T \Sigma e\)).</p>
+
+<ul>
+  <li>
+    <p>For the visual measurements, the information matrix is inversely proportional to the feature scales.</p>
+  </li>
+  <li>
+    <p>For the pre-integrated IMU measurements, the information matrix is the inverse of the covariance of the rotation, velocity and position noise introduced above.</p>
+  </li>
+  <li>
+    <p>For the random walk measurements for bias, the information matrix is inversely proportional to the white noise covariance whose magnitude grows as time lasts. (See the explanation below.)</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>The output of a gyro (same for accelerometer) will be perturbed by some thermo-mechanical noise which fluctuates at a rate much greater than the sampling rate of the sensor. As a result the samples obtained from the sensor
+are perturbed by a white noise sequence, which is simply a sequence of zero-mean uncorrelated random variables. In this case each random variable is identically distributed and has a finite variance.</p>
+</blockquote>
+
+<h2 id="multi-threading">Multi-threading</h2>
+
+<p>In ORB-SLAM, there are three threads working in parallel:</p>
+
+<ul>
+  <li>tracking thread: process the IMU and visual sensor measurements (preintegration, feature detection and matching), localize the current frame, determine if it is a keyframe, relocalize if tracking lost,</li>
+  <li>local mapping thread: once a keyframe is added, optimize the active map in a local window,</li>
+  <li>loop closure thread: detect loops and run loop closure optimization (pose graph optimization + full bundle).</li>
+</ul>
+
+<p>The active map is locked when it is to be changed by any threads.</p>
+
+<h1 id="reference">Reference</h1>
+
+<p>[1] <a href="http://www.roboticsproceedings.org/rss11/p06.pdf">IMU Preintegration on Manifold for Efficient Visual-Inertial Maximum-a-Posteriori Estimation</a> (* Note: there are errors with Eqs. 26.）</p>
+
+<p>[2] <a href="http://rpg.ifi.uzh.ch/docs/TRO16_forster.pdf">On-Manifold Preintegration for Real-Time Visual-Inertial Odometry</a> (* Note: journal version of [1], recommended.)</p>
+
+<p>[3] <a href="https://arxiv.org/pdf/1708.03852.pdf">VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator</a></p>
+
+<p>[4] <a href="https://arxiv.org/pdf/1610.05949.pdf">Visual-Inertial Monocular SLAM with Map Reuse</a></p>
+
+<p>[5] <a href="http://stanford.edu/class/ee267/lectures/lecture9.pdf">Inertial Measurement Units (Stanford University)</a></p>
+
+<p>[6] <a href="http://www.robots.ox.ac.uk/~gk/publications/KleinMurray2009ISMAR.pdf">Parallel Tracking and Mapping on a Camera Phone</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="VIO SLAM"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/lei-gallery" title="NEXT: Lei's Gallery">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/how-to-use-docker" title="PREV: How to use Docker">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

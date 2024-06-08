@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Stochastic Gradient Methods</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Stochastic Gradient Methods" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/stochastic-gradient-methods">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Stochastic Gradient Methods</h1>
+		<time>April 4, 2019</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#two-fundamental-lemmas" id="markdown-toc-two-fundamental-lemmas">Two fundamental Lemmas</a>    <ul>
+      <li><a href="#assumption-1-lipschitz-continuity-of-gradient" id="markdown-toc-assumption-1-lipschitz-continuity-of-gradient">Assumption 1 (Lipschitz continuity of gradient)</a></li>
+      <li><a href="#lemma-1-upper-bound-of-expected-decrease-of-objective" id="markdown-toc-lemma-1-upper-bound-of-expected-decrease-of-objective">Lemma 1 (Upper bound of expected decrease of objective)</a></li>
+      <li><a href="#assumption-2-upper-bound-of-gradient-variance" id="markdown-toc-assumption-2-upper-bound-of-gradient-variance">Assumption 2 (Upper bound of gradient variance)</a></li>
+      <li><a href="#lemma-2-expansion-of-lemma-1" id="markdown-toc-lemma-2-expansion-of-lemma-1">Lemma 2 (expansion of Lemma 1)</a></li>
+    </ul>
+  </li>
+  <li><a href="#sg-for-strongly-convex-objectives" id="markdown-toc-sg-for-strongly-convex-objectives">SG for Strongly Convex Objectives</a>    <ul>
+      <li><a href="#lemma-3-strongly-convex-objective-fixed-step-size" id="markdown-toc-lemma-3-strongly-convex-objective-fixed-step-size">Lemma 3 （Strongly convex objective, fixed step size)</a></li>
+      <li><a href="#lemma-4-strongly-convex-objective-dimishing-step-size" id="markdown-toc-lemma-4-strongly-convex-objective-dimishing-step-size">Lemma 4 （Strongly convex objective, dimishing step size)</a></li>
+      <li><a href="#lemma-5-strongly-convex-objective-fixed-step-size-and-batch-size" id="markdown-toc-lemma-5-strongly-convex-objective-fixed-step-size-and-batch-size">Lemma 5 （Strongly convex objective, fixed step size and batch size)</a></li>
+    </ul>
+  </li>
+  <li><a href="#sg-for-general-objectives" id="markdown-toc-sg-for-general-objectives">SG for General Objectives</a>    <ul>
+      <li><a href="#lemma-6-nonconvex-objective-fixed-step-size" id="markdown-toc-lemma-6-nonconvex-objective-fixed-step-size">Lemma 6 （Nonconvex objective, fixed step size）</a></li>
+      <li><a href="#lemma-7-nonconvex-objective-diminishing-step-size" id="markdown-toc-lemma-7-nonconvex-objective-diminishing-step-size">Lemma 7 （Nonconvex objective, diminishing step size）</a></li>
+    </ul>
+  </li>
+  <li><a href="#complexity-analysis" id="markdown-toc-complexity-analysis">Complexity Analysis</a></li>
+  <li><a href="#episode-what-is-ill-conditioning" id="markdown-toc-episode-what-is-ill-conditioning">Episode: What is ill-conditioning?</a>    <ul>
+      <li><a href="#relationship-between-condition-number-and-convergence-rate" id="markdown-toc-relationship-between-condition-number-and-convergence-rate">Relationship between condition number and convergence rate</a></li>
+      <li><a href="#preconditioned-gradient-descent" id="markdown-toc-preconditioned-gradient-descent">Preconditioned gradient descent</a></li>
+      <li><a href="#how-to-choose-preconditioning-matrix" id="markdown-toc-how-to-choose-preconditioning-matrix">How to choose preconditioning matrix</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<blockquote>
+  <p>These are the notes on the <a href="https://arxiv.org/pdf/1606.04838.pdf">great material</a>, including the key insights and my undertanding about stochastic gradient methods.</p>
+</blockquote>
+
+<h1 id="overview">Overview</h1>
+
+<p>Let \(w\in\mathbb{R}^d\) denote the vector of model parameters to be determined, and \(\xi\) denote a sample of data. Then in a optimization problem, the objective \(F(w): \mathbb{R}^d \rightarrow \mathbb{R}\) is defined by the <strong>expected risk</strong> with respect to the distribution of \(\xi\), which writes</p>
+
+\[F(w) = R(w) = \mathbb{E} [f(w; \xi)],\]
+
+<p>where \(f(\cdot; \cdot)\) is the loss function. In the context of stochastic gradient methods, the objective is defined as the <strong>empirical risk</strong> which equals to the mean loss of samples drawn from the distribution of \(\xi\), i.e.,</p>
+
+\[F(w) = R_n(w) = \frac{1}{n} \sum_{i=1}^n f(w; \xi_i) := \frac{1}{n} \sum_{i=1}^n f_i(w),\]
+
+<p>where \(f_i(w)\) denotes the loss term of the i-th sample. If the samples are drawn exactly from its distribution, e.g., through Monte Carlo sampling, the empirical risk shall converge to the expected risk as \(n\) grows.</p>
+
+<p>For the simple SG methods, the stochastic direction at iterate \(k\) is evaluated as \(g(w_k, \xi_k) = \nabla f(w_k; \xi_k)\). As opposed, the mini-bacth SG methods compute the stochastic direction as \(g(w_k, \xi_k) = \frac{1}{n_k} \sum_{i=1}^{n_k}\nabla f(w_k; \xi_k)\), where \(n_k\) is the batch size.</p>
+
+<h1 id="two-fundamental-lemmas">Two fundamental Lemmas</h1>
+
+<p>The SG methods are built upon two assumptions stated below. The first is about the smoothness of the objective function \(F(w)\). The second is about the first and second moments of the stochastic vector \(g(w_k, \xi_k)\). <em>(In the context of probability, the first moment is the mean, the second central moment is the variance.)</em></p>
+
+<h3 id="assumption-1-lipschitz-continuity-of-gradient">Assumption 1 (Lipschitz continuity of gradient)</h3>
+
+<p>The objective function \(F(w): \mathbb{R}^d \rightarrow \mathbb{R}\) is continuously differentiable and its gradient, namely \(\nabla F(w): \mathbb{R}^d \rightarrow \mathbb{R}^d\), is Lipschitz continuous with Lipschitz constant \(L&gt;0\), i.e.,</p>
+
+\[\|F(w) - F(w')\|_2 \leq L\|w - w' \|_2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d.\]
+
+<p><strong>Interpretation</strong> The Lipschitz continuity assumption over the gradient of \(F(w)\) requires that the gradient should not change arbitrarily quickly with respect to the parameter vector \(w\). It also means that the Hessian function \(\nabla^2F(w): \mathbb{R}^d \rightarrow \mathbb{R}^{d\times d}\) is bounded above by the Lipschitz constant \(L\). Then based on the second-order taylor expansion of \(F(w)\), we arrive at the inequality that</p>
+
+\[F(w) \leq F(w') + \nabla F(w') (w-w') + \frac{1}{2} L \|w-w'\|_2^2, \textrm{ for all } w \in \mathbb{R}^d, w' \in \mathbb{R}^d.\]
+
+<p>Now, let’s consider the k-th iteration where we draw a sample \(\xi_k\) to compute the stochastic gradient vector \(g(w_k, \xi_k)\) and update the step as \(w_{k+1} = w_k - \alpha_k g(w_k, \xi_k)\). Under Assumption 1, the iterate satisfies the following inequality:</p>
+
+\[\begin{split} F(w_{k+1}) - F(w_k) &amp;\leq \nabla F(w_k)^T (w_{k+1} - w_k) + \frac{1}{2} L\|w_{k+1} - w_k \|_2^2 \\ &amp;\leq -\alpha_k \nabla F(w_k)^T g(w_k, \xi_k) + \frac{1}{2} \alpha_k^2 L \|g(w_k, \xi_k) \|_2^2. \end{split}\]
+
+<h3 id="lemma-1-upper-bound-of-expected-decrease-of-objective">Lemma 1 (Upper bound of expected decrease of objective)</h3>
+
+<p>Taking expectations in above inequalities with respect to the distribution of \(\xi_k\), we have</p>
+
+\[\mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) \leq -\alpha_k \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ].\]
+
+<p><strong>Interpretation</strong> The inequality above implies that the expected decrease in the objective function yielded by the k-th step is bounded above by the quantity on the right hand side. The convergence is guaranteed as long as the quantity is negative by choosing the step size \(\alpha_k\) and the stochastic direction \(g(w_k, \xi_k)\) carefully. Intuitively, the first term \(\nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)]\) should be as large as possible (The stochastic gradient should correlate with the true gradient better with less noise), and the second term \(\mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ]\) should be as small as possible. And this is how Assumption 2 below is derived.</p>
+
+<h3 id="assumption-2-upper-bound-of-gradient-variance">Assumption 2 (Upper bound of gradient variance)</h3>
+
+<p>The objective function and SG satisfy the following:</p>
+
+<ul>
+  <li>\(F(w_k)\) is bounded below by a scalar \(F_{inf}\) for all \(w_k\).</li>
+  <li>There exist scalars \(\mu_G \geq \mu &gt; 0\) such that, for all \(k \in \mathbb{N}\),</li>
+</ul>
+
+\[\begin{split} \nabla F(w_k)^T \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] &amp; \geq \mu \| \nabla F(w_k) \|_2^2  \\ \|\mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2 &amp;\leq \mu_G  \| \nabla F(w_k) \|_2 .\end{split}\]
+
+<ul>
+  <li>There exist scalars \(M \geq 0\) and \(M_V \geq 0\) such that, for all \(k \in \mathbb{N}\),</li>
+</ul>
+
+\[\begin{split} \mathbb{V}_{\xi_k} [g(w_k, \xi_k)] &amp;:= \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] - \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \\ &amp;\leq M + M_V \| \nabla F(w_k) \|_2^2. \end{split}\]
+
+<p><strong>Interpretation</strong> The second condition above is to satisfy <strong>Lemma 1</strong> which ensures sufficient convergence of SG. The third condition restricts the variance of \(g(w_k, \xi_k)\) (\(g(w_k, \xi_k)\) should not change a lot for different \(\xi_k\)). For example, if \(F\) is a quatratic function, then \(\| \nabla F(w_k) \|_2^2\) is quatratic w.r.t \(w_k\), so that the variance is allowed to grow quadratically in any direction.</p>
+
+<p>From <strong>Assumption 2</strong>, we can induce that</p>
+
+\[\begin{split} \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] &amp;= \mathbb{V}_{\xi_k} [g(w_k, \xi_k)] + \| \mathbb{E}_{\xi_k} [g(w_k, \xi_k)] \|_2^2 \\  &amp;\leq M + M_G \| \nabla F(w_k) \|_2^2 ,\end{split}\]
+
+<p>where \(M_G = M_V + \mu_G^2 \geq \mu^2 &gt; 0.\)</p>
+
+<h3 id="lemma-2-expansion-of-lemma-1">Lemma 2 (expansion of Lemma 1)</h3>
+
+<p>Combining <strong>Assumption 2</strong>, the inequality of <strong>Lemma 1</strong> can be expanded as</p>
+
+\[\begin{split} \mathbb{E}_{\xi_k} [F(w_{k+1})] - F(w_k) &amp;\leq - \mu \alpha_k \| \nabla F(w_k) \|_2^2 +  \frac{1}{2} \alpha_k^2 L \mathbb{E}_{\xi_k} [ \|g(w_k, \xi_k) \|_2^2 ] \\ &amp; \leq - (\mu - \frac{1}{2} \alpha_k L M_G) \alpha_k \| \nabla F(w_k) \|_2^2 + \frac{1}{2} \alpha_k^2 L M .\end{split}\]
+
+<p>Note that the first term on the right hand side is strictly negative for small step size \(\alpha_k\), while the second term could be large enough to allow the objective to increase. Balancing the two terms is critical in the design of SG methods. If there is no noise in the gradient (\(M=0\)), the expected objective will decrease strictly.</p>
+
+<h1 id="sg-for-strongly-convex-objectives">SG for Strongly Convex Objectives</h1>
+
+<p>As a starting point, we analyze SG of strong convex objective with parameter \(c\) \((c&lt;L)\), i.e.,</p>
+
+\[F(w') \geq F(w) + \nabla F(w)^T (w - w') + \frac{1}{2} c \|w' - w \|_2^2.\]
+
+<p>It amounts to \(\nabla^2F(w) \succeq c\) (the minimum eigenvalue of \(\nabla^2F(w)\) is no less than \(c\)).</p>
+
+<h3 id="lemma-3-strongly-convex-objective-fixed-step-size">Lemma 3 （Strongly convex objective, fixed step size)</h3>
+
+<p>Suppose that SG is run with a fixed step size \(0 &lt; \bar{\alpha} \leq \frac{\mu}{LM_G}\) (\(\frac{\mu}{LM_G}\) is the upper bound of the initial step size), then the expected optimality gap satisfies</p>
+
+\[\begin{split} \mathbb{E}[F(w_k) - F_*] &amp;\leq \frac{\bar{\alpha} LM}{2c\mu}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu}  \right) \\ &amp; \rightarrow \frac{\bar{\alpha} LM}{2c\mu} (k \rightarrow \infty) \end{split}\]
+
+<p><strong>Interpretation</strong> If there were no noise in gradient computation (\(M=0\)), the expected optimality gap will converge to zero with linear convergence rate (\(\mathbb{E}[F(w_k) - F_*] \leq (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* \right)\)). If the gradient computation is noisy, the expected objective value will first converge linearly, but after some point, the noise prevent further convergence and a smaller step size is desired. A smaller step size allows one to arrive closer to the optimal value, but slows down the convergence. Due to the strongly convex assumption, the positive \(c\) leads to contraction of the expected optimality gap.</p>
+
+<h3 id="lemma-4-strongly-convex-objective-dimishing-step-size">Lemma 4 （Strongly convex objective, dimishing step size)</h3>
+
+<p>Suppose that SG is run with a step size sequence such that \(\alpha_k = \frac{\beta}{\gamma + k}\) for some \(\beta &gt; \frac{1}{c\mu}\) and \(\mu &gt; 0\) (to ensure \(\alpha_1 \leq \frac{\mu}{LM_G}\)), then the expected optimality gap satisfies</p>
+
+\[\mathbb{E}[F(w_k) - F_*] \leq \frac{v}{\gamma + k},\]
+
+<p>where \(v = \max \{\frac{\beta^2 LM}{2(\beta c\mu - 1)}, (\gamma + 1)(F(w_1) - F_*)  \}.\)</p>
+
+<p><strong>Remark</strong> For practical purposes, the initial step size should be chosen as large as allowed, i.e., the upper bound \(\frac{\mu}{LM_G}\). More rigorously, the step size should satisfy</p>
+
+\[\sum_{k=1}^\infty \alpha_k= \infty \textrm{ and } \sum_{k=1}^\infty \alpha_k^2 &lt; \infty.\]
+
+<h3 id="lemma-5-strongly-convex-objective-fixed-step-size-and-batch-size">Lemma 5 （Strongly convex objective, fixed step size and batch size)</h3>
+
+<p>If we use a mini batch size of \(n_{mb}\), the constants \(M\) and \(M_V\) will become \(M/n_{mb}\) and \(M_V/n_{mb}\). Then the expected optimality gap will be turned into</p>
+
+\[\mathbb{E}[F(w_k) - F_*] \leq \frac{\bar{\alpha} LM}{2c\mu n_{mb}}  + (1-\bar{\alpha} c \mu)^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu n_{mb}}  \right) .\]
+
+<p>We notice that the gap to the optimal value is also reduced by a factor of \(n_{mb}\). Suppose we run the simple SG with batch size of \(1\), we should set the step size to \(\bar{\alpha}/n_{mb}\) to achieve the same optimality gap when convergence, then the expected optimality gap at iterate \(k\) becomes</p>
+
+\[\mathbb{E}[F(w_k) - F_*] \leq \frac{\bar{\alpha} LM}{2c\mu n_{mb}}  + (1- \frac{\bar{\alpha} c \mu}{n_{mb}})^{k-1} \left( F(w_1) - F_* -\frac{\bar{\alpha} LM}{2c\mu n_{mb}}  \right) .\]
+
+<p>We can see that the gap contracts more slowly than mini-batch SG (\(1-\frac{\bar{\alpha} c \mu}{n_{mb}}\) v.s. \(1 - \bar{\alpha} c \mu\)), which means one need to run \(n_{mb}\) times more iterations to obtain an equivalent optimality gap. However, the simple SG only consumes \(1/n_{mb}\) cost of mini-batch SG at each iterate, it amounts to the same total computation as for the mini-bacth SG.</p>
+
+<h1 id="sg-for-general-objectives">SG for General Objectives</h1>
+
+<h3 id="lemma-6-nonconvex-objective-fixed-step-size">Lemma 6 （Nonconvex objective, fixed step size）</h3>
+
+<p>Suppose that SG is run with a fixed step size \(0 &lt; \bar{\alpha} \leq \frac{\mu}{LM_G}\), then the sum-of-square and average-squared gradients of the objective satisfy</p>
+
+\[\begin{split} \mathbb{E}\left[ \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] &amp; \leq \frac{K \bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ \mu \bar{\alpha}}, \textrm{ therefore,} \\ \mathbb{E}\left[\frac{1}{K} \sum_{k=1}^K \| \nabla F(w_k) \|_2^2 \right] &amp; \leq \frac{\bar{\alpha} LM}{\mu} + \frac{2(F(w_1) -F_{inf})}{ K \mu \bar{\alpha}} \rightarrow \frac{\bar{\alpha} LM}{\mu} (K \rightarrow \infty)   \end{split}\]
+
+<p><strong>Interpretation</strong> If there were no noise with the gradient (\(M=0\)), the sum-of-square gradients will remain finite, implying that \(\| \nabla F(w_k)\| \rightarrow 0 \;\;(k \rightarrow \infty)\). If there were noise with the gradient (\(M&gt;0\)), the average norm of gradients decreases when \(K\) increases but cannot converges to zero. It illustrate that noise in the gradients inhibits further progress.</p>
+
+<h3 id="lemma-7-nonconvex-objective-diminishing-step-size">Lemma 7 （Nonconvex objective, diminishing step size）</h3>
+
+<p>Suppose that SG is run with a step size sequence satisfying \(\sum_{k=1}^\infty \alpha_k= \infty\) and \(\sum_{k=1}^\infty \alpha_k^2 &lt; \infty\), then</p>
+
+\[\begin{split} \lim_{K \rightarrow \infty} \mathbb{E} \left[ \sum_{k=1}^K \alpha_k \| \nabla F(w_k)  \|_2^2 \right] &amp; &lt; \infty, \textrm{ therefore,} \\ \lim_{K \rightarrow \infty} \mathbb{E} \left[ \frac{1}{A_k} \sum_{k=1}^K \alpha_k \| \nabla F(w_k)  \|_2^2 \right] &amp;= 0 \end{split}\]
+
+<p><strong>Interpretation</strong> The second equality above indicates that the weighted average of the gradient normal converges to zero even if the gradients are noisy.</p>
+
+<h1 id="complexity-analysis">Complexity Analysis</h1>
+
+<p>Roughly speaking, the SG methods have a sublinear rate of convergence as opposed to bacth gradient methods with linear convergence. Although the SG methods converge more slowly, they have a lower computational cost at each iterates. When optimizing a strongly convex function, the time required given optimality \(\epsilon\) and the optimality gap given time budget \(T_{max}\) are concluded in table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">Batch Gradient</th>
+      <th style="text-align: center">Stochastic Gradient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">\(T(n, \epsilon)\)</td>
+      <td style="text-align: center">\(\sim n \log(\frac{1}{\epsilon})\)</td>
+      <td style="text-align: center">\(\frac{1}{\epsilon}\)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\(\epsilon\)</td>
+      <td style="text-align: center">\(\sim \frac{ \log(T_{max})}{ T_{max}} + \frac{1}{ T_{max} }\)</td>
+      <td style="text-align: center">\(\frac{1}{T_{max}}\)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here, \(n\) is the total number of examples. If an algorithm is only allowed to read the examples \(k\) times, the best accuracy it can achieve is \(\Omega(1/k)\) (by stochastic gradient methods).</p>
+
+<h1 id="episode-what-is-ill-conditioning">Episode: What is ill-conditioning?</h1>
+
+<p>Ill-conditioning describes the problem whose condition number is too large. For example, for a twice differentiable objective \(F(x)\), the condition number measures the ratio of the maximum eigenvalue \(L\) and the minimum eigenvalue \(\mu\) of the Hessian function (\(\nabla^2 F(x)\) is positive definite). Based on Taylor expansion, the objective is approximated locally as</p>
+
+\[F(x + \Delta x) \approx  F(x) + \nabla F(x) \Delta x +  \frac{1}{2} \Delta x^T  \nabla^2F(x) \Delta x  .\]
+
+<p>The newton methods realize the update step by minimizing the approximated quadratic function as</p>
+
+\[\Delta x = - \frac{1}{\nabla^2F(x)} \nabla F(x).\]
+
+<p>Newton methods are more suited to cope with ill-conditioning, as it preconditions the gradient \(\nabla F(x)\) by re-scaling it with the inverse of Hessian.</p>
+
+<p>In contrast, gradient descent methods realize the update step as</p>
+
+\[\Delta x = - \alpha \nabla F(x).\]
+
+<p>Intuitively, they approximate the inverse Hessian by identity matrix \(\mathbf{I}\). In ill-conditioning cases, the gap of range \([1/L, 1/\mu]\) is large and the approximation of inverse Hessian by \(\alpha \mathbf{I}\) is inaccurate. The gradient update steps in such cases would be ineffective and lead to very slow convergence.</p>
+
+<h3 id="relationship-between-condition-number-and-convergence-rate">Relationship between condition number and convergence rate</h3>
+
+<p>For gradient descent, the convergence rate is described in the form:</p>
+
+\[F_{k+1} - F^* \leq c (F_k - F^*),\]
+
+<p>where \(c = \left(\frac{k-1}{k+1} \right)^2\) and \(k\) is the condition number. Although gradient descent has a linear convergence rate, a too large condition number \(k\) would result in \(c \approx 1\), and the convergence would be quite slow.</p>
+
+<h3 id="preconditioned-gradient-descent">Preconditioned gradient descent</h3>
+
+<p>For the minimization of the objective \(F(x)\), we change the variable as \(x = Sy\), so that \(\Phi(y) = F(Sy)\). The gradient of \(\Phi(y)\) is written as \(\nabla \Phi(y) = S^T \nabla F(Sy)\). Then, the gradient step in \(y\) is \(y^{k+1} = y^{k} - \alpha_k S^T \nabla F(Sy)\). Converting \(y\) back to \(x\), we have</p>
+
+\[x^{k+1} = x^k - \alpha_k S S^T \nabla F(x),\]
+
+<p>which is equivalent to rescale the gradient \(\nabla F(x)\) by matrix \(M = S S^T\).</p>
+
+<p><strong>Interpretation</strong> Preconditioning is equivalent to a coordinate change. Geometrically, a good preconditioner is related to coordinates in which the cost function has nearly spherical level sets, because in such a coordinate sytem the gradient vector towards the minimizer.</p>
+
+<p>(See <a href="https://www.youtube.com/watch?v=9LT-i5LiK7A">Youtube</a> for the derivative and <a href="https://stats.stackexchange.com/questions/91862/preconditioning-gradient-descent">StackExchange</a> for the way of setting preconditioning matrix.)</p>
+
+<h3 id="how-to-choose-preconditioning-matrix">How to choose preconditioning matrix</h3>
+
+<p>For quadratic cost functions, the ideal preconditioner would be \(P = H^{-1}\) so that \(PH = I\), because identity matrix has the minimal condition number and preconditioned gradient descent would converge in one step (simply equates to Newton’s method). For nonquadratic cost functions, the inverse-Hessian preconditioner \(P(x) = H^{-1}(x)\) wold yield superlinear convergence rates akin to the Newton-Raphson method. Because we cannot compute \(H^{-1}\) for large problems, one must develop preconditioner that approximates \(H^{-1}\). (Credit for <a href="http://web.eecs.umich.edu/~fessler/book/c-opt.pdf">Ch 11.3.7</a>)</p>
+
+<h1 id="reference">Reference</h1>
+
+<p><a href="https://arxiv.org/pdf/1606.04838.pdf">Optimization Methods for Large-Scale Machine Learning</a></p>
+
+<p><a href="http://web.eecs.umich.edu/~fessler/book/c-opt.pdf">Optimization by General-Purpose Methods</a></p>
+
+<p><a href="https://hal.inria.fr/inria-00548290/document">Bundle Adjustment - A Modern Synthesis</a></p>
+
+<p><a href="https://homes.cs.washington.edu/~sagarwal/vbp.pdf">Visibility Based Preconditioning for Bundle Adjustment</a></p>
+
+<p><a href="https://link.springer.com/content/pdf/10.1007/BFb0067700.pdf">The Levenverg-Marquardt Algorithm: Implementation and Theory</a></p>
+
+<p><a href="https://arxiv.org/pdf/1708.07164.pdf">Newton-Type Methods for Non-Convex Optimization Under Inexact Hessian Information</a></p>
+
+<p><a href="https://arxiv.org/pdf/1708.07827.pdf">Second-Order Optimization for Non-Convex Machine Learning: An Empirical Study</a></p>
+
+<p><a href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/BD5B9EA8DB2F092020CC173354C4C86E/S033427000000120Xa.pdf/nonlinear_least_squares_the_levenberg_algorithm_revisited.pdf">NONLINEAR LEAST SQUARES — THE LEVENBERG
+ALGORITHM REVISITED</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Stochastic Gradient Methods"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/graph-theory" title="NEXT: Graph Theory">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB" title="PREV: 地理信息系统中的常用坐标系">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

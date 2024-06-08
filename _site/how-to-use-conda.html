@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>How to use Conda</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="How to use Conda" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/how-to-use-conda">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>How to use Conda</h1>
+		<time>April 9, 2020</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#commands" id="markdown-toc-commands">Commands</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Conda is a useful cross-platform environmental package manager.</p>
+
+<h1 id="commands">Commands</h1>
+
+<ul>
+  <li>List all the environments
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda info -e / conda env list
+</code></pre></div>    </div>
+  </li>
+  <li>Create an environment
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create -n &lt;environment_name&gt; 
+conda create -n &lt;environment_name&gt; --no-default-packages    # no default packages will be pre-installed
+conda create -n &lt;environment_name&gt; python=3.6   # create an environment with a specific version of python
+</code></pre></div>    </div>
+  </li>
+  <li>Create a environment from a define yml file or a requirement list
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create -n &lt;environment_name&gt; -f &lt;path_to_yml_file / path_to_requirement_list&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Create a environment by copying from an existing enviroment
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create -n &lt;new_environment_name&gt; --clone &lt;environment_name&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Get into/off an environment
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate &lt;environment_name&gt; / conda deactivate
+</code></pre></div>    </div>
+  </li>
+  <li>Remove an environment
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda env remove --name &lt;environment_name&gt; / conda remove --name &lt;environment_name&gt; --all
+</code></pre></div>    </div>
+  </li>
+  <li>List the installed packages of an environment
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda list -e
+</code></pre></div>    </div>
+  </li>
+  <li>Export a conda environment to a yml file
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda env export &gt; environment.yml
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="How to use Conda"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/how-to-use-docker" title="NEXT: How to use Docker">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/graph-theory" title="PREV: Graph Theory">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

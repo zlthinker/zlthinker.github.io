@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Gaussian Process Regression</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Gaussian Process Regression" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/gaussian-process-regression">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Gaussian Process Regression</h1>
+		<time>November 8, 2018</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#gaussian-process" id="markdown-toc-gaussian-process">Gaussian Process</a></li>
+  <li><a href="#gaussian-process-regression-gpr" id="markdown-toc-gaussian-process-regression-gpr">Gaussian Process Regression (GPR)</a>    <ul>
+      <li><a href="#interpretation-of-gpr-from-the-weight-view" id="markdown-toc-interpretation-of-gpr-from-the-weight-view">Interpretation of GPR from the weight view</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="gaussian-process">Gaussian Process</h2>
+
+<p>A Gaussian process is a collection of <strong>infinite</strong> random variables \(\{f(\mathbf{x}): \mathbf{x} \in \mathcal{X} \}\), any finite number of which have a joint Gaussian distribution. It is completely specified by its mean function \(m(\mathbf{x}) = E(f(\mathbf{x}))\) and covariance function \(k(\mathbf{x}, \mathbf{x}') = E( (f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x}')-m(\mathbf{x}')) )\).</p>
+
+<p>Consider a simple example of a zero-mean Gaussian process,</p>
+
+\[f(.) \sim \mathcal{GP}(0, k(.,.)),\]
+
+<p>where \(k(x, x') = exp(-\frac{1}{2\tau ^2}\|x-x'\|^2)\) is the squared exponential kernel function. \(f(x)\) and \(f(x')\) will tend to have high covariance (i.e., nearby in output space) if \(x\) and \(x'\) are nearby in the input space, and low covariance in the reverse case. It means that functions drawn from this Gaussian process will tend to be “locally smooth”, as shown in figure below. As the bandwidth parameter \(\tau\) increases (Panel a to b to c), points located far away will have higher correlations, and hence the function tends to be smoother overall.</p>
+
+<p><img src="/images/gaussian_process.png" alt="" /></p>
+
+<h2 id="gaussian-process-regression-gpr">Gaussian Process Regression (GPR)</h2>
+
+<p>Given a set of training data \(D = \{(X,Y)\} = \{(x_i, y_i) \}\), \(i \in [1,n]\), we would like to fit a model to it (\(y=f(x)\)), so that a new output \(y_{n+1}\) can be predicted for the new input set \(X^*\). Sometimes, it is hard to claim \(f(x)\) to some specific models. A Gaussian process is clearly preferable, because it can represent \(f(x)\) obliquely but rigorously by letting the data “speak” for themselves. To make prediction for the new input \(x_{n+1}\) is equivalent to drawing function \(f\) from the posterior distribution \(p(f\|D)\).</p>
+
+<p>For ease of elaboration, we still assume a prior Gaussian process with zero mean for regression. By definition, previous outputs and to-be-determined outputs folow a joint multivariate normal distribution:</p>
+
+\[\begin{bmatrix} Y \\ Y^* \end{bmatrix} ~ N \left(\mathbf{0}, \begin{bmatrix} K(X,X)+\sigma^2 I &amp; K(X, X^*) \\ K(X^*, X) &amp; K(X^*, X^*) \end{bmatrix}  \right),\]
+
+<p>where \(\sigma\) is the assumed noise level of observations. Then the posterior distribution is a multivariate normal distribution with mean</p>
+
+\[K(X^*, X) [K(X,X) + \sigma^2 I]^{-1} Y\]
+
+<p>and covariance Matrix</p>
+
+\[K(X^*, X^*) - K(X^*, X) [K(X,X) + \sigma^2 I]^{-1} Y.\]
+
+<p>Thus, the posterior is also a GP with mean function</p>
+
+\[m'(x) = K(x, X) [K(X,X) + \sigma^2 I]^{-1} Y\]
+
+<p>and kernel function</p>
+
+\[k'(x, x') = k(x, x') - K(x, X) [K(X,X) + \sigma^2 I]^{-1} K(X, x')\]
+
+<h3 id="interpretation-of-gpr-from-the-weight-view">Interpretation of GPR from the weight view</h3>
+
+<p>We can rewrite the posterior mean function as</p>
+
+\[m'(x) =  \sum_{i=1}^n w_i k(x_i, x),\]
+
+<p>where \(x_i \in X\) is previously observed and \(w_i \in w = [K(X,X) + \sigma^2 I]^{-1} Y\). This equation shows that Gaussian process regression is equivalent to a linear regression model using basis functions \(k\) to project the input into a feature space. To make new predictions, every output \(y_i\) is weighted by how similar its associated input \(x_i\) is to the to-be-predicted point \(x\) by a similarity measure induced by the kernel \(k(x_i, x)\). In figure below, Panel left shows a set of Gaussian process drawn from the prior and Panel right shows Gaussian processes drawn from the posterior with observations marked by the dots. The mean function is marked in dark grey.</p>
+
+<p><img src="/images/gaussian_process_regression.png" alt="" /></p>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="http://cs229.stanford.edu/section/cs229-gaussian_processes.pdf">Gaussian processes</a></p>
+
+<p><a href="http://katbailey.github.io/post/gaussian-processes-for-dummies/">Gaussian Processes for Dummies</a></p>
+
+<p><a href="http://www.gaussianprocess.org/gpml/chapters/RW2.pdf">Gaussian Processes for Machine Learning (MIT)</a></p>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Gaussian Process Regression"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/branch-and-bound" title="NEXT: Branch and Bound">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/kinect-fusion" title="PREV: How does KinectFusion work?">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

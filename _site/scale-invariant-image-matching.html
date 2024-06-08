@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Progressive Large Scale-Invariant Image Matching in Scale Space</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Progressive Large Scale-Invariant Image Matching in Scale Space" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/scale-invariant-image-matching">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Progressive Large Scale-Invariant Image Matching in Scale Space</h1>
+		<time>January 1, 2018</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#abstract" id="markdown-toc-abstract">Abstract</a></li>
+  <li><a href="#datasets" id="markdown-toc-datasets">Datasets</a>    <ul>
+      <li><a href="#the-ground-aerial-dataset" id="markdown-toc-the-ground-aerial-dataset">The Ground-Aerial Dataset</a></li>
+      <li><a href="#the-book-cover-dataset" id="markdown-toc-the-book-cover-dataset">The Book-Cover Dataset</a></li>
+      <li><a href="#terms-of-use" id="markdown-toc-terms-of-use">Terms of Use</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h1 id="abstract">Abstract</h1>
+
+<p>The power of modern image matching approaches is still fundamentally limited by the abrupt scale changes in images. In this paper, we propose a scale-invariant image matching approach to tackling the very large scale variation of views. Drawing inspiration from the scale space theory, we start with encoding the image’s scale space into a compact multi-scale representation. Then, rather than trying to find the exact feature matches all in one step, we propose a progressive two-stage approach. First, we determine the related scale levels in scale space, enclosing the inlier feature correspondences, based on an optimal and exhaustive matching in a limited scale space. Second, we produce both the image similarity measurement and feature correspondences simultaneously after restricting matching between the related scale levels in a robust way. The matching performance has been intensively evaluated on vision tasks including image retrieval, feature matching and Structure-from-Motion (SfM). The successful integration of the challenging fusion of high aerial and low ground-level views with significant scale differences manifests the superiority of the proposed approach. (Access the full paper <a href="./files/iccv2017.pdf">here</a>)</p>
+
+<div class="divider"></div>
+
+<h1 id="datasets">Datasets</h1>
+
+<h3 id="the-ground-aerial-dataset">The Ground-Aerial Dataset</h3>
+
+<p>This dataset encompasses a collection of ground and aerial images. It is composed of three individual blocks (see table below) each of which is captured from both aerial views (of resolution \(4000\times3000\)) and street views (of resolution \(4032\times3024\)). 3D reconstruction from such image sets is challenging due to the abrupt scale difference, as shown in the figure below. Download link: <a href="https://drive.google.com/open?id=1HhZfye7_fPGiXNnbrpqzhskfcl3d9Pgm">Block A (8.3G)</a>, <a href="https://drive.google.com/open?id=1mkYktK_q-C2ykpb1slVAclBIlrq7Fsci">Block B (13.3G)</a>, <a href="https://drive.google.com/open?id=1E-IUbNfX_l8gP_zFt0-Zpclk6Jk72IUP">Block C (19.5G)</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Area</th>
+      <th style="text-align: center">#Images</th>
+      <th style="text-align: center">#Aerial images</th>
+      <th style="text-align: center">#Ground images</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Block A</td>
+      <td style="text-align: center">2309</td>
+      <td style="text-align: center">822</td>
+      <td style="text-align: center">1487</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Block B</td>
+      <td style="text-align: center">3292</td>
+      <td style="text-align: center">1945</td>
+      <td style="text-align: center">1347</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Block C</td>
+      <td style="text-align: center">4866</td>
+      <td style="text-align: center">1963</td>
+      <td style="text-align: center">2903</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/images/ground_aerial.png" alt="" /></p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GXFufpVK-gI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h3 id="the-book-cover-dataset">The Book-Cover Dataset</h3>
+
+<p>The Book-Cover dataset is composed of two series of photographs acquired from two viewpoint angles \(0\)° and \(30\)° with increasing zoom. The \(28\) images have the same size of \(3024\times4032\) pixels. The closet-captured photograph of a book cover is used as reference image and is matched against other \(27\) ones with image scale ratio ranging from \(2\) to \(64\) times.
+See sample matching results in the figure below. Download link: <a href="https://drive.google.com/file/d/1IO533xhsEAME-phqYX0fnOPI3TWkWSA9/view?usp=sharing">The Book-Cover Dataset (87.7M)</a>.</p>
+
+<p><img src="/images/scale_match.png" alt="" /></p>
+
+<h3 id="terms-of-use">Terms of Use</h3>
+
+<p>The datasets above are provided for research purposes only and without any warranty. Any commercial use is prohibited.</p>
+
+<div class="divider"></div>
+
+<h1 id="reference">Reference</h1>
+
+<p>Here is the Bibtex snippet for citing the Dataset in your work.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@InProceedings{Zhou_2017_ICCV,
+author = {Zhou, Lei and Zhu, Siyu and Shen, Tianwei and Wang, Jinglu and Fang, Tian and Quan, Long},
+title = {Progressive Large Scale-Invariant Image Matching in Scale Space},
+booktitle = {ICCV},
+year = {2017}
+}
+</code></pre></div></div>
+
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Progressive Large Scale-Invariant Image Matching in Scale Space"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/random-forest" title="NEXT: Random Forest">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/SLAM-related" title="PREV: SLAM Related">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

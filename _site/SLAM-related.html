@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>SLAM Related</h1>
 		<time>December 28, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -134,35 +134,55 @@
 <p><strong><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Choi_Robust_Reconstruction_of_2015_CVPR_paper.pdf">Robust Reconstruction of Indoor Scenes</a></strong> 
 This paper identifies suprious loop closures by optimizing a dense surface registration objective augmented by a <strong>line process</strong> over the loop closure constraints. A single least-squares objective jointly estimates the global configuration of the scene and the validity of each constraint. The objective is defined as</p>
 
-<script type="math/tex; mode=display">E = \sum_i f(\mathbf{T}_i, \mathbf{T}_{i+1}, \mathbf{R}_i) + \sum_{i, j} l_{ij} f(\mathbf{T}_i, \mathbf{T}_j, \mathbf{T}_{ij}) + \mu \sum_{ij} \Psi(l_{ij}),</script>
+\[E = \sum_i f(\mathbf{T}_i, \mathbf{T}_{i+1}, \mathbf{R}_i) + \sum_{i, j} l_{ij} f(\mathbf{T}_i, \mathbf{T}_j, \mathbf{T}_{ij}) + \mu \sum_{ij} \Psi(l_{ij}),\]
 
-<p>where <script type="math/tex">\Psi(l_{ij}) = (\sqrt{l_{ij}} - 1)^2</script>. The first and second two terms are respectively <strong>sequential constraints</strong> and <strong>close-loop constraints</strong> as demonstrated in Pose Graph. A <strong>line process</strong> <script type="math/tex">l_{ij} \in [0, 1]</script> models the validity of the corresponding loop closure. Function <script type="math/tex">f(.)</script> models the pairwise alignment error.</p>
+<p>where \(\Psi(l_{ij}) = (\sqrt{l_{ij}} - 1)^2\). The first and second two terms are respectively <strong>sequential constraints</strong> and <strong>close-loop constraints</strong> as demonstrated in Pose Graph. A <strong>line process</strong> \(l_{ij} \in [0, 1]\) models the validity of the corresponding loop closure. Function \(f(.)\) models the pairwise alignment error.</p>
 
 <h1 id="reference">Reference</h1>
 
 <p><a href="http://webdiis.unizar.es/~ylatif/papers/IJRR.pdf">Robust Loop Closing Over time for Pose Graph SLAM</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="SLAM Related"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/weekly-board" title="NEXT: Weekly Board">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/%E4%B8%AD%E7%BE%8E%E5%BB%BA%E4%BA%A4" title="PREV: 中美建交">&gt;&gt;</a>
-  
+	<a class="next" href="/scale-invariant-image-matching" title="NEXT: Progressive Large Scale-Invariant Image Matching in Scale Space">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/tensorflow-%E5%AD%A6%E4%B9%A0" title="PREV: Tensorflow 学习">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -175,7 +195,8 @@ This paper identifies suprious loop closures by optimizing a dense surface regis
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>Belief Propagation</h1>
 		<time>June 19, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -114,37 +114,37 @@
 <p>It is a bipartite graph comprising two types of nodes: the variable nodes (A, B, C on the left side) and the factor nodes (F1, F2 on the right side). The structure of the fractor graph illustrates the fractorization of origin probability graph into (A, B) and (B, C). 
 The factor nodes fractorize the graph into small pieces and each of them maintains a table of the local joint probabilities of associated variable nodes.
 The task here is to estimate the marginal probabilities of A, B and C which assumes binary states using BP.
-The naive algorithm is to calculate the joint probability of the variables that encompasses <script type="math/tex">2^3</script> possibilities as shown below.</p>
+The naive algorithm is to calculate the joint probability of the variables that encompasses \(2^3\) possibilities as shown below.</p>
 
 <p><img src="/images/joint_distribution.jpg" alt="joint distribution" />
  <strong><center>Joint distribution </center></strong></p>
 
-<p>The last column denotes the potential of each possibility. By summing out the cases, it would be direct to compute that <script type="math/tex">P(A=0)=14/42=1/3</script>, <script type="math/tex">P(B=0)=12/42=2/7</script> and <script type="math/tex">P(C=0)=12/42=2/7</script>.
+<p>The last column denotes the potential of each possibility. By summing out the cases, it would be direct to compute that \(P(A=0)=14/42=1/3\), \(P(B=0)=12/42=2/7\) and \(P(C=0)=12/42=2/7\).
 Since it is intractable to compute the joint probability when the number of variables gets large, the BP considers the message passing inside factor graph. 
 In BP, each variable node sends a message to its neighboring factor node and vice versa. 
-The message is basically the <strong>belief</strong> about some variable node’s probability of being 0 or 1. It is recorded by two potential values without normalization like <script type="math/tex">(14, 28)</script> or <script type="math/tex">(12, 30)</script>. The main step of BP is about passing messages between variable nodes and factor nodes iteratively: a variable node <script type="math/tex">v</script> sends message to a factor node <script type="math/tex">f</script> by multiplying all the messages it gets from its neighboring factor nodes <strong>except <script type="math/tex">f</script></strong>. Intuitively, it tells <script type="math/tex">f</script> what other
-factor nodes think about its probability of being 0 or 1. A factor node <script type="math/tex">f</script> sends a message to a node <script type="math/tex">n</script> by multiplying all the messages it gets from its neighboring variable node <strong>except <script type="math/tex">n</script></strong>, and then multiplying the resultant product with its own potential table. Intuitively, the message sent to <script type="math/tex">n</script> is determined by the related varible nodes sharing the same factor. It absorbs the property (like Markov property) about how the states of related variable
+The message is basically the <strong>belief</strong> about some variable node’s probability of being 0 or 1. It is recorded by two potential values without normalization like \((14, 28)\) or \((12, 30)\). The main step of BP is about passing messages between variable nodes and factor nodes iteratively: a variable node \(v\) sends message to a factor node \(f\) by multiplying all the messages it gets from its neighboring factor nodes <strong>except \(f\)</strong>. Intuitively, it tells \(f\) what other
+factor nodes think about its probability of being 0 or 1. A factor node \(f\) sends a message to a node \(n\) by multiplying all the messages it gets from its neighboring variable node <strong>except \(n\)</strong>, and then multiplying the resultant product with its own potential table. Intuitively, the message sent to \(n\) is determined by the related varible nodes sharing the same factor. It absorbs the property (like Markov property) about how the states of related variable
 nodes interact with each other. The detailed steps are as follows:</p>
 
 <ol>
   <li>
-    <p>Variable node <script type="math/tex">\rightarrow</script> factor node. As the start, all variable nodes haven’t received any message from fractors, thus, they send message [1, 1] to all factors indicating the same possibility of being any states.</p>
+    <p>Variable node \(\rightarrow\) factor node. As the start, all variable nodes haven’t received any message from fractors, thus, they send message [1, 1] to all factors indicating the same possibility of being any states.</p>
   </li>
   <li>
-    <p>Factor node <script type="math/tex">\rightarrow</script> variable node. Considering the message passing from F1 to A, since there is only one other message from B, we don’t need to multiply anything. Then multiplying the message from B (1, 1) with F1’s potential table, we get [1, 2, 2, 4] which corresponds to [P(A=0, B=0), P(A=0, B=1), P(A=1, B=0), P(A=1, B=1)]. After summing out, F1 passes the message [P(A=0), P(A=1)] = [3, 6] = [1, 2] to A. Similarly, F1 to B is also [1, 2], F2 to B is [4, 5] and F2 to C is [1,
+    <p>Factor node \(\rightarrow\) variable node. Considering the message passing from F1 to A, since there is only one other message from B, we don’t need to multiply anything. Then multiplying the message from B (1, 1) with F1’s potential table, we get [1, 2, 2, 4] which corresponds to [P(A=0, B=0), P(A=0, B=1), P(A=1, B=0), P(A=1, B=1)]. After summing out, F1 passes the message [P(A=0), P(A=1)] = [3, 6] = [1, 2] to A. Similarly, F1 to B is also [1, 2], F2 to B is [4, 5] and F2 to C is [1,
 2].</p>
   </li>
   <li>
-    <p>Variable node <script type="math/tex">\rightarrow</script> factor node. Since A and C both have only one factor nodes connecting to them, they will always pass the initial message [1, 1] to their connected factor node F1 and F2. Node B is a little bit more complicated. Message from B to F1 is multiplication of all messages to B except from F1, i.e., the message from F2 to B, [4, 5]. Similarly, message from B to F2 is the message from F1 to B, [1, 2].</p>
+    <p>Variable node \(\rightarrow\) factor node. Since A and C both have only one factor nodes connecting to them, they will always pass the initial message [1, 1] to their connected factor node F1 and F2. Node B is a little bit more complicated. Message from B to F1 is multiplication of all messages to B except from F1, i.e., the message from F2 to B, [4, 5]. Similarly, message from B to F2 is the message from F1 to B, [1, 2].</p>
   </li>
   <li>
-    <p>Factor node <script type="math/tex">\rightarrow</script> variable node. To calculate message from F1 to A, we first multiply F1’s potential table with message from B to F1 which leads to [14, 28] = [1, 2]. Similarly, F1 to B is [1, 2], F2 to B is [4, 5] and F2 to C is [2, 5].</p>
+    <p>Factor node \(\rightarrow\) variable node. To calculate message from F1 to A, we first multiply F1’s potential table with message from B to F1 which leads to [14, 28] = [1, 2]. Similarly, F1 to B is [1, 2], F2 to B is [4, 5] and F2 to C is [2, 5].</p>
   </li>
   <li>
-    <p>Variable node <script type="math/tex">\rightarrow</script> factor node. Again, B to F1 is [4, 5], B to F2 is [1, 2].</p>
+    <p>Variable node \(\rightarrow\) factor node. Again, B to F1 is [4, 5], B to F2 is [1, 2].</p>
   </li>
   <li>
-    <p>As we can see, the message from variable nodes to factor nodes in iteration 5 and 3 are the same. The iterative process stops. Now we can compute the marginals of each node. By multiplying all messages sent by factor nodes, message for each node is obtained: A is [1, 2], B is [4, 10] and C is [2, 5]. Therefore, <script type="math/tex">P(A=0)=1/3</script>, <script type="math/tex">P(B=0)=2/7</script>, <script type="math/tex">P(C=0)=2/7</script>.</p>
+    <p>As we can see, the message from variable nodes to factor nodes in iteration 5 and 3 are the same. The iterative process stops. Now we can compute the marginals of each node. By multiplying all messages sent by factor nodes, message for each node is obtained: A is [1, 2], B is [4, 10] and C is [2, 5]. Therefore, \(P(A=0)=1/3\), \(P(B=0)=2/7\), \(P(C=0)=2/7\).</p>
   </li>
 </ol>
 
@@ -158,39 +158,39 @@ nodes interact with each other. The detailed steps are as follows:</p>
 
 <h3 id="application-stereo-matching-using-belief-propagation-3">Application: Stereo Matching Using Belief Propagation [3]</h3>
 
-<p>Classical dense two-frame stereo matching computes a dense disparity or depth map from a pair of images under known camera configuration. The Bayesian stereo matching is well studied and formulated as a maximum a posteriori MRF (MAP-MRF) problem, because of the homogeneous property of local disparities. As stated in [3], the proposed solution models stereo vision by three coupled MRF’s: <script type="math/tex">\mathbf{D}</script> for smooth disparity field involving each pixel, <script type="math/tex">\mathbf{L}</script> for spatial line
-process involving each pair of neighboring pixels to indicate smooth discontinuity and <script type="math/tex">\mathbf{O}</script> for binary process involving each pixel to indicate occulusion. Theoretically, all the three variables <script type="math/tex">\mathbf{D}</script>, <script type="math/tex">\mathbf{L}</script> and <script type="math/tex">\mathbf{O}</script> hold Markov property in image.
+<p>Classical dense two-frame stereo matching computes a dense disparity or depth map from a pair of images under known camera configuration. The Bayesian stereo matching is well studied and formulated as a maximum a posteriori MRF (MAP-MRF) problem, because of the homogeneous property of local disparities. As stated in [3], the proposed solution models stereo vision by three coupled MRF’s: \(\mathbf{D}\) for smooth disparity field involving each pixel, \(\mathbf{L}\) for spatial line
+process involving each pair of neighboring pixels to indicate smooth discontinuity and \(\mathbf{O}\) for binary process involving each pixel to indicate occulusion. Theoretically, all the three variables \(\mathbf{D}\), \(\mathbf{L}\) and \(\mathbf{O}\) hold Markov property in image.
 Then the posterior is computed by</p>
 
-<script type="math/tex; mode=display">P(\mathbf{D}, \mathbf{L}, \mathbf{O} \| \mathbf{I}) \propto P(\mathbf{I} \| \mathbf{D}, \mathbf{L}, \mathbf{O}) P(\mathbf{D}, \mathbf{L}, \mathbf{O}).</script>
+\[P(\mathbf{D}, \mathbf{L}, \mathbf{O} \| \mathbf{I}) \propto P(\mathbf{I} \| \mathbf{D}, \mathbf{L}, \mathbf{O}) P(\mathbf{D}, \mathbf{L}, \mathbf{O}).\]
 
-<p>Here, in [3], two independence assumptions are adopted. First, the observations from image <script type="math/tex">\mathbf{I}</script> is independent of <script type="math/tex">\mathbf{L}</script>, i.e., <script type="math/tex">P(\mathbf{I} \| \mathbf{D}, \mathbf{L}, \mathbf{O}) = P(\mathbf{I} \| \mathbf{D}, \mathbf{O})</script>. Second, statistical dependence between <script type="math/tex">\mathbf{O}</script> and <script type="math/tex">\{\mathbf{D}, \mathbf{L}\}</script> is ignored, i.e., <script type="math/tex">P(\mathbf{D}, \mathbf{L}, \mathbf{O}) = P(\mathbf{D}, \mathbf{L})P(\mathbf{O})</script>.</p>
+<p>Here, in [3], two independence assumptions are adopted. First, the observations from image \(\mathbf{I}\) is independent of \(\mathbf{L}\), i.e., \(P(\mathbf{I} \| \mathbf{D}, \mathbf{L}, \mathbf{O}) = P(\mathbf{I} \| \mathbf{D}, \mathbf{O})\). Second, statistical dependence between \(\mathbf{O}\) and \(\{\mathbf{D}, \mathbf{L}\}\) is ignored, i.e., \(P(\mathbf{D}, \mathbf{L}, \mathbf{O}) = P(\mathbf{D}, \mathbf{L})P(\mathbf{O})\).</p>
 
-<p>For the likelihood part, only the matching cost of each pixel <script type="math/tex">s</script> with disparity <script type="math/tex">d_s</script> in non-occulusion region is condidered. It results in</p>
+<p>For the likelihood part, only the matching cost of each pixel \(s\) with disparity \(d_s\) in non-occulusion region is condidered. It results in</p>
 
-<script type="math/tex; mode=display">P(\mathbf{I} \| \mathbf{D}, \mathbf{O}) \propto \prod_{s} exp( -F(d_s)(1 - o_s) ).</script>
+\[P(\mathbf{I} \| \mathbf{D}, \mathbf{O}) \propto \prod_{s} exp( -F(d_s)(1 - o_s) ).\]
 
 <p>For the prior part, the line process penalizes difference in disparities between neighboring pixels if discontinuity does not occur and penalize the occurrence of discontinuity otherwise:</p>
 
-<script type="math/tex; mode=display">\psi_c(d_s, d_t, l_{s,t}) = \psi(d_s, d_t)(1-l_{s, t}) + \gamma(l_{s,t}),</script>
+\[\psi_c(d_s, d_t, l_{s,t}) = \psi(d_s, d_t)(1-l_{s, t}) + \gamma(l_{s,t}),\]
 
 <p>and</p>
 
-<script type="math/tex; mode=display">P(\mathbf{D}, \mathbf{L}) = \prod_s \prod_{t \in N(s)} exp(- \psi_c(d_s, d_t, l_{s, t}) ).</script>
+\[P(\mathbf{D}, \mathbf{L}) = \prod_s \prod_{t \in N(s)} exp(- \psi_c(d_s, d_t, l_{s, t}) ).\]
 
-<p>The prior of occulusion is simply modeled as <script type="math/tex">P(\mathbf{O}) = \prod_s exp(-\eta_c(o_s))</script> to penalize the occurrence of occulusion.</p>
+<p>The prior of occulusion is simply modeled as \(P(\mathbf{O}) = \prod_s exp(-\eta_c(o_s))\) to penalize the occurrence of occulusion.</p>
 
 <p>To sum up, the MAP problem can be written as</p>
 
-<script type="math/tex; mode=display">\max_{\mathbf{D}, \mathbf{L}, \mathbf{O}} P(\mathbf{D}, \mathbf{L}, \mathbf{O} \| \mathbf{I}) =</script>
+\[\max_{\mathbf{D}, \mathbf{L}, \mathbf{O}} P(\mathbf{D}, \mathbf{L}, \mathbf{O} \| \mathbf{I}) =\]
 
-<script type="math/tex; mode=display">\max_{\mathbf{D}} \left\{ \max_{\mathbf{O}} \prod_s exp\left( -F(d_s)(1 - o_s) + \eta_c(o_s)\right) 
+\[\max_{\mathbf{D}} \left\{ \max_{\mathbf{O}} \prod_s exp\left( -F(d_s)(1 - o_s) + \eta_c(o_s)\right) 
 \max_\mathbf{L} { \prod_s \prod_{t \in N(s)} exp \left(  \psi(d_s, d_t)(1-l_{s, t}) + \gamma(l_{s,t})  \right) } 
-\right\}</script>
+\right\}\]
 
 <p>By properly defining robust functions, the occulusion constraint and continuity constraint can be converted into implicit constraints and the problem will be changed into</p>
 
-<script type="math/tex; mode=display">\max_{\mathbf{D}} P(\mathbf{D} \| \mathbf{I}) \propto \prod_s exp(- \rho_d(d_s)) \prod_s \prod_{t \in N(s)} xep( - \rho_p(d_s, d_t)).</script>
+\[\max_{\mathbf{D}} P(\mathbf{D} \| \mathbf{I}) \propto \prod_s exp(- \rho_d(d_s)) \prod_s \prod_{t \in N(s)} xep( - \rho_p(d_s, d_t)).\]
 
 <p>After the formulation, loopy belief propagation is applied to solve the problem approximately.</p>
 
@@ -202,26 +202,46 @@ Then the posterior is computed by</p>
 <p>[3] <a href="http://www.jiansun.org/papers/Stereo_ECCV02.pdf">Stereo Matching Using Belief Propagation</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Belief Propagation"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/conditional-random-field" title="NEXT: Conditional Random Field">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/learning-model" title="PREV: Discriminative Modeling VS Generative Modeling">&gt;&gt;</a>
-  
+	<a class="next" href="/conditional-random-field" title="NEXT: Conditional Random Field">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/learning-model" title="PREV: Discriminative Modeling VS Generative Modeling">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -234,7 +254,8 @@ Then the posterior is computed by</p>
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

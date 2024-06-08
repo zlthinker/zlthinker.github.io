@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>Bayesian Neural Network</h1>
 		<time>May 14, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -129,92 +129,111 @@
 
 <h3 id="formulation">Formulation</h3>
 
-<p>Given a training dataset <script type="math/tex">\mathcal{D} = \{d_i\}_{i=1}^N = \{(x_i, y_i)\}_{i=1}^N</script> where <script type="math/tex">d_i = (x_i, y_i)</script> is a pair of input datum and label, the objective of training is to find the optimal model parameter <script type="math/tex">\mathbf{\theta}</script> which maximizes the posterior <script type="math/tex">p(\theta \| \mathcal{D})</script>, i.e.,</p>
+<p>Given a training dataset \(\mathcal{D} = \{d_i\}_{i=1}^N = \{(x_i, y_i)\}_{i=1}^N\) where \(d_i = (x_i, y_i)\) is a pair of input datum and label, the objective of training is to find the optimal model parameter \(\mathbf{\theta}\) which maximizes the posterior \(p(\theta \| \mathcal{D})\), i.e.,</p>
 
-<script type="math/tex; mode=display">\theta^* = \arg\max_{\theta} p(\theta \| \mathcal{D}).</script>
+\[\theta^* = \arg\max_{\theta} p(\theta \| \mathcal{D}).\]
 
-<p>The posterior can be expressed as <script type="math/tex">p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta)</script> (as known, prior <script type="math/tex">\times</script> likelihood). Taking the logarithm of both sides, we get <script type="math/tex">\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const</script>. The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter <script type="math/tex">\theta</script> fits the training dataset <script type="math/tex">\mathcal{D}</script>.</p>
+<p>The posterior can be expressed as \(p(\theta \| \mathcal{D}) \propto p(\theta) p(\mathcal{D} \| \theta)\) (as known, prior \(\times\) likelihood). Taking the logarithm of both sides, we get \(\log p(\theta \| \mathcal{D}) = \log p(\theta) + \log p(\mathcal{D} \| \theta) + Const\). The first term of RHS, related to the prior distribution, is actually the regularization loss of model weights used in optimization. The second term is equal to the defined loss measuring how well the learned parameter \(\theta\) fits the training dataset \(\mathcal{D}\).</p>
 
-<p>Given a new testing example <script type="math/tex">x</script>, the prediction of its output <script type="math/tex">y</script> is given by</p>
+<p>Given a new testing example \(x\), the prediction of its output \(y\) is given by</p>
 
-<script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \int_{\theta} p(\theta \| \mathcal{D}) p(y \| x, \theta) d\theta = E_{p(\theta \| \mathcal{D})}[p(y \| x, \theta)].</script>
+\[p(y \| x, \mathcal{D}) = \int_{\theta} p(\theta \| \mathcal{D}) p(y \| x, \theta) d\theta = E_{p(\theta \| \mathcal{D})}[p(y \| x, \theta)].\]
 
-<p>Intuitively, it takes the average over the distribution of learned model parameters <script type="math/tex">\theta</script>. 
-Traditionally, the prediction of <script type="math/tex">y</script> is given by <script type="math/tex">f(\theta^*, x)</script>, where <script type="math/tex">y^*</script> is deterministically determined by <script type="math/tex">\theta^*</script>. If we are aware of the distribution of <script type="math/tex">p(\theta \| \mathcal{D})</script>, the prediction can be averaged as</p>
+<p>Intuitively, it takes the average over the distribution of learned model parameters \(\theta\). 
+Traditionally, the prediction of \(y\) is given by \(f(\theta^*, x)\), where \(y^*\) is deterministically determined by \(\theta^*\). If we are aware of the distribution of \(p(\theta \| \mathcal{D})\), the prediction can be averaged as</p>
 
-<script type="math/tex; mode=display">E(y\|x, D) = \int_{\theta} p(\theta \| \mathcal{D}) f(\theta, x) d\theta = E_{p(\theta \| \mathcal{D})}[f(\theta, x)].</script>
+\[E(y\|x, D) = \int_{\theta} p(\theta \| \mathcal{D}) f(\theta, x) d\theta = E_{p(\theta \| \mathcal{D})}[f(\theta, x)].\]
 
-<p>Exact estimation of the distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> is intractable. A feasible solution is to apply Monte Carlo sampling to sample <script type="math/tex">\{\theta_i \}_{i=1}^m</script> from the latent distribution <script type="math/tex">p(\theta \| \mathcal{D})</script>. Therefore the estimation of a new testing example is approximated as</p>
+<p>Exact estimation of the distribution \(p(\theta \| \mathcal{D})\) is intractable. A feasible solution is to apply Monte Carlo sampling to sample \(\{\theta_i \}_{i=1}^m\) from the latent distribution \(p(\theta \| \mathcal{D})\). Therefore the estimation of a new testing example is approximated as</p>
 
-<script type="math/tex; mode=display">p(y \| x, \mathcal{D}) = \frac{1}{m} \sum_{i=1}^m p(y \| x, \theta_i).</script>
+\[p(y \| x, \mathcal{D}) = \frac{1}{m} \sum_{i=1}^m p(y \| x, \theta_i).\]
 
 <p>In this way, MAP can be regarded as an over-confident approximation of the equation above which assumes</p>
 
-<script type="math/tex; mode=display">p(\theta \| \mathcal{D} ) = \begin{cases} 1,  \theta = \theta^* \\ 0 ,  \theta \neq \theta^* \end{cases}.</script>
+\[p(\theta \| \mathcal{D} ) = \begin{cases} 1,  \theta = \theta^* \\ 0 ,  \theta \neq \theta^* \end{cases}.\]
 
 <h3 id="optimization">Optimization</h3>
 
-<p>The update equation of Gradient Descent (GD) at iteration <script type="math/tex">t</script> is expressed as</p>
+<p>The update equation of Gradient Descent (GD) at iteration \(t\) is expressed as</p>
 
-<script type="math/tex; mode=display">\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \sum_{i=1}^N \nabla \log p(d_i \| \theta_t) \right),</script>
+\[\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \sum_{i=1}^N \nabla \log p(d_i \| \theta_t) \right),\]
 
-<p>where <script type="math/tex">\epsilon_t</script> is the learning rate or step size at iteration <script type="math/tex">t</script> and we assume the training data <script type="math/tex">\{d_i \}</script> follow iid.</p>
+<p>where \(\epsilon_t\) is the learning rate or step size at iteration \(t\) and we assume the training data \(\{d_i \}\) follow iid.</p>
 
 <p>In Stochastic Gradient Descent (SGD), the statistics of the whole dataset is approximated by a mini-batch. The update equation is written into</p>
 
-<script type="math/tex; mode=display">\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \frac{N}{n} \sum_{i=1}^n \nabla \log p(d_{ti} \| \theta_t) \right)</script>
+\[\triangle \theta_t = \frac{\epsilon_t}{2} \left( \nabla \log p(\theta_t) + \frac{N}{n} \sum_{i=1}^n \nabla \log p(d_{ti} \| \theta_t) \right)\]
 
-<p>by considering a randomly-selected mini-batch <script type="math/tex">\{d_{ti} \}_{i=1}^n</script>.</p>
+<p>by considering a randomly-selected mini-batch \(\{d_{ti} \}_{i=1}^n\).</p>
 
 <h3 id="dropout-as-variational-inference">Dropout as Variational Inference</h3>
 
-<p>The main rule of <strong>variational infernece</strong> is to approximate the posterior distribution <script type="math/tex">p(\theta \| \mathcal{D})</script> by a defined variational distribution <script type="math/tex">q(\theta)</script> which is easy to evaluate. The error of approximation is measured by the KL diverence:</p>
+<p>The main rule of <strong>variational infernece</strong> is to approximate the posterior distribution \(p(\theta \| \mathcal{D})\) by a defined variational distribution \(q(\theta)\) which is easy to evaluate. The error of approximation is measured by the KL diverence:</p>
 
-<script type="math/tex; mode=display">KL(q(\theta) , p(\theta \| \mathcal{D}))</script>
+\[KL(q(\theta) , p(\theta \| \mathcal{D}))\]
 
 <p>As stated in [10], minimize the KL divergence above is equivalent to minimize the upper bound:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{split} -E_{q(\theta)}[\log p(\mathcal{D} \| \theta)] + KL(q(\theta) , p(\theta) ) &= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}. %]]></script>
+\[\begin{split} -E_{q(\theta)}[\log p(\mathcal{D} \| \theta)] + KL(q(\theta) , p(\theta) ) &amp;= - \int q(\theta)\log p(\mathcal{D} \| \theta) d\theta + KL(q(\theta) , p(\theta) ) \\ &amp;= -\sum_{n=1}^N \int q(\theta)\log p(d_i \| \theta) d\theta  + KL(q(\theta) , p(\theta) ) \end{split}.\]
 
-<p>In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution <script type="math/tex">q(\theta)</script>. 
-If we assume <script type="math/tex">q(\theta)</script> follows certain Gaussian Process (GP), “Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)”, as said in [9].
-The parameters <script type="math/tex">\theta</script> is composed of a set of parameters of the convolutional layers, i.e., <script type="math/tex">\theta = \{ W_i, b_i \}_{i=1}^L</script>. <script type="math/tex">W_i</script> is a <script type="math/tex">K_i \times K_{i-1}</script> matrix involved in the mapping from the output of the layer <script type="math/tex">i-1</script> to the output of layer <script type="math/tex">i</script>, i.e., <script type="math/tex">\sigma(W_i \cdot o_{i-1} + b_i)</script>. Once dropout is applied, the components of the output of the layer <script type="math/tex">i-1</script> are ramdoms set to zero with probability <script type="math/tex">p_i</script>. Therefore, the distribution of <script type="math/tex">W_i</script> follows</p>
+<p>In [8][9], the dropout is applied after each convolutional layer to simulate the variational distribution \(q(\theta)\). 
+If we assume \(q(\theta)\) follows certain Gaussian Process (GP), “Dropout in NNs can be interpreted as an approximation to a well know Bayesian model - the Gaussian Process (GP)”, as said in [9].
+The parameters \(\theta\) is composed of a set of parameters of the convolutional layers, i.e., \(\theta = \{ W_i, b_i \}_{i=1}^L\). \(W_i\) is a \(K_i \times K_{i-1}\) matrix involved in the mapping from the output of the layer \(i-1\) to the output of layer \(i\), i.e., \(\sigma(W_i \cdot o_{i-1} + b_i)\). Once dropout is applied, the components of the output of the layer \(i-1\) are ramdoms set to zero with probability \(p_i\). Therefore, the distribution of \(W_i\) follows</p>
 
-<script type="math/tex; mode=display">W_i = M_i \cdot diag([z_{i,j}]_{j=1}^{K_{i-1}}),</script>
+\[W_i = M_i \cdot diag([z_{i,j}]_{j=1}^{K_{i-1}}),\]
 
-<script type="math/tex; mode=display">z_{i,j} \sim Bernoulli(p_i).</script>
+\[z_{i,j} \sim Bernoulli(p_i).\]
 
-<p>Herein <script type="math/tex">M_i</script> and <script type="math/tex">b_i</script>are variational parameters to be inferred. In this way, the variational distribution <script type="math/tex">q(\theta)</script> is defined through dropout. Then the integeral <script type="math/tex">\int q(\theta)\log p(d_i \| \theta) d\theta</script> is approximated by Monte Carlo with a single sample <script type="math/tex">\theta_n \sim q(\theta)</script> to get an unbiased estimate <script type="math/tex">\log p(d_i \| \theta_n)</script>.</p>
+<p>Herein \(M_i\) and \(b_i\)are variational parameters to be inferred. In this way, the variational distribution \(q(\theta)\) is defined through dropout. Then the integeral \(\int q(\theta)\log p(d_i \| \theta) d\theta\) is approximated by Monte Carlo with a single sample \(\theta_n \sim q(\theta)\) to get an unbiased estimate \(\log p(d_i \| \theta_n)\).</p>
 
-<p>In [8], the term <script type="math/tex">KL(q(\theta) , p(\theta) )</script> is approximated by <script type="math/tex">\lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2)</script>. Therefore, the error of KL divergence is written into</p>
+<p>In [8], the term \(KL(q(\theta) , p(\theta) )\) is approximated by \(\lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2)\). Therefore, the error of KL divergence is written into</p>
 
-<script type="math/tex; mode=display">KL(q(\theta) , p(\theta \| \mathcal{D})) = -\sum_{n=1}^N \log p(d_i \| \theta) + \lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2),</script>
+\[KL(q(\theta) , p(\theta \| \mathcal{D})) = -\sum_{n=1}^N \log p(d_i \| \theta) + \lambda \sum_{i=1}^L (\|W_i \|_2^2 + \|b_i \|_2^2),\]
 
-<p>which actually has the equivallent objective of learning Dropout Neural Networks. In other words, inferring the posterior distribution of <script type="math/tex">p(\theta \| \mathcal{D})</script> via a Bayesian Neural Network is equivalent to learning variational parameters <script type="math/tex">M_i</script> and <script type="math/tex">b_i</script> via a Dropout Neural Network.</p>
+<p>which actually has the equivallent objective of learning Dropout Neural Networks. In other words, inferring the posterior distribution of \(p(\theta \| \mathcal{D})\) via a Bayesian Neural Network is equivalent to learning variational parameters \(M_i\) and \(b_i\) via a Dropout Neural Network.</p>
 
 
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Bayesian Neural Network"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
 
 </article>
 
+
+
+
+
 <div class="page-navigation">
 	
-    <a class="next" href="/mean-field-approximation" title="NEXT: Mean Field Approximation">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/optimization-for-least-square-problem" title="PREV: Optimization for Least Square Problems">&gt;&gt;</a>
-  
+	<a class="next" href="/mean-field-approximation" title="NEXT: Mean Field Approximation">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/optimization-for-least-square-problem" title="PREV: Optimization for Least Square Problems">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -227,7 +246,8 @@ The parameters <script type="math/tex">\theta</script> is composed of a set of p
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

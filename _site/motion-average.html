@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Motion Average</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Motion Average" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/motion-average">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Motion Average</h1>
+		<time>July 2, 2020</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#rotation-averaging" id="markdown-toc-rotation-averaging">Rotation Averaging</a></li>
+  <li><a href="#translation-averaging" id="markdown-toc-translation-averaging">Translation Averaging</a></li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="rotation-averaging">Rotation Averaging</h2>
+
+<p>Since the camera rotations are independent of their translations in the perspective of motion averaging, the rotation averaging problem can be solved prior to translation averaging to attain the orientations of cameras.
+The rotation averaging algorithms are based on the equations below:</p>
+
+\[\mathbf{R}_{ij} = \mathbf{R}_j \mathbf{R}_i^{-1}, \;\;\; \forall \{i, j \} \in \mathcal{E}.\]
+
+<p>The objective of rotation averaging is thus defined as</p>
+
+\[\min_{\mathbf{R}_i, \mathbf{R}_j} \sum_{\{i, j \} \in \mathcal{E}} \| \mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i  \| .\]
+
+<p>An iterative step for \(\mathbf{R}_i\) and \(\mathbf{R}_j\) can be computed by</p>
+
+\[\mathbf{R}_{ij} = (\mathbf{R}_j \Delta\mathbf{R}_j) (\mathbf{R}_i \Delta \mathbf{R}_i)^{-1},\]
+
+\[\mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i = \Delta\mathbf{R}_j \Delta\mathbf{R}_i^{-1}.\]
+
+<p>Let \(e^{\Delta\omega_{ij}} = \mathbf{R}_j^{-1} \mathbf{R}_{ij} \mathbf{R}_i\), \(e^{\Delta \omega_j} = \Delta\mathbf{R}_j\), \(e^{\Delta \omega_i} = \Delta\mathbf{R}_i\), then</p>
+
+\[e^{\Delta\omega_{ij}} = e^{\Delta \omega_j} e^{-\Delta \omega_i}.\]
+
+<p>When \(e^{\Delta \omega_j}\) and \(e^{\Delta \omega_i}\) are close to identity, we can take the first order approximation of the solution of <strong>Baker–Campbell–Hausdorff formula</strong> to give the linear equation:</p>
+
+\[\Delta\omega_{ij} = \Delta \omega_j - \Delta \omega_i.\]
+
+<p>By aggregating such equations, the iteration steps of all the global rotations can be solved by</p>
+
+\[\mathbf{A} \Delta \omega_{global} = \Delta \omega_{rel},\]
+
+<p>where \(\mathbf{A}\) consists of a \(\mathbf{I}_3\) and a \(-\mathbf{I}_3\) on each row for each camera edge.</p>
+
+<h2 id="translation-averaging">Translation Averaging</h2>
+
+<p>After rotation averaging is solved, translation averaging can be addressed by the following equation:</p>
+
+\[\lambda_{ij}\mathbf{t}_{ij} = \mathbf{R}_j (\mathbf{c}_i - \mathbf{c}_j),\]
+
+<p>where \(\|\mathbf{t}_{ij} \|_2 = 1\) and \(\lambda_{ij}\) is the unknown baseline length between camera centers \(\mathbf{c}_i\) and \(\mathbf{c}_j\). The objective of translation averaging is defined as</p>
+
+\[\min_{\mathbf{c}_i, \mathbf{c}_j} \sum_{\{i, j \} \in \mathcal{E}} \| \mathbf{R}_j^T \mathbf{t}_{ij} - \frac{\mathbf{c}_i - \mathbf{c}_j}{\| \mathbf{c}_i - \mathbf{c}_j\|_2}  \| .\]
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://www.cv-foundation.org/openaccess/content_iccv_2013/papers/Chatterjee_Efficient_and_Robust_2013_ICCV_paper.pdf">Efficient and Robust Large-Scale Rotation Averaging</a></li>
+  <li><a href="https://research.cs.cornell.edu/1dsfm/docs/1DSfM_ECCV14.pdf">Robust Global Translations with 1DSfM</a></li>
+</ul>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Motion Average"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/lei-mind-map" title="NEXT: Lei's Mind Map">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/CPP-advanced" title="PREV: C++ Advanced">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

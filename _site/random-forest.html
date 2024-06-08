@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>Random Forest</h1>
 		<time>January 15, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -128,7 +128,7 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>A random forest is an classifier consisting of an ensemble of tree-structured classifiers <script type="math/tex">h(\mathbf{x}, \Theta_k) (k=1, 2, ...)</script> where <script type="math/tex">\Theta_k</script> are iid, and each tree casts a unit vote of classification for input feature vector <script type="math/tex">\mathbf{x}</script>. The final classfication is yielded by the majority vote of all tree classifiers.</p>
+<p>A random forest is an classifier consisting of an ensemble of tree-structured classifiers \(h(\mathbf{x}, \Theta_k) (k=1, 2, ...)\) where \(\Theta_k\) are iid, and each tree casts a unit vote of classification for input feature vector \(\mathbf{x}\). The final classfication is yielded by the majority vote of all tree classifiers.</p>
 
 <h1 id="backgroud--preliminary">Backgroud &amp; Preliminary</h1>
 
@@ -136,13 +136,13 @@
 
 <p>Classification tree and regression tree are two variabilities of prediction tree. Both of them have two parts: one is the recursive partition accomodated by the tree structure, the other is a simple model for each leaf node.</p>
 
-<p><strong>Tree fitting.</strong> Tree fitting is to find a good partition of the data. The basic objective is to maximize <script type="math/tex">I[C;Y]</script>, the information the cluster <script type="math/tex">C</script> gave us about the results or response <script type="math/tex">Y</script>. For example, if answering one question easily separate data into two independent groups (similar responses inside groups, different responses across groups), we say it is a good partition because it gives us a lot information about how the partition affects the responses or regression or classification results.</p>
+<p><strong>Tree fitting.</strong> Tree fitting is to find a good partition of the data. The basic objective is to maximize \(I[C;Y]\), the information the cluster \(C\) gave us about the results or response \(Y\). For example, if answering one question easily separate data into two independent groups (similar responses inside groups, different responses across groups), we say it is a good partition because it gives us a lot information about how the partition affects the responses or regression or classification results.</p>
 
 <p>One of the simplist way of defining the information decrease is <strong>entropy</strong> from information theory. For discrete variables, it is defined as</p>
 
-<script type="math/tex; mode=display">S = \sum_{c\in \operatorname{leaves}(T)} \sum_{i\in c} (y_i - m_c)^2 = \sum_{c\in \operatorname{leaves}(T)} n_c V_c,</script>
+\[S = \sum_{c\in \operatorname{leaves}(T)} \sum_{i\in c} (y_i - m_c)^2 = \sum_{c\in \operatorname{leaves}(T)} n_c V_c,\]
 
-<p>where <script type="math/tex">m_c = \frac{1}{n_c} \sum_{i\in c}y_i</script> is the prediction of leaf <script type="math/tex">c</script>, <script type="math/tex">V_c</script> is the within-leave variance of leaf <script type="math/tex">c</script>. Splits are made to minimize <script type="math/tex">S</script> as much as possible greedily.</p>
+<p>where \(m_c = \frac{1}{n_c} \sum_{i\in c}y_i\) is the prediction of leaf \(c\), \(V_c\) is the within-leave variance of leaf \(c\). Splits are made to minimize \(S\) as much as possible greedily.</p>
 
 <p>To avoid severe over-fitting or under-fitting, one successful way is to use the idea of cross-validation. The data is divided into a training set and testing set randomly. One way is to grow the tree based on the training data as largely as possible and then prune the tree using testing data if the pruning reduces the sum of errors. Another way is to alternate between growing and pruning and exchange the role of training and testing sets until the size of the tree doesn’t change.</p>
 
@@ -152,15 +152,14 @@
 
 <p><strong>Margin function</strong> is defined as</p>
 
-<script type="math/tex; mode=display">mg(\mathbf{X}, Y) = E_k(I(h_k(\mathbf{X}) = Y)) - \max_{j\neq Y} E_k(I(h_k(\mathbf{X}) = j)),</script>
+\[mg(\mathbf{X}, Y) = E_k(I(h_k(\mathbf{X}) = Y)) - \max_{j\neq Y} E_k(I(h_k(\mathbf{X}) = j)),\]
 
-<p>where <script type="math/tex">h_k(.)</script> is tree classifiers and <script type="math/tex">I(.)</script> is indicator function. Quoted from [1], “the margin measures the extent to which the average
-number of votes at <script type="math/tex">\mathbf{X}</script>, <script type="math/tex">Y</script> for the right class exceeds the average vote for any other class. The larger the margin, the more <strong>confidence</strong> in the classification.”</p>
+<p>where \(h_k(.)\) is tree classifiers and \(I(.)\) is indicator function. Quoted from [1], “the margin measures the extent to which the average
+number of votes at \(\mathbf{X}\), \(Y\) for the right class exceeds the average vote for any other class. The larger the margin, the more <strong>confidence</strong> in the classification.”</p>
 
 <p><strong>Generalization error</strong> is defined as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0). %]]></script>
+\[PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) &lt; 0).\]
 
 <p><strong>Strength and correlation:</strong> “The two ingredients involved in the generalization error for random forests are <strong>the strength of the individual classifiers in the forest</strong> and <strong>the correlation between them</strong>.”</p>
 
@@ -168,7 +167,7 @@ PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0). %]]></script>
 
 <p>The generalization error is bounded by</p>
 
-<script type="math/tex; mode=display">PE^* \leq \rho (1-s^2) / s^2.</script>
+\[PE^* \leq \rho (1-s^2) / s^2.\]
 
 <p>To make smaller generalization error, we encourage larger strength of tree classifiers and smaller correlation (i.e., intuitively the tree classifiers should have similar accuracy.).</p>
 
@@ -183,21 +182,21 @@ PE^* = P_{\mathbf{X}, Y}(mg(\mathbf{X}, Y) < 0). %]]></script>
 
 <h3 id="random-forests-using-linear-combination-if-inputs">Random forests using linear combination if inputs</h3>
 
-<p>At a given node, <script type="math/tex">L</script> variables are randomly selected and added together with coefficiens that are uniform random numbers on <script type="math/tex">[-1, 1]</script>. <script type="math/tex">F</script> linear combinations are generated, and then a search is made over these for the best split.</p>
+<p>At a given node, \(L\) variables are randomly selected and added together with coefficiens that are uniform random numbers on \([-1, 1]\). \(F\) linear combinations are generated, and then a search is made over these for the best split.</p>
 
 <h1 id="applications">Applications</h1>
 
 <h3 id="scene-coordinate-regression-3-4">Scene coordinate regression [3, 4]</h3>
 
-<p>The scene coordinate regression forest (ScoRe forest) output 3D global coordinate for the input of feature of RGBD pixel <script type="math/tex">\mathbf{p}</script>. In training, each split node <script type="math/tex">n</script> is assigned <script type="math/tex">(\theta_n, \tau_n)</script> from a pool of <script type="math/tex">N</script> candidates, so that the decision function writes</p>
+<p>The scene coordinate regression forest (ScoRe forest) output 3D global coordinate for the input of feature of RGBD pixel \(\mathbf{p}\). In training, each split node \(n\) is assigned \((\theta_n, \tau_n)\) from a pool of \(N\) candidates, so that the decision function writes</p>
 
-<script type="math/tex; mode=display">df(\mathbf{p}; \theta_n, \tau_n) = \left[ f_{\theta_n}(\mathbf{p}) \geq \tau_n \right],</script>
+\[df(\mathbf{p}; \theta_n, \tau_n) = \left[ f_{\theta_n}(\mathbf{p}) \geq \tau_n \right],\]
 
-<p>where <script type="math/tex">f_{\theta_n}(.)</script> is the feature response function. In [4], the response function is just differences of RGB pixel values (a little bit trivial):</p>
+<p>where \(f_{\theta_n}(.)\) is the feature response function. In [4], the response function is just differences of RGB pixel values (a little bit trivial):</p>
 
-<script type="math/tex; mode=display">f_{\theta_n}(\mathbf{p}) = I(\mathbf{p} + \mathbf{\delta}_1, c_1) - I(\mathbf{p} + \mathbf{\delta}_2, c_2),</script>
+\[f_{\theta_n}(\mathbf{p}) = I(\mathbf{p} + \mathbf{\delta}_1, c_1) - I(\mathbf{p} + \mathbf{\delta}_2, c_2),\]
 
-<p>where <script type="math/tex">\mathbf{\delta}_1</script> and <script type="math/tex">\mathbf{\delta}_2</script> are offsets from pixel <script type="math/tex">\mathbf{p}</script> and <script type="math/tex">c_1</script> and <script type="math/tex">c_2</script> are channel indexes. Thus the feature parameters are <script type="math/tex">\theta_n = \{\mathbf{\delta}_1, \mathbf{\delta}_2, c_1, c_2 \}</script>.
+<p>where \(\mathbf{\delta}_1\) and \(\mathbf{\delta}_2\) are offsets from pixel \(\mathbf{p}\) and \(c_1\) and \(c_2\) are channel indexes. Thus the feature parameters are \(\theta_n = \{\mathbf{\delta}_1, \mathbf{\delta}_2, c_1, c_2 \}\).
 Each leaf node then stores some empirical 3D distribution of the samples the have arrived at the leaf (e.g., mean-shift [5], 3D mixtures of Gaussian).</p>
 
 <p>The predictions of multiple regression trees are finally combined to yield the final regression result (e.g., by geometric median averaging in [4]).</p>
@@ -216,26 +215,46 @@ Each leaf node then stores some empirical 3D distribution of the samples the hav
 
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Random Forest"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/image-localization" title="NEXT: Image Localization">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/weekly-board" title="PREV: Weekly Board">&gt;&gt;</a>
-  
+	<a class="next" href="/image-localization" title="NEXT: Image Localization">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/scale-invariant-image-matching" title="PREV: Progressive Large Scale-Invariant Image Matching in Scale Space">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -248,7 +267,8 @@ Each leaf node then stores some empirical 3D distribution of the samples the hav
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

@@ -94,12 +94,12 @@
 	<div class="center">
 		<h1>Tensorflow 学习</h1>
 		<time>December 8, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="deep learning">deep learning</a></li>
+			<li><a href="/tag_index.html" title="deep learning">deep learning</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -109,193 +109,187 @@
 <h3 id="tensorflow-building-blocks">Tensorflow building blocks</h3>
 
 <ol>
-  <li>Data tensors <code class="highlighter-rouge">node = tf.constant(3.0, dtype=tf.float32)</code></li>
-  <li>Variables <code class="highlighter-rouge">a = tf.placeholder(tf.float32)</code></li>
-  <li>Dependent variables <code class="highlighter-rouge">adder_node = tf.add(a, b)</code></li>
-  <li>Executive session <code class="highlighter-rouge">sess = tf.Session()</code>, <code class="highlighter-rouge">sess.run(adder_node, {a: 3, b: 4.5})</code></li>
-  <li>Trainable parameters <code class="highlighter-rouge">W = tf.Variable([.3], dtype=tf.float32)</code></li>
-  <li>Parameter initialization <code class="highlighter-rouge">init = tf.global_variables_initializer()</code>, <code class="highlighter-rouge">sess.run(init)</code></li>
-  <li>Parameter assignment <code class="highlighter-rouge">fixW = tf.assign(W, [-1.])</code>, <code class="highlighter-rouge">sess.run(fixW)</code></li>
-  <li>Optimizer <code class="highlighter-rouge">optimizer = tf.train.GradientDescentOptimizer(0.01)</code></li>
-  <li>Trainer=optimizer+loss <code class="highlighter-rouge">train = optimizer.minimize(loss)</code></li>
-  <li>High-level training toolkit <code class="highlighter-rouge">tf.estimator</code></li>
-  <li>Saving variables: <code class="highlighter-rouge">saver = tf.train.Saver()</code>, <code class="highlighter-rouge">saver.save(sess, "/tmp/model.ckpt")</code></li>
-  <li>Restore variables: <code class="highlighter-rouge">saver.restore(sess, "/tmp/model.ckpt")</code></li>
+  <li>Data tensors <code class="language-plaintext highlighter-rouge">node = tf.constant(3.0, dtype=tf.float32)</code></li>
+  <li>Variables <code class="language-plaintext highlighter-rouge">a = tf.placeholder(tf.float32)</code></li>
+  <li>Dependent variables <code class="language-plaintext highlighter-rouge">adder_node = tf.add(a, b)</code></li>
+  <li>Executive session <code class="language-plaintext highlighter-rouge">sess = tf.Session()</code>, <code class="language-plaintext highlighter-rouge">sess.run(adder_node, {a: 3, b: 4.5})</code></li>
+  <li>Trainable parameters <code class="language-plaintext highlighter-rouge">W = tf.Variable([.3], dtype=tf.float32)</code></li>
+  <li>Parameter initialization <code class="language-plaintext highlighter-rouge">init = tf.global_variables_initializer()</code>, <code class="language-plaintext highlighter-rouge">sess.run(init)</code></li>
+  <li>Parameter assignment <code class="language-plaintext highlighter-rouge">fixW = tf.assign(W, [-1.])</code>, <code class="language-plaintext highlighter-rouge">sess.run(fixW)</code></li>
+  <li>Optimizer <code class="language-plaintext highlighter-rouge">optimizer = tf.train.GradientDescentOptimizer(0.01)</code></li>
+  <li>Trainer=optimizer+loss <code class="language-plaintext highlighter-rouge">train = optimizer.minimize(loss)</code></li>
+  <li>High-level training toolkit <code class="language-plaintext highlighter-rouge">tf.estimator</code></li>
+  <li>Saving variables: <code class="language-plaintext highlighter-rouge">saver = tf.train.Saver()</code>, <code class="language-plaintext highlighter-rouge">saver.save(sess, "/tmp/model.ckpt")</code></li>
+  <li>Restore variables: <code class="language-plaintext highlighter-rouge">saver.restore(sess, "/tmp/model.ckpt")</code></li>
 </ol>
 
 <h3 id="using-gpus">Using GPUs</h3>
 
 <p>Device mapping management:</p>
 <ol>
-  <li><code class="highlighter-rouge">with tf.device('/device/GPU:0'):</code> Specify computing devices for operators.</li>
-  <li><code class="highlighter-rouge">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+  <li><code class="language-plaintext highlighter-rouge">with tf.device('/device/GPU:0'):</code> Specify computing devices for operators.</li>
+  <li><code class="language-plaintext highlighter-rouge">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 </code> Output device mapping into log.</li>
 </ol>
 
 <p>GPU memory management:</p>
 <ol>
-  <li><code class="highlighter-rouge">config = tf.ConfigProto() config.gpu_options.allow_growth = True </code>
+  <li><code class="language-plaintext highlighter-rouge">config = tf.ConfigProto() config.gpu_options.allow_growth = True </code>
 allocate only as much GPU memory based on runtime allocations</li>
-  <li><code class="highlighter-rouge">config.gpu_options.per_process_gpu_memory_fraction = 0.4</code> bound the amount of GPU memory available to the TensorFlow process</li>
+  <li><code class="language-plaintext highlighter-rouge">config.gpu_options.per_process_gpu_memory_fraction = 0.4</code> bound the amount of GPU memory available to the TensorFlow process</li>
 </ol>
 
 <h3 id="network-layers">Network layers</h3>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">()</span>	<span class="c"># conv2d</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d</span><span class="p">()</span>	<span class="c"># conv3d</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">()</span>	<span class="c"># deconv2d</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv3d_transpose</span><span class="p">()</span>	<span class="c"># deconv3d</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">max_pooling2d</span><span class="p">()</span>	<span class="c"># max pooling</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">()</span>	<span class="c"># avg pooling</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>	<span class="c"># fc, output dimension = units</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">()</span>	<span class="c"># bn</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="p">)</span>	<span class="c"># dropout, 40% of elements are dropped out only in training mode</span>
-
-<span class="c"># Activations</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>	<span class="c"># relu</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">()</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">()</span>	<span class="c"># sigmoid</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">()</span>	<span class="c"># tanh</span>
-
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">local_response_normalization</span><span class="p">()</span>	<span class="c"># lrn</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">()</span>	<span class="c"># softmax</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_normalization</span><span class="p">()</span>	<span class="c"># l2norm</span>
-
-<span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">()</span>	<span class="c"># concat</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">add_n</span><span class="p">()</span>	<span class="c"># add</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>	<span class="c"># Removes dimensions of size 1 from the shape of a tensor</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>		<span class="c"># element-wise maximum</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="nb">slice</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># get slice of tensor</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">slices</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># put together slices but follow the order of indices</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># stack a list of rank-R tensors into a rank-(R+1) one</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c"># chipping rank-(R+1) tensor along axis into a amount of num rank-R tensors</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">conv2d</span><span class="p">()</span>	<span class="c1"># conv2d
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">conv3d</span><span class="p">()</span>	<span class="c1"># conv3d
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">conv2d_transpose</span><span class="p">()</span>	<span class="c1"># deconv2d
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">conv3d_transpose</span><span class="p">()</span>	<span class="c1"># deconv3d
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">max_pooling2d</span><span class="p">()</span>	<span class="c1"># max pooling
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">average_pooling</span><span class="p">()</span>	<span class="c1"># avg pooling
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">dense</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>	<span class="c1"># fc, output dimension = units
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">batch_normalization</span><span class="p">()</span>	<span class="c1"># bn
+</span><span class="n">tf</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nf">dropout</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="p">)</span>	<span class="c1"># dropout, 40% of elements are dropped out only in training mode
+</span>
+<span class="c1"># Activations
+</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nf">relu</span><span class="p">()</span>	<span class="c1"># relu
+</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nf">dropout</span><span class="p">()</span>
+<span class="n">tf</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">()</span>	<span class="c1"># sigmoid
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">tanh</span><span class="p">()</span>	<span class="c1"># tanh
+</span>
+<span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nf">local_response_normalization</span><span class="p">()</span>	<span class="c1"># lrn
+</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nf">softmax</span><span class="p">()</span>	<span class="c1"># softmax
+</span><span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nf">l2_normalization</span><span class="p">()</span>	<span class="c1"># l2norm
+</span>
+<span class="n">tf</span><span class="p">.</span><span class="nf">concat</span><span class="p">()</span>	<span class="c1"># concat
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">add_n</span><span class="p">()</span>	<span class="c1"># add
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()</span>	<span class="c1"># Removes dimensions of size 1 from the shape of a tensor
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>		<span class="c1"># element-wise maximum
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">tf</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">tf</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c1"># get slice of tensor
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">gather</span><span class="p">(</span><span class="n">slices</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c1"># put together slices but follow the order of indices
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">stack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c1"># stack a list of rank-R tensors into a rank-(R+1) one
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">unstack</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>	<span class="c1"># chipping rank-(R+1) tensor along axis into a amount of num rank-R tensors
+</span><span class="n">tf</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h3 id="tesorflow变量名">Tesorflow变量名</h3>
-<p><code class="highlighter-rouge">tf.Variable()</code>和<code class="highlighter-rouge">tf.get_variable()</code>是新建变量的两种方式。
-<code class="highlighter-rouge">tf.Variable()</code>每次都会产生新的变量，当变量名重复时会引入<strong>别名机制</strong>自行处理。
-<code class="highlighter-rouge">tf.get_variable()</code>遇到重名的变量且变量名没有被设置成共享时会直接报错。</p>
+<p><code class="language-plaintext highlighter-rouge">tf.Variable()</code>和<code class="language-plaintext highlighter-rouge">tf.get_variable()</code>是新建变量的两种方式。
+<code class="language-plaintext highlighter-rouge">tf.Variable()</code>每次都会产生新的变量，当变量名重复时会引入<strong>别名机制</strong>自行处理。
+<code class="language-plaintext highlighter-rouge">tf.get_variable()</code>遇到重名的变量且变量名没有被设置成共享时会直接报错。</p>
 
-<p><code class="highlighter-rouge">tf.name_scope()</code>和<code class="highlighter-rouge">tf.variable_scope()</code>
-<code class="highlighter-rouge">tf.name_scope()</code>用于对图里面的各种operator进行层次化的管理，类似C++中的<code class="highlighter-rouge">namespce</code>。
-<code class="highlighter-rouge">tf.variable_scope()</code>除了<code class="highlighter-rouge">tf.name_scope()</code>的功能之外，还允许在一个variable_scope下共享变量：</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="s">'my_scope'</span><span class="p">)</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
-	<span class="n">var1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-	<span class="n">scope</span><span class="o">.</span><span class="n">reuse_variables</span><span class="p">()</span>
-	<span class="n">var1_reuse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'var1'</span><span class="p">)</span>
-</code></pre>
-</div>
+<p><code class="language-plaintext highlighter-rouge">tf.name_scope()</code>和<code class="language-plaintext highlighter-rouge">tf.variable_scope()</code>
+<code class="language-plaintext highlighter-rouge">tf.name_scope()</code>用于对图里面的各种operator进行层次化的管理，类似C++中的<code class="language-plaintext highlighter-rouge">namespce</code>。
+<code class="language-plaintext highlighter-rouge">tf.variable_scope()</code>除了<code class="language-plaintext highlighter-rouge">tf.name_scope()</code>的功能之外，还允许在一个variable_scope下共享变量：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="nf">variable_scope</span><span class="p">(</span><span class="sh">'</span><span class="s">my_scope</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
+	<span class="n">var1</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">var1</span><span class="sh">'</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+	<span class="n">scope</span><span class="p">.</span><span class="nf">reuse_variables</span><span class="p">()</span>
+	<span class="n">var1_reuse</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">get_variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">var1</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h3 id="estimators">Estimators</h3>
 <ul>
-  <li>Define Estimator: <code class="highlighter-rouge">tf.estimator</code> are essentially predefined models. The examples are shown below:</li>
+  <li>Define Estimator: <code class="language-plaintext highlighter-rouge">tf.estimator</code> are essentially predefined models. The examples are shown below:</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># feature columns specify data type of input</span>
-<span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"x"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">])]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># feature columns specify data type of input
+</span><span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">feature_column</span><span class="p">.</span><span class="nf">numeric_column</span><span class="p">(</span><span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">])]</span>
 
-<span class="c"># Build 3 layer DNN with 10, 20, 10 units respectively.</span>
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">DNNClassifier</span><span class="p">(</span><span class="n">feature_columns</span><span class="o">=</span><span class="n">feature_columns</span><span class="p">,</span>
+<span class="c1"># Build 3 layer DNN with 10, 20, 10 units respectively.
+</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="nc">DNNClassifier</span><span class="p">(</span><span class="n">feature_columns</span><span class="o">=</span><span class="n">feature_columns</span><span class="p">,</span>
                                         <span class="n">hidden_units</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
                                         <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                        <span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">)</span>
-<span class="c"># Customized Estimator</span>
-<span class="k">def</span> <span class="nf">model_fn</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-	<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-	<span class="n">train_op</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_global_step</span><span class="p">())</span>
-	<span class="c"># global_step is a counter of training steps</span>
-	<span class="c"># define loss function</span>
-	<span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
-	<span class="c"># return EstimatorSpec that fully defines the model to be run by Estimator</span>
-
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span>
+                                        <span class="n">model_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">/checkpoints/save/path</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># Customized Estimator
+</span><span class="k">def</span> <span class="nf">model_fn</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+	<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="nc">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+	<span class="n">train_op</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">.</span><span class="nf">minimize</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="nf">get_global_step</span><span class="p">())</span>
+	<span class="c1"># global_step is a counter of training steps
+</span>	<span class="c1"># define loss function
+</span>	<span class="k">return</span> <span class="n">tf</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="nc">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+	<span class="c1"># return EstimatorSpec that fully defines the model to be run by Estimator
+</span>
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="nc">Estimator</span><span class="p">(</span>
     	<span class="n">model_fn</span><span class="o">=</span><span class="n">model_fn</span><span class="p">,</span> 
-	<span class="n">model_dir</span><span class="o">=</span><span class="s">"/checkpoints/save/path"</span><span class="p">,</span>
+	<span class="n">model_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">/checkpoints/save/path</span><span class="sh">"</span><span class="p">,</span>
 	<span class="n">l1_regularization_strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">l2_regularization_strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-	<span class="c"># L1 regularization tends to make model weights stay at zero</span>
-	<span class="c"># L2 regularization also tries to make model weights closer to zero but not necessarily zero</span>
-</code></pre>
-</div>
+	<span class="c1"># L1 regularization tends to make model weights stay at zero
+</span>	<span class="c1"># L2 regularization also tries to make model weights closer to zero but not necessarily zero
+</span></code></pre></div></div>
 
 <ul>
-  <li>Define input function: The input builder function constructs input data in form of <code class="highlighter-rouge">tf.Tensor</code> and <code class="highlighter-rouge">tf.SparseTensor</code> (mostly for categorical data).</li>
+  <li>Define input function: The input builder function constructs input data in form of <code class="language-plaintext highlighter-rouge">tf.Tensor</code> and <code class="language-plaintext highlighter-rouge">tf.SparseTensor</code> (mostly for categorical data).</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Define the training inputs</span>
-<span class="n">train_input_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">numpy_input_fn</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="s">"x"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">)},</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define the training inputs
+</span><span class="n">train_input_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="n">inputs</span><span class="p">.</span><span class="nf">numpy_input_fn</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">training_set</span><span class="p">.</span><span class="n">data</span><span class="p">)},</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">training_set</span><span class="p">.</span><span class="n">target</span><span class="p">),</span>
     <span class="n">num_epochs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
     <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="c"># Define customized input function</span>
-<span class="k">def</span> <span class="nf">dataset_input_fn</span><span class="p">():</span>
-  <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">"/var/data/file1.tfrecord"</span><span class="p">,</span> <span class="s">"/var/data/file2.tfrecord"</span><span class="p">]</span>
-  <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+<span class="c1"># Define customized input function
+</span><span class="k">def</span> <span class="nf">dataset_input_fn</span><span class="p">():</span>
+  <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">/var/data/file1.tfrecord</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">/var/data/file2.tfrecord</span><span class="sh">"</span><span class="p">]</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="nc">TFRecordDataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
 
-  <span class="c"># Use `tf.parse_single_example()` to extract data from a `tf.Example`</span>
-  <span class="c"># protocol buffer, and perform any additional per-record preprocessing.</span>
-  <span class="k">def</span> <span class="nf">parser</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
+  <span class="c1"># Use `tf.parse_single_example()` to extract data from a `tf.Example`
+</span>  <span class="c1"># protocol buffer, and perform any additional per-record preprocessing.
+</span>  <span class="k">def</span> <span class="nf">parser</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
     <span class="n">keys_to_features</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">"image_data"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="s">""</span><span class="p">),</span>
-        <span class="s">"date_time"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="s">""</span><span class="p">),</span>
-        <span class="s">"label"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
-                                    <span class="n">default_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)),</span>
+        <span class="sh">"</span><span class="s">image_data</span><span class="sh">"</span><span class="p">:</span> <span class="n">tf</span><span class="p">.</span><span class="nc">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="p">.</span><span class="n">string</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="sh">""</span><span class="p">),</span>
+        <span class="sh">"</span><span class="s">date_time</span><span class="sh">"</span><span class="p">:</span> <span class="n">tf</span><span class="p">.</span><span class="nc">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="p">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="sh">""</span><span class="p">),</span>
+        <span class="sh">"</span><span class="s">label</span><span class="sh">"</span><span class="p">:</span> <span class="n">tf</span><span class="p">.</span><span class="nc">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="p">.</span><span class="n">int64</span><span class="p">,</span>
+                                    <span class="n">default_value</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="nf">zeros</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">int64</span><span class="p">)),</span>
     <span class="p">}</span>
-    <span class="n">parsed</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">keys_to_features</span><span class="p">)</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">parse_single_example</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">keys_to_features</span><span class="p">)</span>
 
-    <span class="c"># Perform additional preprocessing on the parsed data.</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">decode_jpeg</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="s">"image_data"</span><span class="p">])</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="s">"label"</span><span class="p">],</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="c1"># Perform additional preprocessing on the parsed data.
+</span>    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">decode_jpeg</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="sh">"</span><span class="s">image_data</span><span class="sh">"</span><span class="p">])</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="sh">"</span><span class="s">label</span><span class="sh">"</span><span class="p">],</span> <span class="n">tf</span><span class="p">.</span><span class="n">int32</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s">"image_data"</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span> <span class="s">"date_time"</span><span class="p">:</span> <span class="n">parsed</span><span class="p">[</span><span class="s">"date_time"</span><span class="p">]},</span> <span class="n">label</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">image_data</span><span class="sh">"</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span> <span class="sh">"</span><span class="s">date_time</span><span class="sh">"</span><span class="p">:</span> <span class="n">parsed</span><span class="p">[</span><span class="sh">"</span><span class="s">date_time</span><span class="sh">"</span><span class="p">]},</span> <span class="n">label</span>
 
-  <span class="c"># Use `Dataset.map()` to build a pair of a feature dictionary and a label</span>
-  <span class="c"># tensor for each example.</span>
-  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
-  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">buffer_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)</span>
-  <span class="n">iterator</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">make_one_shot_iterator</span><span class="p">()</span>
+  <span class="c1"># Use `Dataset.map()` to build a pair of a feature dictionary and a label
+</span>  <span class="c1"># tensor for each example.
+</span>  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">shuffle</span><span class="p">(</span><span class="n">buffer_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">repeat</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)</span>
+  <span class="n">iterator</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">make_one_shot_iterator</span><span class="p">()</span>
 
-  <span class="c"># `features` is a dictionary in which each value is a batch of values for</span>
-  <span class="c"># that feature; `labels` is a batch of labels.</span>
-  <span class="n">features</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+  <span class="c1"># `features` is a dictionary in which each value is a batch of values for
+</span>  <span class="c1"># that feature; `labels` is a batch of labels.
+</span>  <span class="n">features</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">iterator</span><span class="p">.</span><span class="nf">get_next</span><span class="p">()</span>
   <span class="k">return</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span>
-<span class="c"># feature_cols: a dictionary containing key/value pairs that map feature column names to Tensors</span>
-<span class="c"># labels: A tensor containing label values</span>
-</code></pre>
-</div>
+<span class="c1"># feature_cols: a dictionary containing key/value pairs that map feature column names to Tensors
+# labels: A tensor containing label values
+</span></code></pre></div></div>
 
 <ul>
   <li>Train, Evaluate or Predict</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Train model.</span>
-<span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">train_input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
-<span class="c"># Evaluate accuracy.</span>
-<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">test_input_fn</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
-<span class="c"># Predict new samples.</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">predict_input_fn</span><span class="p">))</span>
-</code></pre>
-</div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train model.
+</span><span class="n">classifier</span><span class="p">.</span><span class="nf">train</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">train_input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="c1"># Evaluate accuracy.
+</span><span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">test_input_fn</span><span class="p">)[</span><span class="sh">"</span><span class="s">accuracy</span><span class="sh">"</span><span class="p">]</span>
+<span class="c1"># Predict new samples.
+</span><span class="n">predictions</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">classifier</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">predict_input_fn</span><span class="p">))</span>
+</code></pre></div></div>
 
 <h3 id="graph-visualization">Graph visualization</h3>
 <p>Inherently, a graph is built after we define tensors or variables that flow through operation nodes. 
 Then the graph can be save into log dir by</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>with tf.Session() as sess:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with tf.Session() as sess:
     writer = tf.summary.FileWriter(output_folder, sess.graph)
     sess.run(graph_fn)
     writer.close()
-</code></pre>
-</div>
-<p>To visualize the graph, just run command <code class="highlighter-rouge">tensorboard --logdir /your/dir/</code> if tensorflow is installed.</p>
+</code></pre></div></div>
+<p>To visualize the graph, just run command <code class="language-plaintext highlighter-rouge">tensorboard --logdir /your/dir/</code> if tensorflow is installed.</p>
 
 <h3 id="debug">Debug</h3>
 
@@ -303,65 +297,83 @@ Then the graph can be save into log dir by</p>
   <li>Debug with session: just warp session with a debugger wrapper, then debug in CLI.</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tensorflow.python</span> <span class="kn">import</span> <span class="n">debug</span> <span class="k">as</span> <span class="n">tf_debug</span>
-<span class="n">sess</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugWrapperSession</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">tensorflow.python</span> <span class="kn">import</span> <span class="n">debug</span> <span class="k">as</span> <span class="n">tf_debug</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="p">.</span><span class="nc">LocalCLIDebugWrapperSession</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
+</code></pre></div></div>
 
 <ul>
   <li>Debug with estimator: Estimator mannages sessions internally.</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Create a LocalCLIDebugHook and use it as a monitor when calling fit().</span>
-<span class="n">hooks</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">debug_hook</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="o">.</span><span class="n">LocalCLIDebugHook</span><span class="p">(</span><span class="n">ui_type</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">ui_type</span><span class="p">,</span>
-                                        <span class="n">dump_root</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">dump_root</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a LocalCLIDebugHook and use it as a monitor when calling fit().
+</span><span class="n">hooks</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">debug_hook</span> <span class="o">=</span> <span class="n">tf_debug</span><span class="p">.</span><span class="nc">LocalCLIDebugHook</span><span class="p">(</span><span class="n">ui_type</span><span class="o">=</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">ui_type</span><span class="p">,</span>
+                                        <span class="n">dump_root</span><span class="o">=</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">dump_root</span><span class="p">)</span>
 <span class="n">hooks</span> <span class="o">=</span> <span class="p">[</span><span class="n">debug_hook</span><span class="p">]</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">use_experiment</span><span class="p">:</span>
-	<span class="c"># Fit model.</span>
-	<span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                   <span class="n">y</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
-                   <span class="n">steps</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">train_steps</span><span class="p">,</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">use_experiment</span><span class="p">:</span>
+	<span class="c1"># Fit model.
+</span>	<span class="n">classifier</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">training_set</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+                   <span class="n">y</span><span class="o">=</span><span class="n">training_set</span><span class="p">.</span><span class="n">target</span><span class="p">,</span>
+                   <span class="n">steps</span><span class="o">=</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">train_steps</span><span class="p">,</span>
                    <span class="n">monitors</span><span class="o">=</span><span class="n">hooks</span><span class="p">)</span>
 
-	<span class="c"># Evaluate accuracy.</span>
-	<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-				<span class="n">y</span><span class="o">=</span><span class="n">test_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
-				<span class="n">hooks</span><span class="o">=</span><span class="n">hooks</span><span class="p">)[</span><span class="s">"accuracy"</span><span class="p">]</span>
-</code></pre>
-</div>
+	<span class="c1"># Evaluate accuracy.
+</span>	<span class="n">accuracy_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">test_set</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+				<span class="n">y</span><span class="o">=</span><span class="n">test_set</span><span class="p">.</span><span class="n">target</span><span class="p">,</span>
+				<span class="n">hooks</span><span class="o">=</span><span class="n">hooks</span><span class="p">)[</span><span class="sh">"</span><span class="s">accuracy</span><span class="sh">"</span><span class="p">]</span>
+</code></pre></div></div>
 
 <h3 id="visiualize-embedding">Visiualize embedding</h3>
 
 <blockquote>
-  <p>An embedding is a mapping from discrete <strong>objects</strong>, such as words, articles, images, to <strong>vectors</strong> of real numbers. In this way, the similarity in vector space can be used as a flexible and robust measure object similarity, e.g., <code class="highlighter-rouge">blue:  (red, 47.6°), (yellow, 51.9°), (purple, 52.4°)</code>.</p>
+  <p>An embedding is a mapping from discrete <strong>objects</strong>, such as words, articles, images, to <strong>vectors</strong> of real numbers. In this way, the similarity in vector space can be used as a flexible and robust measure object similarity, e.g., <code class="language-plaintext highlighter-rouge">blue:  (red, 47.6°), (yellow, 51.9°), (purple, 52.4°)</code>.</p>
 </blockquote>
 
 <p><a href="https://www.tensorflow.org/programmers_guide/embedding">https://www.tensorflow.org/programmers_guide/embedding</a>
 <a href="https://www.tensorflow.org/versions/r0.12/how_tos/embedding_viz/">https://www.tensorflow.org/versions/r0.12/how_tos/embedding_viz/</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Tensorflow 学习"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/%E4%B8%AD%E7%BE%8E%E5%BB%BA%E4%BA%A4" title="NEXT: 中美建交">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/Lidar-point-cloud" title="PREV: LiDAR Point Clouds & Applications">&gt;&gt;</a>
-  
+	<a class="next" href="/SLAM-related" title="NEXT: SLAM Related">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/Lidar-point-cloud" title="PREV: LiDAR Point Clouds & Applications">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -374,7 +386,8 @@ Then the graph can be save into log dir by</p>
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

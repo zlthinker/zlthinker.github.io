@@ -94,10 +94,10 @@
 	<div class="center">
 		<h1>Graph-Based Neural Network</h1>
 		<time>September 26, 2018</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
@@ -130,39 +130,62 @@
 
 <h2 id="graph-convolutional-networks-gcn-1">Graph Convolutional Networks (GCN)</h2>
 
-<p>Given <script type="math/tex">N</script> nodes and their graph structure defined by a symmetric adjacency matrix <script type="math/tex">\mathbf{A}</script> (binary or weighted), the graph convolutional layer is defined as</p>
+<p>Given \(N\) nodes and their graph structure defined by a symmetric adjacency matrix \(\mathbf{A}\) (binary or weighted), the graph convolutional layer is defined as</p>
 
-<script type="math/tex; mode=display">\mathbf{X}_{i+1} = ReLU (\hat{ \mathbf{A} } \mathbf{X}_i \mathbf{W}_i  ).</script>
+\[\mathbf{X}_{i+1} = ReLU (\hat{ \mathbf{A} } \mathbf{X}_i \mathbf{W}_i  ).\]
 
-<p><script type="math/tex">\mathbf{X}_i \in R^{N \times C_i}</script> are the input feature vectors of <script type="math/tex">N</script> nodes from last layer. <script type="math/tex">\mathbf{W}_i \in R^{C_i \times C_{i+1}}</script> are the learnable filter parameters of layer <script type="math/tex">i+1</script>. <script type="math/tex">\hat{ \mathbf{A} }</script> is the re-normalized adjacency matrix defined as</p>
+<p>\(\mathbf{X}_i \in R^{N \times C_i}\) are the input feature vectors of \(N\) nodes from last layer. \(\mathbf{W}_i \in R^{C_i \times C_{i+1}}\) are the learnable filter parameters of layer \(i+1\). \(\hat{ \mathbf{A} }\) is the re-normalized adjacency matrix defined as</p>
 
-<script type="math/tex; mode=display">\hat{ \mathbf{A} } =  \tilde{\mathbf{D}}^{-1/2} \tilde{\mathbf{A}} \tilde{\mathbf{D}}^{-1/2},</script>
+\[\hat{ \mathbf{A} } =  \tilde{\mathbf{D}}^{-1/2} \tilde{\mathbf{A}} \tilde{\mathbf{D}}^{-1/2},\]
 
-<p>where <script type="math/tex">\tilde{\mathbf{A}} = \mathbf{A} + \mathbf{I}</script> and <script type="math/tex">\tilde{\mathbf{D}}_{ii} = \sum_j \tilde{\mathbf{A}}_{ij}</script>.</p>
+<p>where \(\tilde{\mathbf{A}} = \mathbf{A} + \mathbf{I}\) and \(\tilde{\mathbf{D}}_{ii} = \sum_j \tilde{\mathbf{A}}_{ij}\).</p>
 
-<p>From the perspective of message passing, <script type="math/tex">\mathbf{X}_i \mathbf{W}_i</script> can be interpreted as the deep message outgoing from the <script type="math/tex">N</script> nodes and the mulplication with <script type="math/tex">\hat{ \mathbf{A} }</script> passes (maybe weighted) the messages to neighboring nodes to update the node representations.</p>
+<p>From the perspective of message passing, \(\mathbf{X}_i \mathbf{W}_i\) can be interpreted as the deep message outgoing from the \(N\) nodes and the mulplication with \(\hat{ \mathbf{A} }\) passes (maybe weighted) the messages to neighboring nodes to update the node representations.</p>
 
-<p>Therefore, the GCN can be expressed as a function <script type="math/tex">f(\mathbf{X}_0 ,\mathbf{A})</script> and <script type="math/tex">\hat{ \mathbf{A} }</script> can be pre-computed in the preprocess step.</p>
+<p>Therefore, the GCN can be expressed as a function \(f(\mathbf{X}_0 ,\mathbf{A})\) and \(\hat{ \mathbf{A} }\) can be pre-computed in the preprocess step.</p>
 
 
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Graph-Based Neural Network"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
 
 </article>
 
+
+
+
+
 <div class="page-navigation">
 	
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/%E8%82%A1%E5%B8%82%E6%97%B6%E6%91%98" title="PREV: 股市时摘">&gt;&gt;</a>
-  
+	<a class="next" href="/kinect-fusion" title="NEXT: How does KinectFusion work?">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/%E8%82%A1%E5%B8%82%E6%97%B6%E6%91%98" title="PREV: 股市时摘">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -175,7 +198,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>

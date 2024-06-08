@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<title>Point Cloud Registration</title>
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Point Cloud Registration" />
+<meta name="twitter:description" content="">
+
+<meta name="description" content="">
+
+
+	<meta name="google-site-verification" content="epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o">
+
+
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="canonical" href="/point-cloud-registration">
+<link rel="alternate" type="application/atom+xml" title="Lei Zhou's Blog" href="/feed.xml" />
+
+
+
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			#taglist {
+				color: gray;
+				margin: 0;
+				margin-top: 16px;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				vertical-align: middle;
+			}
+			#taglist li {
+				display: inline;
+			}
+			#taglist li + li:before {
+				content: ", ";
+			}
+		</style>
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-T5S7PZV');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5S7PZV"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		
+<aside class="logo">
+
+	
+
+	<a href="/">
+		<img src="/images/avatar.jpeg" class="gravatar">
+	</a>
+	<span class="logo-prompt">Back to Home</span>
+
+</aside>
+
+
+		<main>
+			<noscript>
+	<style>
+		article .footnotes {
+			display: block;
+		}
+	</style>
+</noscript>
+
+<article>
+	<div class="center">
+		<h1>Point Cloud Registration</h1>
+		<time>January 14, 2019</time>
+		<!-- <ul id="taglist">
+			Tag:
+			
+		</ul> -->
+	</div>
+
+	<div class="divider"></div>
+
+	<ul id="markdown-toc">
+  <li><a href="#dof-of-transformations" id="markdown-toc-dof-of-transformations">DoF of transformations</a></li>
+  <li><a href="#related-works" id="markdown-toc-related-works">Related works</a>    <ul>
+      <li><a href="#feature-based" id="markdown-toc-feature-based">Feature-based</a></li>
+      <li><a href="#icp" id="markdown-toc-icp">ICP</a></li>
+      <li><a href="#branch-and-bound" id="markdown-toc-branch-and-bound">Branch and bound</a></li>
+      <li><a href="#probabilistic-registration" id="markdown-toc-probabilistic-registration">Probabilistic Registration</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dof-of-transformations">DoF of transformations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">n-D Transformation</th>
+      <th style="text-align: center">DoF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">2D Euclidean</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2D Affine</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2D Projective</td>
+      <td style="text-align: center">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3D Euclidean</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3D Similarity</td>
+      <td style="text-align: center">7</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3D Affine</td>
+      <td style="text-align: center">12</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3D Projective</td>
+      <td style="text-align: center">15</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="related-works">Related works</h2>
+
+<h4 id="feature-based">Feature-based</h4>
+
+<ul>
+  <li><a href="http://qianyi.info/docs/papers/eccv16_registration.pdf">Fast Global Registration</a></li>
+</ul>
+
+<h4 id="icp">ICP</h4>
+
+<ul>
+  <li><strong>经典</strong> <a href="https://www.robots.ox.ac.uk/~cvrg/michaelmas2004/fitzgibbon01c.pdf">Robust Registration of 2D and 3D Point Sets</a></li>
+  <li><a href="http://qianyi.info/docs/papers/iccv17_colored_registration.pdf">Colored-ICP</a></li>
+</ul>
+
+<h4 id="branch-and-bound">Branch and bound</h4>
+
+<ul>
+  <li><a href="https://arxiv.org/pdf/1605.03344.pdf">Go-ICP: A Globally Optimal Solution to 3D ICP Point-Set Registration</a></li>
+  <li><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Campbell_GOGMA_Globally-Optimal_Gaussian_CVPR_2016_paper.pdf">GOGMA: Globally-Optimal Gaussian Mixture Alignment</a></li>
+  <li><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Straub_Efficient_Global_Point_CVPR_2017_paper.pdf">Efficient Global Point Cloud Alignment using Bayesian Nonparametric Mixtures</a> <a href="https://github.com/jstraub/dpOptTrans">[github]</a></li>
+</ul>
+
+<h4 id="probabilistic-registration">Probabilistic Registration</h4>
+
+<ul>
+  <li><a href="https://hal.archives-ouvertes.fr/hal-01019661v2/document"><strong>JRMPC</strong> A Generative Model for the Joint Registration of
+Multiple Point Sets</a></li>
+  <li><a href="http://openaccess.thecvf.com/content_cvpr_2016/papers/Danelljan_A_Probabilistic_Framework_CVPR_2016_paper.pdf"><strong>CPPSR</strong> A Probabilistic Framework for Color-Based Point Set Registration</a></li>
+  <li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7899641&amp;tag=1"><strong>FPPSR</strong> Aligning the dissimilar: A probabilistic method for feature-based point set registration</a></li>
+  <li><a href="https://arxiv.org/pdf/1804.01495.pdf"><strong>DARE</strong> Density Adaptive Point Set Registration</a> <a href="https://github.com/felja633/DARE">[github]</a></li>
+</ul>
+
+
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Point Cloud Registration"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
+</article>
+
+
+
+
+
+<div class="page-navigation">
+	
+	<a class="next" href="/ground-control-point" title="NEXT: Ground Control Point">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/branch-and-bound" title="PREV: Branch and Bound">&gt;&gt;</a>
+	
+</div>
+		</main>
+                                                      
+
+		<div class="footer">
+<!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
+</div>
+
+
+		
+
+			
+
+		
+
+		<!-- hit counter -->
+		<br>
+		<center>
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
+		</center>  
+
+	</body>
+
+</html>

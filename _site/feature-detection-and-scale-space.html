@@ -94,47 +94,47 @@
 	<div class="center">
 		<h1>Feature Detection And Scale Space</h1>
 		<time>February 12, 2017</time>
-		<ul id="taglist">
+		<!-- <ul id="taglist">
 			Tag:
 			
-				<li><a href="/tag_index.html" title="feature">feature</a></li>
+			<li><a href="/tag_index.html" title="feature">feature</a></li>
 			
-				<li><a href="/tag_index.html" title="scale space">scale space</a></li>
+			<li><a href="/tag_index.html" title="scale space">scale space</a></li>
 			
-		</ul>
+		</ul> -->
 	</div>
 
 	<div class="divider"></div>
 
 	<h2 id="feature-detection-at-a-given-scale-in-scale-space">Feature Detection at a given scale in scale-space</h2>
 
-<p>Consider scale-space representation of image <script type="math/tex">I(x, y)</script>:</p>
+<p>Consider scale-space representation of image \(I(x, y)\):</p>
 
-<script type="math/tex; mode=display">L(x, y, \sigma) = G(x, y, \sigma) * I(x, y),</script>
+\[L(x, y, \sigma) = G(x, y, \sigma) * I(x, y),\]
 
-<p>where <script type="math/tex">\sigma \in  \mathbb{R}_+</script> is the scale parameter, and <script type="math/tex">G(x, y, \sigma)</script> is the two-dimensional variable-scale Gaussian kernel written as</p>
+<p>where \(\sigma \in  \mathbb{R}_+\) is the scale parameter, and \(G(x, y, \sigma)\) is the two-dimensional variable-scale Gaussian kernel written as</p>
 
-<script type="math/tex; mode=display">{G(x, y, \sigma) = \frac{1}{2\pi \sigma^2} e^{ -(x^2 + y^2) / 2 \sigma ^ 2}}.</script>
+\[{G(x, y, \sigma) = \frac{1}{2\pi \sigma^2} e^{ -(x^2 + y^2) / 2 \sigma ^ 2}}.\]
 
 <p>The 2-jet at a given image point and a given scale contains the partial derivatives</p>
 
-<script type="math/tex; mode=display">(L_x, L_y, L_{xx}, L_{xy}, L_{yy}).</script>
+\[(L_x, L_y, L_{xx}, L_{xy}, L_{yy}).\]
 
-<p>From the five components in the 2-jet, four differential invariants can be constructed, which are invariant to local rotations; the gradient magnitude <script type="math/tex">\|\nabla L\|</script>, the Laplacian <script type="math/tex">\nabla ^2 L</script>, the determinant of the Hessian <script type="math/tex">det\mathcal{H}L</script> and the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>:</p>
+<p>From the five components in the 2-jet, four differential invariants can be constructed, which are invariant to local rotations; the gradient magnitude \(\|\nabla L\|\), the Laplacian \(\nabla ^2 L\), the determinant of the Hessian \(det\mathcal{H}L\) and the rescaled level curve curvature \(\tilde{\mathbb{k}}(L)\):</p>
 
 <ul>
-  <li><script type="math/tex">\|\nabla L\|^2 = L_x^2 + L_y^2</script>,</li>
-  <li><script type="math/tex">\nabla ^2 L = L_{xx} + L_{yy}</script>,</li>
-  <li><script type="math/tex">det\mathcal{H}L = L_{xx}L_{yy}-L_{xy}^2</script>,</li>
-  <li><script type="math/tex">\tilde{\mathcal{k}}(L)=L_x^2L_{yy},+L_y^2L_{xx}-2L_xL_yL_{xy}</script>.</li>
+  <li>\(\|\nabla L\|^2 = L_x^2 + L_y^2\),</li>
+  <li>\(\nabla ^2 L = L_{xx} + L_{yy}\),</li>
+  <li>\(det\mathcal{H}L = L_{xx}L_{yy}-L_{xy}^2\),</li>
+  <li>\(\tilde{\mathcal{k}}(L)=L_x^2L_{yy},+L_y^2L_{xx}-2L_xL_yL_{xy}\).</li>
 </ul>
 
 <p>These operators can detect different types of local structures:</p>
 
 <ul>
-  <li>A single-scale blob detector can be expressed from the minima and the maxima of the Laplacian response <script type="math/tex">\nabla^2L</script>.</li>
-  <li>An affine covariant blob detector or a saddle detector can be expressed from the maxima and the minima of the determinant of the Hessian <script type="math/tex">det \mathcal{H}L</script>.</li>
-  <li>A straightforward and affine covariant corner detector can be expressed from the maxima and minima of the rescaled level curve curvature <script type="math/tex">\tilde{\mathbb{k}}(L)</script>.</li>
+  <li>A single-scale blob detector can be expressed from the minima and the maxima of the Laplacian response \(\nabla^2L\).</li>
+  <li>An affine covariant blob detector or a saddle detector can be expressed from the maxima and the minima of the determinant of the Hessian \(det \mathcal{H}L\).</li>
+  <li>A straightforward and affine covariant corner detector can be expressed from the maxima and minima of the rescaled level curve curvature \(\tilde{\mathbb{k}}(L)\).</li>
 </ul>
 
 <p>Some conclusions drawn by SURF:</p>
@@ -149,26 +149,46 @@
 <p><a href="http://campar.in.tum.de/Chair/HaukeHeibelGaussianDerivatives">The impressive graphs of Gaussian derivative functions</a></p>
 
 
+	<div class="divider"></div>
+
+	<!-- LikeBtn.com BEGIN -->
+	<div class="footer">
+		<span class="block">&hearts; <i> I appreciate your feedback! &hearts; </i></span>
+	</div>
+	<div style="text-align: center;">
+		<span class="likebtn-wrapper" data-identifier="Feature Detection And Scale Space"></span>
+		<script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+	</div>
+	<!-- LikeBtn.com END -->
+
 </article>
+
+
+
+
 
 <div class="page-navigation">
 	
-    <a class="next" href="/C++-programming" title="NEXT: C++ Programming">&lt;&lt;</a>
-		<span> &middot; </span>
-  
-		<a class="home" href="/" title="Back to Homepage">Home</a>
-  
-		<span> &middot; </span>
-    <a class="prev" href="/Convex-Optimization" title="PREV: Convex Optimization">&gt;&gt;</a>
-  
+	<a class="next" href="/C++-programming" title="NEXT: C++ Programming">&lt;&lt;</a>
+	<span> &middot; </span>
+	
+	<a class="home" href="/" title="Back to Homepage">Home</a>
+	
+	<span> &middot; </span>
+	<a class="prev" href="/Convex-Optimization" title="PREV: Convex Optimization">&gt;&gt;</a>
+	
 </div>
-
 		</main>
                                                       
 
 		<div class="footer">
 <!--  <span class="block">Made with &hearts; using <a href="http://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/heiswayi/the-plain" title="Lei's Blog">The Plain</a> &middot; &lt;/&gt; on <a href="https://github.com/zlthinker" title="Hosted on GitHub">GitHub</a></span> -->
-  <span class="block">&copy; 2018 Lei ZHOU</span>
+  <span class="block">
+    &copy; 
+    2024 
+    Lei ZHOU
+    <img src="images/dog.jpg" width="35">
+  </span>
 </div>
 
 
@@ -181,7 +201,8 @@
 		<!-- hit counter -->
 		<br>
 		<center>
-		<img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>    
+		<!-- <img src="http://hitwebcounter.com/counter/counter.php?page=6818827&style=0024&nbdigits=5&type=ip&initCount=0" align="top" title="" Alt=""   border="1" height=18px/>     -->
+		<script type="text/javascript" src="//counter.websiteout.net/js/5/7/10500/1"></script>
 		</center>  
 
 	</body>
