@@ -7,7 +7,7 @@ category: blog
 Self-supervised learning (SSL) has been the key to the success of LLM. It benefits most from seas of Internet data as it uses data as it is without needing annotations and labels. Particularly when the training data is scaled up, the power of transformers is unleashed, according to [scaling law](http://www.incompleteideas.net/IncIdeas/BitterLesson.html). This is the terrian where only self-supervised learning can do, connecting the two beasts of data and weights. (Supervised transformer sounds like a fallacy to me.) 
 
 <p align="center">
-<img src="/images/ssl-data-network.jpg" alt="ssl-data-network" width="350"/>
+<img src="/images/SSL-data-network.jpg" alt="ssl-data-network" width="350"/>
 </p>
 <p align="center">
 <span class="footer"> <i> Self-supervised learning is the best way of combining massive data and huge network so far. </i></span>
@@ -22,7 +22,7 @@ Personally, generative learning is more attractive to me than constrastive ones 
 Predicting a masked word in a sentence as defined by [BERT](https://research.google/pubs/bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding/) is same as the cloze test I did in high school English exams. Visually, imagining missing parts of a scene is a task our brain is excel at. The pretraining job of completing an image from a masked input has been applied to single-view images ([MAE](https://arxiv.org/pdf/2111.06377)), multi-view images ([CroCo](https://arxiv.org/pdf/2210.10716)) and videos ([VideoMAE](https://proceedings.neurips.cc/paper_files/paper/2022/file/416f9cb3276121c42eebb86352a4354a-Paper-Conference.pdf)), which enables the mono-vision, 3D vision and temporal vision tasks, respectively. It is still surprising to me that the networks are able to fill in meaningful visual content even more than 80% of the images are missing (e.g., MAE and CroCo).
 
 <p align="center">
-<img src="/images/ssl-inpainting.jpg" alt="ssl-inpainting" width="300"/>
+<img src="/images/SSL-inpainting.jpg" alt="ssl-inpainting" width="300"/>
 </p>
 <p align="center">
 <span class="footer"> <i> Inpainting capability is where intelligence emerges. </i></span>
