@@ -158,15 +158,39 @@ span {
           font-weight: bold;
         }
     }
+    .video-container {
+            float: left; /* Align the video to the left of the paragraph */
+            overflow: hidden; /* Ensure the video respects the rounded corners */
+            max-width: 300px; /* Optional: set a max width for the video */
+            margin-right: 30px;
+            border-radius: 30px; /* To make the image round */
+            width: 160px;
+            height: 160px;
+        }
+
+        .video-container video {
+            width: 100%; /* Ensure the video fills the container */
+            height: auto; /* Maintain the aspect ratio */
+            display: block; /* Remove any extra space below the video */
+        }
+
+        .content {
+            overflow: hidden; /* Clear floats */
+        }
 </style>
 
-<div class="container">
-  <img src="/images/3DGS_Lei.jpg" alt="Your Avatar" />
-  <div class="content">
-    Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
+<div class="content">
+        <div class="video-container">
+            <video autoplay="" loop="" muted="">
+                <source src="images/3DGS_Lei.mov" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="content">
+            Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
     I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training. I enjoy travelling and creation as well. My passion is to make the splendor of the world accessible to everyone through virtual reality. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&amp;hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a>. <strong>&#8801;</strong>
-  </div>
-</div>
+        </div>
+    </div>
 
 <h1 id="blog-">Blog ¬</h1>
 
