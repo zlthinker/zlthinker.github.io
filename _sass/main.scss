@@ -1,6 +1,7 @@
 // @import "photo-gallery";
 
-body {
+body 
+{
   font-family: arial, helvetica;//'Karla', sans-serif;
   padding: 20px;
   margin: 0;
@@ -10,6 +11,11 @@ body {
   @media (min-width: 992px) {
     padding: 35px 50px;
   }
+}
+.rounded-image {
+  border-radius: 15%; /* Adjust the value to get the desired roundness */
+  display: block;
+  margin: 0 auto; /* Center the image if needed */
 }
 h1,
 h2,

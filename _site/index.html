@@ -89,154 +89,294 @@
     <div class="divider"></div>
 
     
-    <h1 id="about">About</h1>
+    <h1 id="about-">About ¬</h1>
 
-<p>A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner</p>
+<style>
+  .content {
+    line-height: 1.8; /* Adjust the value to get the desired line spacing */
+  }
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; /* Make the container take up the full height of the viewport */
+    text-align: center; /* Center the text within the container */
+  }
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  .container img {
+    margin-right: 40px;
+    border-radius: 15%; /* To make the image round */
+    width: 130px;
+    height: 130px;
+  }
+  .container div {
+    flex: 1;
+  }
+  .post-date {
+        float: right;
+        margin: 0 0 0 20px;
+      }
+span {
+    display: inline-block;
+    color: #757575;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    }
+    .article-list {
+    list-style-type: none; /* Remove bullets*/
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    .article-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    /* border-bottom: 1px solid #ddd; */
+    }
+    .article-title {
+    /* text-decoration: none;
+    color: #000;
+    flex-grow: 1; */
+    }
+    .article-title:hover {
+    text-decoration: none; /* Underline on hover */
+    }
+    .image-caption {
+        margin-top: 8px; /* Adds some space between the image and the caption */
+        font-size: 12px;
+        text-align: center;
+        color: #777;
+        text-transform: uppercase; /* Makes the text capitalized */
+        font-style: italic; /* Makes the text italic */
+        a {
+          border: none;
+          font-weight: bold;
+        }
+    }
+</style>
 
-<h1 id="随思随想">随思随想</h1>
+<div class="container">
+  <img src="/images/3dgs_Lei.jpg" alt="Your Avatar" />
+  <div class="content">
+    Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
+    I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training, to create a virtual world with the best quality for everyone. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&amp;hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a> <strong>&#8801;</strong> .
+  </div>
+</div>
 
-<p><a href="https://zlthinker.github.io/%E8%B7%9F%E5%87%AF%E6%92%92%E5%AD%A6%E9%A2%86%E5%AF%BC%E5%8A%9B">跟凯撒学领导力</a></p>
+<h1 id="blog-">Blog ¬</h1>
 
-<p><a href="https://zlthinker.github.io/read-media">我们应该如何筛选自媒体</a></p>
+<figure class="image-container">
+        <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;" />
+        <figcaption class="image-caption">To me, writing is thinking in tokens.</figcaption>
+</figure>
 
-<p><a href="https://zlthinker.github.io/Tibet">在西藏，见自己见天地见众生</a></p>
+<h3 id="ai--ml-">AI &amp; ML ≡</h3>
 
-<p><a href="https://zlthinker.github.io/%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD">俄罗斯的宿命:西方的铁蹄和南方的海风</a></p>
+<ul class="article-list">
+        <li class="article-item">
+            <a href="what-can-we-learn-from-LLM.html" class="article-title">What Can We Learn from LLM? Self-Supervised Learning</a>
+            <span class="post-date">2024-06-06</span>
+        </li>
+        <li class="article-item">
+            <a href="diffusion-model.html" class="article-title">Diffusion Model In Essence</a>
+            <span class="post-date">2023-03-06</span>
+        </li>
+        <li class="article-item">
+            <a href="optimization-for-least-square-problem.html" class="article-title">Optimization for Least Square Problems</a>
+            <span class="post-date">2018-04-22</span>
+        </li>
+    </ul>
 
-<p><a href="https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3">我们终将被王力宏事件抹平</a></p>
+<h3 id="investment-">Investment ≡</h3>
 
-<p><a href="https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86">玉娇龙与第一性原理</a></p>
+<ul class="article-list">
+        <li class="article-item">
+            <a href="TSM.html" class="article-title">AI投资指南 -- 台积电</a>
+            <span class="post-date">2023-07-26</span>
+        </li>
+        <li class="article-item">
+            <a href="NVDA.html" class="article-title">AI投资指南 -- 英伟达</a>
+            <span class="post-date">2023-06-02</span>
+        </li>
+        <li class="article-item">
+            <a href="MSFT.html" class="article-title">Microsoft, 一只再生的水母</a>
+            <span class="post-date">2022-10-06</span>
+        </li>
+        <li class="article-item">
+            <a href="AMD.html" class="article-title">AMD，给后进生的掌声</a>
+            <span class="post-date">2022-06-03</span>
+        </li>
+        <li class="article-item">
+            <a href="Nike.html" class="article-title">Nike的独立宣言</a>
+            <span class="post-date">2022-03-16</span>
+        </li>
+        <li class="article-item">
+            <a href="%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97.html" class="article-title">元宇宙是一个buzzword吗? 谈谈Facebook</a>
+            <span class="post-date">2022-01-07</span>
+        </li>
+        <li class="article-item">
+            <a href="%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88.html" class="article-title">当我投资苹果，我在投资什么?</a>
+            <span class="post-date">2021-12-25</span>
+        </li>
+        <li class="article-item">
+            <a href="%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8.html" class="article-title">投资者与市场波动(译)</a>
+            <span class="post-date">2021-11-23</span>
+        </li>
+    </ul>
 
-<p><a href="https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B">人生的杠杆定律(译)</a></p>
+<h3 id="misc-">Misc ≡</h3>
 
-<h1 id="finance">Finance</h1>
+<ul class="article-list">
+        <li class="article-item">
+            <a href="%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD.html" class="article-title">俄罗斯的宿命:西方的铁蹄和南方的海风</a>
+            <span class="post-date">2022-02-26</span>
+        </li>
+        <li class="article-item">
+            <a href="%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86.html" class="article-title">玉娇龙与第一性原理</a>
+            <span class="post-date">2021-05-26</span>
+        </li>
+        
+    </ul>
 
-<p><a href="https://zlthinker.github.io/TSM">亚洲第一市值 – 台积电</a></p>
-
-<p><a href="https://zlthinker.github.io/NVDA">AI投资指南 – 英伟达</a></p>
-
-<p><a href="https://zlthinker.github.io/MSFT">Microsoft, 一只再生的水母</a></p>
-
-<p><a href="https://zlthinker.github.io/AMD">AMD，给后进生的掌声</a></p>
-
-<p><a href="https://zlthinker.github.io/Nike">Nike的独立宣言</a></p>
-
-<p><a href="https://zlthinker.github.io/%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97">元宇宙是一个buzzword吗? 谈谈Facebook</a></p>
-
-<p><a href="https://zlthinker.github.io/%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88">当我投资苹果，我在投资什么?</a></p>
-
-<p><a href="https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8">投资者与市场波动(译)</a></p>
-
-<h1 id="technical">Technical</h1>
-
-<p><a href="https://zlthinker.github.io/diffusion-model">Diffusion Model In Essence</a></p>
-
-<p><a href="https://zlthinker.github.io/Setup-VPN-on-CentOS">Steps to Setup VPN PPTP Client on CentOS7</a></p>
-
-<p><a href="https://zlthinker.github.io/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB">地理信息系统中的常用坐标系</a></p>
-
-<p><a href="https://zlthinker.github.io/optimization-for-least-square-problem">Optimization for Least Square Problems</a></p>
-
-<h1 id="links">Links</h1>
-
-<p><a href="blog">Blog</a> / <a href="life">Life</a> / <a href="project">Project</a> / <a href="https://scholar.google.com.hk/citations?user=4szsHuQAAAAJ&amp;hl=en">Google scholar</a></p>
-
-<h1 id="publications">Publications</h1>
-
-<h3>2020 &#172;</h3>
-
-<p><strong>Stochastic Bundle Adjustment for Efficient and Scalable 3D Reconstruction</strong>
-[<a href="https://arxiv.org/abs/2008.00446">arxiv</a>][<a href="https://github.com/zlthinker/STBA">github</a>][<a href="https://youtu.be/eHhARE25xx4">video</a>] <br />
-<strong>Lei Zhou</strong>, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan <br />
-<em>European Conference on Computer Vision (ECCV) 2020</em></p>
-
-<p><strong>Learning Discriminative Feature with CRF for Unsupervised Video Object Segmentation</strong> [<a href="https://arxiv.org/abs/2008.01270">arxiv</a>] <br />
-Mingmin Zhen, Shiwei Li, <strong>Lei Zhou</strong>, Jiaxiang Shang, Haoan Feng, Tian Fang, Long Quan <br />
-<em>European Conference on Computer Vision (ECCV) 2020</em></p>
-
-<p><strong>Self-Supervised Monocular 3D Face Reconstruction by Occlusion-Aware Multi-view Geometry Consistency</strong>
-[<a href="https://arxiv.org/abs/2007.12494">arxiv</a>]
-[<a href="https://github.com/jiaxiangshang/MGCNet">github</a>] <br />
-Jiaxiang Shang, Tianwei Shen, Shiwei Li, <strong>Lei Zhou</strong>, Mingmin Zhen, Tian Fang, Long Quan <br />
-<em>European Conference on Computer Vision (ECCV) 2020</em></p>
-
-<p><strong>KFNet: Learning Temporal Camera Relocalization using Kalman Filtering</strong> [<a href="https://arxiv.org/abs/2003.10629">arxiv</a>][<a href="https://github.com/zlthinker/KFNet">github</a>][<a href="./files/KFNet_poster.pdf">poster</a>][<a href="https://youtu.be/3T55iY-EuHw">video</a>] <br />
-<strong>Lei Zhou</strong>, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020</em> <strong>(oral)</strong></p>
-
-<p><strong>D3Feat: Joint Learning of Dense Detection and Description of 3D Local Features</strong> [<a href="https://arxiv.org/pdf/2003.03164.pdf">arxiv</a>][<a href="https://github.com/XuyangBai/D3Feat">github</a>] <br />
-Xuyang Bai, Zixin Luo, <strong>Lei Zhou</strong>, Hongbo Fu, Long Quan, Chiew-Lan Tai <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020</em> <strong>(oral)</strong></p>
-
-<p><strong>ASLFeat: Learning Local Features of Accurate Shape and Localization</strong> [<a href="https://arxiv.org/abs/2003.10071">arxiv</a>][<a href="https://github.com/lzx551402/aslfeat">github</a>]<br />
-Zixin Luo, <strong>Lei Zhou</strong>, Xuyang Bai, Hongkai Chen, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020</em></p>
-
-<p><strong>BlendedMVS: A Large-scale Dataset for Generalized Multi-view Stereo Networks</strong> [<a href="https://arxiv.org/pdf/1911.10127.pdf">arxiv</a>][<a href="https://github.com/YoYo000/BlendedMVS">github</a>] <br />
-Yao Yao, Zixin Luo, Shiwei Li, Jingyang Zhang, Yufan Ren, <strong>Lei Zhou</strong>, Tian Fang, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020</em></p>
-
-<p><strong>Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts</strong> [<a href="https://arxiv.org/pdf/2004.07684.pdf">arxiv</a>] <br />
-Mingmin Zhen, Jinglu Wang, <strong>Lei Zhou</strong>, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020</em></p>
-
-<h3>2019 &#172;</h3>
-
-<p><strong>Learning Two-View Correspondences and Geometry Using Order-Aware Network</strong> [<a href="https://arxiv.org/pdf/1908.04964.pdf">arxiv</a>][<a href="https://github.com/zjhthu/OANet">github</a>] <br />
-Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, <strong>Lei Zhou</strong>, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao <br />
-<em>International Conference on Computer Vision (ICCV) 2019</em></p>
-
-<p><strong>Self-Supervised Learning of Depth and Motion Under Photometric Inconsistency</strong> [<a href="https://arxiv.org/pdf/1909.09115.pdf">arxiv</a>][<a href="https://github.com/hlzz/DeepMatchVO">github</a>] <br />
-Tianwei Shen, Zixin Luo, <strong>Lei Zhou</strong>, Yao Yao, Shiwei Li, Jiahui Zhang, Tian Fang, Long Quan <br />
-<em>International Conference on Computer Vision Workshop (ICCVW) 2019</em></p>
-
-<p><strong>ContextDesc: Local Descriptor Augmentation with Cross-Modality Context</strong> [<a href="https://arxiv.org/pdf/1904.04084.pdf">arxiv</a>][<a href="https://github.com/lzx551402/contextdesc">github</a>] <br />
-Zixin Luo, Tianwei Shen, <strong>Lei Zhou</strong>, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019</em> <strong>(oral)</strong></p>
-
-<p><strong>Learning Fully Dense Neural Networks for Image Semantic Segmentation</strong> [<a href="https://arxiv.org/pdf/1905.08929.pdf">arxiv</a>] <br />
-Mingmin Zhen, Jinglu Wang, <strong>Lei Zhou</strong>, Tian Fang, Long Quan <br />
-<em>Association for the Advancement of Artificial Intelligence (AAAI) 2019</em></p>
-
-<p><strong>Beyond Photometric Loss for Self-Supervised Ego-Motion Estimation</strong> [<a href="https://arxiv.org/pdf/1902.09103.pdf">arxiv</a>][<a href="https://github.com/hlzz/DeepMatchVO">github</a>] <br />
-Tianwei Shen, Zixin Luo, <strong>Lei Zhou</strong>, Hanyu Deng, Runze Zhang, Tian Fang, Long Quan <br />
-<em>International Conference on Robotics and Automation (ICRA) 2019</em></p>
-
-<h3>2018 &#172;</h3>
-
-<p><strong>Learning and Matching Multi-View Descriptors for Registration of Point Clouds</strong> [<a href="https://arxiv.org/abs/1807.05653">arxiv</a>][<a href="./files/eccv2018_supp.pdf">supp</a>][<a href="https://github.com/zlthinker/RMBP">github</a>]<br />
-<strong>Lei Zhou</strong>, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan <br />
-<em>European Conference on Computer Vision (ECCV) 2018</em></p>
-
-<p><strong>GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints</strong> [<a href="https://arxiv.org/abs/1807.06294">arxiv</a>][<a href="https://github.com/lzx551402/geodesc">github</a>] <br />
-Zixin Luo, Tianwei Shen, <strong>Lei Zhou</strong>, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan <br />
-<em>European Conference on Computer Vision (ECCV) 2018</em></p>
-
-<p><strong>Matchable Image Retrieval by Learning from Surface Reconstruction</strong> [<a href="https://arxiv.org/pdf/1811.10343.pdf">arxiv</a>][<a href="https://github.com/hlzz/mirror">github</a>] <br />
-Tianwei Shen, Zixin Luo, <strong>Lei Zhou</strong>, Runze Zhang, Siyu Zhu, Tian Fang, Long Quan <br />
-<em>Asian Conference on Computer Vision (ACCV) 2018</em></p>
-
-<p><strong>Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus</strong> [<a href="./files/distributed_bundle.pdf">pdf</a>] <br />
-Runze Zhang, Siyu Zhu, Tianwei Shen, <strong>Lei Zhou</strong>, Zixin Luo, Tian Fang, Long Quan  <br />
-<em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2018</em></p>
-
-<p><strong>Very Large-Scale Global SfM by Distributed Motion Averaging</strong> [<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Zhu_Very_Large-Scale_Global_CVPR_2018_paper.pdf">pdf</a>]<br />
-Siyu Zhu, Runze Zhang, <strong>Lei Zhou</strong>, Tianwei Shen, Tian Fang, Ping Tan, Long Quan <br />
-<em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018</em></p>
-
-<h3>2017 &#172;</h3>
-
-<p><strong>Progressive Large Scale-Invariant Image Matching in Scale Space</strong> [<a href="./files/iccv2017.pdf">pdf</a>][<a href="https://youtu.be/GXFufpVK-gI">video</a>]<br />
-<strong>Lei Zhou</strong>, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan <br />
-<em>International Conference on Computer Vision (ICCV) 2017</em></p>
-
-<p><strong>Parallel Structure from Motion from Local Increment to Global Averaging</strong> [<a href="./files/parallel_sfm.pdf">arxiv</a>] <br />
-Siyu Zhu, Tianwei Shen, <strong>Lei Zhou</strong>, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan</p>
-
-<h1 id="contact">Contact</h1>
+<h1 id="contact---">Contact   ¬</h1>
 <ul>
   <li>Email: <code class="language-plaintext highlighter-rouge">zlthinker93[at]gmail[dot]com</code></li>
 </ul>
+
+<!-- 
+
+[跟凯撒学领导力](https://zlthinker.github.io/%E8%B7%9F%E5%87%AF%E6%92%92%E5%AD%A6%E9%A2%86%E5%AF%BC%E5%8A%9B)
+
+[我们应该如何筛选自媒体](https://zlthinker.github.io/read-media)
+
+[在西藏，见自己见天地见众生](https://zlthinker.github.io/Tibet)
+
+
+
+[我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
+
+
+
+[人生的杠杆定律(译)](https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B)
+
+
+# Finance
+
+
+
+
+
+# Technical
+
+
+
+[Steps to Setup VPN PPTP Client on CentOS7](https://zlthinker.github.io/Setup-VPN-on-CentOS)
+
+[地理信息系统中的常用坐标系](https://zlthinker.github.io/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB)
+
+
+# Links
+
+[Blog](blog) / [Life](life) / [Project](project) / [Google scholar](https://scholar.google.com.hk/citations?user=4szsHuQAAAAJ&hl=en)
+
+# Publications
+
+<h3>2020 &#172;</h3>
+
+**Stochastic Bundle Adjustment for Efficient and Scalable 3D Reconstruction**
+[[arxiv](https://arxiv.org/abs/2008.00446)][[github](https://github.com/zlthinker/STBA)][[video](https://youtu.be/eHhARE25xx4)] \\
+**Lei Zhou**, Zixin Luo, Mingmin Zhen, Tianwei Shen, Shiwei Li, Zhuofei Huang, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
+**Learning Discriminative Feature with CRF for Unsupervised Video Object Segmentation** [[arxiv](https://arxiv.org/abs/2008.01270)] \\
+Mingmin Zhen, Shiwei Li, **Lei Zhou**, Jiaxiang Shang, Haoan Feng, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
+**Self-Supervised Monocular 3D Face Reconstruction by Occlusion-Aware Multi-view Geometry Consistency**
+[[arxiv](https://arxiv.org/abs/2007.12494)]
+[[github](https://github.com/jiaxiangshang/MGCNet)] \\
+Jiaxiang Shang, Tianwei Shen, Shiwei Li, **Lei Zhou**, Mingmin Zhen, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2020_
+
+**KFNet: Learning Temporal Camera Relocalization using Kalman Filtering** [[arxiv](https://arxiv.org/abs/2003.10629)][[github](https://github.com/zlthinker/KFNet)][[poster](./files/KFNet_poster.pdf)][[video](https://youtu.be/3T55iY-EuHw)] \\
+**Lei Zhou**, Zixin Luo, Tianwei Shen, Jiahui Zhang, Mingmin Zhen, Yao Yao, Tian Fang, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_ **(oral)**
+
+**D3Feat: Joint Learning of Dense Detection and Description of 3D Local Features** [[arxiv](https://arxiv.org/pdf/2003.03164.pdf)][[github](https://github.com/XuyangBai/D3Feat)] \\
+Xuyang Bai, Zixin Luo, **Lei Zhou**, Hongbo Fu, Long Quan, Chiew-Lan Tai \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_ **(oral)**
+
+**ASLFeat: Learning Local Features of Accurate Shape and Localization** [[arxiv](https://arxiv.org/abs/2003.10071)][[github](https://github.com/lzx551402/aslfeat)]\\
+Zixin Luo, **Lei Zhou**, Xuyang Bai, Hongkai Chen, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
+
+**BlendedMVS: A Large-scale Dataset for Generalized Multi-view Stereo Networks** [[arxiv](https://arxiv.org/pdf/1911.10127.pdf)][[github](https://github.com/YoYo000/BlendedMVS)] \\
+Yao Yao, Zixin Luo, Shiwei Li, Jingyang Zhang, Yufan Ren, **Lei Zhou**, Tian Fang, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
+
+**Joint Semantic Segmentation and Boundary Detection using Iterative Pyramid Contexts** [[arxiv](https://arxiv.org/pdf/2004.07684.pdf)] \\
+Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Shiwei Li, Tianwei Shen, Jiaxiang Shang, Tian Fang, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2020_
+
+<h3>2019 &#172;</h3>
+
+**Learning Two-View Correspondences and Geometry Using Order-Aware Network** [[arxiv](https://arxiv.org/pdf/1908.04964.pdf)][[github](https://github.com/zjhthu/OANet)] \\
+Jiahui Zhang, Dawei Sun, Zixin Luo, Anbang Yao, **Lei Zhou**, Tianwei Shen, Yurong Chen, Long Quan, Hongen Liao \\
+_International Conference on Computer Vision (ICCV) 2019_
+
+**Self-Supervised Learning of Depth and Motion Under Photometric Inconsistency** [[arxiv](https://arxiv.org/pdf/1909.09115.pdf)][[github](https://github.com/hlzz/DeepMatchVO)] \\
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Yao Yao, Shiwei Li, Jiahui Zhang, Tian Fang, Long Quan \\
+_International Conference on Computer Vision Workshop (ICCVW) 2019_
+
+**ContextDesc: Local Descriptor Augmentation with Cross-Modality Context** [[arxiv](https://arxiv.org/pdf/1904.04084.pdf)][[github](https://github.com/lzx551402/contextdesc)] \\
+Zixin Luo, Tianwei Shen, **Lei Zhou**, Jiahui Zhang, Yao Yao, Shiwei Li, Tian Fang, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019_ **(oral)**
+
+**Learning Fully Dense Neural Networks for Image Semantic Segmentation** [[arxiv](https://arxiv.org/pdf/1905.08929.pdf)] \\
+Mingmin Zhen, Jinglu Wang, **Lei Zhou**, Tian Fang, Long Quan \\
+_Association for the Advancement of Artificial Intelligence (AAAI) 2019_
+
+**Beyond Photometric Loss for Self-Supervised Ego-Motion Estimation** [[arxiv](https://arxiv.org/pdf/1902.09103.pdf)][[github](https://github.com/hlzz/DeepMatchVO)] \\
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Hanyu Deng, Runze Zhang, Tian Fang, Long Quan \\
+_International Conference on Robotics and Automation (ICRA) 2019_
+
+<h3>2018 &#172;</h3>
+
+**Learning and Matching Multi-View Descriptors for Registration of Point Clouds** [[arxiv](https://arxiv.org/abs/1807.05653)][[supp](./files/eccv2018_supp.pdf)][[github](https://github.com/zlthinker/RMBP)]\\
+**Lei Zhou**, Siyu Zhu, Zixin Luo, Tianwei Shen, Runze Zhang, Mingmin Zhen, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2018_
+
+**GeoDesc: Learning Local Descriptors by Integrating Geometry Constraints** [[arxiv](https://arxiv.org/abs/1807.06294)][[github](https://github.com/lzx551402/geodesc)] \\
+Zixin Luo, Tianwei Shen, **Lei Zhou**, Siyu Zhu, Runze Zhang, Yao Yao, Tian Fang, Long Quan \\
+_European Conference on Computer Vision (ECCV) 2018_
+
+**Matchable Image Retrieval by Learning from Surface Reconstruction** [[arxiv](https://arxiv.org/pdf/1811.10343.pdf)][[github](https://github.com/hlzz/mirror)] \\
+Tianwei Shen, Zixin Luo, **Lei Zhou**, Runze Zhang, Siyu Zhu, Tian Fang, Long Quan \\
+_Asian Conference on Computer Vision (ACCV) 2018_
+
+**Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus** [[pdf](./files/distributed_bundle.pdf)] \\
+Runze Zhang, Siyu Zhu, Tianwei Shen, **Lei Zhou**, Zixin Luo, Tian Fang, Long Quan  \\
+_IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2018_
+
+**Very Large-Scale Global SfM by Distributed Motion Averaging** [[pdf](http://openaccess.thecvf.com/content_cvpr_2018/papers/Zhu_Very_Large-Scale_Global_CVPR_2018_paper.pdf)]\\
+Siyu Zhu, Runze Zhang, **Lei Zhou**, Tianwei Shen, Tian Fang, Ping Tan, Long Quan \\
+_IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2018_
+
+<h3>2017 &#172;</h3>
+
+**Progressive Large Scale-Invariant Image Matching in Scale Space** [[pdf](./files/iccv2017.pdf)][[video](https://youtu.be/GXFufpVK-gI)]\\
+**Lei Zhou**, Siyu Zhu, Tianwei Shen, Jinglu Wang, Tian Fang, Long Quan \\
+_International Conference on Computer Vision (ICCV) 2017_
+
+**Parallel Structure from Motion from Local Increment to Global Averaging** [[arxiv](./files/parallel_sfm.pdf)] \\
+Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
+--->
+
 
 
 </article>

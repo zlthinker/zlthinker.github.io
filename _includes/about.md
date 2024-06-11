@@ -1,9 +1,165 @@
-# About
+# About &#172;
 
-A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
+<style>
+  .content {
+    line-height: 1.8; /* Adjust the value to get the desired line spacing */
+  }
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; /* Make the container take up the full height of the viewport */
+    text-align: center; /* Center the text within the container */
+  }
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  .container img {
+    margin-right: 40px;
+    border-radius: 15%; /* To make the image round */
+    width: 130px;
+    height: 130px;
+  }
+  .container div {
+    flex: 1;
+  }
+  .post-date {
+        float: right;
+        margin: 0 0 0 20px;
+      }
+span {
+    display: inline-block;
+    color: #757575;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    }
+    .article-list {
+    list-style-type: none; /* Remove bullets*/
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    .article-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    /* border-bottom: 1px solid #ddd; */
+    }
+    .article-title {
+    /* text-decoration: none;
+    color: #000;
+    flex-grow: 1; */
+    }
+    .article-title:hover {
+    text-decoration: none; /* Underline on hover */
+    }
+    .image-caption {
+        margin-top: 8px; /* Adds some space between the image and the caption */
+        font-size: 12px;
+        text-align: center;
+        color: #777;
+        text-transform: uppercase; /* Makes the text capitalized */
+        font-style: italic; /* Makes the text italic */
+        a {
+          border: none;
+          font-weight: bold;
+        }
+    }
+</style>
+
+<div class="container">
+  <img src="{{ '/images/3dgs_Lei.jpg' | relative_url }}" alt="Your Avatar">
+  <div class="content">
+    Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
+    I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training, to create a virtual world with the best quality for everyone. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a> <strong>&#8801;</strong> .
+  </div>
+</div>
 
 
-# 随思随想
+# Blog &#172;
+
+<figure class="image-container">
+        <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;">
+        <figcaption class="image-caption">To me, writing is thinking in tokens.</figcaption>
+</figure>
+
+### AI & ML &#8801;
+
+<ul class="article-list">
+        <li class="article-item">
+            <a href="what-can-we-learn-from-LLM.html" class="article-title">What Can We Learn from LLM? Self-Supervised Learning</a>
+            <span class="post-date">2024-06-06</span>
+        </li>
+        <li class="article-item">
+            <a href="diffusion-model.html" class="article-title">Diffusion Model In Essence</a>
+            <span class="post-date">2023-03-06</span>
+        </li>
+        <li class="article-item">
+            <a href="optimization-for-least-square-problem.html" class="article-title">Optimization for Least Square Problems</a>
+            <span class="post-date">2018-04-22</span>
+        </li>
+    </ul>
+
+
+
+### Investment &#8801;
+
+<ul class="article-list">
+        <li class="article-item">
+            <a href="TSM.html" class="article-title">AI投资指南 -- 台积电</a>
+            <span class="post-date">2023-07-26</span>
+        </li>
+        <li class="article-item">
+            <a href="NVDA.html" class="article-title">AI投资指南 -- 英伟达</a>
+            <span class="post-date">2023-06-02</span>
+        </li>
+        <li class="article-item">
+            <a href="MSFT.html" class="article-title">Microsoft, 一只再生的水母</a>
+            <span class="post-date">2022-10-06</span>
+        </li>
+        <li class="article-item">
+            <a href="AMD.html" class="article-title">AMD，给后进生的掌声</a>
+            <span class="post-date">2022-06-03</span>
+        </li>
+        <li class="article-item">
+            <a href="Nike.html" class="article-title">Nike的独立宣言</a>
+            <span class="post-date">2022-03-16</span>
+        </li>
+        <li class="article-item">
+            <a href="%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97.html" class="article-title">元宇宙是一个buzzword吗? 谈谈Facebook</a>
+            <span class="post-date">2022-01-07</span>
+        </li>
+        <li class="article-item">
+            <a href="%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88.html" class="article-title">当我投资苹果，我在投资什么?</a>
+            <span class="post-date">2021-12-25</span>
+        </li>
+        <li class="article-item">
+            <a href="%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8.html" class="article-title">投资者与市场波动(译)</a>
+            <span class="post-date">2021-11-23</span>
+        </li>
+    </ul>
+
+### Misc &#8801;
+
+
+<ul class="article-list">
+        <li class="article-item">
+            <a href="%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD.html" class="article-title">俄罗斯的宿命:西方的铁蹄和南方的海风</a>
+            <span class="post-date">2022-02-26</span>
+        </li>
+        <li class="article-item">
+            <a href="%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86.html" class="article-title">玉娇龙与第一性原理</a>
+            <span class="post-date">2021-05-26</span>
+        </li>
+        
+    </ul>
+
+# Contact   &#172;
+* Email: `zlthinker93[at]gmail[dot]com`
+
+<!-- 
 
 [跟凯撒学领导力](https://zlthinker.github.io/%E8%B7%9F%E5%87%AF%E6%92%92%E5%AD%A6%E9%A2%86%E5%AF%BC%E5%8A%9B)
 
@@ -11,44 +167,29 @@ A PhD / An Engineer / An Investor / A Dog Lover / A Life-long Learner
 
 [在西藏，见自己见天地见众生](https://zlthinker.github.io/Tibet)
 
-[俄罗斯的宿命:西方的铁蹄和南方的海风](https://zlthinker.github.io/%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD)
+
 
 [我们终将被王力宏事件抹平](https://zlthinker.github.io/%E6%88%91%E4%BB%AC%E7%BB%88%E5%B0%86%E8%A2%AB%E7%8E%8B%E5%8A%9B%E5%AE%8F%E4%BA%8B%E4%BB%B6%E6%8A%B9%E5%B9%B3)
 
-[玉娇龙与第一性原理](https://zlthinker.github.io/%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86)
+
 
 [人生的杠杆定律(译)](https://zlthinker.github.io/%E4%BA%BA%E7%94%9F%E7%9A%84%E6%9D%A0%E6%9D%86%E5%AE%9A%E5%BE%8B)
 
 
 # Finance
 
-[亚洲第一市值 -- 台积电](https://zlthinker.github.io/TSM)
 
-[AI投资指南 -- 英伟达](https://zlthinker.github.io/NVDA)
-
-[Microsoft, 一只再生的水母](https://zlthinker.github.io/MSFT)
-
-[AMD，给后进生的掌声](https://zlthinker.github.io/AMD)
-
-[Nike的独立宣言](https://zlthinker.github.io/Nike)
-
-[元宇宙是一个buzzword吗? 谈谈Facebook](https://zlthinker.github.io/%E5%85%83%E5%AE%87%E5%AE%99%E6%98%AF%E4%B8%80%E4%B8%AAbuzzword%E5%90%97)
-
-[当我投资苹果，我在投资什么?](https://zlthinker.github.io/%E5%BD%93%E6%88%91%E6%8A%95%E8%B5%84%E8%8B%B9%E6%9E%9C%E6%88%91%E5%9C%A8%E6%8A%95%E8%B5%84%E4%BB%80%E4%B9%88)
-
-[投资者与市场波动(译)](https://zlthinker.github.io/%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8)
 
 
 
 # Technical
 
-[Diffusion Model In Essence](https://zlthinker.github.io/diffusion-model)
+
 
 [Steps to Setup VPN PPTP Client on CentOS7](https://zlthinker.github.io/Setup-VPN-on-CentOS)
 
 [地理信息系统中的常用坐标系](https://zlthinker.github.io/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%9D%90%E6%A0%87%E7%B3%BB)
 
-[Optimization for Least Square Problems](https://zlthinker.github.io/optimization-for-least-square-problem)
 
 # Links
 
@@ -145,7 +286,6 @@ _International Conference on Computer Vision (ICCV) 2017_
 
 **Parallel Structure from Motion from Local Increment to Global Averaging** [[arxiv](./files/parallel_sfm.pdf)] \\
 Siyu Zhu, Tianwei Shen, **Lei Zhou**, Runze Zhang, Jinglu Wang, Tian Fang, Long Quan
+--->
 
 
-# Contact
-* Email: `zlthinker93[at]gmail[dot]com`
