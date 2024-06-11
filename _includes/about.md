@@ -70,7 +70,7 @@ span {
 </style>
 
 <div class="container">
-  <img src="{{ '/images/3dgs_Lei.jpg' | relative_url }}" alt="Your Avatar">
+  <img src="/images/3dgs_Lei.jpg" alt="Your Avatar">
   <div class="content">
     Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
     I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training, to create a virtual world with the best quality for everyone. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a> <strong>&#8801;</strong> .
