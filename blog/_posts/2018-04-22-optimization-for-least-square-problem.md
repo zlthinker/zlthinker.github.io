@@ -53,7 +53,10 @@ The update step is explicitly written as
 $$\mathbf{x}_{t+1} = \mathbf{x}_{t} - \left[ F'(\mathbf{x}_{t})^T F'(\mathbf{x}_{t}) \right]^{-1} F'(\mathbf{x}_{t})^T F(\mathbf{x}_{t}) \equiv \mathbf{x}_t + \mathbf{h}. $$
 
 
-![Minion](../images/newton's_method.png)
+<p align="center">
+<img src="/images/newton's_method.png" alt="Minion" style="border-radius:15px; width: 450px;"/>
+</p>
+
 
 
 **Connection between Newton's method and optimization.** Newton's method can also be used as a **descent method** for iterative non-linear optimization: from a starting point $$\mathbf{x}_0$$ it produces a series of vectors $$..., \mathbf{x}_t, \mathbf{x}_{t+1},...$$ which (hopefully) converges to $$\mathbf{x}^*$$, a local stationary minimizer for the given function $$F(\mathbf{x})$$. Since $$\mathbf{x}^*$$ is a stationary point, it satisfies $$F'(\mathbf{x}^*) = 0$$. Similarly, we have
@@ -345,27 +348,25 @@ Therefore, the covariance of $$\mathbf{\epsilon}$$, $$C(\mathbf{\epsilon}) = \ma
 
 [12] [A review of trust region algorithms for optimization](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=529D7253336A1821EEEF6D617FDF0A06?doi=10.1.1.45.9964&rep=rep1&type=pdf)
 
-Bundle Adjustment
+[13] [Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
 
-[Pushing the Envelope of Modern Methods for Bundle Adjustment](https://www.microsoft.com/en-us/research/wp-content/uploads/2012/08/Jeong-PAMI12.pdf)
+[14] [Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)
 
-[Bundle Adjustment in the Large](https://homes.cs.washington.edu/~sagarwal/bal.pdf)
+[15] [Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf)
 
-[Visibility Based Preconditioning for Bundle Adjustment](https://homes.cs.washington.edu/~sagarwal/vbp.pdf)
+[16] [Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus](https://zlthinker.github.io/files/distributed_bundle.pdf)
 
-[Distributed Very Large Scale Bundle Adjustment by Global Camera Consensus](https://zlthinker.github.io/files/distributed_bundle.pdf)
+[17] [A Consensus-Based Framework for Distributed Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2016/papers/Eriksson_A_Consensus-Based_Framework_CVPR_2016_paper.pdf)
 
-[A Consensus-Based Framework for Distributed Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2016/papers/Eriksson_A_Consensus-Based_Framework_CVPR_2016_paper.pdf)
+[18] [pOSE: Pseudo Object Space Error for Initialization-Free Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2018/papers/Hong_pOSE_Pseudo_Object_CVPR_2018_paper.pdf)
 
-[pOSE: Pseudo Object Space Error for Initialization-Free Bundle Adjustment](http://openaccess.thecvf.com/content_cvpr_2018/papers/Hong_pOSE_Pseudo_Object_CVPR_2018_paper.pdf)
+[19] [ICE-BA: Incremental, Consistent and Efficient Bundle Adjustment for Visual-Inertial SLAM](http://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_ICE-BA_Incremental_Consistent_CVPR_2018_paper.pdf)
 
-[ICE-BA: Incremental, Consistent and Efficient Bundle Adjustment for Visual-Inertial SLAM](http://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_ICE-BA_Incremental_Consistent_CVPR_2018_paper.pdf)
+[20] [Is Levenberg-Marquardt the Most Efficient Optimization Algorithm for Implementing Bundle Adjustment?](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
 
-[Is Levenberg-Marquardt the Most Efficient Optimization Algorithm for Implementing Bundle Adjustment?](https://www.ics.forth.gr/_publications/0201-P0401-lourakis-levenberg.pdf)
+[21] [Sparse bundle adjustment](http://users.ics.forth.gr/~lourakis/sba/sba-toms.pdf)
 
-[Sparse bundle adjustment](http://users.ics.forth.gr/~lourakis/sba/sba-toms.pdf)
+[22] [Sparse sparse bundle adjustment](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.604.5805&rep=rep1&type=pdf)
 
-[Sparse sparse bundle adjustment](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.604.5805&rep=rep1&type=pdf)
-
-[Multicore Bundle Adjustment](http://grail.cs.washington.edu/projects/mcba/pba.pdf)
+[23] [Multicore Bundle Adjustment](http://grail.cs.washington.edu/projects/mcba/pba.pdf)
 

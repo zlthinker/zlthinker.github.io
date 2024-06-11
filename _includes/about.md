@@ -16,10 +16,10 @@
     align-items: center;
   }
   .container img {
-    margin-right: 40px;
-    border-radius: 15%; /* To make the image round */
-    width: 130px;
-    height: 130px;
+    margin-right: 30px;
+    border-radius: 30px; /* To make the image round */
+    width: 150px;
+    height: 150px;
   }
   .container div {
     flex: 1;
@@ -73,7 +73,7 @@ span {
   <img src="/images/3DGS_Lei.jpg" alt="Your Avatar">
   <div class="content">
     Hi, I'm Lei Zhou, a machine learning engineer working in Apple since 2020. 
-    I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training, to create a virtual world with the best quality for everyone. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a> <strong>&#8801;</strong> .
+    I am interested in 3D learning tasks related with multi-view geometry, 3D reconstruction, volumetric video and large model training. I enjoy travelling and creation as well. My passion is to make the splendor of the world accessible to everyone through virtual reality. Know me more from the links: <a href="https://scholar.google.com/citations?user=4szsHuQAAAAJ&hl=zh-CN">Google Scholar</a> / <a href="https://www.instagram.com/zl_thinker/">Instagram</a> / <a href="https://www.linkedin.com/in/lei-zhou-838b21126/">LinkedIn</a>. <strong>&#8801;</strong>
   </div>
 </div>
 
@@ -95,6 +95,10 @@ span {
         <li class="article-item">
             <a href="diffusion-model.html" class="article-title">Diffusion Model In Essence</a>
             <span class="post-date">2023-03-06</span>
+        </li>
+        <li class="article-item">
+            <a href="vio-slam.html" class="article-title">VIO SLAM</a>
+            <span class="post-date">2020-04-10</span>
         </li>
         <li class="article-item">
             <a href="optimization-for-least-square-problem.html" class="article-title">Optimization for Least Square Problems</a>
