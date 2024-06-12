@@ -86,6 +86,38 @@ span {
         .content {
             overflow: hidden; /* Clear floats */
         }
+  .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Space between gallery items */
+            justify-content: center; /* Center the gallery */
+        }
+
+        .gallery-item {
+            position: relative;
+            width: calc(33.3333% - 20px); /* Three items per row, adjust as needed */
+            padding-top: calc(38% - 12px); /* Ensures square aspect ratio */
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 10px; /* Rounded corners */
+            margin-bottom: 10px;
+        }
+
+        .gallery-item img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container */
+            transform: translate(-50%, -50%);
+            border-radius: 10px; /* Apply rounded corners to images */
+            transition: transform 0.2s ease; /* Smooth transition */
+        }
+
+        .gallery-item img:hover {
+            transform: translate(-50%, -50%) scale(1.05); /* Slight zoom on hover */
+        }
 </style>
 
 <div class="content">
@@ -101,6 +133,7 @@ span {
         </div>
     </div>
 
+<div class="divider"></div>
 
 # Blog &#172;
 
@@ -127,6 +160,18 @@ span {
         <li class="article-item">
             <a href="optimization-for-least-square-problem.html" class="article-title">Optimization for Least Square Problems</a>
             <span class="post-date">2018-04-22</span>
+        </li>
+        <li class="article-item">
+            <a href="conditional-random-field.html" class="article-title">Conditional Random Field</a>
+            <span class="post-date">2017-07-18</span>
+        </li>
+        <li class="article-item">
+            <a href="belief-propagation.html" class="article-title">Belief Propagation</a>
+            <span class="post-date">2017-06-19</span>
+        </li>
+        <li class="article-item">
+            <a href="Markov-Random-Field.html" class="article-title">Markov Random Field</a>
+            <span class="post-date">2017-06-01</span>
         </li>
     </ul>
 
@@ -183,6 +228,50 @@ span {
         </li>
         
     </ul>
+
+<div class="divider"></div>
+
+# Gallery   &#172;
+
+<figure class="image-container">
+        <!-- <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;"> -->
+        <figcaption class="image-caption">I am an enthusiastic iphone photographer. Lens is my weapon against time.</figcaption>
+</figure>
+
+<body>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="/images/photography/tibet-glacier.jpg" alt="Photo 1" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/tibet-monk.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/tibet-prayer.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/back-white-nile.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/black-white-girl.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/black-white-pointer.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/people-blue.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/people-bankok.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <div class="gallery-item">
+            <img src="/images/photography/people-greece.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+        <!-- Add more gallery items as needed -->
+    </div>
+</body>
+
+<div class="divider"></div>
 
 # Contact   &#172;
 * Email: `zlthinker93[at]gmail[dot]com`
