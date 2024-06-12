@@ -235,21 +235,31 @@ span {
 
 <figure class="image-container">
         <!-- <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;"> -->
-        <figcaption class="image-caption">I am an enthusiastic iphone photographer. Lens is my weapon against time.</figcaption>
+        <figcaption class="image-caption">/ Pattern Finder /</figcaption>
 </figure>
 
 <body>
     <div class="gallery">
         <div class="gallery-item">
-            <img src="/images/photography/tibet-glacier.jpg" alt="Photo 1" class="gallery-image">
+            <img src="/images/photography/pattern-1.jpg" alt="Photo 1" class="gallery-image">
         </div>
         <div class="gallery-item">
-            <img src="/images/photography/tibet-monk.jpg" alt="Photo 2" class="gallery-image">
+            <img src="/images/photography/pattern-2.jpg" alt="Photo 2" class="gallery-image">
         </div>
         <div class="gallery-item">
-            <img src="/images/photography/tibet-prayer.jpg" alt="Photo 2" class="gallery-image">
+            <img src="/images/photography/pattern-3.jpg" alt="Photo 2" class="gallery-image">
         </div>
-        <div class="gallery-item">
+    </div>
+</body>
+
+<figure class="image-container">
+        <!-- <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;"> -->
+        <figcaption class="image-caption">/ Grayscale /</figcaption>
+</figure>
+
+<body>
+<div class="gallery">
+    <div class="gallery-item">
             <img src="/images/photography/back-white-nile.jpg" alt="Photo 2" class="gallery-image">
         </div>
         <div class="gallery-item">
@@ -258,17 +268,27 @@ span {
         <div class="gallery-item">
             <img src="/images/photography/black-white-pointer.jpg" alt="Photo 2" class="gallery-image">
         </div>
-        <div class="gallery-item">
-            <img src="/images/photography/people-blue.jpg" alt="Photo 2" class="gallery-image">
+        </div>
+</body>
+
+
+<figure class="image-container">
+        <!-- <img src="/images/painting/book-wave.jpg" alt="writing" style="border-radius:5%; width: 110px;"> -->
+        <figcaption class="image-caption">/ Culture /</figcaption>
+</figure>
+
+<body>
+<div class="gallery">
+    <div class="gallery-item">
+            <img src="/images/photography/culture-1.jpg" alt="Photo 2" class="gallery-image">
         </div>
         <div class="gallery-item">
-            <img src="/images/photography/people-bankok.jpg" alt="Photo 2" class="gallery-image">
+            <img src="/images/photography/culture-2.jpg" alt="Photo 2" class="gallery-image">
         </div>
         <div class="gallery-item">
-            <img src="/images/photography/people-greece.jpg" alt="Photo 2" class="gallery-image">
+            <img src="/images/photography/culture-3.jpg" alt="Photo 2" class="gallery-image">
         </div>
-        <!-- Add more gallery items as needed -->
-    </div>
+        </div>
 </body>
 
 <div class="divider"></div>
