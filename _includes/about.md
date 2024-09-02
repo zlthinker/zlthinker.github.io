@@ -209,7 +209,7 @@ span {
             <span class="post-date">2021-12-25</span>
         </li>
         <li class="article-item">
-            <a href="%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8.html" class="article-title">投资者与市场波动(译)</a>
+            <a href="%E6%8A%95%E8%B5%84%E8%80%85%E4%B8%8E%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8.html" class="article-title">投资者与市场波动 (译)</a>
             <span class="post-date">2021-11-23</span>
         </li>
     </ul>
@@ -225,6 +225,10 @@ span {
         <li class="article-item">
             <a href="%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86.html" class="article-title">玉娇龙与第一性原理</a>
             <span class="post-date">2021-05-26</span>
+        </li>
+        <li class="article-item">
+            <a href="anxiety.html" class="article-title">The Anxiety of Existence (译)</a>
+            <span class="post-date">2024-09-01</span>
         </li>
         
     </ul>
