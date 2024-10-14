@@ -214,6 +214,27 @@ span {
         </li>
     </ul>
 
+### Philosophy &#8801;
+
+<ul class="article-list">
+        <li class="article-item">
+            <a href="anxiety-by-Nietzsche.html" class="article-title">Anxiety by Nietzsche</a>
+            <span class="post-date">2024-10-14</span>
+        </li>
+        <li class="article-item">
+            <a href="anxiety.html" class="article-title">The Anxiety of Existence (译)</a>
+            <span class="post-date">2024-09-01</span>
+        </li>
+        <li class="article-item">
+            <a href="%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86.html" class="article-title">玉娇龙与第一性原理</a>
+            <span class="post-date">2021-05-26</span>
+        </li>
+        
+    </ul>
+
+<div class="divider"></div>
+
+
 ### Misc &#8801;
 
 
@@ -222,15 +243,6 @@ span {
             <a href="%E4%BF%84%E7%BD%97%E6%96%AF%E7%9A%84%E5%AE%BF%E5%91%BD.html" class="article-title">俄罗斯的宿命:西方的铁蹄和南方的海风</a>
             <span class="post-date">2022-02-26</span>
         </li>
-        <li class="article-item">
-            <a href="%E7%8E%89%E5%A8%87%E9%BE%99%E4%B8%8E%E7%AC%AC%E4%B8%80%E6%80%A7%E5%8E%9F%E7%90%86.html" class="article-title">玉娇龙与第一性原理</a>
-            <span class="post-date">2021-05-26</span>
-        </li>
-        <li class="article-item">
-            <a href="anxiety.html" class="article-title">The Anxiety of Existence (译)</a>
-            <span class="post-date">2024-09-01</span>
-        </li>
-        
     </ul>
 
 <div class="divider"></div>
