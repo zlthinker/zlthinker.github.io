@@ -3,6 +3,9 @@ title: Anxiety by Nietzsche
 updated: 2024-10-11 20:00
 ---
 
+  *When reading the book "Anxiety" by Samir Chopra, I encountered this chapter of Nietzsche's interpreting of anxiety from the perspective of social normals and moralities. It is such an introspective piece that encourages self-reflection.*
+
+<div class="divider"></div>
 
 <span style="background-color: yellow;">Nietzsche considered our anxiety to arise from our attempts to be someone other than what we are, selfless bundles of perpetual becoming</span> -— a theoretical view that curiously and ironically aligns his theses with central Buddhist claims. It was this failure of self-acceptance, this inability to take on the world with an optimistic pessimism, that was the ground of our anxiety, that turned us into timorous, cowering cowards, beaten down by that which we could neither change nor accept through the construction of a uniquely personal perspective on life that made this world’s demands tractable. Nietzsche bade us love our fates, calling out to anyone who would listen that we must accept our identities, our stations in life, our anxieties, as parts of ourselves; by accepting the lessons of the classical Greek tragedies, which, he suggested, expressed a stirring defiance in the face of this world's unsparing requirements, we could acknowledge this world’s horrors unflinchingly and find within them the means to confront existence’s insuperable challenges. In doing so we could find a means of overcoming ourselves, the greatest task of all.
 
