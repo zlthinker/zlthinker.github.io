@@ -7,44 +7,60 @@ category: blog
 * TOC
 {:toc}
 
-Recently I have been reading a bunch of multi-modality related papers, which clearly show the trend of network design that we have witnessed from GPT-2 to GPT-4: the network becomes simpler as transformer blocks, more unified and end-to-end with less and less inductive bias human injected. Most importantly, the networks become more versatile, in terms of the flexibility of taking in and giving all forms of inputs and outputs, and performing multiple tasks. 
+Recent advancements in multi-modality neural networks reflect a clear trend in network design, as observed from GPT-2 to GPT-4: networks are becoming increasingly simpler, more unified, and end-to-end, with less human-injected inductive bias. Crucially, these networks are now far more versatile, capable of accepting and producing various forms of input and output, and performing multiple tasks simultaneously.
 
-The number of jobs a single network can support actually grows exponentially instead of linearly as the network is capable of more tasks, since a job is composed of multiple tasks depending on its complexity. Ideally the formula is $$N_{jobs} = 2^{N_{tasks}} - 1$$. The growing versability of current neural networks is why people find hope for AGI. One day when a network can do as many tasks as human, there is no reason not saying AGI has come.
+The versatility of a single network grows exponentially rather than linearly with the number of tasks it can handle. This is because a "job" often comprises multiple tasks of varying complexity. Ideally, the number of jobs a network can perform is expressed as $$N_{jobs} = 2^{N_{tasks}} - 1$$. This exponential growth in capability is fueling optimism about achieving Artificial General Intelligence (AGI). If a network can perform as many tasks as a human, there will be little reason to deny the arrival of AGI.
 
-The papers I have read are 
-* MovieGen for video generation,
-* PaliGemma for vision language reasoning,
-* Moshi for chatting,
-* OCR 2.0 for OCR tasks, and
-* EMMA for self-driving.
-
-Each of the network has unified the I/O formats and similar subtasks in their domains using the techniques that we are going to talk about in the rest of the writing. 
+Here are some groundbreaking papers I’ve reviewed that highlight these trends:
+* MovieGen for video generation
+* PaliGemma for vision-language reasoning
+* Moshi for conversational AI
+* OCR 2.0 for OCR tasks
+* EMMA for autonomous driving
+  
+These networks unify input/output formats and streamline similar subtasks within their domains using techniques that I’ll explore below.
 
 
 ### Tokenize Everything
 
-The first step of getting a versatile network is to make it compatible with different data modalities and formats. Actually the data we human process everyday comes in so many shapes that even ourselves fail to realize it. Recent papers have already been able to handle data like text, image, video, audio, bounding box, segmentation, table, chart, math formula and so on through tokenization. These tokens have become the "language" that transformers can process, understand and learn their patterns and relations.
+The first step to building a versatile network is ensuring compatibility with various data modalities and formats. Humans process data in numerous forms—text, images, video, audio, and more—often without recognizing its diversity. Similarly, recent models tokenize these data types, converting them into a universal "language" that transformers can process, understand, and learn from.
 
-Each modality of data has its special way of tokenization. For example, MoveiGen controls the FPS of the output video by using the text token of "FPS-16". PaliGemma uses 1024 location tokens for binned normalized image coordinates of bounding boxes, and 128 mask tokens for segmentation. Moshi converts audio segments into tokens through neural audio codec. EMMA still uses plain text tokens even for waypoint coordinates.
+#### Modality-Specific Tokenization
 
-Some tokenizers rely on manually designed algorithms such as SentencePiece for texts, while the others like speech, images and videos use learnable tokens. Actually the efficiency of a tokenizer is very important to model performance. As said by [Llama 3 technical report](https://ai.meta.com/blog/meta-llama-3/), using a more efficient tokenizer has boosted the model performance subtantially.
+Each data modality has its unique tokenization approach:
+* MovieGen controls output video FPS by using text tokens like "FPS-16."
+* PaliGemma employs 1,024 location tokens for normalized image coordinates of bounding boxes and 128 mask tokens for segmentation.
+* Moshi encodes audio segments as tokens using a neural audio codec.
+* EMMA uses plain text tokens, even for representing waypoint coordinates.
+  
+Some tokenizers, like SentencePiece for text, are manually designed, while others, such as those for speech, images, and videos, are learnable. Notably, tokenizer efficiency significantly impacts model performance. For instance, the Llama 3 technical report highlighted a substantial performance boost from improved tokenization.
 
-Since almost all the data are structured, positional embedding usually comes with tokenization to encode the positional information of individual tokens. Particularly, for the data with higher dimentions, keeping the structural information lossless is more critical than 1D sequential data.
-In MovieGen, the embeddings are learned separately for spatial dimensions H, W and temporal dimension T. In 3D tasks, there are dedicated embedders for encoding the geometries. For example, Plucker corodinates are used to encode the camera rays ([Camera As Rays](https://arxiv.org/pdf/2402.14817)) and camera intrinsics embedding can be learned through linear layers ().
+#### Positional Embedding for Structured Data
 
-Considering the trends that are going on, it can be foreseen that all the anylitical signals and sensory information in the world can be tokenized on some day and all the tokens can be connected by attention mechanism of trasformer networks. It is like a compiler that translate the information that are understandable (or even not) to we huamns into those understandable by networks. 
+Since most data has structure, positional embeddings are used to encode the spatial or temporal relationships of tokens. This is particularly critical for higher-dimensional data:
 
-### Multi-tasking and end-to-end
+MovieGen learns separate embeddings for spatial dimensions (H, W) and the temporal dimension (T).
+3D tasks utilize specialized embeddings, such as Plücker coordinates for encoding camera rays, or learn camera intrinsic embeddings via linear layers.
+As tokenization continues to advance, it’s foreseeable that all analytical signals and sensory information could be tokenized and interconnected through transformer attention mechanisms. This process resembles a compiler translating human-understandable information into a format comprehensible by neural networks.
 
-The characteristics of these multimodality networks are their being multi-tasking and end-to-end. It is a big advancement in versatility compared with previous methods which can only tackle a single step per network. 
+### Multi-Tasking and End-to-End Learning
 
-Benefiting from tokenization mentioned above, many of the tasks can be formulated as "predicting the next token". In this way, the networks can perform different tasks in the same forward pass and be trained in the same backward pass. It's analogous to human's brain that different neurons will be activated by different tasks while without changing the architecture. 
+Modern multi-modality networks stand out for their multi-tasking capabilities and end-to-end frameworks. These characteristics mark a significant leap in versatility compared to earlier single-task methods.
 
-First of all, the network can be trained by the combination of datasets from differnt domains that used to be leveraged separately. For example, OCR-2.0 is trained with not just the plain OCR data but also math formulas, molecular formulas, tables, charts, sheet music and geometry shapes.
+#### Unified Task Formulation
 
-Second, different objectives can be combined together in training to enable multi-task learning. It is the same thing as a student taking courses of different subjects in a school day. PaliGemma is quite obvious in this as it is trained with tasks including captioning, QA, OCR, detection and segmentation.
+Tokenization allows many tasks to be reformulated as "predicting the next token." This enables networks to handle different tasks in a single forward pass and train them simultaneously in a single backward pass. Analogous to the human brain, different neurons are activated by different tasks without altering the overall architecture.
 
-On the other hand, an end-to-end network is proved to be a trend as long as training data is sufficient. As being end-to-end, the network is easier to scale up and develop more powerful generalisation capability than a pipeline of several networks. For example, an OCR system used to integrate together networks such as layout analysis, text detection, region extraction and contents recognition, which involves too much inductive bias. As a comparison, OCR-2.0 possesses a end-to-end framework that can generalize across different tasks, and can be further trained as the data grows.
+* Cross-Domain Training: Networks like OCR 2.0 are trained on diverse datasets, combining plain OCR data with math and molecular formulas, tables, charts, sheet music, and geometric shapes.
+* Multi-Objective Training: Similar to students taking courses in multiple subjects, networks like PaliGemma combine tasks such as captioning, QA, OCR, detection, and segmentation during training.
+
+#### The End-to-End Advantage
+
+End-to-end architectures demonstrate superior scalability and generalization compared to pipeline approaches. For example:
+* Traditional OCR systems rely on a sequence of networks (layout analysis, text detection, region extraction, content recognition), where the weakest link can bottleneck performance.
+* OCR 2.0, in contrast, employs an end-to-end framework capable of generalizing across tasks and improving as more data becomes available.
+
+End-to-end systems eliminate intermediate bottlenecks, simplify scaling, and enable seamless integration of additional capabilities, making them a cornerstone of next-generation AI models.
 
 
 
