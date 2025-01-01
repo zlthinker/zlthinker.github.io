@@ -146,6 +146,10 @@ span {
 
 <ul class="article-list">
         <li class="article-item">
+            <a href="what-can-we-learn-from-LLM-versatility.html" class="article-title">What Can We Learn from LLM? Versatility</a>
+            <span class="post-date">2024-07-07</span>
+        </li>
+        <li class="article-item">
             <a href="what-can-we-learn-from-LLM.html" class="article-title">What Can We Learn from LLM? Self-Supervised Learning</a>
             <span class="post-date">2024-06-06</span>
         </li>

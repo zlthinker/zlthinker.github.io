@@ -60,12 +60,15 @@ End-to-end architectures demonstrate superior scalability and generalization com
 * Traditional OCR systems rely on a sequence of networks (layout analysis, text detection, region extraction, content recognition), where the weakest link can bottleneck performance.
 * OCR 2.0, in contrast, employs an end-to-end framework capable of generalizing across tasks and improving as more data becomes available.
 
-End-to-end systems eliminate intermediate bottlenecks, simplify scaling, and enable seamless integration of additional capabilities, making them a cornerstone of next-generation AI models.
+End-to-end systems eliminate intermediate bottlenecks, simplify scaling, and enable seamless integration of additional capabilities. This is particularly successful in Full Self Driving (FSD). As uncovered by EMMA, the system can directly map the raw camera sensor data to planner trajectories without any intermediate steps. The network has the poly-intellegence such as spatial reasoning, road comprehension and scene understanding to solve the complex driving task in end-to-end fashion.
 
 
 
 ### Data Strategy & Training Recipe
 
+While the network architecture nowadays becomes very simple, the data strategy and the accompanying training recipe become increasingly complex and rely heavily on experience. It’s like a seesaw: when one side goes down, the other inevitably rises.
+
+Below chart is an example of the flow of training a LLM. Each step has its own data strategy and training recipe. Pretraining uses **a massive amount of raw Internet data** through a variety of tasks and advocates the model generalisation through data diversity. Afterwards, supervised finetuning (SFT) uses **a small amount of high-quality data** to boost the model quality usually within a specific task. Lastly, a reward model is trained to identify good or bad outputs with human feadback to enable reinforcement learning so that the model outputs will be more aligned with human preferences. As you can see, a number of steps are chained together to maximize the quality of the final outputs. Each step requires specific data strategies and training expertises that are also borrowed by training multi-modality neural networks.
 
 <p align="center">
 <img src="/images/LLM-Data/LLM-stages.png" alt="LLM-stages" style="border-radius:15px; width: 800px;"/>
@@ -73,6 +76,28 @@ End-to-end systems eliminate intermediate bottlenecks, simplify scaling, and ena
 <p align="center">
 <span class="footer"> <i> The training phases of LLM </i></span>
 </p>
+
+**Data quality is equally important.** Training a large network nowadays requires an unmatched amount of data compared with before. While the data scale is widely recognized, data quality is equally important as demonstrated by all the papers. A large-scale but contaminated dataset is a worse choice than a smaller-scale but well-curated dataset. It is the logic of gold-in-gold-out. To ensure the data quality, data filtering, curation, cleaning, deduplication, resampling and toxicity checking are all necessary. In MovieGen, the details of filtering video data has been revealed in detail. It has a visual filter to avoid texts and scene changes, a motion filter to remove static or jittery cameras and a content filter to do deduplication and resampling.
+
+
+<p align="center">
+<img src="/images/LLM-Data/MovieGen-data-curation.png" alt="MovieGen-data-curation" style="border-radius:15px; width: 800px;"/>
+</p>
+<p align="center">
+<span class="footer"> <i> Movie Gen Video pre-training data curation pipeline </i></span>
+</p>
+
+
+
+**Coarse-to-fine training.** All the large models follows the coarse-to-fine training process. The networks are usually first trained by low-quality raw data as warm-up or pre-training and then finetuned by high-quality data. For visual data, it is a coarse-to-fine process from low resolutions to high resolutions. There are a few reasons. First, coarse-level data is much larger in amount than fine-level data. Training that starts from large-scale coarse data will avoid overfitting to a small corpus and encourages generalisation of the networks. 
+Second, generating low-quality data by a generative model is much easier than generating high-quality data. Generating Shakespeare is hundred times more challenging than generating a reddit user. Therefore gradually increasing the difficulty by controlling the training data quality has the benefits of stablizing the network learning.
+Lastly, as shown by Dino-v2, pretraining with low-resolution data and then finetuning with high-resolution data is much more efficient than training with high-resolution data alone. It not only leads to comparable model performance but also reduces the time, computational and memory costs by several times.
+
+**Knowledge distillation from low dimension to high dimension.**
+
+
+High-dimensional data can leverage low-dimensional data. Unimodal to multimodal, 2D to 3D 4D.
+
 
 
 
