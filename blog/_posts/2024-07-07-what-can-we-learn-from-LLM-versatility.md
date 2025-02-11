@@ -93,38 +93,9 @@ Below chart is an example of the flow of training a LLM. Each step has its own d
 Second, generating low-quality data by a generative model is much easier than generating high-quality data. Generating Shakespeare is hundred times more challenging than generating a reddit user. Therefore gradually increasing the difficulty by controlling the training data quality has the benefits of stablizing the network learning.
 Lastly, as shown by Dino-v2, pretraining with low-resolution data and then finetuning with high-resolution data is much more efficient than training with high-resolution data alone. It not only leads to comparable model performance but also reduces the time, computational and memory costs by several times.
 
-**Knowledge distillation from low dimension to high dimension.**
-
-
-High-dimensional data can leverage low-dimensional data. Unimodal to multimodal, 2D to 3D 4D.
-
-
-
-
-
-Data Collection & preprocessing
-
-Gold in gold out
-
-
-Quality & Accuracy (Noise, outliers, errors, inconsistency & incoherence, biases)
-Filtering/curation/cleaning/Profanity or sensitive info or toxicity check
-
-Scale & diversity (De-duplication)
-Catogorization (Summarization, Q&A, Codes, Math, Languages, table, charts, numbers, PDF, email)
-Sentiment classification
-Topic classification
-
-Data augmentation
-
-Unified format, e.g., JSON format
-
-Structuring e.g., pairs for Q&A tasks
-
-Tokenization
-
-Learn patterns and relationships
-Improve generalisation to new data samples
+**Knowledge distillation from low dimension to high dimension.** There is a noticeable and understandable practice that when training a multi-modality model that involves high-dimensional data, it naturally borrows the knowledge from the models trained with corresponding low-dimensional data. For example, training a video diffusion model depends a lot on an image diffusion model. It also applied to 3D or 4D tasks. A 3D object generation task depends on a video generation model to pre-generate multiview consistent frames. A model that aligns multiple modalities also depends on the models trained on unimodal data and then simply learns a projector, e.g., PaliGemma. The reasons are understandable. First, low-dimensional generation tasks can be seen as a sub-task of high-dimension tasks. An images is just a single frame of a video. Thus low-dimensional models can be naturally adapted to high-dimensional models. Second, the high-dimensional data is much rarer than low-dimensional data. 
+MovieGen has O(1)B image-text pairs but O(100)M video-text pairs in its training data.
+The number of the available 3D models are only in millions, which is smaller than images and videos by many orders of magnitudes. Multimodal coherent data is also much fewer than single-modal data. As said in Moshi, a single-stream audio data is in 7M hours, while multi-stream conversation data is only 2000 hours. Due to the data scarcity, leveraging the prior knowledge from the pre-trained low-dimension models and data is sensible.
 
 
 
