@@ -162,7 +162,7 @@ span {
             <span class="post-date">2023-03-06</span>
         </li>
         <li class="article-item">
-            <a href="vio-slam.html" class="article-title">VIO SLAM</a>
+            <a href="VIO-SLAM.html" class="article-title">VIO SLAM</a>
             <span class="post-date">2020-04-10</span>
         </li>
         <li class="article-item">
