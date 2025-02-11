@@ -1,5 +1,5 @@
 ---
-title: All You Need to Know About Diffusion Model
+title: Diffusion Model in Essence
 updated: 2023-03-06 15:00
 tags: [matrix, math]
 category: Linear Algebra
